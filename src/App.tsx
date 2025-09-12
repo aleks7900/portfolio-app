@@ -7,6 +7,7 @@ import CatalogPage from "./catalog/CatalogPage";
 import {ArrowUpRight, Hammer} from "lucide-react";
 import {motion} from "framer-motion";
 import Slideshow from "./shared/Slideshow.tsx";
+import MapEmbed from "./shared/MapEmbed.tsx";
 
 
 function ContactsPage() {
@@ -40,6 +41,19 @@ function AboutPage() {
         <Section titleKey="about_title" leadKey="about_lead">
             <div className="prose max-w-none prose-p:leading-relaxed dark:prose-invert"><p>{t("about_p1")}</p>
                 <p>{t("about_p2")}</p></div>
+            {/* Карта без ключа */}
+            <MapEmbed query="Chișinău, strada Pădurii 21/1" zoom={16} />
+
+            <div className="mt-4 text-sm">
+                <a
+                    href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent("Chișinău, strada Pădurii 21/1")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-xl px-4 py-2 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                >
+                    Открыть маршрут в Google Maps
+                </a>
+            </div>
         </Section>
     );
 }

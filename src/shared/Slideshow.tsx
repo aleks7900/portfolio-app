@@ -2,10 +2,14 @@ import {useState} from "react";
 import "keen-slider/keen-slider.min.css";
 import {type KeenSliderPlugin, useKeenSlider} from "keen-slider/react";
 
+import slide1 from "../assets/img/slide1.jpg";
+import slide2 from "../assets/img/slide2.jpg";
+import slide3 from "../assets/img/slide3.jpg";
+
 const slides = [
-    {id: 1, title: "Добро пожаловать!", text: "SPA на React + TS", img: "/img/slide1.jpg"},
-    {id: 2, title: "Каталог товаров", text: "Фильтры, поиск, сортировка", img: "/img/slide2.jpg"},
-    {id: 3, title: "Тёмная тема и i18n", text: "Адаптивно и современно", img: "/img/slide3.jpg"},
+    {id: 1, title: "Добро пожаловать!", text: "SPA на React + TS", img: slide1 },
+    {id: 2, title: "Каталог товаров", text: "Фильтры, поиск, сортировка", img: slide2},
+    {id: 3, title: "Тёмная тема и i18n", text: "Адаптивно и современно", img: slide3},
 ];
 
 /** Плагин автоплей: 3–5 сек, пауза при hover и во время взаимодействий */
