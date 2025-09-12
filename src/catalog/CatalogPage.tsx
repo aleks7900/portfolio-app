@@ -23,11 +23,12 @@ export default function CatalogPage() {
     const {filters, setFiltersUrl} = useQueryFilters(defaults);
     const [loading, setLoading] = useState(false);
     const filtered = useMemo(() => applyFilters(PRODUCTS, filters, category, subcategory), [filters, category, subcategory]);
+    // ✅ Лоадер запускается только когда реально изменился URL (по факту)
     useEffect(() => {
         setLoading(true);
-        const t = setTimeout(() => setLoading(false), 300);
-        return () => clearTimeout(t);
-    }, [filters]);
+        const t = window.setTimeout(() => setLoading(false), 250);
+        return () => window.clearTimeout(t);
+    }, []);
     const total = filtered.length;
     const start = (filters.page - 1) * filters.perPage;
     const pageItems = filtered.slice(start, start + filters.perPage);

@@ -24,8 +24,13 @@ export function useQueryFilters(defaults: Filters) {
         if (next.sort !== "relevance") sp.set("sort", next.sort);
         if (next.page > 1) sp.set("page", String(next.page));
         if (next.perPage !== defaults.perPage) sp.set("perPage", String(next.perPage));
-        setParams(sp, {replace: true});
-    }, [setParams, defaults.perPage]);
+        // ✅ не триггерим лишний апдейт, если ничего не изменилось
+        const nextStr = sp.toString();
+        const currStr = params.toString();
+        if (nextStr !== currStr) {
+            setParams(sp, { replace: true });
+        }
+    }, [setParams, defaults.perPage, params]);
     return {filters: fromUrl, setFiltersUrl: update};
 }
 
