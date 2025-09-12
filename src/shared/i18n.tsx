@@ -1,0 +1,155 @@
+import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
+
+export type Lang = "ru" | "en";
+export type Dictionary = Record<Lang, Record<string, string>>;
+// eslint-disable-next-line react-refresh/only-export-components
+export const dict: Dictionary = {
+    ru: {
+        brandLogo: "ReactOne",
+        nav_service: "Сервис",
+        nav_contacts: "Контакты",
+        nav_about: "О нас",
+        nav_catalog: "Каталог товаров",
+// Каталог меню
+        cat_electronics: "Электроника",
+        cat_home: "Бытовая техника",
+        cat_accessories: "Аксессуары",
+        sub_laptops: "Ноутбуки",
+        sub_phones: "Смартфоны",
+        sub_tablets: "Планшеты",
+        sub_vacuum: "Пылесосы",
+        sub_fridges: "Холодильники",
+        sub_headphones: "Наушники",
+        sub_chargers: "Зарядки",
+// Hero/общие
+        cta_contact: "Связаться",
+        hero_title: "Лёгкий старт одностраничника на React + TS",
+        hero_sub: "Базовая модель с верхней панелью навигации и каталогом.",
+        hero_to_services: "К услугам",
+        hero_to_contacts: "Связаться",
+// Секции
+        service_title: "Сервис",
+        service_lead: "Пример списка услуг. Замените на ваши предложения.",
+        contacts_title: "Контакты",
+        contacts_lead: "Демо-форма. Подключите обработчик.",
+        contacts_name: "Имя",
+        contacts_email: "Email",
+        contacts_msg: "Сообщение",
+        contacts_send: "Отправить",
+        about_title: "О нас",
+        about_lead: "Коротко о компании и ценностях.",
+        about_p1: "Мы создаём быстрые и стабильные интерфейсы.",
+        about_p2: "Стек: React, TS, Tailwind, Vite/Next.js, Framer Motion.",
+        more: "Подробнее",
+        footer_about: "О нас",
+        footer_contacts: "Контакты",
+// Каталог
+        catalog_title: "Каталог",
+        catalog_lead: "Выберите категорию и фильтруйте.",
+        catalog_selected: "Вы выбрали:",
+        search_placeholder: "Поиск по товарам...",
+        filters: "Фильтры",
+        price: "Цена",
+        min: "Мин",
+        max: "Макс",
+        brand: "Бренд",
+        availability: "Наличие",
+        in_stock_only: "Только в наличии",
+        apply_filters: "Применить",
+        clear: "Сброс",
+        sort: "Сортировка",
+        per_page: "Товаров на странице",
+        found: "Найдено",
+        in_stock: "В наличии",
+        out_of_stock: "Нет в наличии",
+        nothing_found: "Ничего не найдено",
+        sort_relevance: "По релевантности",
+        sort_price_asc: "Цена ↑",
+        sort_price_desc: "Цена ↓",
+        sort_brand_az: "Бренд A→Z",
+        back: "Назад",
+        next: "Вперёд",
+    },
+    en: {
+        brandLogo: "ReactOne",
+        nav_service: "Service",
+        nav_contacts: "Contacts",
+        nav_about: "About",
+        nav_catalog: "Catalog",
+        cat_electronics: "Electronics",
+        cat_home: "Home appliances",
+        cat_accessories: "Accessories",
+        sub_laptops: "Laptops",
+        sub_phones: "Phones",
+        sub_tablets: "Tablets",
+        sub_vacuum: "Vacuum cleaners",
+        sub_fridges: "Fridges",
+        sub_headphones: "Headphones",
+        sub_chargers: "Chargers",
+        cta_contact: "Contact",
+        hero_title: "Quick start SPA on React + TS",
+        hero_sub: "Minimal model with top nav and catalog.",
+        hero_to_services: "To services",
+        hero_to_contacts: "Contact",
+        service_title: "Service",
+        service_lead: "Sample services list.",
+        contacts_title: "Contacts",
+        contacts_lead: "Demo form. Hook your handler.",
+        contacts_name: "Name",
+        contacts_email: "Email",
+        contacts_msg: "Message",
+        contacts_send: "Send",
+        about_title: "About",
+        about_lead: "About company and values.",
+        about_p1: "We build fast, stable interfaces.",
+        about_p2: "Stack: React, TS, Tailwind, Vite/Next.js, Framer Motion.",
+        more: "Learn more",
+        footer_about: "About",
+        footer_contacts: "Contacts",
+        catalog_title: "Catalog",
+        catalog_lead: "Pick a category and filter.",
+        catalog_selected: "Selected:",
+        search_placeholder: "Search products...",
+        filters: "Filters",
+        price: "Price",
+        min: "Min",
+        max: "Max",
+        brand: "Brand",
+        availability: "Availability",
+        in_stock_only: "In stock only",
+        apply_filters: "Apply",
+        clear: "Clear",
+        sort: "Sort",
+        per_page: "Items per page",
+        found: "Found",
+        in_stock: "In stock",
+        out_of_stock: "Out of stock",
+        nothing_found: "Nothing found",
+        sort_relevance: "Relevance",
+        sort_price_asc: "Price ↑",
+        sort_price_desc: "Price ↓",
+        sort_brand_az: "Brand A→Z",
+        back: "Back",
+        next: "Next",
+    },
+};
+
+
+const I18nCtx = createContext<{ lang: Lang; t: (k: string) => string; setLang: (l: Lang) => void } | null>(null);
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function useI18n() {
+    const ctx = useContext(I18nCtx);
+    if (!ctx) throw new Error("I18n provider missing");
+    return ctx;
+}
+
+export function I18nProvider({children}: { children: React.ReactNode }) {
+    const [lang, setLang] = useState<Lang>(() => (localStorage.getItem("lang") as Lang) || "ru");
+    useEffect(() => {
+        localStorage.setItem("lang", lang);
+    }, [lang]);
+    const t = useCallback((k: string) => dict[lang][k] ?? k, [lang]);
+    const value = useMemo(() => ({lang, t, setLang}), [lang, t]);
+    return <I18nCtx.Provider value={value}>{children}</I18nCtx.Provider>;
+}

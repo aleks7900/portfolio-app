@@ -51,6 +51,7 @@
     --radius-lg: 0.5rem;
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
+    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -302,9 +303,6 @@
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
-  .h-28 {
-    height: calc(var(--spacing) * 28);
-  }
   .h-36 {
     height: calc(var(--spacing) * 36);
   }
@@ -328,9 +326,6 @@
   }
   .w-10 {
     width: calc(var(--spacing) * 10);
-  }
-  .w-56 {
-    width: calc(var(--spacing) * 56);
   }
   .w-\[680px\] {
     width: 680px;
@@ -359,6 +354,9 @@
   }
   .rotate-180 {
     rotate: 180deg;
+  }
+  .animate-pulse {
+    animation: var(--animate-pulse);
   }
   .scroll-mt-24 {
     scroll-margin-top: calc(var(--spacing) * 24);
@@ -457,6 +455,12 @@
   .bg-gray-100 {
     background-color: var(--color-gray-100);
   }
+  .bg-gray-100\/70 {
+    background-color: color-mix(in srgb, oklch(96.7% 0.003 264.542) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-gray-100) 70%, transparent);
+    }
+  }
   .bg-gray-900 {
     background-color: var(--color-gray-900);
   }
@@ -522,6 +526,9 @@
   }
   .py-20 {
     padding-block: calc(var(--spacing) * 20);
+  }
+  .pt-24 {
+    padding-top: calc(var(--spacing) * 24);
   }
   .pt-28 {
     padding-top: calc(var(--spacing) * 28);
@@ -636,11 +643,6 @@
     --tw-outline-style: none;
     outline-style: none;
   }
-  .group-aria-expanded\:rotate-180 {
-    &:is(:where(.group)[aria-expanded="true"] *) {
-      rotate: 180deg;
-    }
-  }
   .last\:border-none {
     &:last-child {
       --tw-border-style: none;
@@ -701,6 +703,11 @@
   .focus\:ring-gray-300 {
     &:focus {
       --tw-ring-color: var(--color-gray-300);
+    }
+  }
+  .disabled\:opacity-40 {
+    &:disabled {
+      opacity: 40%;
     }
   }
   .supports-\[backdrop-filter\]\:bg-white\/70 {
@@ -1237,6 +1244,11 @@ button:focus, button:focus-visible {
 @property --tw-backdrop-sepia {
   syntax: "*";
   inherits: false;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
 }
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
