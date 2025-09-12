@@ -6,6 +6,7 @@ import Navbar from "./shared/Navbar";
 import CatalogPage from "./catalog/CatalogPage";
 import {ArrowUpRight, Hammer} from "lucide-react";
 import {motion} from "framer-motion";
+import Slideshow from "./shared/Slideshow.tsx";
 
 
 function ContactsPage() {
@@ -42,6 +43,7 @@ function AboutPage() {
         </Section>
     );
 }
+
 // ============================
 // Секции/страницы
 // ============================
@@ -130,6 +132,7 @@ function ServiceCard({titleKey, descKey}: { titleKey: string; descKey: string })
 function ServicePage() {
     return (
         <>
+            <Slideshow/>
             <Hero/>
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
