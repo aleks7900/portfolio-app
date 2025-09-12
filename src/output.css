@@ -718,19 +718,9 @@
       }
     }
   }
-  .sm\:col-span-3 {
-    @media (width >= 40rem) {
-      grid-column: span 3 / span 3;
-    }
-  }
   .sm\:grid-cols-2 {
     @media (width >= 40rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  .sm\:grid-cols-3 {
-    @media (width >= 40rem) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   .sm\:flex-row {
@@ -1004,6 +994,13 @@
 }
 html, body, #root {
   height: 100%;
+  width: 100%;
+}
+body {
+  margin: 0;
+}
+main {
+  display: block;
 }
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -1016,6 +1013,7 @@ html, body, #root {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --page-max: 72rem;
 }
 a {
   font-weight: 500;
