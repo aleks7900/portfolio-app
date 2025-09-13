@@ -1,42 +1,32 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
+import {createPortal} from "react-dom";
 
 type Props = {
-    /** Если скролл не у window, передай селектор контейнера (например, "#app-scroll-root" или "main") */
+    /** Если скролл не у window — селектор контейнера (напр. "#app-scroll-root") */
     containerSelector?: string;
-    /** Порог появления (px) */
+    /** Порог появления, px */
     threshold?: number;
+    /** Позиция: "left" | "right" */
+    side?: "left" | "right";
 };
 
-export default function ScrollTopButton({containerSelector, threshold = 300}: Props) {
+export default function ScrollTopButton({
+                                            containerSelector,
+                                            threshold = 300,
+                                            side = "left", // вы просили слева
+                                        }: Props) {
     const [visible, setVisible] = useState(false);
-    const containerRef = useRef<HTMLElement | Window | null>(null);
 
-    // Ищем контейнер после маунта и при смене селектора
-    useEffect(() => {
-        const pick = () => {
-            if (containerSelector) {
-                const node = document.querySelector<HTMLElement>(containerSelector);
-                containerRef.current = node ?? window;
-            } else {
-                containerRef.current = window;
-            }
-        };
-        pick();
-
-        // если контейнер появляется позже (ленивая разметка), пробуем ещё пару раз
-        if (containerSelector && containerRef.current === window) {
-            const t = setTimeout(pick, 0);
-            const t2 = setTimeout(pick, 200);
-            return () => {
-                clearTimeout(t);
-                clearTimeout(t2);
-            };
+    const container = useMemo<HTMLElement | Window>(() => {
+        if (containerSelector) {
+            const el = document.querySelector<HTMLElement>(containerSelector);
+            if (el) return el;
         }
+        return window;
     }, [containerSelector]);
 
-    // Следим за скроллом контейнера
     useEffect(() => {
-        const el = containerRef.current ?? window;
+        const el = container as HTMLElement | Window;
 
         const getScrollTop = () => {
             if (el === window) return window.scrollY || document.documentElement.scrollTop || 0;
@@ -45,7 +35,7 @@ export default function ScrollTopButton({containerSelector, threshold = 300}: Pr
 
         const onScroll = () => setVisible(getScrollTop() > threshold);
 
-        // первичный вызов (если уже проскроллено)
+        // первичная проверка
         onScroll();
 
         if (el === window) {
@@ -55,32 +45,32 @@ export default function ScrollTopButton({containerSelector, threshold = 300}: Pr
             (el as HTMLElement).addEventListener("scroll", onScroll, {passive: true});
             return () => (el as HTMLElement).removeEventListener("scroll", onScroll);
         }
-    }, [threshold]);
+    }, [container, threshold]);
 
     const scrollToTop = () => {
-        const el = containerRef.current ?? window;
+        const el = container as HTMLElement | Window;
         if (el === window) window.scrollTo({top: 0, behavior: "smooth"});
         else (el as HTMLElement).scrollTo({top: 0, behavior: "smooth"});
     };
 
-    return (
+    // Портал в <body> — независим от контекстов наложения
+    return createPortal(
         <button
             onClick={scrollToTop}
             aria-label="Scroll to top"
             className={[
-                // позиция СЛЕВА снизу + высокий слой
-                "fixed bottom-6 left-6 z-[999]",
-                // вид/анимация
+                "fixed bottom-6 z-[9999]",
+                side === "left" ? "left-6" : "right-6",
                 "flex items-center justify-center rounded-full shadow-lg",
                 "bg-gray-900 text-white dark:bg-white dark:text-black",
                 "p-3 transition-all duration-300 hover:bg-gray-700 dark:hover:bg-gray-200",
                 visible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4",
             ].join(" ")}
         >
-            {/* простая SVG-иконка ↑ (не требует сторонних пакетов) */}
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                 <path fill="currentColor" d="M12 4l-7 7h4v9h6v-9h4z"/>
             </svg>
-        </button>
+        </button>,
+        document.body
     );
 }

@@ -15,6 +15,7 @@ import FeaturedRow from "./home/FeaturedRow.tsx";
 import PopularBlocks from "./home/PopularBlocks.tsx";
 import HomeSearch from "./home/HomeSearch.tsx";
 import ScrollTopButton from "./shared/ScrollTopButton.tsx";
+import CallWidget from "./shared/CallWidget.tsx";
 
 
 function ContactsPage() {
@@ -218,7 +219,7 @@ export default function App() {
                         className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-900 dark:from-black dark:to-neutral-950 dark:text-white">
                         <BrowserRouter>
                             <Navbar/>
-                            <main className="pt-24">
+                            <main id="app-scroll-root" className="pt-24 min-h-dvh overflow-y-auto">
                                 <Routes>
                                     {/* публичные */}
                                     <Route path="/" element={<MainPage/>}/>
@@ -249,8 +250,10 @@ export default function App() {
                                 </Routes>
                             </main>
                             <Footer/>
-                            {/* ⬇️ Кнопка вверх видна на всех страницах */}
-                            <ScrollTopButton />
+
+                            {/* Кнопки */}
+                            <ScrollTopButton threshold={300} side="left" />
+                            <CallWidget viber="37360000000" whatsapp="37360000000" telegram="@yourusername" />
                         </BrowserRouter>
                     </div>
                 </AuthProvider>
