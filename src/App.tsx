@@ -11,6 +11,8 @@ import MapEmbed from "./shared/MapEmbed.tsx";
 import {AuthProvider} from "./shared/auth";
 import ProtectedRoute from "./shared/ProtectedRoute";
 import ProductsPrivate from "./private/ProductsPrivate";
+import FeaturedRow from "./home/FeaturedRow.tsx";
+import PopularBlocks from "./home/PopularBlocks.tsx";
 
 
 function ContactsPage() {
@@ -165,6 +167,28 @@ function ServicePage() {
     );
 }
 
+
+function MainPage() {
+    return (
+        <>
+            <Slideshow/>
+            <Hero/>
+            {/* горизонтальный скролл под слайд-шоу */}
+            <FeaturedRow title="Популярное" />
+            {/* можно дополнительные ряды по категориям */}
+            <FeaturedRow title="Ноутбуки" category="electronics" subcategory="laptops" />
+            <PopularBlocks />
+            <Section titleKey="service_title" leadKey="service_lead">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <ServiceCard titleKey="services_spa" descKey="services_spa_desc"/>
+                    <ServiceCard titleKey="services_opt" descKey="services_opt_desc"/>
+                    <ServiceCard titleKey="services_base" descKey="services_base_desc"/>
+                </div>
+            </Section>
+        </>
+    );
+}
+
 function Footer() {
     const {t} = useI18n();
     return (
@@ -192,7 +216,7 @@ export default function App() {
                             <main className="pt-24">
                                 <Routes>
                                     {/* публичные */}
-                                    <Route path="/" element={<ServicePage/>}/>
+                                    <Route path="/" element={<MainPage/>}/>
                                     <Route path="/service" element={<ServicePage/>}/>
                                     <Route path="/contacts" element={<ContactsPage/>}/>
                                     <Route path="/about" element={<AboutPage/>}/>
