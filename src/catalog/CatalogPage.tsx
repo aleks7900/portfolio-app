@@ -10,7 +10,7 @@ import ProductDetails from "./ProductDetails.tsx";
 
 export default function CatalogPage() {
     const { t } = useI18n();
-    const { category, subcategory } = useParams();
+
     const location = useLocation();
 
     const defaults: Filters = {
@@ -23,6 +23,12 @@ export default function CatalogPage() {
         page: 1,
         perPage: 9,
     };
+
+    const { category, subcategory } = useParams();
+
+    // трактуем 'all' как отсутствие фильтра
+    const catEff = category === "all" ? undefined : category;
+    const subEff = category === "all" ? undefined : subcategory;
 
     // ✅ товары из localStorage/seed
     const [products, setProducts] = useState<Product[]>(() => loadAdminProducts());
@@ -52,8 +58,8 @@ export default function CatalogPage() {
 
     // фильтрация
     const filtered = useMemo(
-        () => applyFilters(products, filters, category, subcategory),
-        [products, filters, category, subcategory]
+        () => applyFilters(products, filters, catEff, subEff),
+        [products, filters, catEff, subEff]
     );
 
     // скелетоны

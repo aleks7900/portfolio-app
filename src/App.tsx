@@ -13,6 +13,7 @@ import ProtectedRoute from "./shared/ProtectedRoute";
 import ProductsPrivate from "./private/ProductsPrivate";
 import FeaturedRow from "./home/FeaturedRow.tsx";
 import PopularBlocks from "./home/PopularBlocks.tsx";
+import HomeSearch from "./home/HomeSearch.tsx";
 
 
 function ContactsPage() {
@@ -171,6 +172,9 @@ function ServicePage() {
 function MainPage() {
     return (
         <>
+            {/* 🔎 Строка поиска над слайд-шоу */}
+            <HomeSearch />
+            {/* 🎞️ Твой слайдер (Keen-slider) */}
             <Slideshow/>
             <Hero/>
             {/* горизонтальный скролл под слайд-шоу */}
@@ -220,8 +224,9 @@ export default function App() {
                                     <Route path="/service" element={<ServicePage/>}/>
                                     <Route path="/contacts" element={<ContactsPage/>}/>
                                     <Route path="/about" element={<AboutPage/>}/>
-                                    <Route path="/catalog/:category" element={<CatalogPage/>}/>
-                                    <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
+                                    <Route path="/catalog" element={<CatalogPage />} />
+                                    <Route path="/catalog/:category" element={<CatalogPage />} />
+                                    <Route path="/catalog/:category/:subcategory" element={<CatalogPage />} />
 
                                     {/* приватные */}
                                     <Route element={<ProtectedRoute/>}>

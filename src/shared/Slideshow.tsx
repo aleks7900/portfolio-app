@@ -75,7 +75,7 @@ export default function Slideshow() {
                             alt={s.title}
                             className="absolute inset-0 h-full w-full object-cover opacity-70"
                         />
-                        <div className="relative z-10 text-center text-white px-4">
+                        <div className="relative z-0 text-center text-white px-4">
                             <h2 className="text-3xl font-bold">{s.title}</h2>
                             <p className="mt-2">{s.text}</p>
                         </div>

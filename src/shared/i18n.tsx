@@ -92,6 +92,11 @@ export const dict: Dictionary = {
         cancel: "Отмена",
         need_auth: "Эта страница доступна только авторизованным пользователям.",
         nav_products_private: "Мои товары",
+
+        // ru
+        search_all_products: "Поиск по товарам",
+        search_placehold: "Поиск по товарам, брендам, категориям…",
+        search: "Искать",
     },
     en: {
         brandLogo: "ReactOne",
@@ -177,6 +182,10 @@ export const dict: Dictionary = {
         cancel: "Cancel",
         need_auth: "This page is available to authenticated users only.",
         nav_products_private: "My products",
+// en
+        search_all_products: "Search products",
+        search_placehold: "Search products, brands, categories…",
+        search: "Search",
     },
 };
 
