@@ -114,7 +114,7 @@ function DesktopCatalog() {
             </button>
             {open && (
                 <div role="menu"
-                     className="absolute right-0 mt-2 w-[680px] rounded-2xl border bg-white p-4 shadow-lg dark:bg-black dark:border-white/10">
+                     className="absolute left-0 mt-2 w-[680px] rounded-2xl border bg-white p-4 shadow-lg dark:bg-black dark:border-white/10">
                     <div className="grid grid-cols-3 gap-4">
                         {CATS.map(cat => (
                             <div key={cat.key}>
