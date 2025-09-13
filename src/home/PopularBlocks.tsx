@@ -1,8 +1,8 @@
 // src/home/PopularBlocks.tsx
 import {useEffect, useMemo, useState} from "react";
-import type {Product} from "../catalog/types";
-import {loadAdminProducts} from "../catalog/data";
-import ProductDetails from "../catalog/ProductDetails";
+import type {Product} from "../data/types.ts";
+import {loadAdminProducts} from "../data/data.ts";
+import ProductDetails from "../modals/ProductDetails.tsx";
 import {NavLink} from "react-router-dom";
 import Container from "../shared/Container"; // ⬅️ добавили
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Filter as FilterIcon, Search} from "lucide-react";
-import type {Filters} from "./types";
-import {useI18n} from "../shared/i18n";
+import type {Filters} from "../../data/types.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 export default function FiltersPanel({
                                          value,

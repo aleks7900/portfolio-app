@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import FiltersPanel from "./Filters";
-import { CatalogGrid } from "./Grid";
-import { loadAdminProducts } from "./data";   // ← импортируем
-import type {Filters, Product} from "./types";
-import { applyFilters, useQueryFilters } from "./hooks";
-import { useI18n } from "../shared/i18n";
-import ProductDetails from "./ProductDetails.tsx";
+import FiltersPanel from "./Filters.tsx";
+import { CatalogGrid } from "./Grid.tsx";
+import { loadAdminProducts } from "../../data/data.ts";   // ← импортируем
+import type {Filters, Product} from "../../data/types.ts";
+import { applyFilters, useQueryFilters } from "../../data/hooks.ts";
+import { useI18n } from "../../shared/i18n/i18n.tsx";
+import ProductDetails from "../../modals/ProductDetails.tsx";
 
 export default function CatalogPage() {
     const { t } = useI18n();

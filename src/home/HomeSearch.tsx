@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {loadAdminProducts} from "../catalog/data";
-import type {Product} from "../catalog/types";
-import {useI18n} from "../shared/i18n";
+import {loadAdminProducts} from "../data/data.ts";
+import type {Product} from "../data/types.ts";
+import {useI18n} from "../shared/i18n/i18n.tsx";
 import Container from "../shared/Container";
 import {createPortal} from "react-dom";
 

@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
-import {apiFetch, configureApi} from "./api";
-import {decodeJwt, isExpired, type JwtPayload} from "./jwt";
+import {apiFetch, configureApi} from "../api/api.ts";
+import {decodeJwt, isExpired, type JwtPayload} from "./jwt.ts";
 
 export type User = {
     email: string;

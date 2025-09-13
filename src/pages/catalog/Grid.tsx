@@ -1,6 +1,6 @@
 import React from "react";
-import type { Product } from "./types";
-import { useI18n } from "../shared/i18n";
+import type { Product } from "../../data/types.ts";
+import { useI18n } from "../../shared/i18n/i18n.tsx";
 
 export function CatalogGrid({
                                 items,

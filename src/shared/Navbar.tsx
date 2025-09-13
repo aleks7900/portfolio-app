@@ -16,9 +16,9 @@ import {
     User,
     X
 } from "lucide-react";
-import {useTheme} from "./theme";
-import {useI18n} from "./i18n";
-import {useAuth} from "./auth";
+import {useTheme} from "./theme/theme.tsx";
+import {useI18n} from "./i18n/i18n.tsx";
+import {useAuth} from "./auth/auth.tsx";
 import Container from "./Container";
 
 const CATS = [

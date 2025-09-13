@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from "react";
 import {useSearchParams} from "react-router-dom";
-import type {Filters, Product} from "./types";
+import type {Filters, Product} from "./types.ts";
 
 export function useQueryFilters(defaults: Filters) {
     const [params, setParams] = useSearchParams();

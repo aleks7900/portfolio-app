@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
-import Container from "../shared/Container";
-import {SERVICES} from "../catalog/data.ts";
+import Container from "../../shared/Container.tsx";
+import {SERVICES} from "../../data/data.ts";
 
 export default function ServicePages() {
     const { slug } = useParams();

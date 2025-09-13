@@ -1,0 +1,16 @@
+import {useI18n} from "../../shared/i18n/i18n.tsx";
+
+export default function Footer() {
+    const {t} = useI18n();
+    return (
+        <footer className="border-t bg-white/60 dark:bg-black/40 dark:border-white/10">
+            <div
+                className="mx-auto max-w-6xl px-4 sm:px-6 py-8 text-sm text-gray-500 dark:text-gray-300 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <span>© {new Date().getFullYear()} ReactOne</span>
+                <div className="flex items-center gap-4"><a href="/about"
+                                                            className="hover:underline">{t("footer_about")}</a><a
+                    href="/contacts" className="hover:underline">{t("footer_contacts")}</a></div>
+            </div>
+        </footer>
+    );
+}

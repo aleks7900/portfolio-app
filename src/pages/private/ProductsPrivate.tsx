@@ -1,8 +1,8 @@
 import React, {useMemo, useState} from "react";
-import Container from "../shared/Container";
-import type {Product} from "../catalog/types";
-import {loadAdminProducts, PRODUCTS as SEED, saveAdminProducts} from "../catalog/data";
-import {useAuth} from "../shared/auth.tsx";
+import Container from "../../shared/Container.tsx";
+import type {Product} from "../../data/types.ts";
+import {loadAdminProducts, PRODUCTS as SEED, saveAdminProducts} from "../../data/data.ts";
+import {useAuth} from "../../shared/auth/auth.tsx";
 
 type EditState =
     | { mode: "none" }
