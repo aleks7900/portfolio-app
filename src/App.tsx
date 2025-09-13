@@ -8,6 +8,9 @@ import {ArrowUpRight, Hammer} from "lucide-react";
 import {motion} from "framer-motion";
 import Slideshow from "./shared/Slideshow.tsx";
 import MapEmbed from "./shared/MapEmbed.tsx";
+import {AuthProvider} from "./shared/auth";
+import ProtectedRoute from "./shared/ProtectedRoute";
+import ProductsPrivate from "./private/ProductsPrivate";
 
 
 function ContactsPage() {
@@ -41,8 +44,11 @@ function AboutPage() {
         <Section titleKey="about_title" leadKey="about_lead">
             <div className="prose max-w-none prose-p:leading-relaxed dark:prose-invert"><p>{t("about_p1")}</p>
                 <p>{t("about_p2")}</p></div>
+
+            <div className="mt-8"><p></p><p></p></div>
+
             {/* Карта без ключа */}
-            <MapEmbed query="Chișinău, strada Pădurii 21/1" zoom={16} />
+            <MapEmbed query="Chișinău, strada Pădurii 21/1" zoom={16}/>
 
             <div className="mt-4 text-sm">
                 <a
@@ -178,23 +184,31 @@ export default function App() {
     return (
         <I18nProvider>
             <ThemeProvider>
-                <div
-                    className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-900 dark:from-black dark:to-neutral-950 dark:text-white">
-                    <BrowserRouter>
-                        <Navbar/>
-                        <main className="pt-24">
-                            <Routes>
-                                <Route path="/" element={<ServicePage/>}/>
-                                <Route path="/service" element={<ServicePage/>}/>
-                                <Route path="/contacts" element={<ContactsPage/>}/>
-                                <Route path="/about" element={<AboutPage/>}/>
-                                <Route path="/catalog/:category" element={<CatalogPage/>}/>
-                                <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
-                            </Routes>
-                        </main>
-                        <Footer/>
-                    </BrowserRouter>
-                </div>
+                <AuthProvider>
+                    <div
+                        className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-900 dark:from-black dark:to-neutral-950 dark:text-white">
+                        <BrowserRouter>
+                            <Navbar/>
+                            <main className="pt-24">
+                                <Routes>
+                                    {/* публичные */}
+                                    <Route path="/" element={<ServicePage/>}/>
+                                    <Route path="/service" element={<ServicePage/>}/>
+                                    <Route path="/contacts" element={<ContactsPage/>}/>
+                                    <Route path="/about" element={<AboutPage/>}/>
+                                    <Route path="/catalog/:category" element={<CatalogPage/>}/>
+                                    <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
+
+                                    {/* приватные */}
+                                    <Route element={<ProtectedRoute/>}>
+                                        <Route path="/products" element={<ProductsPrivate/>}/>
+                                    </Route>
+                                </Routes>
+                            </main>
+                            <Footer/>
+                        </BrowserRouter>
+                    </div>
+                </AuthProvider>
             </ThemeProvider>
         </I18nProvider>
     );

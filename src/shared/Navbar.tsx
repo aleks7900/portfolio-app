@@ -7,14 +7,18 @@ import {
     Hammer,
     Info,
     Languages,
+    LogIn,
+    LogOut,
     Menu,
     Moon,
     Phone,
     Sun,
+    User,
     X
 } from "lucide-react";
 import {useTheme} from "./theme";
 import {useI18n} from "./i18n";
+import {useAuth} from "./auth";
 import Container from "./Container";
 
 const CATS = [
@@ -174,10 +178,62 @@ function MobileCatalog({onDone}: { onDone: () => void }) {
     );
 }
 
+function LoginDialog({open, onClose}: { open: boolean; onClose: () => void }) {
+    const {t} = useI18n();
+    const {login} = useAuth();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [err, setErr] = useState<string | null>(null);
+    if (!open) return null;
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4" role="dialog"
+             aria-modal="true">
+            <div
+                className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl dark:bg-black dark:border-white/10">
+                <div className="mb-4 text-lg font-semibold">{t("login")}</div>
+                {err && <div
+                    className="mb-3 rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">{err}</div>}
+                <form
+                    onSubmit={async (e) => {
+                        e.preventDefault();
+                        try {
+                            await login(email, password);
+                            onClose();
+                        } catch (e) {
+                            if (e instanceof Error) {
+                                setErr(e.message);
+                            } else {
+                                setErr("Login error");
+                            }
+                        }
+                    }}
+                >
+                    <label className="block text-sm font-medium">{t("email")}</label>
+                    <input value={email} onChange={(e) => setEmail(e.currentTarget.value)} type="email"
+                           className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                           placeholder="you@example.com"/>
+                    <label className="mt-3 block text-sm font-medium">{t("password")}</label>
+                    <input value={password} onChange={(e) => setPassword(e.currentTarget.value)} type="password"
+                           className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                           placeholder="••••••••"/>
+                    <div className="mt-5 flex items-center gap-2">
+                        <button type="submit"
+                                className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90">{t("sign_in")}</button>
+                        <button type="button" onClick={onClose}
+                                className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black">{t("cancel")}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
 export default function Navbar() {
     const {t} = useI18n();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);      // ← состояние модалки
+    const {isAuth, logout} = useAuth();                   // ← авторизация
     const linkBase = "group inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm transition";
     const linkClass = ({isActive}: {
         isActive: boolean
@@ -206,10 +262,40 @@ export default function Navbar() {
                         <NavLink to="/contacts"
                                  className={() => "ml-1 inline-flex items-center rounded-xl px-4 py-2 text-sm font-medium bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"}>{t("cta_contact")}
                             <ArrowUpRight className="ml-1 h-4 w-4"/></NavLink>
+                        {isAuth ? (
+                            <>
+                                <NavLink to="/products"
+                                         className={({isActive}) => `group inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm ${isActive ? "bg-black text-white dark:bg-white dark:text-black" : "hover:bg-black/5 dark:hover:bg-white/10"}`}>
+                                    <User className="h-4 w-4"/> {t("nav_products_private")}
+                                </NavLink>
+                                <button onClick={logout}
+                                        className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10">
+                                    <LogOut className="h-4 w-4"/> {t("logout")}
+                                </button>
+                            </>
+                        ) : (
+                            <button onClick={() => setShowLogin(true)}
+                                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10">
+                                <LogIn className="h-4 w-4"/> {t("login")}
+                            </button>
+                        )}
                         <LangToggle/>
                         <ThemeToggleBtn/>
                     </nav>
                     <div className="md:hidden flex items-center gap-1">
+                        {isAuth ? (
+                            <NavLink to="/products"
+                                     className={() => "rounded-xl px-3 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10"}
+                                     aria-label="Account">
+                                <User className="h-5 w-5"/>
+                            </NavLink>
+                        ) : (
+                            <button onClick={() => setShowLogin(true)}
+                                    className="rounded-xl p-2 hover:bg-black/5 dark:hover:bg-white/10"
+                                    aria-label="Login">
+                                <LogIn className="h-5 w-5"/>
+                            </button>
+                        )}
                         <LangToggle/>
                         <ThemeToggleBtn/>
                         <button className="rounded-xl p-2 hover:bg-black/5 dark:hover:bg-white/10"
@@ -234,6 +320,8 @@ export default function Navbar() {
                     </div>
                 )}
             </Container>
+            {/* Модалка логина */}
+            <LoginDialog open={showLogin} onClose={() => setShowLogin(false)}/>
         </header>
     );
 }

@@ -83,6 +83,15 @@ export const dict: Dictionary = {
         services_opt_desc: "Code-splitting, lazy, кеширование и Lighthouse 95+.",
         services_base: "Компонентная база",
         services_base_desc: "Атомарные/компаунд-компоненты, документация, сторибук.",
+
+        login: "Войти",
+        logout: "Выйти",
+        email: "Email",
+        password: "Пароль",
+        sign_in: "Войти",
+        cancel: "Отмена",
+        need_auth: "Эта страница доступна только авторизованным пользователям.",
+        nav_products_private: "Мои товары",
     },
     en: {
         brandLogo: "ReactOne",
@@ -159,6 +168,15 @@ export const dict: Dictionary = {
         services_opt_desc: "Code-splitting, lazy, caching and Lighthouse 95+.",
         services_base: "Component base",
         services_base_desc: "Atomic/compound components, docs, Storybook.",
+
+        login: "Login",
+        logout: "Logout",
+        email: "Email",
+        password: "Password",
+        sign_in: "Sign in",
+        cancel: "Cancel",
+        need_auth: "This page is available to authenticated users only.",
+        nav_products_private: "My products",
     },
 };
 
