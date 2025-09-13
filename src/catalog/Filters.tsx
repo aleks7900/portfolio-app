@@ -1,15 +1,16 @@
 import React from "react";
 import {Filter as FilterIcon, Search} from "lucide-react";
 import type {Filters} from "./types";
-import {BRANDS} from "./data";
 import {useI18n} from "../shared/i18n";
 
-export default function CatalogFilters({
-                                           value,
-                                           onChange,
-                                       }: {
+export default function FiltersPanel({
+                                         value,
+                                         onChange,
+                                         brandsOptions,             // ← новый проп
+                                     }: {
     value: Filters;
     onChange: (v: Filters) => void;
+    brandsOptions: string[];
 }) {
     const { t } = useI18n();
 
@@ -23,16 +24,6 @@ export default function CatalogFilters({
     const onPriceMax = (e: React.ChangeEvent<HTMLInputElement>) => {
         const v = e.currentTarget.value.trim();
         set({ max: v === "" ? undefined : Number(v) });
-    };
-
-    const toggleBrand = (b: string, checked: boolean) => {
-        const next = new Set(value.brands);
-        if (checked) {
-            next.add(b);
-        } else {
-            next.delete(b);
-        }
-        set({ brands: Array.from(next) });
     };
 
     return (
@@ -83,19 +74,22 @@ export default function CatalogFilters({
                 </div>
 
                 {/* Бренд */}
-                <div>
+                <div className="mt-4">
                     <div className="mb-2 text-sm font-medium">{t("brand")}</div>
                     <div className="grid gap-2">
-                        {BRANDS.map((b) => {
+                        {brandsOptions.map((b) => {
                             const checked = value.brands.includes(b);
                             return (
                                 <label key={b} className="inline-flex items-center gap-2 text-sm">
                                     <input
                                         type="checkbox"
                                         checked={checked}
-                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            toggleBrand(b, e.currentTarget.checked)
-                                        }
+                                        onChange={(e) => {
+                                            const next = e.currentTarget.checked
+                                                ? [...value.brands, b]
+                                                : value.brands.filter((x) => x !== b);
+                                            onChange({ ...value, brands: next, page: 1 });
+                                        }}
                                     />
                                     <span>{b}</span>
                                 </label>

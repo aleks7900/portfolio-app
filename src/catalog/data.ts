@@ -112,5 +112,6 @@ export function loadAdminProducts(seed: Product[] = PRODUCTS): Product[] {
 
 export function saveAdminProducts(items: Product[]) {
     localStorage.setItem(LS_KEY, JSON.stringify(items));
+    // сообщаем всем страницам
     window.dispatchEvent(new CustomEvent("products:updated"));
 }

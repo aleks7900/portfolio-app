@@ -24,50 +24,70 @@ export default function CatalogPage() {
         perPage: 9,
     };
 
-    const { filters, setFiltersUrl } = useQueryFilters(defaults);
-    const [loading, setLoading] = useState(false);
+    // ✅ товары из localStorage/seed
+    const [products, setProducts] = useState<Product[]>(() => loadAdminProducts());
 
-    // ✅ теперь товары берём из state
-    const [products, setProducts] = useState(() => loadAdminProducts());
+    const { filters, setFiltersUrl } = useQueryFilters(defaults);
 
     const [selected, setSelected] = useState<Product | null>(null);
     const [detailsOpen, setDetailsOpen] = useState(false);
 
-    // подписка на products:updated
+    // ловим кастомное событие админки + cross-tab обновления
     useEffect(() => {
-        function reload() {
-            setProducts(loadAdminProducts());
-        }
+        const reload = () => setProducts(loadAdminProducts());
         window.addEventListener("products:updated", reload);
-        return () => window.removeEventListener("products:updated", reload);
+        window.addEventListener("storage", reload); // если редактируют в другой вкладке
+        return () => {
+            window.removeEventListener("products:updated", reload);
+            window.removeEventListener("storage", reload);
+        };
     }, []);
 
+    // список брендов для чекбоксов — из актуальных данных
+    const brandOptions = useMemo(
+        () =>
+            Array.from(new Set(products.map((p) => p.brand).filter(Boolean))).sort(),
+        [products]
+    );
+
+    // фильтрация
     const filtered = useMemo(
         () => applyFilters(products, filters, category, subcategory),
         [products, filters, category, subcategory]
     );
 
+    // скелетоны
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         setLoading(true);
         const tmr = window.setTimeout(() => setLoading(false), 250);
         return () => window.clearTimeout(tmr);
     }, [location.pathname, location.search, products]);
 
+    // пагинация
     const total = filtered.length;
-    const start = (filters.page - 1) * filters.perPage;
-    const pageItems = filtered.slice(start, start + filters.perPage);
     const pages = Math.max(1, Math.ceil(total / filters.perPage));
+    const pageSafe = Math.min(filters.page, pages);
+    const start = (pageSafe - 1) * filters.perPage;
+    const pageItems = filtered.slice(start, start + filters.perPage);
+
+    useEffect(() => {
+        // если после добавления/удаления текущая страница стала «пустой»
+        if (filters.page !== pageSafe) {
+            setFiltersUrl({ ...filters, page: pageSafe });
+        }
+    }, [pages, pageSafe]); // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
             <div className="mx-auto max-w-6xl px-4 sm:px-6">
                 <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("catalog_title")}</h2>
                 <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-300">{t("catalog_lead")}</p>
                 <div className="mt-8 grid gap-6 lg:grid-cols-[280px,1fr]">
-                    <div className="llg:static"><FiltersPanel value={filters}
-                                                                                     onChange={(v) => setFiltersUrl({
-                                                                                         ...v,
-                                                                                         page: 1
-                                                                                     })}/></div>
+                    <div className="llg:static"><FiltersPanel
+                        value={filters}
+                        onChange={(v) => setFiltersUrl({ ...v, page: 1 })}
+                        brandsOptions={brandOptions}
+                    /></div>
                     <div className="space-y-4">
                         <div className="text-sm text-gray-600 dark:text-gray-300">
                             {t("catalog_selected")} <span
