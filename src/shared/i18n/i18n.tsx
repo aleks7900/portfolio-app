@@ -97,6 +97,25 @@ export const dict: Dictionary = {
         search_all_products: "Поиск по товарам",
         search_placehold: "Поиск по товарам, брендам, категориям…",
         search: "Искать",
+
+        cat_metal: "МЕТАЛЛОПРОКАТ",
+        cat_vini: "ВИНИФИКАЦИЯ",
+        cat_furniture: "МЕБЕЛЬ ИЗ НЕРЖАВЕЙКИ",
+
+        cat_metal_sheet: "ЛИСТ НЕРЖАВЕЙКИ",
+        cat_metal_profile_pipe: "ПРОФИЛЬНАЯ ТРУБА ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_round_pipe: "КРУГЛАЯ ТРУБА ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_strip: "ПОЛОСКА ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_angle: "УГОЛОК ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_rod: "ПРУТОК ИЗ НЕРЖАВЕЙКИ",
+
+        cat_vini_tanks: "ЁМКОСТИ",
+        cat_vini_pumps: "НАСОСЫ",
+        cat_vini_fittings: "ФИТИНГИ",
+
+        cat_furniture_tables: "СТОЛЫ",
+        cat_furniture_shelves: "ПОЛКИ",
+        cat_furniture_legs: "ОПОРЫ"
     },
     en: {
         brandLogo: "ReactOne",
@@ -186,6 +205,25 @@ export const dict: Dictionary = {
         search_all_products: "Search products",
         search_placehold: "Search products, brands, categories…",
         search: "Search",
+
+        cat_metal: "МЕТАЛЛОПРОКАТ",
+        cat_vini: "ВИНИФИКАЦИЯ",
+        cat_furniture: "МЕБЕЛЬ ИЗ НЕРЖАВЕЙКИ",
+
+        cat_metal_sheet: "ЛИСТ НЕРЖАВЕЙКИ",
+        cat_metal_profile_pipe: "ПРОФИЛЬНАЯ ТРУБА ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_round_pipe: "КРУГЛАЯ ТРУБА ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_strip: "ПОЛОСКА ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_angle: "УГОЛОК ИЗ НЕРЖАВЕЙКИ",
+        cat_metal_rod: "ПРУТОК ИЗ НЕРЖАВЕЙКИ",
+
+        cat_vini_tanks: "ЁМКОСТИ",
+        cat_vini_pumps: "НАСОСЫ",
+        cat_vini_fittings: "ФИТИНГИ",
+
+        cat_furniture_tables: "СТОЛЫ",
+        cat_furniture_shelves: "ПОЛКИ",
+        cat_furniture_legs: "ОПОРЫ"
     },
 };
 
