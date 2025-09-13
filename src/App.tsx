@@ -1,10 +1,10 @@
 import React from "react";
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes, useNavigate} from "react-router-dom";
 import {I18nProvider, useI18n} from "./shared/i18n";
 import {ThemeProvider} from "./shared/theme";
 import Navbar from "./shared/Navbar";
 import CatalogPage from "./catalog/CatalogPage";
-import {ArrowUpRight, Hammer} from "lucide-react";
+import {Hammer} from "lucide-react";
 import {motion} from "framer-motion";
 import Slideshow from "./shared/Slideshow.tsx";
 import MapEmbed from "./shared/MapEmbed.tsx";
@@ -16,6 +16,8 @@ import PopularBlocks from "./home/PopularBlocks.tsx";
 import HomeSearch from "./home/HomeSearch.tsx";
 import ScrollTopButton from "./shared/ScrollTopButton.tsx";
 import CallWidget from "./shared/CallWidget.tsx";
+import ServicePages from "./services/ServicePages.tsx";
+import {SERVICES} from "./catalog/data.ts";
 
 
 function ContactsPage() {
@@ -99,10 +101,10 @@ function Hero() {
                     </div>
                     <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
                         <div className="grid grid-cols-2 gap-4">
-                            <ServiceCard titleKey="services_spa" descKey="services_spa_desc"/>
-                            <ServiceCard titleKey="services_opt" descKey="services_opt_desc"/>
-                            <ServiceCard titleKey="services_base" descKey="services_base_desc"/>
-                            <ServiceCard titleKey="services_uikit" descKey="services_uikit_desc"/>
+                            <ServiceCard titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
+                            <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
+                            <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
+                            <ServiceCard titleKey="services_uikit" descKey="services_uikit_desc" s={SERVICES[2]}/>
                         </div>
                     </div>
                 </motion.div>
@@ -134,7 +136,7 @@ function Section({titleKey, leadKey, children}: { titleKey: string; leadKey: str
     );
 }
 
-function ServiceCard({titleKey, descKey}: { titleKey: string; descKey: string }) {
+function ServiceCard({titleKey, descKey, s}: { titleKey: string; descKey: string; s: (typeof SERVICES)[number] }) {
     const {t} = useI18n();
     return (
         <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
@@ -146,10 +148,15 @@ function ServiceCard({titleKey, descKey}: { titleKey: string; descKey: string })
                 <h3 className="text-base font-medium">{t(titleKey)}</h3>
             </div>
             <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">{t(descKey)}</p>
-            <button
-                className="mt-4 inline-flex items-center rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black transition">
-                {t("more")} <ArrowUpRight className="ml-2 h-4 w-4"/>
-            </button>
+            <Link
+                to={`/services/${s.slug}`}
+                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 border text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black transition shadow-2xl"
+            >
+                {t("more") ?? "Подробнее"}
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M8 5l8 7-8 7V5z"/>
+                </svg>
+            </Link>
         </div>
     );
 }
@@ -161,9 +168,9 @@ function ServicePage() {
             <Hero/>
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <ServiceCard titleKey="services_spa" descKey="services_spa_desc"/>
-                    <ServiceCard titleKey="services_opt" descKey="services_opt_desc"/>
-                    <ServiceCard titleKey="services_base" descKey="services_base_desc"/>
+                    <ServiceCard titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
+                    <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
+                    <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
                 </div>
             </Section>
         </>
@@ -175,20 +182,20 @@ function MainPage() {
     return (
         <>
             {/* 🔎 Строка поиска над слайд-шоу */}
-            <HomeSearch />
+            <HomeSearch/>
             {/* 🎞️ Твой слайдер (Keen-slider) */}
             <Slideshow/>
             <Hero/>
             {/* горизонтальный скролл под слайд-шоу */}
-            <FeaturedRow title="Популярное" />
+            <FeaturedRow title="Популярное"/>
             {/* можно дополнительные ряды по категориям */}
-            <FeaturedRow title="Ноутбуки" category="electronics" subcategory="laptops" />
-            <PopularBlocks />
+            <FeaturedRow title="Ноутбуки" category="electronics" subcategory="laptops"/>
+            <PopularBlocks/>
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <ServiceCard titleKey="services_spa" descKey="services_spa_desc"/>
-                    <ServiceCard titleKey="services_opt" descKey="services_opt_desc"/>
-                    <ServiceCard titleKey="services_base" descKey="services_base_desc"/>
+                    <ServiceCard titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
+                    <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
+                    <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
                 </div>
             </Section>
         </>
@@ -226,16 +233,16 @@ export default function App() {
                                     <Route path="/service" element={<ServicePage/>}/>
                                     <Route path="/contacts" element={<ContactsPage/>}/>
                                     <Route path="/about" element={<AboutPage/>}/>
-                                    <Route path="/catalog" element={<CatalogPage />} />
-                                    <Route path="/catalog/:category" element={<CatalogPage />} />
-                                    <Route path="/catalog/:category/:subcategory" element={<CatalogPage />} />
-
+                                    <Route path="/catalog" element={<CatalogPage/>}/>
+                                    <Route path="/catalog/:category" element={<CatalogPage/>}/>
+                                    <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
+                                    <Route path="/services/:slug" element={<ServicePages/>}/>
                                     {/* приватные */}
                                     <Route
                                         path="/products"
                                         element={
                                             <ProtectedRoute>
-                                                <ProductsPrivate />
+                                                <ProductsPrivate/>
                                             </ProtectedRoute>
                                         }
                                     />
@@ -243,7 +250,7 @@ export default function App() {
                                         path="/admin/products"
                                         element={
                                             <AdminRoute>
-                                                <ProductsPrivate />
+                                                <ProductsPrivate/>
                                             </AdminRoute>
                                         }
                                     />
@@ -252,8 +259,8 @@ export default function App() {
                             <Footer/>
 
                             {/* Кнопки */}
-                            <ScrollTopButton threshold={300} side="left" />
-                            <CallWidget viber="37360000000" whatsapp="37360000000" telegram="@yourusername" />
+                            <ScrollTopButton threshold={300} side="left"/>
+                            <CallWidget viber="37360000000" whatsapp="37360000000" telegram="@yourusername"/>
                         </BrowserRouter>
                     </div>
                 </AuthProvider>
