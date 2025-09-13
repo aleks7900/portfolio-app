@@ -1,13 +1,13 @@
-import { useMemo } from "react";
-import { useParams, Navigate, Link } from "react-router-dom";
+import {useMemo} from "react";
+import {Link, Navigate, useParams} from "react-router-dom";
 import Container from "../../shared/Container.tsx";
 import {SERVICES} from "../../data/data.ts";
 
 export default function ServicePages() {
-    const { slug } = useParams();
+    const {slug} = useParams();
     const svc = useMemo(() => SERVICES.find(s => s.slug === slug), [slug]);
 
-    if (!svc) return <Navigate to="/service" replace />;
+    if (!svc) return <Navigate to="/service" replace/>;
 
     return (
         <section className="scroll-mt-24 py-10 sm:py-14">
@@ -55,7 +55,7 @@ export default function ServicePages() {
 
                     {svc.hero && (
                         <div className="rounded-2xl border bg-white p-2 shadow-sm dark:bg-black dark:border-white/10">
-                            <img src={svc.hero} alt="" className="h-56 w-full rounded-xl object-cover" />
+                            <img src={svc.hero} alt="" className="h-56 w-full rounded-xl object-cover"/>
                         </div>
                     )}
                 </div>
@@ -67,10 +67,24 @@ export default function ServicePages() {
                             <h2 className="text-xl font-semibold">{sec.heading}</h2>
                             <div
                                 className="prose prose-sm dark:prose-invert max-w-none"
-                                dangerouslySetInnerHTML={{ __html: sec.html }}
+                                dangerouslySetInnerHTML={{__html: sec.html}}
                             />
                         </section>
                     ))}
+                </div>
+                <div>
+                    <img
+                        src="/img/services/listogib-1.jpg"
+                        alt="Листогиб"
+                        className="rounded-xl shadow-lg"
+                    />
+                </div>
+                <div className="order-1 lg:order-none">
+                    <img
+                        src="/img/services/listogib-2.jpg"
+                        alt="Работа с листогибом"
+                        className="rounded-xl shadow-lg"
+                    />
                 </div>
 
                 {/* FAQ */}
