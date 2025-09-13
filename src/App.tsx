@@ -9,11 +9,12 @@ import {motion} from "framer-motion";
 import Slideshow from "./shared/Slideshow.tsx";
 import MapEmbed from "./shared/MapEmbed.tsx";
 import {AuthProvider} from "./shared/auth";
-import ProtectedRoute from "./shared/ProtectedRoute";
+import {AdminRoute, ProtectedRoute} from "./shared/ProtectedRoute";
 import ProductsPrivate from "./private/ProductsPrivate";
 import FeaturedRow from "./home/FeaturedRow.tsx";
 import PopularBlocks from "./home/PopularBlocks.tsx";
 import HomeSearch from "./home/HomeSearch.tsx";
+import ScrollTopButton from "./shared/ScrollTopButton.tsx";
 
 
 function ContactsPage() {
@@ -229,12 +230,27 @@ export default function App() {
                                     <Route path="/catalog/:category/:subcategory" element={<CatalogPage />} />
 
                                     {/* приватные */}
-                                    <Route element={<ProtectedRoute/>}>
-                                        <Route path="/products" element={<ProductsPrivate/>}/>
-                                    </Route>
+                                    <Route
+                                        path="/products"
+                                        element={
+                                            <ProtectedRoute>
+                                                <ProductsPrivate />
+                                            </ProtectedRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/products"
+                                        element={
+                                            <AdminRoute>
+                                                <ProductsPrivate />
+                                            </AdminRoute>
+                                        }
+                                    />
                                 </Routes>
                             </main>
                             <Footer/>
+                            {/* ⬇️ Кнопка вверх видна на всех страницах */}
+                            <ScrollTopButton />
                         </BrowserRouter>
                     </div>
                 </AuthProvider>

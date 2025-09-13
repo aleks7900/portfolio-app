@@ -1,51 +1,103 @@
-import React, {createContext, useContext, useMemo, useState} from "react";
+import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
+import {apiFetch, configureApi} from "./api";
+import {decodeJwt, isExpired, type JwtPayload} from "./jwt";
 
 export type User = {
     email: string;
+    roles: string[];
     isAdmin: boolean;
 };
 
 type AuthCtx = {
     user: User | null;
     isAuth: boolean;
+    token: string | null;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
 };
 
 const Ctx = createContext<AuthCtx | null>(null);
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
-    const c = useContext(Ctx);
-    if (!c) throw new Error("Auth provider missing");
-    return c;
+    const ctx = useContext(Ctx);
+    if (!ctx) throw new Error("AuthProvider missing");
+    return ctx;
 };
 
-// кто админ — укажи свои условия
-const ADMIN_EMAILS = ["admin@example.com", "you@yourdomain.com"];
+const LS_TOKEN = "auth_token";
+
+function extractUser(token: string): User | null {
+    const payload: JwtPayload | null = decodeJwt(token);
+    if (!payload) return null;
+    const email =
+        payload.email ||
+        (typeof payload.sub === "string" ? payload.sub : "") ||
+        "";
+    const roles: string[] = Array.isArray(payload.roles)
+        ? payload.roles
+        : Array.isArray(payload.authorities)
+            ? payload.authorities
+            : [];
+    const isAdmin = roles.includes("ROLE_ADMIN") || roles.includes("ADMIN");
+    return {email, roles, isAdmin};
+}
 
 export function AuthProvider({children}: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User | null>(() => {
-        const raw = localStorage.getItem("auth_user");
-        return raw ? (JSON.parse(raw) as User) : null;
-    });
+    const [token, setToken] = useState<string | null>(() => localStorage.getItem(LS_TOKEN));
+    const [user, setUser] = useState<User | null>(() => (token ? extractUser(token) : null));
+
+    // Подключаем перехватчики API
+    useEffect(() => {
+        configureApi({
+            getToken: () => token,
+            onUnauthorized: () => logout(),
+        });
+    }, [token]);
+
+    // При монтировании — выкинуть протухший токен
+    useEffect(() => {
+        if (token && isExpired(token)) {
+            logout();
+        }
+    }, []); // один раз
 
     const login = async (email: string, password: string) => {
-        if (!email || !password) throw new Error("Email and password are required");
-        const isAdmin = ADMIN_EMAILS.includes(email.toLowerCase()) || password === "admin";
-        const u: User = {email, isAdmin};
-        localStorage.setItem("auth_user", JSON.stringify(u));
+        // соответствуйте вашему ответу бэка:
+        // допустимые варианты: { token }, { accessToken }, { jwt }, { tokenType, accessToken }, ...
+        const body = JSON.stringify({email, password}); // если бэк ждёт username — смените ключ
+        const data = await apiFetch("/api/auth/login", {
+            method: "POST",
+            body,
+            auth: false, // логин — без Bearer
+        });
+
+        const raw =
+            data?.token ||
+            data?.accessToken ||
+            data?.jwt ||
+            (data?.tokenType && data?.accessToken ? `${data.tokenType} ${data.accessToken}` : null);
+
+        // если вернули "Bearer xxx", вырежем префикс
+        const tok = typeof raw === "string" ? raw.replace(/^Bearer\s+/i, "") : null;
+        if (!tok) throw new Error("No token in response");
+
+        const u = extractUser(tok);
+        if (!u) throw new Error("Invalid token");
+
+        localStorage.setItem(LS_TOKEN, tok);
+        setToken(tok);
         setUser(u);
     };
 
     const logout = () => {
-        localStorage.removeItem("auth_user");
+        localStorage.removeItem(LS_TOKEN);
+        setToken(null);
         setUser(null);
     };
 
     const value = useMemo(
-        () => ({user, isAuth: !!user, login, logout}),
-        [user]
+        () => ({user, isAuth: !!user, token, login, logout}),
+        [user, token]
     );
 
     return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

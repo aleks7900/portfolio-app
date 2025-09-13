@@ -108,11 +108,13 @@ export default function HomeSearch() {
 
     return (
         <div className="pt-6">
+            <div className="mt-4"></div>
             <Container>
                 <div className="relative">
                     <label htmlFor="home-search" className="sr-only">
                         {t("search_all_products") ?? "Поиск по товарам"}
                     </label>
+                    <div className="mt-4"></div>
                     <div
                         className="flex items-center gap-2 rounded-2xl border bg-white p-2 shadow-sm focus-within:ring-2 focus-within:ring-gray-300 dark:border-white/10 dark:bg-black dark:focus-within:ring-white/20">
                         <svg
@@ -210,6 +212,7 @@ export default function HomeSearch() {
                     )
                 }
             </Container>
+            <div className="mt-6"></div>
         </div>
     );
 }
