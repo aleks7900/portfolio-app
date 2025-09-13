@@ -2,6 +2,7 @@ import React, {useMemo, useState} from "react";
 import Container from "../shared/Container";
 import type {Product} from "../catalog/types";
 import {loadAdminProducts, PRODUCTS as SEED, saveAdminProducts} from "../catalog/data";
+import {useAuth} from "../shared/auth.tsx";
 
 type EditState =
     | { mode: "none" }
@@ -22,6 +23,9 @@ export default function ProductsPrivate() {
     const [items, setItems] = useState<Product[]>(() => loadAdminProducts(SEED));
     const [edit, setEdit] = useState<EditState>({mode: "none"});
     const [query, setQuery] = useState("");
+
+    const {user} = useAuth();            // ← кто вошёл
+    const isAdmin = !!user?.isAdmin;       // ← права
 
     const brands = useMemo(
         () => Array.from(new Set(items.map((p) => p.brand))).filter(Boolean).sort(),
@@ -50,15 +54,15 @@ export default function ProductsPrivate() {
     }, [items, query]);
 
     const startCreate = () => {
+        if (!isAdmin) return;                // защита
         const nextId = Math.max(0, ...items.map((p) => p.id)) + 1;
         setEdit({mode: "create", draft: emptyProduct(nextId)});
     };
 
-    const startEdit = (idx: number) => {
-        setEdit({mode: "edit", draft: {...items[idx]}, index: idx});
-    };
+    const startEdit = (idx: number) => isAdmin && setEdit({mode: "edit", draft: {...items[idx]}, index: idx});
 
     const remove = (idx: number) => {
+        if (!isAdmin) return;
         const next = items.slice();
         next.splice(idx, 1);
         setItems(next);
@@ -88,8 +92,9 @@ export default function ProductsPrivate() {
             <Container>
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-                        Приватная продукция (админ)
+                        {isAdmin ? "Мои продукты (админ)" : "Мои продукты"}
                     </h2>
+
                     <div className="flex items-center gap-2">
                         <input
                             value={query}
@@ -97,12 +102,14 @@ export default function ProductsPrivate() {
                             placeholder="Поиск (id, название, бренд, категория)"
                             className="w-72 max-w-full rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border-white/20"
                         />
-                        <button
-                            onClick={startCreate}
-                            className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
-                        >
-                            Добавить товар
-                        </button>
+                        {isAdmin && (
+                            <button
+                                onClick={startCreate}
+                                className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                            >
+                                Новый продукт
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -144,18 +151,24 @@ export default function ProductsPrivate() {
                                 <Td>{p.category}</Td>
                                 <Td>{p.subcategory}</Td>
                                 <Td className="text-right">
-                                    <button
-                                        onClick={() => startEdit(idx)}
-                                        className="rounded-lg border px-3 py-1 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
-                                    >
-                                        Редактировать
-                                    </button>
-                                    <button
-                                        onClick={() => remove(idx)}
-                                        className="ml-2 rounded-lg border px-3 py-1 text-rose-600 hover:bg-rose-50 dark:border-white/20 dark:hover:bg-rose-500/10"
-                                    >
-                                        Удалить
-                                    </button>
+                                    {isAdmin ? (
+                                        <>
+                                            <button
+                                                onClick={() => startEdit(idx)}
+                                                className="rounded-lg border px-3 py-1 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                                            >
+                                                Редактировать
+                                            </button>
+                                            <button
+                                                onClick={() => remove(idx)}
+                                                className="ml-2 rounded-lg border px-3 py-1 text-rose-600 hover:bg-rose-50 dark:border-white/20 dark:hover:bg-rose-500/10"
+                                            >
+                                                Удалить
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <span className="text-gray-400">Только просмотр</span>
+                                    )}
                                 </Td>
                             </tr>
                         ))}
@@ -171,7 +184,7 @@ export default function ProductsPrivate() {
                 </div>
 
                 {/* Модалка редактирования/создания */}
-                {edit.mode !== "none" && (
+                {isAdmin && edit.mode !== "none" && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
                         <div
                             className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:bg-black dark:border-white/10">

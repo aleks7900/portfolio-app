@@ -1,8 +1,10 @@
 import React, {useEffect, useMemo, useState} from "react";
 import type {Product} from "./types";
 import {useI18n} from "../shared/i18n";
-import "keen-slider/keen-slider.min.css";
+
+// галерея
 import {useKeenSlider} from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
 export default function ProductDetails({
                                            product,
@@ -14,12 +16,12 @@ export default function ProductDetails({
     onClose: () => void;
 }) {
     const {t} = useI18n();
-
     const [tab, setTab] = useState<"details" | "specs" | "reviews">("details");
 
-    // 1) Хуки — всегда вызываются
+    // ХУКИ ВСЕГДА ВЫЗЫВАЕМ (без условных return до них)
     const images = useMemo<string[]>(() => {
         if (product?.images?.length) return product.images;
+        // заглушки, если нет картинок
         return ["/img/placeholder-1.jpg", "/img/placeholder-2.jpg"];
     }, [product]);
 
@@ -28,12 +30,14 @@ export default function ProductDetails({
         slides: {perView: Math.min(4, images.length), spacing: 8},
     });
 
+    // Esc для закрытия
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
         document.addEventListener("keydown", onKey);
         return () => document.removeEventListener("keydown", onKey);
     }, [onClose]);
 
+    // Клик по превью -> переход к слайду
     useEffect(() => {
         if (!inst.current || !thumbs.current) return;
         const main = inst.current;
@@ -46,7 +50,12 @@ export default function ProductDetails({
         return () => cleanups.forEach((fn) => fn());
     }, [inst, thumbs, images.length]);
 
-    // 2) Ранний выход — но уже после хуков
+    // Сброс вкладки при открытии нового товара
+    useEffect(() => {
+        if (open) setTab("details");
+    }, [open, product?.id]);
+
+    // После хуков — условный рендер
     if (!open || !product) return null;
 
     const badge = product.inStock ? (
@@ -62,41 +71,60 @@ export default function ProductDetails({
 
     return (
         <div
-            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/40 px-4 py-10"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4 py-12"
             role="dialog"
             aria-modal="true"
             onMouseDown={(e) => e.target === e.currentTarget && onClose()}
         >
             <div
-                className="w-11/12 sm:w-3/4 md:w-3/5 lg:w-2/5 max-w-2xl
-                 rounded-2xl border bg-white p-5 shadow-xl
-                 dark:bg-black dark:border-white/10"
+                className="
+                  w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2
+                  max-w-2xl
+                  rounded-2xl border bg-white p-8 shadow-xl
+                  dark:bg-black dark:border-white/10
+                "
             >
-                {/* Заголовок + Цена */}
+                {/* Заголовок */}
                 <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
                         <h3 className="text-xl font-semibold">{product.title}</h3>
-                        <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">{product.brand}</div>
+                        <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            {product.brand}
+                        </div>
                     </div>
                     <div className="text-lg font-semibold whitespace-nowrap">${product.price}</div>
                 </div>
 
                 {/* Галерея */}
                 <div className="mt-6">
-                    <div ref={sliderRef}
-                         className="keen-slider rounded-xl overflow-hidden bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3]">
+                    <div
+                        ref={sliderRef}
+                        className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3]"
+                    >
                         {images.map((src, i) => (
                             <div key={i} className="keen-slider__slide flex items-center justify-center">
-                                <img src={src} alt={`${product.title} ${i + 1}`}
-                                     className="h-full w-full object-cover"/>
+                                <img
+                                    src={src}
+                                    alt={`${product.title} ${i + 1}`}
+                                    className="h-full w-full object-cover"
+                                    draggable={false}
+                                />
                             </div>
                         ))}
                     </div>
+
                     <div ref={thumbsRef} className="keen-slider mt-3">
                         {images.map((src, i) => (
-                            <div key={i}
-                                 className="keen-slider__slide !w-20 cursor-pointer overflow-hidden rounded-lg border bg-white dark:bg-black dark:border-white/10">
-                                <img src={src} alt={`thumb ${i + 1}`} className="h-16 w-full object-cover"/>
+                            <div
+                                key={i}
+                                className="keen-slider__slide !w-20 cursor-pointer overflow-hidden rounded-lg border bg-white dark:bg-black dark:border-white/10"
+                            >
+                                <img
+                                    src={src}
+                                    alt={`thumb ${i + 1}`}
+                                    className="h-16 w-full object-cover"
+                                    draggable={false}
+                                />
                             </div>
                         ))}
                     </div>
@@ -131,10 +159,11 @@ export default function ProductDetails({
 
                     <div className="mt-4 rounded-2xl border p-4 dark:border-white/10">
                         {tab === "details" && (
-                            <div className="prose max-w-none dark:prose-invert text-sm">
+                            <div className="prose max-w-none text-sm dark:prose-invert">
                                 <p>
-                                    {product.title} — {product.brand}. Отличный выбор для ежедневной работы и учёбы.
-                                    Цена: ${product.price}. {product.inStock ? "В наличии." : "Нет в наличии."}
+                                    {product.title} — {product.brand}. Отличный выбор для ежедневной работы и
+                                    учёбы. Цена: ${product.price}.{" "}
+                                    {product.inStock ? "В наличии." : "Нет в наличии."}
                                 </p>
                             </div>
                         )}
@@ -149,7 +178,9 @@ export default function ProductDetails({
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="text-gray-500 dark:text-gray-400">Характеристики не указаны.</div>
+                                    <div className="text-gray-500 dark:text-gray-400">
+                                        Характеристики не указаны.
+                                    </div>
                                 )}
                             </div>
                         )}
@@ -164,8 +195,9 @@ export default function ProductDetails({
                                                 <div className="text-amber-600 dark:text-amber-400">★ {r.rating}</div>
                                             </div>
                                             <div className="mt-1 text-gray-600 dark:text-gray-300">{r.text}</div>
-                                            <div
-                                                className="mt-1 text-xs text-gray-400">{new Date(r.date).toLocaleDateString()}</div>
+                                            <div className="mt-1 text-xs text-gray-400">
+                                                {new Date(r.date).toLocaleDateString()}
+                                            </div>
                                         </div>
                                     ))
                                 ) : (
