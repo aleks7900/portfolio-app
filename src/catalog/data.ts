@@ -2,13 +2,15 @@ import type {Product} from "./types";
 
 export const PRODUCTS: Product[] = [
     {
-        id: 1,
-        title: "UltraBook 13",
-        brand: "Acelon",
-        price: 1200,
-        inStock: true,
-        category: "electronics",
-        subcategory: "laptops"
+        id: 1, title: "UltraBook 13", brand: "Acelon", price: 1200, inStock: true,
+        category: "electronics", subcategory: "laptops",
+        images: ["/img/products/1-1.jpg", "/img/products/1-2.jpg", "/img/products/1-3.jpg"],
+        specs: { "Процессор": "Core i7", "ОЗУ": "16 ГБ", "Накопитель": "512 ГБ SSD", "Вес": "1.2 кг" },
+        rating: 4.6,
+        reviews: [
+            { id: "r1", author: "Иван", rating: 5, text: "Отличная батарея!", date: "2025-08-22" },
+            { id: "r2", author: "Мария", rating: 4, text: "Лёгкий и быстрый.", date: "2025-09-01" },
+        ],
     },
     {
         id: 2,

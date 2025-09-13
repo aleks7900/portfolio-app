@@ -3,9 +3,10 @@ import { useParams, useLocation } from "react-router-dom";
 import FiltersPanel from "./Filters";
 import { CatalogGrid } from "./Grid";
 import { loadAdminProducts } from "./data";   // ← импортируем
-import type { Filters } from "./types";
+import type {Filters, Product} from "./types";
 import { applyFilters, useQueryFilters } from "./hooks";
 import { useI18n } from "../shared/i18n";
+import ProductDetails from "./ProductDetails.tsx";
 
 export default function CatalogPage() {
     const { t } = useI18n();
@@ -28,6 +29,9 @@ export default function CatalogPage() {
 
     // ✅ теперь товары берём из state
     const [products, setProducts] = useState(() => loadAdminProducts());
+
+    const [selected, setSelected] = useState<Product | null>(null);
+    const [detailsOpen, setDetailsOpen] = useState(false);
 
     // подписка на products:updated
     useEffect(() => {
@@ -59,7 +63,7 @@ export default function CatalogPage() {
                 <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">{t("catalog_title")}</h2>
                 <p className="mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-300">{t("catalog_lead")}</p>
                 <div className="mt-8 grid gap-6 lg:grid-cols-[280px,1fr]">
-                    <div className="lg:sticky lg:top-24 lg:self-start"><FiltersPanel value={filters}
+                    <div className="llg:static"><FiltersPanel value={filters}
                                                                                      onChange={(v) => setFiltersUrl({
                                                                                          ...v,
                                                                                          page: 1
@@ -70,12 +74,27 @@ export default function CatalogPage() {
                             className="ml-2 rounded-full bg-gray-100 px-3 py-1 dark:bg-white/10">{category || "—"}{subcategory ? ` / ${subcategory}` : ""}</span>
                             <span className="ml-2">• {t("found")}: {total}</span>
                         </div>
-                        <CatalogGrid items={pageItems} loading={loading}/>
+                        <CatalogGrid
+                            items={pageItems}
+                            loading={loading}
+                            onOpen={(p) => {
+                                setSelected(p);
+                                setDetailsOpen(true);
+                            }}
+                        />
                         <Pagination page={filters.page} pages={pages}
                                     onPage={(p) => setFiltersUrl({...filters, page: p})}/>
                     </div>
                 </div>
             </div>
+
+            {/* Модалка деталей товара */}
+            <ProductDetails
+                product={selected}
+                open={detailsOpen}
+                onClose={() => setDetailsOpen(false)}
+            />
+
         </section>
     );
 }
