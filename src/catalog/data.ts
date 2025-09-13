@@ -92,4 +92,23 @@ export const PRODUCTS: Product[] = [
         subcategory: "headphones"
     },
 ];
+
 export const BRANDS = Array.from(new Set(PRODUCTS.map(p => p.brand))).sort();
+
+const LS_KEY = "admin_products";
+
+export function loadAdminProducts(seed: Product[] = PRODUCTS): Product[] {
+    try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return [...seed];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? (parsed as Product[]) : [...seed];
+    } catch {
+        return [...seed];
+    }
+}
+
+export function saveAdminProducts(items: Product[]) {
+    localStorage.setItem(LS_KEY, JSON.stringify(items));
+    window.dispatchEvent(new CustomEvent("products:updated"));
+}

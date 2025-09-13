@@ -1,15 +1,17 @@
-import {useEffect, useMemo, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import FiltersPanel from "./Filters";
-import {CatalogGrid} from "./Grid";
-import {PRODUCTS} from "./data";
-import type {Filters} from "./types";
-import {applyFilters, useQueryFilters} from "./hooks";
-import {useI18n} from "../shared/i18n";
+import { CatalogGrid } from "./Grid";
+import { loadAdminProducts } from "./data";   // ← импортируем
+import type { Filters } from "./types";
+import { applyFilters, useQueryFilters } from "./hooks";
+import { useI18n } from "../shared/i18n";
 
 export default function CatalogPage() {
-    const {t} = useI18n();
-    const {category, subcategory} = useParams();
+    const { t } = useI18n();
+    const { category, subcategory } = useParams();
+    const location = useLocation();
+
     const defaults: Filters = {
         q: "",
         min: undefined,
@@ -18,17 +20,35 @@ export default function CatalogPage() {
         inStockOnly: false,
         sort: "relevance",
         page: 1,
-        perPage: 9
+        perPage: 9,
     };
-    const {filters, setFiltersUrl} = useQueryFilters(defaults);
+
+    const { filters, setFiltersUrl } = useQueryFilters(defaults);
     const [loading, setLoading] = useState(false);
-    const filtered = useMemo(() => applyFilters(PRODUCTS, filters, category, subcategory), [filters, category, subcategory]);
-    // ✅ Лоадер запускается только когда реально изменился URL (по факту)
+
+    // ✅ теперь товары берём из state
+    const [products, setProducts] = useState(() => loadAdminProducts());
+
+    // подписка на products:updated
+    useEffect(() => {
+        function reload() {
+            setProducts(loadAdminProducts());
+        }
+        window.addEventListener("products:updated", reload);
+        return () => window.removeEventListener("products:updated", reload);
+    }, []);
+
+    const filtered = useMemo(
+        () => applyFilters(products, filters, category, subcategory),
+        [products, filters, category, subcategory]
+    );
+
     useEffect(() => {
         setLoading(true);
-        const t = window.setTimeout(() => setLoading(false), 250);
-        return () => window.clearTimeout(t);
-    }, []);
+        const tmr = window.setTimeout(() => setLoading(false), 250);
+        return () => window.clearTimeout(tmr);
+    }, [location.pathname, location.search, products]);
+
     const total = filtered.length;
     const start = (filters.page - 1) * filters.perPage;
     const pageItems = filtered.slice(start, start + filters.perPage);
