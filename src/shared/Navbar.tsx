@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {ArrowUpRight, Hammer, Info, Languages, LogIn, LogOut, Menu, Moon, Phone, Sun, User, X} from "lucide-react";
 import {useTheme} from "./theme/theme.tsx";
@@ -8,6 +8,7 @@ import Container from "./Container";
 import DesktopCatalog from "../dropdowns/DesktopCatalog.tsx";
 import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
 import LoginDialog from "../modals/Login.tsx";
+import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 
 
 function LangToggle() {
@@ -36,7 +37,10 @@ export default function Navbar() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [showLogin, setShowLogin] = useState(false);      // ← состояние модалки
-    const {isAuth, logout} = useAuth();                   // ← авторизация
+    const { isAuth, logout, user } = useAuth();                   // ← авторизация
+
+    const [confirmOpen, setConfirmOpen] = React.useState(false);
+
     const linkBase = "group inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm transition";
     const linkClass = ({isActive}: {
         isActive: boolean
@@ -71,7 +75,7 @@ export default function Navbar() {
                                          className={({isActive}) => `group inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm ${isActive ? "bg-black text-white dark:bg-white dark:text-black" : "hover:bg-black/5 dark:hover:bg-white/10"}`}>
                                     <User className="h-4 w-4"/> {t("nav_products_private")}
                                 </NavLink>
-                                <button onClick={logout}
+                                <button onClick={() => setConfirmOpen(true)}
                                         className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10">
                                     <LogOut className="h-4 w-4"/> {t("logout")}
                                 </button>
@@ -125,6 +129,26 @@ export default function Navbar() {
             </Container>
             {/* Модалка логина */}
             <LoginDialog open={showLogin} onClose={() => setShowLogin(false)}/>
+
+            {/* Модалка подтверждения */}
+            <ConfirmDialog
+                open={confirmOpen}
+                onClose={() => setConfirmOpen(false)}
+                title="Выйти из профиля?"
+                message={
+                    <>
+                        Вы действительно хотите выйти{user?.email ? (
+                        <> (<span className="font-medium">{user.email}</span>)</>
+                    ) : null}
+                        ?
+                    </>
+                }
+                confirmText="Выйти"
+                cancelText="Отмена"
+                onConfirm={async () => {
+                    logout();
+                }}
+            />
         </header>
     );
 }
