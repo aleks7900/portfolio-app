@@ -1,165 +1,152 @@
-import React from "react";
-import {Filter as FilterIcon, Search} from "lucide-react";
-import type {Filters} from "../../data/types.ts";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import { useEffect, useState } from "react";
 
-export default function FiltersPanel({
-                                         value,
-                                         onChange,
-                                         brandsOptions,             // ← новый проп
-                                     }: {
-    value: Filters;
-    onChange: (v: Filters) => void;
-    brandsOptions: string[];
+export type FiltersValue = {
+    q: string;
+    brand: string;
+    min?: number;
+    max?: number;
+    inStockOnly: boolean;
+    category: string;
+    subcategory: string;
+    sort: string; // "price,asc" | "price,desc" | "title,asc" ...
+};
+
+export default function CatalogFilters({
+                                           value,
+                                           onChange,
+                                       }: {
+    value: FiltersValue;
+    onChange: (v: FiltersValue) => void;
 }) {
-    const { t } = useI18n();
+    // управляемые поля без локального «state копии».
+    // единственное — делаем маленький debounce для q
+    const [qDraft, setQDraft] = useState(value.q);
 
-    const set = (patch: Partial<Filters>) => onChange({ ...value, ...patch });
+    useEffect(() => setQDraft(value.q), [value.q]);
 
-    const onPriceMin = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const v = e.currentTarget.value.trim();
-        set({ min: v === "" ? undefined : Number(v) });
-    };
+    useEffect(() => {
+        const id = setTimeout(() => {
+            if (qDraft !== value.q) onChange({ ...value, q: qDraft });
+        }, 300);
+        return () => clearTimeout(id);
+    }, [qDraft]); // eslint-disable-line
 
-    const onPriceMax = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const v = e.currentTarget.value.trim();
-        set({ max: v === "" ? undefined : Number(v) });
-    };
+    const set = <K extends keyof FiltersValue>(k: K, v: FiltersValue[K]) =>
+        onChange({ ...value, [k]: v });
 
     return (
-        <div className="rounded-2xl border bg-white p-4 shadow-sm dark:bg-black dark:border-white/10">
-            <div className="mb-3 flex items-center gap-2 text-sm font-medium">
-                <FilterIcon className="h-4 w-4" /> {t("filters")}
+        <div className="rounded-2xl border p-4 dark:border-white/10 dark:bg-black/40">
+            <div className="text-sm font-semibold">Filters</div>
+
+            {/* поиск */}
+            <div className="mt-3">
+                <label className="block text-xs text-gray-500 dark:text-gray-400">Search</label>
+                <input
+                    value={qDraft}
+                    onChange={(e) => setQDraft(e.currentTarget.value)}
+                    placeholder="id / title / brand / category"
+                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                />
             </div>
 
-            <div className="grid gap-4">
-                {/* Поиск */}
-                <label>
-          <span className="mb-1 block text-sm font-medium">
-            {t("search_placeholder")}
-          </span>
-                    <div className="relative">
-                        <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                        <input
-                            value={value.q}
-                            onChange={(e) => set({ q: e.currentTarget.value, page: 1 })}
-                            placeholder={t("search_placeholder")}
-                            className="w-full rounded-xl border pl-9 pr-3 py-2 outline-none focus:ring-2 focus:ring-gray-300 dark:bg-black dark:border-white/20 dark:focus:ring-white/20"
-                        />
-                    </div>
+            {/* бренд */}
+            <div className="mt-3">
+                <label className="block text-xs text-gray-500 dark:text-gray-400">Brand</label>
+                <input
+                    value={value.brand}
+                    onChange={(e) => set("brand", e.currentTarget.value)}
+                    placeholder="e.g. Bytek"
+                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                />
+            </div>
+
+            {/* диапазон цен */}
+            <div className="mt-3 grid grid-cols-2 gap-2">
+                <div>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">Min</label>
+                    <input
+                        type="number"
+                        value={value.min ?? ""}
+                        onChange={(e) => set("min", e.currentTarget.value ? Number(e.currentTarget.value) : undefined)}
+                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    />
+                </div>
+                <div>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">Max</label>
+                    <input
+                        type="number"
+                        value={value.max ?? ""}
+                        onChange={(e) => set("max", e.currentTarget.value ? Number(e.currentTarget.value) : undefined)}
+                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    />
+                </div>
+            </div>
+
+            {/* наличие */}
+            <div className="mt-3">
+                <label className="inline-flex items-center gap-2 text-sm">
+                    <input
+                        type="checkbox"
+                        checked={value.inStockOnly}
+                        onChange={(e) => set("inStockOnly", e.currentTarget.checked)}
+                    />
+                    in stock only
                 </label>
+            </div>
 
-                {/* Цена */}
+            {/* категория / подкатегория (простые инпуты: серверная фильтрация) */}
+            <div className="mt-3 grid grid-cols-2 gap-2">
                 <div>
-                    <div className="mb-1 text-sm font-medium">{t("price")}</div>
-                    <div className="flex items-center gap-2">
-                        <input
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            value={value.min ?? ""}
-                            onChange={onPriceMin}
-                            placeholder={t("min")}
-                            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-gray-300 dark:bg-black dark:border-white/20 dark:focus:ring-white/20"
-                        />
-                        <span>—</span>
-                        <input
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            value={value.max ?? ""}
-                            onChange={onPriceMax}
-                            placeholder={t("max")}
-                            className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-gray-300 dark:bg-black dark:border-white/20 dark:focus:ring-white/20"
-                        />
-                    </div>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">Category</label>
+                    <input
+                        value={value.category}
+                        onChange={(e) => set("category", e.currentTarget.value)}
+                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    />
                 </div>
-
-                {/* Бренд */}
-                <div className="mt-4">
-                    <div className="mb-2 text-sm font-medium">{t("brand")}</div>
-                    <div className="grid gap-2">
-                        {brandsOptions.map((b) => {
-                            const checked = value.brands.includes(b);
-                            return (
-                                <label key={b} className="inline-flex items-center gap-2 text-sm">
-                                    <input
-                                        type="checkbox"
-                                        checked={checked}
-                                        onChange={(e) => {
-                                            const next = e.currentTarget.checked
-                                                ? [...value.brands, b]
-                                                : value.brands.filter((x) => x !== b);
-                                            onChange({ ...value, brands: next, page: 1 });
-                                        }}
-                                    />
-                                    <span>{b}</span>
-                                </label>
-                            );
-                        })}
-                    </div>
-                </div>
-
-                {/* Наличие */}
                 <div>
-                    <label className="inline-flex items-center gap-2 text-sm">
-                        <input
-                            type="checkbox"
-                            checked={value.inStockOnly}
-                            onChange={(e) => set({ inStockOnly: e.currentTarget.checked, page: 1 })}
-                        />
-                        {t("in_stock_only")}
-                    </label>
-                </div>
-
-                {/* Сортировка */}
-                <div>
-                    <div className="mb-1 text-sm font-medium">{t("sort")}</div>
-                    <select
-                        value={value.sort}
-                        onChange={(e) => set({ sort: e.currentTarget.value as Filters["sort"], page: 1 })}
-                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
-                    >
-                        <option value="relevance">{t("sort_relevance")}</option>
-                        <option value="price_asc">{t("sort_price_asc")}</option>
-                        <option value="price_desc">{t("sort_price_desc")}</option>
-                        <option value="brand_az">{t("sort_brand_az")}</option>
-                    </select>
-                </div>
-
-                {/* Товаров на странице */}
-                <div>
-                    <div className="mb-1 text-sm font-medium">{t("per_page")}</div>
-                    <select
-                        value={value.perPage}
-                        onChange={(e) => set({ perPage: Number(e.currentTarget.value), page: 1 })}
-                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
-                    >
-                        {[6, 9, 12].map((n) => (
-                            <option key={n} value={n}>
-                                {n}
-                            </option>
-                        ))}
-                    </select>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">Subcategory</label>
+                    <input
+                        value={value.subcategory}
+                        onChange={(e) => set("subcategory", e.currentTarget.value)}
+                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    />
                 </div>
             </div>
 
-            {/* Сброс */}
-            <div className="mt-4 flex items-center gap-2">
+            {/* сортировка */}
+            <div className="mt-3">
+                <label className="block text-xs text-gray-500 dark:text-gray-400">Sort</label>
+                <select
+                    value={value.sort}
+                    onChange={(e) => set("sort", e.currentTarget.value)}
+                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                >
+                    <option value="title,asc">Title ↑</option>
+                    <option value="title,desc">Title ↓</option>
+                    <option value="price,asc">Price ↑</option>
+                    <option value="price,desc">Price ↓</option>
+                </select>
+            </div>
+
+            {/* сброс */}
+            <div className="mt-4">
                 <button
                     onClick={() =>
                         onChange({
-                            ...value,
                             q: "",
+                            brand: "",
                             min: undefined,
                             max: undefined,
-                            brands: [],
                             inStockOnly: false,
-                            sort: "relevance",
-                            page: 1,
+                            category: "",
+                            subcategory: "",
+                            sort: "title,asc",
                         })
                     }
-                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
+                    className="w-full rounded-xl border px-3 py-2 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
                 >
-                    {t("clear")}
+                    Clear
                 </button>
             </div>
         </div>

@@ -30,6 +30,7 @@ export type ProductQuery = {
     max?: number;
     category?: string;
     subcategory?: string;
+    inStock?: boolean;
 };
 
 export type ProductsPage = {
