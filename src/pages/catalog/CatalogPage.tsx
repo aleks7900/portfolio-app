@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { useSearchParams, useParams } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useSearchParams, useParams} from "react-router-dom";
 import CatalogFilters, {type FiltersValue} from "./Filters.tsx";
 import type {Product} from "../../data/types.ts";
 import {listProducts, type ProductQuery, type ProductsPage} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
+import {CatalogGrid} from "./Grid.tsx";
+import ProductDetails from "../../modals/ProductDetails.tsx";
 
 function toQuery(v: FiltersValue, page: number, size: number): ProductQuery {
     return {
@@ -106,6 +108,9 @@ export default function CatalogPage() {
         setFilters(next);
     };
 
+    const [selected, setSelected] = useState<Product | null>(null);
+    const [detailsOpen, setDetailsOpen] = useState(false);
+
     return (
         <section className="scroll-mt-24 py-16 sm:py-20">
             <Container>
@@ -125,39 +130,14 @@ export default function CatalogPage() {
                         )}
 
                         {/* grid карточек */}
-                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                            {loading
-                                ? Array.from({ length: size }).map((_, i) => (
-                                    <div
-                                        key={i}
-                                        className="h-40 animate-pulse rounded-2xl border bg-gray-100 dark:border-white/10 dark:bg-white/5"
-                                    />
-                                ))
-                                : items.map((p) => (
-                                    <article
-                                        key={p.id}
-                                        className="rounded-2xl border p-4 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-black/40"
-                                    >
-                                        <div className="text-sm text-gray-500 dark:text-gray-400">{p.brand || "\u2014"}</div>
-                                        <div className="mt-1 line-clamp-2 font-medium">{p.title}</div>
-                                        <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                                            {p.category} / {p.subcategory || "\u2014"}
-                                        </div>
-                                        <div className="mt-3 font-semibold">${p.price}</div>
-                                        <div className="mt-2 text-xs">
-                                            {p.inStock ? (
-                                                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
-                            in stock
-                          </span>
-                                            ) : (
-                                                <span className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-                            out of stock
-                          </span>
-                                            )}
-                                        </div>
-                                    </article>
-                                ))}
-                        </div>
+                        <CatalogGrid
+                            items={items}
+                            loading={loading}
+                            onOpen={(p) => {
+                                setSelected(p);
+                                setDetailsOpen(true);
+                            }}
+                        />
 
                         {/* ПАГИНАЦИЯ */}
                         <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
@@ -206,6 +186,13 @@ export default function CatalogPage() {
                     </div>
                 </div>
             </Container>
+
+            {/* Модалка деталей товара */}
+            <ProductDetails
+                product={selected}
+                open={detailsOpen}
+                onClose={() => setDetailsOpen(false)}
+            />
         </section>
     );
 }
