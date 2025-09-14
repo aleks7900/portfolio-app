@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import Container from "../../shared/Container.tsx";
 import type {Product} from "../../data/types.ts";
 import {loadAdminProducts, PRODUCTS as SEED, saveAdminProducts} from "../../data/data.ts";
@@ -25,14 +25,29 @@ const emptyProduct = (idHint: number): Product => ({
     subcategory: "",
 });
 
+function useMediaQuery(query: string) {
+    const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+
+    useEffect(() => {
+        const media = window.matchMedia(query);
+        const listener = () => setMatches(media.matches);
+        media.addEventListener("change", listener);
+        return () => media.removeEventListener("change", listener);
+    }, [query]);
+
+    return matches;
+}
+
 export default function ProductsPrivate() {
     const [items, setItems] = useState<Product[]>(() => loadAdminProducts(SEED));
     const [edit, setEdit] = useState<EditState>({mode: "none"});
     const [query, setQuery] = useState("");
     const [confirm, setConfirm] = useState<ConfirmState>({open: false});
 
-    const {user} = useAuth(); // ← кто вошёл
-    const isAdmin = !!user?.isAdmin; // ← права
+    const isMobile = useMediaQuery("(max-width: 1024px)");
+
+    const {user} = useAuth();
+    const isAdmin = !!user?.isAdmin;
 
     const brands = useMemo(
         () => Array.from(new Set(items.map((p) => p.brand))).filter(Boolean).sort(),
@@ -61,31 +76,33 @@ export default function ProductsPrivate() {
     }, [items, query]);
 
     const startCreate = () => {
-        if (!isAdmin) return; // защита
+        if (!isAdmin) return;
         const nextId = Math.max(0, ...items.map((p) => p.id)) + 1;
         setEdit({mode: "create", draft: emptyProduct(nextId)});
     };
 
-    const startEdit = (idx: number) => isAdmin && setEdit({mode: "edit", draft: {...items[idx]}, index: idx});
+    const startEdit = (idx: number) =>
+        isAdmin && setEdit({mode: "edit", draft: {...items[idx]}, index: idx});
 
-    // --- удаление: сначала спросим подтверждение
     const askRemove = (idx: number) => {
         if (!isAdmin) return;
         const p = items[idx];
-        setConfirm({open: true, kind: "delete", index: idx, title: p?.title || `#${p?.id}`});
+        setConfirm({
+            open: true,
+            kind: "delete",
+            index: idx,
+            title: p?.title || `#${p?.id}`,
+        });
     };
 
-    // --- фактически удалить
     const removeNow = (idx: number) => {
         const next = items.slice();
         next.splice(idx, 1);
         setItems(next);
         saveAdminProducts(next);
-        // уведомим слушателей каталога (если подписан)
         window.dispatchEvent(new CustomEvent("products:updated"));
     };
 
-    // --- фактически сохранить (для edit/create)
     const saveNow = (draft: Product, mode: "edit" | "create") => {
         const next = items.slice();
         if (mode === "edit" && edit.mode === "edit") {
@@ -104,13 +121,11 @@ export default function ProductsPrivate() {
         setEdit({...edit, draft: {...edit.draft, [key]: val}});
     };
 
-    // --- нажатие «Сохранить» в форме: вместо немедленного сохранения покажем подтверждение
     const askSaveFromForm = () => {
         if (edit.mode === "edit") setConfirm({open: true, kind: "save-edit", draft: edit.draft});
         if (edit.mode === "create") setConfirm({open: true, kind: "save-create", draft: edit.draft});
     };
 
-    // --- обработка подтверждения модалки
     const onConfirm = () => {
         if (!confirm.open) return;
         if (confirm.kind === "delete") {
@@ -131,17 +146,17 @@ export default function ProductsPrivate() {
                         {isAdmin ? "Мои продукты (админ)" : "Мои продукты"}
                     </h2>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex w-full items-center gap-2 sm:w-auto">
                         <input
                             value={query}
                             onChange={(e) => setQuery(e.currentTarget.value)}
                             placeholder="Поиск (id, название, бренд, категория)"
-                            className="w-72 max-w-full rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border-white/20"
+                            className="w-full sm:w-72 rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border-white/20"
                         />
                         {isAdmin && (
                             <button
                                 onClick={startCreate}
-                                className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                                className="shrink-0 rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
                             >
                                 Новый продукт
                             </button>
@@ -149,77 +164,120 @@ export default function ProductsPrivate() {
                     </div>
                 </div>
 
-                {/* Таблица */}
-                <div className="mt-6 overflow-x-auto rounded-2xl border dark:border-white/10">
-                    <table className="min-w-full text-sm">
-                        <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
-                        <tr>
-                            <Th>ID</Th>
-                            <Th>Название</Th>
-                            <Th>Бренд</Th>
-                            <Th>Цена</Th>
-                            <Th>Наличие</Th>
-                            <Th>Категория</Th>
-                            <Th>Подкатегория</Th>
-                            <Th className="text-right">Действия</Th>
-                        </tr>
-                        </thead>
-                        <tbody className="divide-y dark:divide-white/10">
-                        {filtered.map((p, idx) => (
-                            <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
-                                <Td>{p.id}</Td>
-                                <Td className="font-medium">{p.title}</Td>
-                                <Td>{p.brand}</Td>
-                                <Td>${p.price}</Td>
-                                <Td>
-                                    {p.inStock ? (
-                                        <span
-                                            className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
-                        да
-                      </span>
-                                    ) : (
-                                        <span
-                                            className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-                        нет
-                      </span>
-                                    )}
-                                </Td>
-                                <Td>{p.category}</Td>
-                                <Td>{p.subcategory}</Td>
-                                <Td className="text-right">
-                                    {isAdmin ? (
-                                        <>
-                                            <button
-                                                onClick={() => startEdit(idx)}
-                                                className="rounded-lg border px-3 py-1 hover:bg-black/5 dark:border-white/20 dark:hover:bg:white/10"
-                                            >
-                                                Редактировать
-                                            </button>
-                                            <button
-                                                onClick={() => askRemove(idx)} // ← теперь спрашиваем подтверждение
-                                                className="ml-2 rounded-lg border px-3 py-1 text-rose-600 hover:bg-rose-50 dark:border-white/20 dark:hover:bg-rose-500/10"
-                                            >
-                                                Удалить
-                                            </button>
-                                        </>
-                                    ) : (
-                                        <span className="text-gray-400">Только просмотр</span>
-                                    )}
-                                </Td>
-                            </tr>
-                        ))}
-                        {filtered.length === 0 && (
-                            <tr>
-                                <Td colSpan={8} className="py-8 text-center text-gray-500">
+                {!isMobile ? (
+                    <Container>
+                        {/* ——— Desktop: таблица (>= sm) ——— */}
+                        <div className="mt-6 rounded-2xl border dark:border-white/10 sm:block">
+                            <table className="min-w-full text-sm">
+                                <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
+                                <tr>
+                                    <Th>ID</Th>
+                                    <Th>Название</Th>
+                                    <Th>Бренд</Th>
+                                    <Th>Цена</Th>
+                                    <Th>Наличие</Th>
+                                    <Th>Категория</Th>
+                                    <Th>Подкатегория</Th>
+                                    <Th className="text-right">Действия</Th>
+                                </tr>
+                                </thead>
+                                <tbody className="divide-y dark:divide-white/10">
+                                {filtered.map((p, idx) => (
+                                    <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
+                                        <Td>{p.id}</Td>
+                                        <Td className="font-medium">{p.title}</Td>
+                                        <Td>{p.brand}</Td>
+                                        <Td>${p.price}</Td>
+                                        <Td>
+                                            {p.inStock ? (
+                                                <Badge ok>да</Badge>
+                                            ) : (
+                                                <Badge>нет</Badge>
+                                            )}
+                                        </Td>
+                                        <Td>{p.category}</Td>
+                                        <Td>{p.subcategory}</Td>
+                                        <Td className="text-right">
+                                            {isAdmin ? (
+                                                <>
+                                                    <ActionBtn onClick={() => startEdit(idx)}>Редактировать</ActionBtn>
+                                                    <ActionBtn
+                                                        danger
+                                                        className="ml-2"
+                                                        onClick={() => askRemove(idx)}
+                                                    >
+                                                        Удалить
+                                                    </ActionBtn>
+                                                </>
+                                            ) : (
+                                                <span className="text-gray-400">Только просмотр</span>
+                                            )}
+                                        </Td>
+                                    </tr>
+                                ))}
+                                {filtered.length === 0 && (
+                                    <tr>
+                                        <Td colSpan={8} className="py-8 text-center text-gray-500">
+                                            Ничего не найдено
+                                        </Td>
+                                    </tr>
+                                )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </Container>
+                ) : (
+                    <Container>
+                        {/* ——— Mobile: карточки ( < sm ) ——— */}
+                        <div className="mt-6 space-y-3">
+                            {filtered.length === 0 && (
+                                <div
+                                    className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
                                     Ничего не найдено
-                                </Td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                </div>
+                                </div>
+                            )}
 
-                {/* Модалка редактирования/создания */}
+                            {filtered.map((p, idx) => (
+                                <div
+                                    key={p.id}
+                                    className="rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-black/40"
+                                >
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div>
+                                            <div className="text-base font-semibold leading-tight">{p.title}</div>
+                                            <div
+                                                className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">ID: {p.id}</div>
+                                        </div>
+                                        <div className="shrink-0">
+                                            {p.inStock ? <Badge ok>в наличии</Badge> : <Badge>нет</Badge>}
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                                        <LabelValue label="Бренд" value={p.brand || "—"}/>
+                                        <LabelValue label="Цена" value={`$${p.price}`}/>
+                                        <LabelValue label="Категория" value={p.category || "—"}/>
+                                        <LabelValue label="Подкатегория" value={p.subcategory || "—"}/>
+                                    </div>
+
+                                    <div className="mt-3 flex flex-wrap justify-end gap-2">
+                                        {isAdmin ? (
+                                            <>
+                                                <ActionBtn onClick={() => startEdit(idx)}>Редактировать</ActionBtn>
+                                                <ActionBtn danger onClick={() => askRemove(idx)}>
+                                                    Удалить
+                                                </ActionBtn>
+                                            </>
+                                        ) : (
+                                            <span className="text-sm text-gray-400">Только просмотр</span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </Container>
+                )}
+                {/* ——— Модалка редактирования/создания ——— */}
                 {isAdmin && edit.mode !== "none" && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
                         <div
@@ -242,7 +300,7 @@ export default function ProductsPrivate() {
                                     <input
                                         value={edit.draft.title}
                                         onChange={(e) => setDraft("title", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg:black"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                     />
                                 </Field>
 
@@ -251,7 +309,7 @@ export default function ProductsPrivate() {
                                         list="brands"
                                         value={edit.draft.brand}
                                         onChange={(e) => setDraft("brand", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg:black"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                     />
                                     <datalist id="brands">
                                         {brands.map((b) => (
@@ -265,7 +323,7 @@ export default function ProductsPrivate() {
                                         type="number"
                                         value={edit.draft.price}
                                         onChange={(e) => setDraft("price", Number(e.currentTarget.value))}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border:white/20 dark:bg:black"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                     />
                                 </Field>
 
@@ -285,7 +343,7 @@ export default function ProductsPrivate() {
                                         list="cats"
                                         value={edit.draft.category}
                                         onChange={(e) => setDraft("category", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border:white/20 dark:bg:black"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                     />
                                     <datalist id="cats">
                                         {categories.map((c) => (
@@ -299,7 +357,7 @@ export default function ProductsPrivate() {
                                         list="subs"
                                         value={edit.draft.subcategory}
                                         onChange={(e) => setDraft("subcategory", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border:white/20 dark:bg:black"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                     />
                                     <datalist id="subs">
                                         {subcategories.map((s) => (
@@ -309,16 +367,16 @@ export default function ProductsPrivate() {
                                 </Field>
                             </div>
 
-                            <div className="mt-6 flex items-center gap-2">
+                            <div className="mt-6 flex flex-wrap items-center gap-2">
                                 <button
-                                    onClick={askSaveFromForm} // ← вместо немедленного сохранения
+                                    onClick={askSaveFromForm}
                                     className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
                                 >
                                     Сохранить
                                 </button>
                                 <button
                                     onClick={() => setEdit({mode: "none"})}
-                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border:white/20 dark:hover:bg:white dark:hover:text-black"
+                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
                                 >
                                     Отмена
                                 </button>
@@ -327,7 +385,7 @@ export default function ProductsPrivate() {
                     </div>
                 )}
 
-                {/* Модалка подтверждения (общая для удаления/сохранения) */}
+                {/* ——— Модалка подтверждения ——— */}
                 {confirm.open && (
                     <div
                         role="dialog"
@@ -362,7 +420,7 @@ export default function ProductsPrivate() {
                             <div className="mt-6 flex justify-end gap-2">
                                 <button
                                     onClick={() => setConfirm({open: false})}
-                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5 dark:border:white/10 dark:hover:bg:white/10"
+                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/10"
                                 >
                                     Отмена
                                 </button>
@@ -381,7 +439,8 @@ export default function ProductsPrivate() {
     );
 }
 
-/* ——— мини-компоненты для таблицы/формы ——— */
+/* ——— мини-компоненты ——— */
+
 function Th({children, className = ""}: { children: React.ReactNode; className?: string }) {
     return <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>{children}</th>;
 }
@@ -408,5 +467,54 @@ function Field({label, children}: { label: string; children: React.ReactNode }) 
             <div className="mb-1 text-sm font-medium">{label}</div>
             {children}
         </label>
+    );
+}
+
+function LabelValue({label, value}: { label: string; value: React.ReactNode }) {
+    return (
+        <div className="rounded-xl border p-2 text-xs dark:border-white/10">
+            <div className="mb-1 text-[11px] uppercase text-gray-500 dark:text-gray-400">{label}</div>
+            <div className="font-medium text-gray-900 dark:text-gray-200">{value}</div>
+        </div>
+    );
+}
+
+function Badge({children, ok = false}: { children: React.ReactNode; ok?: boolean }) {
+    return ok ? (
+        <span
+            className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+      {children}
+    </span>
+    ) : (
+        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+      {children}
+    </span>
+    );
+}
+
+function ActionBtn({
+                       children,
+                       onClick,
+                       danger,
+                       className = "",
+                   }: {
+    children: React.ReactNode;
+    onClick?: () => void;
+    danger?: boolean;
+    className?: string;
+}) {
+    return (
+        <button
+            onClick={onClick}
+            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition
+        ${
+                danger
+                    ? "bg-rose-600 text-white hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400"
+                    : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+            }
+        ${className}`}
+        >
+            {children}
+        </button>
     );
 }
