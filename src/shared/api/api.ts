@@ -13,14 +13,18 @@ type FetchOptions = Omit<RequestInit, "headers" | "body"> & {
     auth?: boolean; // по умолчанию true — добавлять Authorization
 };
 
-export async function apiFetch<T = unknown>(path: string, opts: FetchOptions = {}): Promise<T> {
-    const url = path.startsWith("http") ? path : `${BASE_URL}${path}`;
+export async function apiFetch<T = unknown>(
+    path: string,
+    opts: FetchOptions = {}
+): Promise<T> {
+    const url: string = path.startsWith("http") ? path : `${BASE_URL}${path}`;
     const headers: Record<string, string> = {
         "Accept": "application/json",
         ...(opts.body instanceof FormData ? {} : {"Content-Type": "application/json"}),
         ...(opts.headers || {}),
     };
 
+    // auth header
     if (opts.auth !== false) {
         const token = getToken();
         if (token) headers["Authorization"] = `Bearer ${token}`;
@@ -29,14 +33,18 @@ export async function apiFetch<T = unknown>(path: string, opts: FetchOptions = {
     const res = await fetch(url, {
         ...opts,
         headers,
-        body: opts.body instanceof FormData ? opts.body : opts.body != null ? JSON.stringify(opts.body) : undefined,
+        body:
+            opts.body instanceof FormData
+                ? opts.body
+                : typeof opts.body === "object" && opts.body !== null
+                    ? JSON.stringify(opts.body)
+                    : opts.body,
     });
 
-    // 204 No Content
     if (res.status === 204) return undefined as unknown as T;
 
     const text = await res.text();
-    let data: any;
+    let data: unknown;
     try {
         data = text ? JSON.parse(text) : null;
     } catch {
@@ -44,12 +52,17 @@ export async function apiFetch<T = unknown>(path: string, opts: FetchOptions = {
     }
 
     if (!res.ok) {
-        const message = (data && (data.message || data.error)) || res.statusText || "Request error";
-        // возможная централизованная обработка 401
-        if (res.status === 401) {
-            // вариант: диспатч глобального события, редирект на /login и пр.
-            window.dispatchEvent(new CustomEvent("auth:unauthorized"));
+        let message: string;
+        if (
+            typeof data === "object" &&
+            data !== null && "message" in data &&
+            typeof (data as Record<string, unknown>).message === "string"
+        ) {
+            message = (data as Record<string, unknown>).message as string;
+        } else {
+            message = res.statusText || "Request error";
         }
+
         throw new Error(message);
     }
 

@@ -34,6 +34,77 @@ const emptyProduct = (): Product => ({
     subcategory: "",
 });
 
+function useMediaQuery(query: string) {
+    const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+
+    useEffect(() => {
+        const media = window.matchMedia(query);
+        const listener = () => setMatches(media.matches);
+        media.addEventListener("change", listener);
+        return () => media.removeEventListener("change", listener);
+    }, [query]);
+
+    return matches;
+}
+
+function PaginationControls({
+                                page,
+                                size,
+                                totalPages,            // null → скрываем next/prev
+                                onPrev,
+                                onNext,
+                                onSizeChange,
+                            }: {
+    page: number;
+    size: number;
+    totalPages: number | null;
+    onPrev: () => void;
+    onNext: () => void;
+    onSizeChange: (n: number) => void;
+}) {
+    const hasPrev = page > 0;
+    const hasNext = totalPages != null ? page < totalPages - 1 : false;
+
+    return (
+        <div className="mt-4 flex flex-wrap items-center justify-end gap-3">
+            <label className="flex items-center gap-2 text-sm">
+                <span className="text-gray-600 dark:text-gray-300">Показывать по:</span>
+                <select
+                    className="rounded-lg border px-2 py-1 text-sm dark:border-white/20 dark:bg-black"
+                    value={size}
+                    onChange={(e) => onSizeChange(Number(e.currentTarget.value))}
+                >
+                    {[10, 20, 50].map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                    ))}
+                </select>
+            </label>
+
+            {totalPages != null && totalPages > 1 && (
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={onPrev}
+                        disabled={!hasPrev}
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                    >
+                        ◀ Пред
+                    </button>
+                    <span className="text-sm tabular-nums text-gray-600 dark:text-gray-300">
+            {page + 1} / {totalPages}
+          </span>
+                    <button
+                        onClick={onNext}
+                        disabled={!hasNext}
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                    >
+                        След ▶
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+}
+
 export default function ProductsPrivate() {
     const {user} = useAuth();
     const isAdmin = !!user?.isAdmin;
@@ -52,6 +123,10 @@ export default function ProductsPrivate() {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
 
+    const [totalPages, setTotalPages] = useState<number | null>(null);
+
+    const isMobile = useMediaQuery("(max-width: 1024px)");
+
     // ——— загрузка списка (вместо localStorage/SEED) ———
     async function fetchProducts() {
         setLoading(true);
@@ -60,13 +135,32 @@ export default function ProductsPrivate() {
             const params: ProductQuery = {q: query || undefined, page, size};
             const data = await listProducts(params);
             // Поддержим 2 схемы: Page<Product> ИЛИ Product[]
-            const list = Array.isArray(data) ? data : data.content;
-            setItems(list);
+            // поддерживаем оба варианта: Page<Product> ИЛИ Product[]
+            if (Array.isArray(data)) {
+                // массив без метаданных — пагинацию показать нельзя
+                setItems(data);
+                setTotalPages(null);
+            } else {
+                // Spring Data Page<T>
+
+                console.log(data);
+                console.log(data.content);
+
+                setItems(data.content);
+                setTotalPages(typeof data.totalPages === "number" ? data.totalPages : null);
+                // синхронизируем номер/размер страницы, если бэк их вернул
+                if (typeof data.number === "number") setPage(data.number);
+                if (typeof data.size === "number") setSize(data.size);
+            }
             // если это Page — можно читать totalPages и пр. из data
-        } catch (e: any) {
-            setErr(e?.message || "Ошибка загрузки");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                setErr(e.message);
+            } else {
+                setErr("Ошибка загрузки");
+            }
         } finally {
-            setLoading(false);
+            setLoading(false); // ← ВАЖНО: снимаем индикатор загрузки
         }
     }
 
@@ -80,18 +174,19 @@ export default function ProductsPrivate() {
     }, [query, page, size]);
 
     const filtered = useMemo(() => items, [items]); // фильтрацию теперь делает бэк (по query)
-    const brands = useMemo(
-        () => Array.from(new Set(items.map((p) => p.brand))).filter(Boolean).sort(),
-        [items]
-    );
-    const categories = useMemo(
-        () => Array.from(new Set(items.map((p) => p.category))).filter(Boolean).sort(),
-        [items]
-    );
-    const subcategories = useMemo(
-        () => Array.from(new Set(items.map((p) => p.subcategory))).filter(Boolean).sort(),
-        [items]
-    );
+
+    // useMemo(
+    //     () => Array.from(new Set(items.map((p) => p.brand))).filter(Boolean).sort(),
+    //     [items]
+    // );
+    // useMemo(
+    //     () => Array.from(new Set(items.map((p) => p.category))).filter(Boolean).sort(),
+    //     [items]
+    // );
+    // useMemo(
+    //     () => Array.from(new Set(items.map((p) => p.subcategory))).filter(Boolean).sort(),
+    //     [items]
+    // );
 
     const startCreate = () => {
         if (!isAdmin) return;
@@ -124,15 +219,20 @@ export default function ProductsPrivate() {
             } else if (confirm.kind === "save-edit") {
                 await updateProduct(confirm.draft);
             } else if (confirm.kind === "save-create") {
-                // не отправляем пустой id, если на бэке авто-генерация
-                const {id, ...withoutId} = confirm.draft as any;
+                // убираем id из объекта
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const {id: _omit, ...withoutId} = confirm.draft;
                 await createProduct(withoutId);
             }
             window.dispatchEvent(new CustomEvent("products:updated"));
             setConfirm({open: false});
             setEdit({mode: "none"});
-        } catch (e: any) {
-            alert(e?.message || "Ошибка сохранения");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                alert(e.message);
+            } else {
+                alert("Ошибка сохранения");
+            }
         }
     };
 
@@ -170,94 +270,128 @@ export default function ProductsPrivate() {
                     </div>
                 )}
 
-                {/* Desktop таблица */}
-                <div className="mt-6 hidden overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
-                    <table className="min-w-full text-sm">
-                        <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
-                        <tr>
-                            <Th>ID</Th>
-                            <Th>Название</Th>
-                            <Th>Бренд</Th>
-                            <Th>Цена</Th>
-                            <Th>Наличие</Th>
-                            <Th>Категория</Th>
-                            <Th>Подкатегория</Th>
-                            <Th className="text-right">Действия</Th>
-                        </tr>
-                        </thead>
-                        <tbody className="divide-y dark:divide-white/10">
-                        {loading ? (
-                            <tr><Td colSpan={8} className="py-10 text-center text-gray-500">Загрузка…</Td></tr>
-                        ) : filtered.length === 0 ? (
-                            <tr><Td colSpan={8} className="py-10 text-center text-gray-500">Ничего не найдено</Td></tr>
-                        ) : (
-                            filtered.map((p) => (
-                                <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
-                                    <Td>{p.id}</Td>
-                                    <Td className="font-medium">{p.title}</Td>
-                                    <Td>{p.brand}</Td>
-                                    <Td>${p.price}</Td>
-                                    <Td>{p.inStock ? <Badge ok>да</Badge> : <Badge>нет</Badge>}</Td>
-                                    <Td>{p.category}</Td>
-                                    <Td>{p.subcategory}</Td>
-                                    <Td className="text-right">
-                                        {isAdmin ? (
-                                            <>
-                                                <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
-                                                <ActionBtn danger className="ml-2" onClick={() => askRemove(p)}>
-                                                    Удалить
-                                                </ActionBtn>
-                                            </>
-                                        ) : (
-                                            <span className="text-gray-400">Только просмотр</span>
-                                        )}
-                                    </Td>
+                {!isMobile ? (
+                    <Container>
+                        {/* ——— Desktop: таблица (>= sm) ——— */}
+                        <div className="mt-6 overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
+                            <table className="min-w-full text-sm">
+                                <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
+                                <tr>
+                                    <Th>ID</Th>
+                                    <Th>Название</Th>
+                                    <Th>Бренд</Th>
+                                    <Th>Цена</Th>
+                                    <Th>Наличие</Th>
+                                    <Th>Категория</Th>
+                                    <Th>Подкатегория</Th>
+                                    <Th className="text-right">Действия</Th>
                                 </tr>
-                            ))
-                        )}
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Mobile карточки */}
-                <div className="mt-6 space-y-3 sm:hidden">
-                    {loading ? (
-                        <div className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
-                            Загрузка…
-                        </div>
-                    ) : filtered.length === 0 ? (
-                        <div className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
-                            Ничего не найдено
-                        </div>
-                    ) : (
-                        filtered.map((p) => (
-                            <div key={p.id}
-                                 className="rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-black/40">
-                                <div className="flex items-start justify-between gap-3">
-                                    <div>
-                                        <div className="text-base font-semibold leading-tight">{p.title}</div>
-                                        <div
-                                            className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">ID: {p.id}</div>
-                                    </div>
-                                    <div className="shrink-0">{p.inStock ? <Badge ok>в наличии</Badge> :
-                                        <Badge>нет</Badge>}</div>
-                                </div>
-                                <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                                    <LabelValue label="Бренд" value={p.brand || "—"}/>
-                                    <LabelValue label="Цена" value={`$${p.price}`}/>
-                                    <LabelValue label="Категория" value={p.category || "—"}/>
-                                    <LabelValue label="Подкатегория" value={p.subcategory || "—"}/>
-                                </div>
-                                {isAdmin && (
-                                    <div className="mt-3 flex flex-wrap justify-end gap-2">
-                                        <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
-                                        <ActionBtn danger onClick={() => askRemove(p)}>Удалить</ActionBtn>
-                                    </div>
+                                </thead>
+                                <tbody className="divide-y dark:divide-white/10">
+                                {loading ? (
+                                    <tr><Td colSpan={8} className="py-10 text-center text-gray-500">Загрузка…</Td></tr>
+                                ) : filtered.length === 0 ? (
+                                    <tr><Td colSpan={8} className="py-10 text-center text-gray-500">Ничего не
+                                        найдено</Td></tr>
+                                ) : (
+                                    filtered.map((p) => (
+                                        <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
+                                            <Td>{p.id}</Td>
+                                            <Td className="font-medium">{p.title}</Td>
+                                            <Td>{p.brand}</Td>
+                                            <Td>${p.price}</Td>
+                                            <Td>{p.inStock ? <Badge ok>да</Badge> : <Badge>нет</Badge>}</Td>
+                                            <Td>{p.category}</Td>
+                                            <Td>{p.subcategory}</Td>
+                                            <Td className="text-right">
+                                                {isAdmin ? (
+                                                    <>
+                                                        <ActionBtn
+                                                            onClick={() => startEdit(p)}>Редактировать</ActionBtn>
+                                                        <ActionBtn danger className="ml-2" onClick={() => askRemove(p)}>
+                                                            Удалить
+                                                        </ActionBtn>
+                                                    </>
+                                                ) : (
+                                                    <span className="text-gray-400">Только просмотр</span>
+                                                )}
+                                            </Td>
+                                        </tr>
+                                    ))
                                 )}
-                            </div>
-                        ))
-                    )}
-                </div>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <PaginationControls
+                            page={page}
+                            size={size}
+                            totalPages={totalPages}
+                            onPrev={() => setPage((p) => Math.max(0, p - 1))}
+                            onNext={() => setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))}
+                            onSizeChange={(n) => {
+                                setPage(0);
+                                setSize(n);
+                            }}
+                        />
+                    </Container>
+                ) : (
+                    <Container>
+                        {/* ——— Mobile: карточки ( < sm ) ——— */}
+                        <div className="mt-6 space-y-3 sm:hidden">
+                            {loading ? (
+                                <div
+                                    className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
+                                    Загрузка…
+                                </div>
+                            ) : filtered.length === 0 ? (
+                                <div
+                                    className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
+                                    Ничего не найдено
+                                </div>
+                            ) : (
+                                filtered.map((p) => (
+                                    <div key={p.id}
+                                         className="rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-black/40">
+                                        <div className="flex items-start justify-between gap-3">
+                                            <div>
+                                                <div className="text-base font-semibold leading-tight">{p.title}</div>
+                                                <div
+                                                    className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">ID: {p.id}</div>
+                                            </div>
+                                            <div className="shrink-0">{p.inStock ? <Badge ok>в наличии</Badge> :
+                                                <Badge>нет</Badge>}</div>
+                                        </div>
+                                        <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                                            <LabelValue label="Бренд" value={p.brand || "—"}/>
+                                            <LabelValue label="Цена" value={`$${p.price}`}/>
+                                            <LabelValue label="Категория" value={p.category || "—"}/>
+                                            <LabelValue label="Подкатегория" value={p.subcategory || "—"}/>
+                                        </div>
+                                        {isAdmin && (
+                                            <div className="mt-3 flex flex-wrap justify-end gap-2">
+                                                <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
+                                                <ActionBtn danger onClick={() => askRemove(p)}>Удалить</ActionBtn>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))
+                            )}
+                        </div>
+
+                        <PaginationControls
+                            page={page}
+                            size={size}
+                            totalPages={totalPages}
+                            onPrev={() => setPage((p) => Math.max(0, p - 1))}
+                            onNext={() => setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))}
+                            onSizeChange={(n) => {
+                                setPage(0);
+                                setSize(n);
+                            }}
+                        />
+                    </Container>
+                )}
 
                 {/* Модалка редактирования/создания */}
                 {isAdmin && edit.mode !== "none" && (

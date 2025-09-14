@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
-import {apiFetch, configureApi} from "../api/api.ts";
+import {apiFetch} from "../api/api.ts";
 import {decodeJwt, isExpired, type JwtPayload} from "./jwt.ts";
 
 export type User = {
@@ -46,39 +46,25 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem(LS_TOKEN));
     const [user, setUser] = useState<User | null>(() => (token ? extractUser(token) : null));
 
-    // Подключаем перехватчики API
-    useEffect(() => {
-        configureApi({
-            getToken: () => token,
-            onUnauthorized: () => logout(),
-        });
-    }, [token]);
-
-    // При монтировании — выкинуть протухший токен
-    useEffect(() => {
-        if (token && isExpired(token)) {
-            logout();
-        }
-    }, []); // один раз
-
     const login = async (email: string, password: string) => {
-        // соответствуйте вашему ответу бэка:
-        // допустимые варианты: { token }, { accessToken }, { jwt }, { tokenType, accessToken }, ...
-        const body = JSON.stringify({email, password}); // если бэк ждёт username — смените ключ
-        const data = await apiFetch("/api/auth/login", {
+        const body = JSON.stringify({email, password});
+
+        const data: Record<string, unknown> = await apiFetch<Record<string, unknown>>("/api/auth/login", {
             method: "POST",
             body,
-            auth: false, // логин — без Bearer
+            auth: false,
         });
 
-        const raw =
-            data?.token ||
-            data?.accessToken ||
-            data?.jwt ||
-            (data?.tokenType && data?.accessToken ? `${data.tokenType} ${data.accessToken}` : null);
+        const tokenVal =
+            (typeof data["token"] === "string" && data["token"]) ||
+            (typeof data["accessToken"] === "string" && data["accessToken"]) ||
+            (typeof data["jwt"] === "string" && data["jwt"]) ||
+            (typeof data["tokenType"] === "string" &&
+            typeof data["accessToken"] === "string"
+                ? `${data["tokenType"]} ${data["accessToken"]}`
+                : null);
 
-        // если вернули "Bearer xxx", вырежем префикс
-        const tok = typeof raw === "string" ? raw.replace(/^Bearer\s+/i, "") : null;
+        const tok = tokenVal ? tokenVal.replace(/^Bearer\s+/i, "") : null;
         if (!tok) throw new Error("No token in response");
 
         const u = extractUser(tok);
@@ -94,6 +80,17 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
         setToken(null);
         setUser(null);
     };
+
+    useEffect(() => {
+        const onUnauthorized = () => logout();
+        window.addEventListener("auth:unauthorized", onUnauthorized as EventListener);
+        return () => window.removeEventListener("auth:unauthorized", onUnauthorized as EventListener);
+    }, [logout]);
+
+    // При монтировании — выкинуть «протухший» токен
+    useEffect(() => {
+        if (token && isExpired(token)) logout();
+    }, [token, logout]);
 
     const value = useMemo(
         () => ({user, isAuth: !!user, token, login, logout}),
