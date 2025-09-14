@@ -1,40 +1,57 @@
-// Универсальный fetch-клиент с автоподстановкой Authorization и обработкой 401
-const API_BASE =
-    import.meta.env.VITE_API_BASE_URL ||
-    "http://localhost:8181";
+// Общий HTTP клиент под Spring Boot + JWT
+export const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8181";
 
-let getToken: () => string | null = () => null;
-let onUnauthorized: () => void = () => {};
-
-export function configureApi(opts: {
-    getToken: () => string | null;
-    onUnauthorized: () => void;
-}) {
-    getToken = opts.getToken;
-    onUnauthorized = opts.onUnauthorized;
+function getToken() {
+    // если у вас есть свой AuthProvider — возьмите токен из него
+    // здесь — простой вариант: из localStorage
+    return localStorage.getItem("auth_token") || "";
 }
 
-type FetchOptions = RequestInit & { auth?: boolean };
+type FetchOptions = Omit<RequestInit, "headers" | "body"> & {
+    body?: BodyInit | object;
+    headers?: Record<string, string>;
+    auth?: boolean; // по умолчанию true — добавлять Authorization
+};
 
-export async function apiFetch(path: string, options: FetchOptions = {}) {
-    const url = path.startsWith("http") ? path : `${API_BASE}${path}`;
-    const headers = new Headers(options.headers || {});
-    headers.set("Content-Type", "application/json");
+export async function apiFetch<T = unknown>(path: string, opts: FetchOptions = {}): Promise<T> {
+    const url = path.startsWith("http") ? path : `${BASE_URL}${path}`;
+    const headers: Record<string, string> = {
+        "Accept": "application/json",
+        ...(opts.body instanceof FormData ? {} : {"Content-Type": "application/json"}),
+        ...(opts.headers || {}),
+    };
 
-    if (options.auth !== false) {
+    if (opts.auth !== false) {
         const token = getToken();
-        if (token) headers.set("Authorization", `Bearer ${token}`);
+        if (token) headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const res = await fetch(url, { ...options, headers });
-    if (res.status === 401) {
-        onUnauthorized();
-        throw new Error("Unauthorized");
+    const res = await fetch(url, {
+        ...opts,
+        headers,
+        body: opts.body instanceof FormData ? opts.body : opts.body != null ? JSON.stringify(opts.body) : undefined,
+    });
+
+    // 204 No Content
+    if (res.status === 204) return undefined as unknown as T;
+
+    const text = await res.text();
+    let data: any;
+    try {
+        data = text ? JSON.parse(text) : null;
+    } catch {
+        data = text;
     }
+
     if (!res.ok) {
-        const text = await res.text().catch(() => "");
-        throw new Error(text || `HTTP ${res.status}`);
+        const message = (data && (data.message || data.error)) || res.statusText || "Request error";
+        // возможная централизованная обработка 401
+        if (res.status === 401) {
+            // вариант: диспатч глобального события, редирект на /login и пр.
+            window.dispatchEvent(new CustomEvent("auth:unauthorized"));
+        }
+        throw new Error(message);
     }
-    const ct = res.headers.get("content-type") || "";
-    return ct.includes("application/json") ? res.json() : res.text();
+
+    return data as T;
 }
