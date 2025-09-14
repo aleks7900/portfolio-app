@@ -9,6 +9,12 @@ type EditState =
     | { mode: "edit"; draft: Product; index: number }
     | { mode: "create"; draft: Product };
 
+type ConfirmState =
+    | { open: false }
+    | { open: true; kind: "delete"; index: number; title: string }
+    | { open: true; kind: "save-edit"; draft: Product }
+    | { open: true; kind: "save-create"; draft: Product };
+
 const emptyProduct = (idHint: number): Product => ({
     id: idHint,
     title: "",
@@ -23,9 +29,10 @@ export default function ProductsPrivate() {
     const [items, setItems] = useState<Product[]>(() => loadAdminProducts(SEED));
     const [edit, setEdit] = useState<EditState>({mode: "none"});
     const [query, setQuery] = useState("");
+    const [confirm, setConfirm] = useState<ConfirmState>({open: false});
 
-    const {user} = useAuth();            // ← кто вошёл
-    const isAdmin = !!user?.isAdmin;       // ← права
+    const {user} = useAuth(); // ← кто вошёл
+    const isAdmin = !!user?.isAdmin; // ← права
 
     const brands = useMemo(
         () => Array.from(new Set(items.map((p) => p.brand))).filter(Boolean).sort(),
@@ -54,37 +61,66 @@ export default function ProductsPrivate() {
     }, [items, query]);
 
     const startCreate = () => {
-        if (!isAdmin) return;                // защита
+        if (!isAdmin) return; // защита
         const nextId = Math.max(0, ...items.map((p) => p.id)) + 1;
         setEdit({mode: "create", draft: emptyProduct(nextId)});
     };
 
     const startEdit = (idx: number) => isAdmin && setEdit({mode: "edit", draft: {...items[idx]}, index: idx});
 
-    const remove = (idx: number) => {
+    // --- удаление: сначала спросим подтверждение
+    const askRemove = (idx: number) => {
         if (!isAdmin) return;
+        const p = items[idx];
+        setConfirm({open: true, kind: "delete", index: idx, title: p?.title || `#${p?.id}`});
+    };
+
+    // --- фактически удалить
+    const removeNow = (idx: number) => {
         const next = items.slice();
         next.splice(idx, 1);
         setItems(next);
         saveAdminProducts(next);
+        // уведомим слушателей каталога (если подписан)
+        window.dispatchEvent(new CustomEvent("products:updated"));
     };
 
-    const save = () => {
-        if (edit.mode === "none") return;
+    // --- фактически сохранить (для edit/create)
+    const saveNow = (draft: Product, mode: "edit" | "create") => {
         const next = items.slice();
-        if (edit.mode === "edit") {
-            next[edit.index] = edit.draft;
+        if (mode === "edit" && edit.mode === "edit") {
+            next[edit.index] = draft;
         } else {
-            next.push(edit.draft);
+            next.push(draft);
         }
         setItems(next);
         saveAdminProducts(next);
         setEdit({mode: "none"});
+        window.dispatchEvent(new CustomEvent("products:updated"));
     };
 
     const setDraft = <K extends keyof Product>(key: K, val: Product[K]) => {
         if (edit.mode === "none") return;
         setEdit({...edit, draft: {...edit.draft, [key]: val}});
+    };
+
+    // --- нажатие «Сохранить» в форме: вместо немедленного сохранения покажем подтверждение
+    const askSaveFromForm = () => {
+        if (edit.mode === "edit") setConfirm({open: true, kind: "save-edit", draft: edit.draft});
+        if (edit.mode === "create") setConfirm({open: true, kind: "save-create", draft: edit.draft});
+    };
+
+    // --- обработка подтверждения модалки
+    const onConfirm = () => {
+        if (!confirm.open) return;
+        if (confirm.kind === "delete") {
+            removeNow(confirm.index);
+        } else if (confirm.kind === "save-edit") {
+            saveNow(confirm.draft, "edit");
+        } else if (confirm.kind === "save-create") {
+            saveNow(confirm.draft, "create");
+        }
+        setConfirm({open: false});
     };
 
     return (
@@ -155,12 +191,12 @@ export default function ProductsPrivate() {
                                         <>
                                             <button
                                                 onClick={() => startEdit(idx)}
-                                                className="rounded-lg border px-3 py-1 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                                                className="rounded-lg border px-3 py-1 hover:bg-black/5 dark:border-white/20 dark:hover:bg:white/10"
                                             >
                                                 Редактировать
                                             </button>
                                             <button
-                                                onClick={() => remove(idx)}
+                                                onClick={() => askRemove(idx)} // ← теперь спрашиваем подтверждение
                                                 className="ml-2 rounded-lg border px-3 py-1 text-rose-600 hover:bg-rose-50 dark:border-white/20 dark:hover:bg-rose-500/10"
                                             >
                                                 Удалить
@@ -174,7 +210,7 @@ export default function ProductsPrivate() {
                         ))}
                         {filtered.length === 0 && (
                             <tr>
-                                <Td colSpan={8} className="text-center py-8 text-gray-500">
+                                <Td colSpan={8} className="py-8 text-center text-gray-500">
                                     Ничего не найдено
                                 </Td>
                             </tr>
@@ -187,7 +223,7 @@ export default function ProductsPrivate() {
                 {isAdmin && edit.mode !== "none" && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
                         <div
-                            className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:bg-black dark:border-white/10">
+                            className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:bg-black">
                             <div className="mb-4 text-lg font-semibold">
                                 {edit.mode === "edit" ? "Редактировать товар" : "Новый товар"}
                             </div>
@@ -198,7 +234,7 @@ export default function ProductsPrivate() {
                                         type="number"
                                         value={edit.draft.id}
                                         onChange={(e) => setDraft("id", Number(e.currentTarget.value))}
-                                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                     />
                                 </Field>
 
@@ -206,7 +242,7 @@ export default function ProductsPrivate() {
                                     <input
                                         value={edit.draft.title}
                                         onChange={(e) => setDraft("title", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg:black"
                                     />
                                 </Field>
 
@@ -215,7 +251,7 @@ export default function ProductsPrivate() {
                                         list="brands"
                                         value={edit.draft.brand}
                                         onChange={(e) => setDraft("brand", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg:black"
                                     />
                                     <datalist id="brands">
                                         {brands.map((b) => (
@@ -229,7 +265,7 @@ export default function ProductsPrivate() {
                                         type="number"
                                         value={edit.draft.price}
                                         onChange={(e) => setDraft("price", Number(e.currentTarget.value))}
-                                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border:white/20 dark:bg:black"
                                     />
                                 </Field>
 
@@ -249,7 +285,7 @@ export default function ProductsPrivate() {
                                         list="cats"
                                         value={edit.draft.category}
                                         onChange={(e) => setDraft("category", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border:white/20 dark:bg:black"
                                     />
                                     <datalist id="cats">
                                         {categories.map((c) => (
@@ -263,7 +299,7 @@ export default function ProductsPrivate() {
                                         list="subs"
                                         value={edit.draft.subcategory}
                                         onChange={(e) => setDraft("subcategory", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                        className="w-full rounded-xl border px-3 py-2 dark:border:white/20 dark:bg:black"
                                     />
                                     <datalist id="subs">
                                         {subcategories.map((s) => (
@@ -275,16 +311,66 @@ export default function ProductsPrivate() {
 
                             <div className="mt-6 flex items-center gap-2">
                                 <button
-                                    onClick={save}
+                                    onClick={askSaveFromForm} // ← вместо немедленного сохранения
                                     className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
                                 >
                                     Сохранить
                                 </button>
                                 <button
                                     onClick={() => setEdit({mode: "none"})}
-                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
+                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border:white/20 dark:hover:bg:white dark:hover:text-black"
                                 >
                                     Отмена
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Модалка подтверждения (общая для удаления/сохранения) */}
+                {confirm.open && (
+                    <div
+                        role="dialog"
+                        aria-modal="true"
+                        className="fixed inset-0 z-[120] flex items-center justify-center p-4"
+                        onMouseDown={(e) => {
+                            if (e.target === e.currentTarget) setConfirm({open: false});
+                        }}
+                    >
+                        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"/>
+                        <div
+                            className="relative w-3/5 max-w-md rounded-2xl border bg-white p-5 shadow-xl dark:border:white/10 dark:bg-neutral-900">
+                            <div className="text-lg font-semibold">
+                                {confirm.kind === "delete" && "Удалить продукт?"}
+                                {confirm.kind === "save-edit" && "Сохранить изменения?"}
+                                {confirm.kind === "save-create" && "Добавить продукт?"}
+                            </div>
+
+                            <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">
+                                {confirm.kind === "delete" && (
+                                    <>Вы действительно хотите удалить <b>{confirm.title}</b>? Действие необратимо.</>
+                                )}
+                                {confirm.kind === "save-edit" && (
+                                    <>Сохранить изменения для <b>{confirm.draft.title || `#${confirm.draft.id}`}</b>?</>
+                                )}
+                                {confirm.kind === "save-create" && (
+                                    <>Добавить новый продукт <b>{confirm.draft.title || `#${confirm.draft.id}`}</b> в
+                                        список?</>
+                                )}
+                            </div>
+
+                            <div className="mt-6 flex justify-end gap-2">
+                                <button
+                                    onClick={() => setConfirm({open: false})}
+                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5 dark:border:white/10 dark:hover:bg:white/10"
+                                >
+                                    Отмена
+                                </button>
+                                <button
+                                    onClick={onConfirm}
+                                    className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                                >
+                                    Подтвердить
                                 </button>
                             </div>
                         </div>
