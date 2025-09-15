@@ -1,136 +1,169 @@
-// src/home/PopularBlocks.tsx
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
+import Container from "../shared/Container";
+import {useNavigate} from "react-router-dom";
+import {listProducts, type ProductsPage} from "../shared/api/repo.ts";
 import type {Product} from "../data/types.ts";
-import {loadAdminProducts} from "../data/data.ts";
-import ProductDetails from "../modals/ProductDetails.tsx";
-import {NavLink} from "react-router-dom";
-import Container from "../shared/Container"; // ⬅️ добавили
 
-type CardProps = { p: Product; onOpen: (p: Product) => void };
+type BlockState = {
+    loading: boolean;
+    error: string | null;
+    items: Product[];
+};
 
-function ProductCard({p, onOpen}: CardProps) {
-    return (
-        <article
-            role="button"
-            tabIndex={0}
-            onClick={() => onOpen(p)}
-            onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    onOpen(p);
-                }
-            }}
-            className="
-        cursor-pointer rounded-2xl border bg-white p-4 shadow-sm outline-none
-        hover:ring-2 hover:ring-gray-300 ring-offset-2 ring-offset-white
-        dark:bg-black dark:border-white/10 dark:ring-offset-black
-      "
-        >
-            <div className="h-40 rounded-xl bg-gray-100 dark:bg-white/10"/>
-            <div className="mt-3 flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                    <div className="truncate text-sm font-medium">{p.title}</div>
-                    <div className="truncate text-xs text-gray-500">{p.brand}</div>
-                </div>
-                <div className="shrink-0 text-sm font-semibold">${p.price}</div>
-            </div>
-            <div className="mt-2 text-xs">
-                {p.inStock ? (
-                    <span
-                        className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">В наличии</span>
-                ) : (
-                    <span
-                        className="rounded-full bg-rose-100 px-2 py-1 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">Нет в наличии</span>
-                )}
-            </div>
-        </article>
-    );
+function useProductsBlock(params: Parameters<typeof listProducts>[0]) {
+    const [state, setState] = useState<BlockState>({loading: true, error: null, items: []});
+
+    useEffect(() => {
+        let cancelled = false;
+
+        async function run() {
+            setState((s) => ({...s, loading: true, error: null}));
+            try {
+                const page: ProductsPage = await listProducts(params || {});
+                if (!cancelled) setState({loading: false, error: null, items: page.content});
+            } catch (e: unknown) {
+                if (!cancelled) setState({
+                    loading: false,
+                    error: e instanceof Error ? e.message : "Load error",
+                    items: []
+                });
+            }
+        }
+
+        run();
+        return () => {
+            cancelled = true;
+        };
+    }, [JSON.stringify(params)]); // простая мемо-зависимость
+
+    return state;
 }
 
 export default function PopularBlocks() {
-    const [items, setItems] = useState<Product[]>(() => loadAdminProducts());
-    const [selected, setSelected] = useState<Product | null>(null);
-    const [open, setOpen] = useState(false);
-    const openDetails = (p: Product) => {
-        setSelected(p);
-        setOpen(true);
-    };
+    // «популярное»: возьмём самые дорогие как заглушку сортировки
+    const popular = useProductsBlock({page: 0, size: 8, sort: "price,desc"});
 
-    useEffect(() => {
-        const reload = () => setItems(loadAdminProducts());
-        window.addEventListener("products:updated", reload);
-        window.addEventListener("storage", reload);
-        return () => {
-            window.removeEventListener("products:updated", reload);
-            window.removeEventListener("storage", reload);
-        };
-    }, []);
+    // «ноутбуки»
+    const laptops = useProductsBlock({
+        page: 0,
+        size: 8,
+        sort: "title,asc",
+        category: "electronics",
+        subcategory: "laptops",
+    });
 
-    const popular = useMemo(() => {
-        return items
-            .slice()
-            .sort((a, b) =>
-                Number(b.inStock) - Number(a.inStock) ||
-                (b.rating ?? 0) - (a.rating ?? 0) ||
-                b.id - a.id
-            )
-            .slice(0, 8);
-    }, [items]);
-
-    const laptops = useMemo(() => {
-        return items
-            .filter(p => p.category === "electronics" && p.subcategory === "laptops")
-            .slice(0, 8);
-    }, [items]);
-
-    if (!items.length) return null;
+    const navigate = useNavigate();
 
     return (
-        <section className="mt-10">
+        <section className="scroll-mt-24 py-12 sm:py-16">
             <Container>
-                <div className="space-y-10">
-                    {/* Популярные */}
-                    <div>
-                        <div className="mb-3 flex items-center justify-between">
-                            <h3 className="text-lg sm:text-xl font-semibold tracking-tight">Популярные</h3>
-                            <NavLink
-                                to="/catalog/electronics"
-                                className="text-sm underline decoration-dotted underline-offset-4 hover:opacity-80"
-                            >
-                                Смотреть все
-                            </NavLink>
-                        </div>
-                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                            {popular.map(p => (
-                                <ProductCard key={p.id} p={p} onOpen={openDetails}/>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Ноутбуки */}
-                    {laptops.length > 0 && (
-                        <div>
-                            <div className="mb-3 flex items-center justify-between">
-                                <h3 className="text-lg sm:text-xl font-semibold tracking-tight">Ноутбуки</h3>
-                                <NavLink
-                                    to="/catalog/electronics/laptops"
-                                    className="text-sm underline decoration-dotted underline-offset-4 hover:opacity-80"
-                                >
-                                    Смотреть все
-                                </NavLink>
-                            </div>
-                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                                {laptops.map(p => (
-                                    <ProductCard key={p.id} p={p} onOpen={openDetails}/>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
+                <Block
+                    title="Популярные товары"
+                    state={popular}
+                    onSeeAll={() => navigate("/catalog?sort=price,desc&page=0&size=12")}
+                />
+                <div className="mt-10 sm:mt-14"/>
+                <Block
+                    title="Ноутбуки"
+                    state={laptops}
+                    onSeeAll={() =>
+                        navigate("/catalog?category=electronics&subcategory=laptops&sort=title,asc&page=0&size=12")
+                    }
+                />
             </Container>
-
-            {/* Модалка деталей */}
-            <ProductDetails product={selected} open={open} onClose={() => setOpen(false)}/>
         </section>
+    );
+}
+
+/* ---------- UI блок ---------- */
+
+function Block({
+                   title,
+                   state,
+                   onSeeAll,
+               }: {
+    title: string;
+    state: BlockState;
+    onSeeAll: () => void;
+}) {
+    return (
+        <div>
+            <div className="mb-4 flex items-end justify-between">
+                <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h3>
+                <button
+                    onClick={onSeeAll}
+                    className="rounded-xl border px-3 py-1.5 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                >
+                    Смотреть всё
+                </button>
+            </div>
+
+            {state.error && (
+                <div
+                    className="mb-3 rounded-xl bg-rose-50 p-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-200">
+                    {state.error}
+                </div>
+            )}
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {state.loading
+                    ? Array.from({length: 8}).map((_, i) => (
+                        <div
+                            key={i}
+                            className="h-40 animate-pulse rounded-2xl border bg-gray-100 dark:border-white/10 dark:bg-white/5"
+                        />
+                    ))
+                    : state.items.map((p) => <ProductCard key={p.id} p={p}/>)}
+            </div>
+        </div>
+    );
+}
+
+/* ---------- Карточка товара ---------- */
+
+function ProductCard({p}: { p: Product }) {
+    const navigate = useNavigate();
+
+    return (
+        <article
+            className="group rounded-2xl border p-4 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-black/40"
+            role="button"
+            onClick={() => navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`)}
+            tabIndex={0}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`);
+                }
+            }}
+        >
+            {/* Превью-заглушка: можно заменить на реальное изображение, если есть p.images[0] */}
+            <div
+                className="mb-3 h-28 w-full rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/10 dark:to-white/5"/>
+
+            <div className="text-sm text-gray-500 dark:text-gray-400">{p.brand || "\u2014"}</div>
+            <div className="mt-0.5 line-clamp-2 font-medium">{p.title}</div>
+
+            <div className="mt-2 flex items-center justify-between text-sm">
+                <div className="text-gray-600 dark:text-gray-300">
+                    {p.category}
+                    {p.subcategory ? ` / ${p.subcategory}` : ""}
+                </div>
+                <div className="font-semibold tabular-nums">${p.price}</div>
+            </div>
+
+            <div className="mt-2 text-xs">
+                {p.inStock ? (
+                    <span
+                        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+            в наличии
+          </span>
+                ) : (
+                    <span
+                        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+            нет на складе
+          </span>
+                )}
+            </div>
+        </article>
     );
 }
