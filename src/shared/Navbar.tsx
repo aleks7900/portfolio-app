@@ -9,6 +9,7 @@ import DesktopCatalog from "../dropdowns/DesktopCatalog.tsx";
 import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
 import LoginDialog from "../modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
+import AdminMenu from "../pages/admin/AdminMenu.tsx";
 
 
 function LangToggle() {
@@ -71,10 +72,7 @@ export default function Navbar() {
                             <ArrowUpRight className="ml-1 h-4 w-4"/></NavLink>
                         {isAuth ? (
                             <>
-                                <NavLink to="/products"
-                                         className={({isActive}) => `group inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm ${isActive ? "bg-black text-white dark:bg-white dark:text-black" : "hover:bg-black/5 dark:hover:bg-white/10"}`}>
-                                    <User className="h-4 w-4"/> {t("nav_products_private")}
-                                </NavLink>
+                                <AdminMenu />
                                 <button onClick={() => setConfirmOpen(true)}
                                         className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10">
                                     <LogOut className="h-4 w-4"/> {t("logout")}

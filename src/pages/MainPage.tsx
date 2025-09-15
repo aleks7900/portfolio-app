@@ -12,6 +12,7 @@ export default function MainPage() {
         <>
             {/* 🔎 Строка поиска над слайд-шоу */}
             <HomeSearch/>
+            <div className="mt-4"></div>
             {/* 🎞️ Твой слайдер (Keen-slider) */}
             <Slideshow/>
             <Hero/>

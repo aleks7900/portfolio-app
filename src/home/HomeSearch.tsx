@@ -98,16 +98,25 @@ export default function HomeSearch() {
     }, [qDebounced]);
 
     // закрытие по клику вне
+    // 1) refs
+    const menuRef = useRef<HTMLDivElement | null>(null);
+
+// 2) Вне-клик — по "click" и с проверкой на меню
     useEffect(() => {
-        const onClick = (e: MouseEvent) => {
+        const onDocClick = (e: MouseEvent) => {
             if (!open) return;
             const target = e.target as Node;
-            if (inputRef.current && !inputRef.current.contains(target)) {
-                setOpen(false);
+            // если клик внутри инпута или меню — не закрываем
+            if (
+                (inputRef.current && inputRef.current.contains(target)) ||
+                (menuRef.current && menuRef.current.contains(target))
+            ) {
+                return;
             }
+            setOpen(false);
         };
-        document.addEventListener("mousedown", onClick);
-        return () => document.removeEventListener("mousedown", onClick);
+        document.addEventListener("click", onDocClick);  // ⬅ было mousedown
+        return () => document.removeEventListener("click", onDocClick);
     }, [open, inputRef]);
 
     const submit = (query: string) => {
@@ -164,7 +173,7 @@ export default function HomeSearch() {
                 <div className="mx-auto max-w-4xl px-4">
                     <label className="block">
                         <div className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-                            {tf("search_title", "Поиск по товарам")}
+                            {tf("search_all_products", "Поиск по товарам")}
                         </div>
                         <input
                             ref={inputRef}
@@ -185,6 +194,7 @@ export default function HomeSearch() {
                 {open && rect && createPortal(
                     <div style={portalStyle}>
                         <div
+                            ref={menuRef}
                             className="overflow-hidden rounded-2xl border bg-white/95 shadow-xl backdrop-blur dark:border-white/10 dark:bg-neutral-900/95">
                             <div className="transition-opacity duration-150 ease-out">
                                 {loading && (
@@ -208,7 +218,7 @@ export default function HomeSearch() {
                                                     <button
                                                         type="button"
                                                         onMouseEnter={() => setActiveIdx(idx)}
-                                                        onClick={() => submit(p.title)}
+                                                        onMouseDown={() => submit(p.title)}
                                                         className={`flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm
                                      ${active ? "bg-black/5 dark:bg-white/10" : ""}`}
                                                     >
@@ -239,6 +249,7 @@ export default function HomeSearch() {
                     document.body
                 )}
             </div>
+            <div className="mb-4"></div>
         </Container>
     );
 }

@@ -14,6 +14,8 @@ import ServicePage from "./pages/ServicePage.tsx";
 import ContactsPage from "./pages/ContactsPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import Footer from "./pages/components/Footer.tsx";
+import RequestsPage from "./pages/private/RequestsPage.tsx";
+import UsersPage from "./pages/private/UsersPage.tsx";
 
 export default function App() {
     return (
@@ -49,6 +51,22 @@ export default function App() {
                                         element={
                                             <AdminRoute>
                                                 <ProductsPrivate/>
+                                            </AdminRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/requests"
+                                        element={
+                                            <AdminRoute>
+                                                <RequestsPage />
+                                            </AdminRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/users"
+                                        element={
+                                            <AdminRoute>
+                                                <UsersPage />
                                             </AdminRoute>
                                         }
                                     />
