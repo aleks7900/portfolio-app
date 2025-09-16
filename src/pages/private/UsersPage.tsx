@@ -1,7 +1,10 @@
 import Container from "../../shared/Container.tsx";
-
+import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 
 export default function UsersPage() {
+
+    const isMobile = useMediaQuery("(max-width: 1024px)");
+
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
             <Container>

@@ -1,40 +1,104 @@
-import {useI18n} from "../shared/i18n/i18n.tsx";
-import Section from "./components/Section.tsx";
+// src/pages/ContactsPage.tsx (фрагмент)
+import React from "react";
+import Container from "../shared/Container";
 import {createRequest} from "../shared/api/requestsRepo.ts";
 
-async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    await createRequest({
-        name: String(form.get("name") || ""),
-        email: String(form.get("email") || ""),
-        phone: String(form.get("phone") || ""),
-        subject: String(form.get("subject") || ""),
-        message: String(form.get("message") || ""),
-    });
-    alert("Заявка отправлена!");
-    e.currentTarget.reset();
-}
-
 export default function ContactsPage() {
-    const {t} = useI18n();
+    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+
+        // ВАЖНО: имена точно совпадают с DTO на бэке
+        const name = String(fd.get("name") || "").trim();
+        const email = String(fd.get("email") || "").trim();
+        const phone = String(fd.get("phone") || "").trim();
+        const subject = String(fd.get("subject") || "").trim();
+        const message = String(fd.get("message") || "").trim();
+
+        // простая валидация до запроса
+        if (!name || !message) {
+            alert("Введите имя и сообщение.");
+            return;
+        }
+
+        try {
+            await createRequest({name, email, phone, subject, message});
+            alert("Заявка отправлена!");
+            e.currentTarget.reset(); // очистить форму
+        } catch (err) {
+            console.error(err);
+            alert("Не удалось отправить заявку");
+        }
+    }
+
     return (
-        <Section titleKey="contacts_title" leadKey="contacts_lead">
-            <form onSubmit={(e) => onSubmit(e)} className="max-w-xl space-y-4">
-                <div><label className="block text-sm font-medium">{t("contacts_name")}</label><input
-                    className="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-gray-300 dark:bg-black dark:border-white/20 dark:focus:ring-white/20"
-                    placeholder={t("contacts_name")}/></div>
-                <div><label className="block text-sm font-medium">{t("contacts_email")}</label><input type="email"
-                                                                                                      className="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-gray-300 dark:bg-black dark:border-white/20 dark:focus:ring-white/20"
-                                                                                                      placeholder="you@example.com"/>
-                </div>
-                <div><label className="block text-sm font-medium">{t("contacts_msg")}</label><textarea
-                    className="mt-1 w-full rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-gray-300 dark:bg-black dark:border-white/20 dark:focus:ring-white/20"
-                    placeholder={t("contacts_msg")} rows={4}/></div>
-                <button type="submit"
-                        className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90">{t("contacts_send")}</button>
-            </form>
-        </Section>
+        <section className="scroll-mt-24 py-20 sm:py-28">
+            <Container>
+                <h1 className="mb-6 text-3xl font-semibold">Связаться с нами</h1>
+
+                <form onSubmit={onSubmit} className="grid max-w-2xl gap-4">
+                    {/* ВАЖНО: у каждого поля есть name */}
+                    <label className="block">
+                        <div className="mb-1 text-sm font-medium">Ваше имя *</div>
+                        <input
+                            name="name"
+                            required
+                            autoComplete="name"
+                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                        />
+                    </label>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                        <label className="block">
+                            <div className="mb-1 text-sm font-medium">Email</div>
+                            <input
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                            />
+                        </label>
+
+                        <label className="block">
+                            <div className="mb-1 text-sm font-medium">Телефон</div>
+                            <input
+                                name="phone"
+                                autoComplete="tel"
+                                className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                            />
+                        </label>
+                    </div>
+
+                    <label className="block">
+                        <div className="mb-1 text-sm font-medium">Тема</div>
+                        <input
+                            name="subject"
+                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                        />
+                    </label>
+
+                    <label className="block">
+                        <div className="mb-1 text-sm font-medium">Сообщение *</div>
+                        <textarea
+                            name="message"
+                            required
+                            rows={5}
+                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                        />
+                    </label>
+
+                    <div className="pt-2">
+                        {/* ВАЖНО: type="submit" */}
+                        <button
+                            type="submit"
+                            className="rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                        >
+                            Отправить
+                        </button>
+                    </div>
+                </form>
+            </Container>
+        </section>
     );
 }
 

@@ -10,6 +10,7 @@ import {
     updateProduct
 } from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
+import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 
 
 /* =========================
@@ -39,19 +40,6 @@ const emptyProduct = (): Product => ({
 
 function toNum(v: unknown, def = 0) {
     return typeof v === "number" ? v : def;
-}
-
-function useMediaQuery(query: string) {
-    const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
-
-    useEffect(() => {
-        const media = window.matchMedia(query);
-        const listener = () => setMatches(media.matches);
-        media.addEventListener("change", listener);
-        return () => media.removeEventListener("change", listener);
-    }, [query]);
-
-    return matches;
 }
 
 /* =========================
@@ -215,61 +203,62 @@ export default function ProductsPrivate() {
                 {!isMobile ? (
                     <Container>
                         {/* ——— Desktop: таблица (>= sm) ——— */}
-                <div className="mt-6 overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
-                    <table className="min-w-full text-sm">
-                        <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
-                        <tr>
-                            <Th>ID</Th>
-                            <Th>Название</Th>
-                            <Th>Бренд</Th>
-                            <Th>Цена</Th>
-                            <Th>Наличие</Th>
-                            <Th>Категория</Th>
-                            <Th>Подкатегория</Th>
-                            <Th className="text-right">Действия</Th>
-                        </tr>
-                        </thead>
-                        <tbody className="divide-y dark:divide-white/10">
-                        {loading ? (
-                            <tr>
-                                <Td colSpan={8} className="py-10 text-center text-gray-500">
-                                    Загрузка…
-                                </Td>
-                            </tr>
-                        ) : items.length === 0 ? (
-                            <tr>
-                                <Td colSpan={8} className="py-10 text-center text-gray-500">
-                                    Ничего не найдено
-                                </Td>
-                            </tr>
-                        ) : (
-                            items.map((p) => (
-                                <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
-                                    <Td>{p.id}</Td>
-                                    <Td className="font-medium">{p.title}</Td>
-                                    <Td>{p.brand}</Td>
-                                    <Td>${p.price}</Td>
-                                    <Td>{p.inStock ? <Badge ok>да</Badge> : <Badge>нет</Badge>}</Td>
-                                    <Td>{p.category}</Td>
-                                    <Td>{p.subcategory}</Td>
-                                    <Td className="text-right">
-                                        {isAdmin ? (
-                                            <>
-                                                <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
-                                                <ActionBtn danger className="ml-2" onClick={() => askRemove(p)}>
-                                                    Удалить
-                                                </ActionBtn>
-                                            </>
-                                        ) : (
-                                            <span className="text-gray-400">Только просмотр</span>
-                                        )}
-                                    </Td>
+                        <div className="mt-6 overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
+                            <table className="min-w-full text-sm">
+                                <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
+                                <tr>
+                                    <Th>ID</Th>
+                                    <Th>Название</Th>
+                                    <Th>Бренд</Th>
+                                    <Th>Цена</Th>
+                                    <Th>Наличие</Th>
+                                    <Th>Категория</Th>
+                                    <Th>Подкатегория</Th>
+                                    <Th className="text-right">Действия</Th>
                                 </tr>
-                            ))
-                        )}
-                        </tbody>
-                    </table>
-                </div>
+                                </thead>
+                                <tbody className="divide-y dark:divide-white/10">
+                                {loading ? (
+                                    <tr>
+                                        <Td colSpan={8} className="py-10 text-center text-gray-500">
+                                            Загрузка…
+                                        </Td>
+                                    </tr>
+                                ) : items.length === 0 ? (
+                                    <tr>
+                                        <Td colSpan={8} className="py-10 text-center text-gray-500">
+                                            Ничего не найдено
+                                        </Td>
+                                    </tr>
+                                ) : (
+                                    items.map((p) => (
+                                        <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
+                                            <Td>{p.id}</Td>
+                                            <Td className="font-medium">{p.title}</Td>
+                                            <Td>{p.brand}</Td>
+                                            <Td>${p.price}</Td>
+                                            <Td>{p.inStock ? <Badge ok>да</Badge> : <Badge>нет</Badge>}</Td>
+                                            <Td>{p.category}</Td>
+                                            <Td>{p.subcategory}</Td>
+                                            <Td className="text-right">
+                                                {isAdmin ? (
+                                                    <>
+                                                        <ActionBtn
+                                                            onClick={() => startEdit(p)}>Редактировать</ActionBtn>
+                                                        <ActionBtn danger className="ml-2" onClick={() => askRemove(p)}>
+                                                            Удалить
+                                                        </ActionBtn>
+                                                    </>
+                                                ) : (
+                                                    <span className="text-gray-400">Только просмотр</span>
+                                                )}
+                                            </Td>
+                                        </tr>
+                                    ))
+                                )}
+                                </tbody>
+                            </table>
+                        </div>
 
                         <PaginationControls
                             page={page}
@@ -286,44 +275,46 @@ export default function ProductsPrivate() {
                 ) : (
                     <Container>
                         {/* ——— Mobile: карточки ( < sm ) ——— */}
-                <div className="mt-6 space-y-3 sm:hidden">
-                    {loading ? (
-                        <div className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
-                            Загрузка…
-                        </div>
-                    ) : items.length === 0 ? (
-                        <div className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
-                            Ничего не найдено
-                        </div>
-                    ) : (
-                        items.map((p) => (
-                            <div key={p.id}
-                                 className="rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-black/40">
-                                <div className="flex items-start justify-between gap-3">
-                                    <div>
-                                        <div className="text-base font-semibold leading-tight">{p.title}</div>
-                                        <div
-                                            className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">ID: {p.id}</div>
-                                    </div>
-                                    <div className="shrink-0">{p.inStock ? <Badge ok>в наличии</Badge> :
-                                        <Badge>нет</Badge>}</div>
+                        <div className="mt-6 space-y-3 sm:hidden">
+                            {loading ? (
+                                <div
+                                    className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
+                                    Загрузка…
                                 </div>
-                                <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                                    <LabelValue label="Бренд" value={p.brand || "—"}/>
-                                    <LabelValue label="Цена" value={`$${p.price}`}/>
-                                    <LabelValue label="Категория" value={p.category || "—"}/>
-                                    <LabelValue label="Подкатегория" value={p.subcategory || "—"}/>
+                            ) : items.length === 0 ? (
+                                <div
+                                    className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
+                                    Ничего не найдено
                                 </div>
-                                {isAdmin && (
-                                    <div className="mt-3 flex flex-wrap justify-end gap-2">
-                                        <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
-                                        <ActionBtn danger onClick={() => askRemove(p)}>Удалить</ActionBtn>
+                            ) : (
+                                items.map((p) => (
+                                    <div key={p.id}
+                                         className="rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-black/40">
+                                        <div className="flex items-start justify-between gap-3">
+                                            <div>
+                                                <div className="text-base font-semibold leading-tight">{p.title}</div>
+                                                <div
+                                                    className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">ID: {p.id}</div>
+                                            </div>
+                                            <div className="shrink-0">{p.inStock ? <Badge ok>в наличии</Badge> :
+                                                <Badge>нет</Badge>}</div>
+                                        </div>
+                                        <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                                            <LabelValue label="Бренд" value={p.brand || "—"}/>
+                                            <LabelValue label="Цена" value={`$${p.price}`}/>
+                                            <LabelValue label="Категория" value={p.category || "—"}/>
+                                            <LabelValue label="Подкатегория" value={p.subcategory || "—"}/>
+                                        </div>
+                                        {isAdmin && (
+                                            <div className="mt-3 flex flex-wrap justify-end gap-2">
+                                                <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
+                                                <ActionBtn danger onClick={() => askRemove(p)}>Удалить</ActionBtn>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </div>
-                        ))
-                    )}
-                </div>
+                                ))
+                            )}
+                        </div>
 
                         <PaginationControls
                             page={page}
