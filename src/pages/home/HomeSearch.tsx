@@ -6,6 +6,7 @@ import type {Product} from "../../data/types.ts";
 import {suggestProducts} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import {Search} from "lucide-react";
+
 // Если нет вашего i18n-хука, замени на простую функцию:
 // const t = (_k: string, d: string) => d;
 

@@ -10,6 +10,8 @@ import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
 import LoginDialog from "../modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
+import { Search } from "lucide-react";
+
 
 
 function LangToggle() {
@@ -92,6 +94,29 @@ export default function Navbar() {
 
     const [confirmOpen, setConfirmOpen] = React.useState(false);
 
+    // рядом с другими useState
+    const [showSearchBtn, setShowSearchBtn] = useState(false);
+
+// константа порога (пиксели)
+    const SCROLL_TRIGGER = 220;
+
+    React.useEffect(() => {
+        let ticking = false;
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setShowSearchBtn(window.scrollY > SCROLL_TRIGGER);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+        onScroll(); // выставить начальное состояние
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+
     const linkClass = ({ isActive }: { isActive: boolean }) =>
         [BTN, isActive ? "bg-neutral-900 text-white" : ""].join(" ");
     return (
@@ -127,6 +152,22 @@ export default function Navbar() {
                         <span className="text-lg">{t("brandLogo")}</span>
                     </a>
                     <nav className="hidden md:flex items-center gap-2">
+                        <div className="flex justify-end gap-2 items-center">
+                            {/* ПОЯВЛЯЮЩАЯСЯ КНОПКА ПОИСКА */}
+                            <button
+                                type="button"
+                                aria-label="Search"
+                                onClick={() => navigate("/search")} // ← замени на свой обработчик, если нужно открыть модалку/фокус инпут
+                                className={[
+                                    BTN_ICON,
+                                    // плавное появление/исчезновение, без «дёрганья»
+                                    "transition-opacity transition-transform duration-200",
+                                    showSearchBtn ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-1"
+                                ].join(" ")}
+                            >
+                                <Search className="h-5 w-5" />
+                            </button>
+                        </div>
                         <div className="flex items-center gap-2">
                             <DesktopCatalog />
                             <NavLink to="/service" className={linkClass} end><Hammer

@@ -59,23 +59,27 @@ const AutoPlay: KeenSliderPlugin = (slider) => {
 export default function Slideshow() {
     const [current, setCurrent] = useState(0);
 
+    // 1) useKeenSlider — добавь created:
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {
             loop: true,
             slideChanged(s) {
                 setCurrent(s.track.details.rel);
             },
+            created(s) {                      // ← добавили
+                setCurrent(s.track.details.rel);
+            },
         },
-        [AutoPlay] // подключили плагин
+        [AutoPlay]
     );
 
     return (
         <div className="relative mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem]">
             {/* Слайды */}
             <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden shadow">
-                {slides.map((s) => (
+                {slides.map((s, i) => (
                     <div
-                        key={s.id}
+                        key={i}
                         className="keen-slider__slide relative h-[400px] flex items-center justify-center bg-gray-200 dark:bg-black"
                     >
                         <img
@@ -121,18 +125,21 @@ export default function Slideshow() {
             </button>
 
             {/* Точки */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                 {slides.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => instanceRef.current?.moveToIdx(i)}
                         aria-label={`Go to slide ${i + 1}`}
+                        // важные моменты:
+                        // - у активной: !bg-red-500, !shadow-xl, !ring-2, scale-110
+                        // - у неактивной: более светлый фон + hover усиливает
                         className={[
-                            "h-3.5 w-3.5 rounded-full transition",
-                            "focus:outline-none focus:ring-2 focus:ring-red-400",
+                            "h-3.5 w-3.5 rounded-full transition transform duration-200",
+                            "!focus:outline-none !focus:ring-2 !focus:ring-red-400",
                             current === i
-                                ? "bg-red-300 shadow"
-                                : "bg-red-200/80 hover:bg-red-300"
+                                ? "!bg-red-500 !shadow-xl !shadow-red-500/40 !ring-2 !ring-red-400 scale-110"
+                                : "!bg-white/80 dark:!bg-white/50 hover:!bg-red-300 hover:!shadow"
                         ].join(" ")}
                     />
                 ))}
