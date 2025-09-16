@@ -73,7 +73,7 @@ export function CatalogGrid({
                         <button
                             type="button"                 // 🔒 явно НЕ submit
                             onClick={(e) => openDetails(e, p)}
-                            className="rounded-xl border px-3 py-1 text-xs hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
+                            className="rounded-xl border px-3 py-1 text-xs hover:!bg-black hover:!text-white dark:!border-white/20 dark:hover:!bg-white dark:hover:!text-black"
                         >
                             {t("more")}
                         </button>

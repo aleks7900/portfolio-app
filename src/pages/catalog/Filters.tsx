@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {Eraser} from "lucide-react";
 
 export type FiltersValue = {
     q: string;
@@ -35,7 +36,7 @@ export default function CatalogFilters({
         onChange({ ...value, [k]: v });
 
     return (
-        <div className="rounded-2xl border p-4 dark:border-white/10 dark:bg-black/40">
+        <div className="rounded-2xl border p-4 dark:-white/10 dark:bg-black/40">
             <div className="text-sm font-semibold">Filters</div>
 
             {/* поиск */}
@@ -45,7 +46,9 @@ export default function CatalogFilters({
                     value={qDraft}
                     onChange={(e) => setQDraft(e.currentTarget.value)}
                     placeholder="id / title / brand / category"
-                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                 />
             </div>
 
@@ -56,7 +59,9 @@ export default function CatalogFilters({
                     value={value.brand}
                     onChange={(e) => set("brand", e.currentTarget.value)}
                     placeholder="e.g. Bytek"
-                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                 />
             </div>
 
@@ -68,7 +73,9 @@ export default function CatalogFilters({
                         type="number"
                         value={value.min ?? ""}
                         onChange={(e) => set("min", e.currentTarget.value ? Number(e.currentTarget.value) : undefined)}
-                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                        className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                     />
                 </div>
                 <div>
@@ -77,7 +84,9 @@ export default function CatalogFilters({
                         type="number"
                         value={value.max ?? ""}
                         onChange={(e) => set("max", e.currentTarget.value ? Number(e.currentTarget.value) : undefined)}
-                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                        className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                     />
                 </div>
             </div>
@@ -101,7 +110,9 @@ export default function CatalogFilters({
                     <input
                         value={value.category}
                         onChange={(e) => set("category", e.currentTarget.value)}
-                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                        className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                     />
                 </div>
                 <div>
@@ -109,7 +120,9 @@ export default function CatalogFilters({
                     <input
                         value={value.subcategory}
                         onChange={(e) => set("subcategory", e.currentTarget.value)}
-                        className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                        className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                     />
                 </div>
             </div>
@@ -120,7 +133,9 @@ export default function CatalogFilters({
                 <select
                     value={value.sort}
                     onChange={(e) => set("sort", e.currentTarget.value)}
-                    className="mt-1 w-full rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                    className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
+                             !bg-white !text-black
+                             dark:!bg-white dark:!text-black"
                 >
                     <option value="title,asc">Title ↑</option>
                     <option value="title,desc">Title ↓</option>
@@ -144,9 +159,15 @@ export default function CatalogFilters({
                             sort: "title,asc",
                         })
                     }
-                    className="w-full rounded-xl border px-3 py-2 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                    className="w-72 inline-flex items-center justify-center gap-2
+                             rounded-xl border px-4 py-2 text-sm font-medium
+                             !bg-white !text-black shadow
+                             hover:!bg-black hover:!text-white hover:!shadow-lg
+                             focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                             dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                 >
-                    Clear
+                    <Eraser className="h-4 w-4" />
+                    <span>Clear</span>
                 </button>
             </div>
         </div>

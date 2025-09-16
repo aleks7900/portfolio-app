@@ -1,5 +1,5 @@
-import {useI18n} from "../shared/i18n/i18n.tsx";
-import {useAuth} from "../shared/auth/auth.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {useAuth} from "../../shared/auth/auth.tsx";
 import {useState} from "react";
 
 export default function LoginDialog({open, onClose}: { open: boolean; onClose: () => void }) {

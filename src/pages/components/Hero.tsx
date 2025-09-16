@@ -25,7 +25,7 @@ export default function Hero() {
                         <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
                         <div className="mt-6 flex flex-wrap gap-4">
                             <button onClick={() => navigate("/service")}
-                                    className="w-56 rounded-2xl border px-8 py-4 text-lg font-medium
+                                    className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium
                                                !bg-white !text-black shadow
                                                hover:!bg-black hover:!text-white hover:shadow-lg
                                                focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
@@ -33,7 +33,7 @@ export default function Hero() {
                                 {t("hero_to_services")}
                             </button>
                             <button onClick={() => navigate("/contacts")}
-                                    className="w-56 rounded-2xl border px-8 py-4 text-5xl font-medium
+                                    className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium
                                                !bg-green-500 !text-white shadow
                                                hover:!bg-green-600 hover:shadow-lg
                                                focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]

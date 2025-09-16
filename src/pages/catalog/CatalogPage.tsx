@@ -5,7 +5,7 @@ import type {Product} from "../../data/types.ts";
 import {listProducts, type ProductQuery, type ProductsPage} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import {CatalogGrid} from "./Grid.tsx";
-import ProductDetails from "../../modals/ProductDetails.tsx";
+import ProductDetails from "../modals/ProductDetails.tsx";
 
 function toQuery(v: FiltersValue, page: number, size: number): ProductQuery {
     return {

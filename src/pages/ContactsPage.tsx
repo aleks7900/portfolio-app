@@ -2,8 +2,11 @@
 import React from "react";
 import Container from "../shared/Container";
 import {createRequest} from "../shared/api/requestsRepo.ts";
+import {useI18n} from "../shared/i18n/i18n.tsx";
 
 export default function ContactsPage() {
+    const {t} = useI18n();
+
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -44,7 +47,9 @@ export default function ContactsPage() {
                             name="name"
                             required
                             autoComplete="name"
-                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                            className="w-full rounded-xl border px-3 py-2
+                                     !bg-white !text-black
+                                     dark:!bg-white dark:!text-black"
                         />
                     </label>
 
@@ -55,7 +60,9 @@ export default function ContactsPage() {
                                 name="email"
                                 type="email"
                                 autoComplete="email"
-                                className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                className="w-full rounded-xl border px-3 py-2
+                                         !bg-white !text-black
+                                         dark:!bg-white dark:!text-black"
                             />
                         </label>
 
@@ -64,7 +71,9 @@ export default function ContactsPage() {
                             <input
                                 name="phone"
                                 autoComplete="tel"
-                                className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                className="w-full rounded-xl border px-3 py-2
+                                         !bg-white !text-black
+                                         dark:!bg-white dark:!text-black"
                             />
                         </label>
                     </div>
@@ -73,7 +82,9 @@ export default function ContactsPage() {
                         <div className="mb-1 text-sm font-medium">Тема</div>
                         <input
                             name="subject"
-                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                            className="w-full rounded-xl border px-3 py-2
+                                     !bg-white !text-black
+                                     dark:!bg-white dark:!text-black"
                         />
                     </label>
 
@@ -83,7 +94,9 @@ export default function ContactsPage() {
                             name="message"
                             required
                             rows={5}
-                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                            className="w-full rounded-xl border px-3 py-2
+                                     !bg-white !text-black
+                                     dark:!bg-white dark:!text-black"
                         />
                     </label>
 
@@ -91,10 +104,14 @@ export default function ContactsPage() {
                         {/* ВАЖНО: type="submit" */}
                         <button
                             type="submit"
-                            className="rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                            className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white
+                                     hover:!bg-green-700 hover:!shadow-lg
+                                     focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
+                                     dark:!bg-green-500 dark:hover:!bg-green-400"
                         >
-                            Отправить
+                            {t("contacts_send")}
                         </button>
+
                     </div>
                 </form>
             </Container>

@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from "react";
-import type {Product} from "../data/types.ts";
-import {useI18n} from "../shared/i18n/i18n.tsx";
+import type {Product} from "../../data/types.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 // галерея
 import {useKeenSlider} from "keen-slider/react";
@@ -210,16 +210,27 @@ export default function ProductDetails({
 
                 {/* Кнопки */}
                 <div className="mt-6 flex flex-wrap items-center gap-2">
+                    {/* Cancel */}
                     <button
                         type="button"
-                        className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
                         onClick={onClose}
+                        className="rounded-xl border px-4 py-2 text-sm font-medium
+                                   !bg-white !text-black shadow
+                                   hover:!bg-black hover:!text-white hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                   dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                     >
                         {t("cancel")}
                     </button>
+
+                    {/* More */}
                     <button
                         type="button"
-                        className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
+                        className="rounded-xl border px-4 py-2 text-sm font-medium
+                                   !bg-white !text-black shadow
+                                   hover:!bg-black hover:!text-white hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                   dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                     >
                         {t("more")}
                     </button>

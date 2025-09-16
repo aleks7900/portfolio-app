@@ -184,10 +184,14 @@ export default function ProductsPrivate() {
                         {isAdmin && (
                             <button
                                 onClick={startCreate}
-                                className="shrink-0 rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                                className="shrink-0 rounded-xl !bg-gray-900 px-4 py-2 text-sm font-medium !text-white
+                                         hover:!bg-yellow-500 hover:!text-black hover:shadow-lg
+                                         focus:outline-none focus:ring-2 focus:ring-yellow-400 active:scale-[0.99]
+                                         dark:bg-white dark:text-black dark:hover:bg-yellow-400"
                             >
                                 Новый продукт
                             </button>
+
                         )}
                     </div>
                 </div>
@@ -423,15 +427,25 @@ export default function ProductsPrivate() {
                             </div>
 
                             <div className="mt-6 flex flex-wrap items-center gap-2">
+                                {/* Подтвердить */}
                                 <button
                                     onClick={askSaveFromForm}
-                                    className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                                    className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white
+                                               hover:!bg-green-700 hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
+                                               dark:bg-green-500 dark:hover:bg-green-400"
                                 >
                                     Сохранить
                                 </button>
+
+                                {/* Отмена */}
                                 <button
                                     onClick={() => setEdit({mode: "none"})}
-                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                                    className="rounded-xl border px-4 py-2 text-sm font-medium
+                                           !bg-white !text-black shadow
+                                           hover:!bg-black hover:!text-white hover:shadow-lg
+                                           focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                           dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                                 >
                                     Отмена
                                 </button>
@@ -472,17 +486,26 @@ export default function ProductsPrivate() {
                             </div>
 
                             <div className="mt-6 flex justify-end gap-2">
+                                {/* Отмена */}
                                 <button
                                     onClick={() => setConfirm({open: false})}
-                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/10"
+                                    className="rounded-xl border px-4 py-2 text-sm font-medium
+                                               !bg-white !text-black shadow
+                                               hover:!bg-black hover:!text-white hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                               dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                                 >
                                     Отмена
                                 </button>
+
+                                {/* Удалить */}
                                 <button
                                     onClick={handleConfirm}
-                                    className="rounded-xl bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                                    className="rounded-xl !bg-rose-600 px-4 py-2 text-sm font-medium !text-white
+                                               hover:!bg-rose-700 hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-rose-400 active:scale-[0.99]"
                                 >
-                                    Подтвердить
+                                    Удалить
                                 </button>
                             </div>
                         </div>
@@ -565,7 +588,7 @@ function ActionBtn({
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition
         ${
                 danger
-                    ? "bg-rose-600 text-white hover:bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400"
+                    ? "!bg-rose-600 !text-white hover:!bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400"
                     : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
             }
         ${className}`}

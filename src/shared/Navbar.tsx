@@ -21,7 +21,7 @@ import {useAuth} from "./auth/auth.tsx";
 import Container from "./Container";
 import DesktopCatalog from "../dropdowns/DesktopCatalog.tsx";
 import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
-import LoginDialog from "../modals/Login.tsx";
+import LoginDialog from "../pages/modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
 
