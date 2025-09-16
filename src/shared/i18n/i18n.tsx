@@ -5,11 +5,11 @@ export type Dictionary = Record<Lang, Record<string, string>>;
 // eslint-disable-next-line react-refresh/only-export-components
 export const dict: Dictionary = {
     ru: {
-        brandLogo: "ReactOne",
+        brandLogo: "",
         nav_service: "Сервис",
         nav_contacts: "Контакты",
         nav_about: "О нас",
-        nav_catalog: "Каталог товаров",
+        nav_catalog: "Каталог",
 // Каталог меню
         cat_electronics: "Электроника",
         cat_home: "Бытовая техника",
@@ -118,7 +118,7 @@ export const dict: Dictionary = {
         cat_furniture_legs: "ОПОРЫ"
     },
     en: {
-        brandLogo: "ReactOne",
+        brandLogo: "",
         nav_service: "Service",
         nav_contacts: "Contacts",
         nav_about: "About",

@@ -62,7 +62,7 @@ export default function Slideshow() {
     );
 
     return (
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem]">
             {/* Слайды */}
             <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden shadow">
                 {slides.map((s) => (

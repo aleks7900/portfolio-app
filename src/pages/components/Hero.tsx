@@ -14,7 +14,7 @@ export default function Hero() {
     const navigate = useNavigate();
     return (
         <section className="pt-28 sm:pt-32">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
                 <motion.div initial={{opacity: 0, y: 10}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5}}
                             className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center">
                     <div>

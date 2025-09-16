@@ -6,7 +6,7 @@ export default function Section({titleKey, leadKey, children}: { titleKey: strin
     const {t} = useI18n();
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
                 <motion.h2 initial={{opacity: 0, y: 10}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}}
                            transition={{duration: 0.4}} className="text-2xl sm:text-3xl font-semibold tracking-tight">
                     {t(titleKey)}

@@ -1,7 +1,6 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {I18nProvider} from "./shared/i18n/i18n.tsx";
 import {ThemeProvider} from "./shared/theme/theme.tsx";
-import Navbar from "./shared/Navbar";
 import CatalogPage from "./pages/catalog/CatalogPage";
 import {AuthProvider} from "./shared/auth/auth.tsx";
 import {AdminRoute, ProtectedRoute} from "./shared/ProtectedRoute";
@@ -16,6 +15,7 @@ import AboutPage from "./pages/AboutPage.tsx";
 import Footer from "./pages/components/Footer.tsx";
 import RequestsPage from "./pages/private/RequestsPage.tsx";
 import UsersPage from "./pages/private/UsersPage.tsx";
+import Navbar from "./shared/Navbar.tsx";
 
 export default function App() {
     return (

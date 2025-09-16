@@ -10,6 +10,7 @@ import FeaturedCategories from "../home/FeaturedCategories.tsx";
 export default function MainPage() {
     return (
         <>
+            <div className="mt-12 min-h-[1rem]"></div>
             {/* 🔎 Строка поиска над слайд-шоу */}
             <HomeSearch/>
             <div className="mt-4"></div>

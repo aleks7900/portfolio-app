@@ -172,7 +172,7 @@ export default function HomeSearch() {
             <div className="w-full">
                 <div className="mx-auto max-w-4xl px-4">
                     <label className="block">
-                        <div className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                        <div className="mt-12 mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                             {tf("search_all_products", "Поиск по товарам")}
                         </div>
                         <input
