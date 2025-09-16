@@ -23,7 +23,9 @@ export default function App() {
             <ThemeProvider>
                 <AuthProvider>
                     <div
-                        className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-900 dark:from-black dark:to-neutral-950 dark:text-white">
+                        className="min-h-screen bg-gradient-to-b from-white to-gray-500 text-gray-900 dark:from-gray-500 dark:to-gray-900 dark:text-white"
+                        // style={{ backgroundImage: "url('/src/assets/img/bg/bg_dark.png')" }}
+                    >
                         <BrowserRouter>
                             <Navbar/>
                             <main id="app-scroll-root" className="pt-24 min-h-dvh overflow-y-auto">

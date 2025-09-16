@@ -23,7 +23,7 @@ export const dict: Dictionary = {
         sub_chargers: "Зарядки",
 // Hero/общие
         cta_contact: "Связаться",
-        hero_title: "Лёгкий старт одностраничника на React + TS",
+        hero_title: "Изготовление металлоконструкций из нержавейки",
         hero_sub: "Базовая модель с верхней панелью навигации и каталогом.",
         hero_to_services: "К услугам",
         hero_to_contacts: "Связаться",

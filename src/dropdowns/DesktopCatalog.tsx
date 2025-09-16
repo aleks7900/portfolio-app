@@ -25,6 +25,12 @@ const CATS = [
     },
 ];
 
+const BTN =
+    "flex items-center justify-between rounded-lg px-5 py-3 text-base font-medium " +
+    "bg-white text-black no-underline shadow-lg transition " +
+    "hover:!bg-black hover:!text-white hover:!shadow-2xl hover:!shadow-black/40 " +
+    "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
+
 export default function DesktopCatalog() {
     const {t} = useI18n();
     const navigate = useNavigate();
@@ -65,16 +71,20 @@ export default function DesktopCatalog() {
     return (
         <div className="relative" ref={containerRef}>
             <button
-                className="group inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10"
+                className="relative z-10 inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
+             !bg-red-200 !text-black no-underline shadow transition-colors
+             hover:!bg-red-300 hover:!text-white hover:shadow-xl
+             focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] mix-blend-normal"
                 aria-haspopup="menu"
                 aria-expanded={open}
                 onClick={() => setOpen(v => !v)}
             >
-                {t("nav_catalog")} <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}/>
+                {t("nav_catalog")}
+                <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
             </button>
             {open && (
                 <div role="menu"
-                     className="absolute left-0 mt-2 w-[680px] rounded-2xl border bg-white p-4 shadow-lg dark:bg-black dark:border-white/10">
+                     className="absolute left-0 mt-2 w-[680px] rounded-2xl border bg-white p-4 drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] dark:bg-black dark:border-white/10">
                     <div className="grid grid-cols-3 gap-4">
                         {CATS.map(cat => (
                             <div key={cat.key}>
@@ -89,7 +99,7 @@ export default function DesktopCatalog() {
                                                 navigate(`/catalog/${cat.key}/${sub.key}`);
                                                 setOpen(false);
                                             }}
-                                            className="flex items-center justify-between rounded-lg px-3 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10"
+                                            className={BTN}
                                         >
                                             <span>{t(sub.labelKey)}</span>
                                             <ChevronRight className="h-4 w-4"/>

@@ -1,10 +1,11 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import {createPortal} from "react-dom";
 import {useNavigate} from "react-router-dom";
-import {useI18n} from "../shared/i18n/i18n.tsx";
-import type {Product} from "../data/types.ts";
-import {suggestProducts} from "../shared/api/repo.ts";
-import Container from "../shared/Container.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
+import type {Product} from "../../data/types.ts";
+import {suggestProducts} from "../../shared/api/repo.ts";
+import Container from "../../shared/Container.tsx";
+import {Search} from "lucide-react";
 // Если нет вашего i18n-хука, замени на простую функцию:
 // const t = (_k: string, d: string) => d;
 
@@ -172,22 +173,43 @@ export default function HomeSearch() {
             <div className="w-full">
                 <div className="mx-auto max-w-4xl px-4">
                     <label className="block">
-                        <div className="mt-12 mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+                        <div className="mt-12 mb-2 text-lg font-medium text-gray-700 dark:text-gray-200">
                             {tf("search_all_products", "Поиск по товарам")}
                         </div>
-                        <input
-                            ref={inputRef}
-                            value={q}
-                            onChange={(e) => setQ(e.currentTarget.value)}
-                            onFocus={() => {
-                                if (suggestions.length) setOpen(true);
-                            }}
-                            onKeyDown={onKeyDown}
-                            placeholder={tf("search_placeholder", "Введите название, бренд, категорию…")}
-                            className="w-full rounded-2xl border px-4 py-3 text-base shadow-sm
-                       dark:border-white/15 dark:bg-neutral-900 dark:text-white"
-                        />
+
+                        <div className="relative">
+                            <input
+                                ref={inputRef}
+                                value={q}
+                                onChange={(e) => setQ(e.currentTarget.value)}
+                                onFocus={() => {
+                                    if (suggestions.length) setOpen(true);
+                                }}
+                                onKeyDown={onKeyDown}
+                                placeholder={tf("search_placeholder", "Введите название, бренд, категорию…")}
+                                className="w-full rounded-2xl border px-4 pr-20 py-3 text-base shadow-sm
+                                                    dark:border-white/15 dark:bg-neutral-900 dark:text-white"
+                                aria-label={tf("search_all_products", "Поиск по товарам")}
+                            />
+
+                            {/* Большая кнопка поиска справа */}
+                            <button
+                                type="button"
+                                onClick={() => submit(q)}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2
+                                             h-8 px-5 rounded-2xl bg-white text-black font-medium
+                                             shadow-lg hover:!bg-black hover:!text-white active:scale-[0.99]
+                                             focus:outline-none focus:ring-2 focus:ring-black/30
+                                             dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
+                                aria-label={tf("search_action", "Искать")}
+                            >
+                                {/* ВАЖНО: без классов цвета — иконка унаследует color от кнопки */}
+                                <Search className="h-5 w-5" />
+                                <span className="hidden sm:inline">{tf("search_button", "Найти")}</span>
+                            </button>
+                        </div>
                     </label>
+
                 </div>
 
                 {/* Портал с подсказками */}

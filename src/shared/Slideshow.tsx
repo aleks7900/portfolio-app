@@ -4,12 +4,20 @@ import {type KeenSliderPlugin, useKeenSlider} from "keen-slider/react";
 
 import slide1 from "../assets/img/slide1.jpg";
 import slide2 from "../assets/img/slide2.jpg";
-import slide3 from "../assets/img/slide3.jpg";
+import slide3 from "../assets/img/slide3.png";
+import slide4 from "../assets/img/slide4.jpg";
+import slide5 from "../assets/img/slide5.jpg";
+import slide6 from "../assets/img/slide6.jpg";
+import slide7 from "../assets/img/slide7.png";
 
 const slides = [
-    {id: 1, title: "Добро пожаловать!", text: "SPA на React + TS", img: slide1 },
-    {id: 2, title: "Каталог товаров", text: "Фильтры, поиск, сортировка", img: slide2},
-    {id: 3, title: "Тёмная тема и i18n", text: "Адаптивно и современно", img: slide3},
+    {id: 1, title: "Металлоконструкции из нержавеющей стали", text: "Быстро и в срок", img: slide1 },
+    {id: 2, title: "Металлоконструкции из нержавеющей стали", text: "Быстро и в срок", img: slide2},
+    {id: 3, title: "Лазерная резка", text: "На современном оборудовании", img: slide3},
+    {id: 3, title: "Большой ассортимент материалов", text: "Все виды нержавеющей стали", img: slide4},
+    {id: 3, title: "Основа - нержавеющая сталь", text: "Работаем с нержавейкой", img: slide5},
+    {id: 3, title: "Слесарные работы", text: "Любая сложность работ", img: slide6},
+    {id: 3, title: "Гибка и вальцовка металла", text: "По требованиям заказчика", img: slide7},
 ];
 
 /** Плагин автоплей: 3–5 сек, пауза при hover и во время взаимодействий */
@@ -76,8 +84,12 @@ export default function Slideshow() {
                             className="absolute inset-0 h-full w-full object-cover opacity-70"
                         />
                         <div className="relative z-0 text-center text-white px-4">
-                            <h2 className="text-3xl font-bold">{s.title}</h2>
-                            <p className="mt-2">{s.text}</p>
+                            <h2 className="text-5xl font-bold drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
+                                {s.title}
+                            </h2>
+                            <p className="text-3xl mt-2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.8)]">
+                                {s.text}
+                            </p>
                         </div>
                     </div>
                 ))}
@@ -86,29 +98,42 @@ export default function Slideshow() {
             {/* Стрелки */}
             <button
                 onClick={() => instanceRef.current?.prev()}
-                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/70"
+                className="group absolute left-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center
+                         rounded-2xl px-5 py-3 text-base font-medium
+                         !bg-red-200 !text-black no-underline shadow transition-colors
+                         hover:!bg-red-300 hover:!text-white hover:shadow-xl
+                         focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] z-10"
                 aria-label="Prev"
             >
-                ‹
+                <span className="leading-none select-none text-3xl h-10">‹</span>
             </button>
+
             <button
                 onClick={() => instanceRef.current?.next()}
-                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/70"
+                className="group absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center
+                         rounded-2xl px-5 py-3 text-base font-medium
+                         !bg-red-200 !text-black no-underline shadow transition-colors
+                         hover:!bg-red-300 hover:!text-white hover:shadow-xl
+                         focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] z-10"
                 aria-label="Next"
             >
-                ›
+                <span className="leading-none select-none text-3xl h-10">›</span>
             </button>
 
             {/* Точки */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 {slides.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => instanceRef.current?.moveToIdx(i)}
-                        className={`h-3 w-3 rounded-full transition ${
-                            current === i ? "bg-white" : "bg-white/50 hover:bg-white/80"
-                        }`}
                         aria-label={`Go to slide ${i + 1}`}
+                        className={[
+                            "h-3.5 w-3.5 rounded-full transition",
+                            "focus:outline-none focus:ring-2 focus:ring-red-400",
+                            current === i
+                                ? "bg-red-300 shadow"
+                                : "bg-red-200/80 hover:bg-red-300"
+                        ].join(" ")}
                     />
                 ))}
             </div>

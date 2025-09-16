@@ -1,11 +1,11 @@
-import HomeSearch from "../home/HomeSearch.tsx";
+import HomeSearch from "./home/HomeSearch.tsx";
 import Slideshow from "../shared/Slideshow.tsx";
-import PopularBlocks from "../home/PopularBlocks.tsx";
+import PopularBlocks from "./home/PopularBlocks.tsx";
 import {SERVICES} from "../data/data.ts";
 import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import ServiceCard from "./components/ServiceCard.tsx";
-import FeaturedCategories from "../home/FeaturedCategories.tsx";
+import FeaturedCategories from "./home/FeaturedCategories.tsx";
 
 export default function MainPage() {
     return (

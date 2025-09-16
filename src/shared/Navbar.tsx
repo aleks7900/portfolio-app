@@ -63,16 +63,25 @@ const metalPatternByVariant: Record<MetalVariant, string> = {
 // Крупная непрозрачная кнопка: чёрный текст, на ховере тёмно-серая + большая тень
 const BTN =
     "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium " +
-    "bg-white text-black shadow-lg transition " +
-    "hover:bg-neutral-800 hover:text-white hover:shadow-2xl hover:shadow-black/40 " +
+    "bg-white !text-black no-underline shadow-lg transition " +                             // ← !text-black
+    "hover:bg-neutral-800 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +      // ← hover:!text-white
+    "visited:!text-black " +                                                                 // ← visited
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
 
 const BTN_ICON =
     "rounded-2xl p-3 text-base font-medium " +
-    "bg-white text-black shadow-lg transition " +
-    "hover:bg-neutral-800 hover:text-white hover:shadow-2xl hover:shadow-black/40 " +
+    "bg-white !text-black no-underline shadow-lg transition " +
+    "hover:bg-neutral-800 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +
+    "visited:!text-black " +
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
 
+// Кнопка "Связаться" со спец. зелёным ховером
+const BTN_CTA =
+    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium " +
+    "bg-white !text-black no-underline shadow-lg transition " +
+    "hover:bg-green-600 hover:!text-white hover:shadow-2xl hover:shadow-green-600/50 " +
+    "visited:!text-black " +
+    "focus:outline-none focus:ring-2 focus:ring-green-500 active:scale-[0.99]";
 
 export default function Navbar() {
     const {t} = useI18n();
@@ -83,33 +92,25 @@ export default function Navbar() {
 
     const [confirmOpen, setConfirmOpen] = React.useState(false);
 
-    const linkClass = ({isActive}: { isActive: boolean }) =>
-        [
-            BTN,
-            isActive ? "bg-neutral-900 text-white" : "",
-        ].join(" ");
+    const linkClass = ({ isActive }: { isActive: boolean }) =>
+        [BTN, isActive ? "bg-neutral-900 text-white" : ""].join(" ");
     return (
         <header
             className={[
-                "fixed inset-x-0 top-0 z-50",
+                "fixed inset-x-0 top-0 z-[9999] isolate",                      // ← isolate создаёт свой стек
                 "supports-[backdrop-filter]:backdrop-blur-md",
                 "border-b border-white/10 dark:border-white/10",
-                // базовая прозрачность — фон убираем, пусть рисуют псевдослои
                 "bg-transparent dark:bg-transparent",
-                // Лёгкий стальной блик поверх
-                "after:pointer-events-none after:absolute after:inset-0 after:rounded-none",
-                "after:bg-[linear-gradient(145deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.02)_35%,rgba(0,0,0,0.20)_100%)]",
-                "after:opacity-90",
-                // Паттерн металлообработки в before
-                "before:pointer-events-none before:absolute before:inset-0 before:rounded-none",
+                "before:content-[''] before:absolute before:inset-0 before:z-0", // ← под контент
+                "after:content-['']  after:absolute  after:inset-0  after:z-0",
+                "after:bg-[linear-gradient(145deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.02)_35%,rgba(0,0,0,0.20)_100%)] after:opacity-85",
+                "before:pointer-events-none after:pointer-events-none",
                 metalPatternByVariant[METAL_VARIANT],
             ].join(" ")}
-            style={{
-                boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.08), 0 8px 30px rgba(0,0,0,0.25)",
-            }}
+            style={{ boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.08), 0 8px 30px rgba(0,0,0,0.25)" }}
         >
             <Container>
-                <div className="flex h-36 items-center justify-between">
+                <div className="relative z-10 flex h-36 items-center justify-between">
                     <a
                         className="flex items-center gap-2 font-semibold tracking-tight"
                         href="#"
@@ -127,7 +128,7 @@ export default function Navbar() {
                     </a>
                     <nav className="hidden md:flex items-center gap-2">
                         <div className="flex items-center gap-2">
-                            <DesktopCatalog/>
+                            <DesktopCatalog />
                             <NavLink to="/service" className={linkClass} end><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
                             <NavLink to="/contacts" className={linkClass} end><Phone
@@ -135,7 +136,7 @@ export default function Navbar() {
                             <NavLink to="/about" className={linkClass} end><Info className="h-4 w-4"/> {t("nav_about")}
                             </NavLink>
                             <NavLink to="/contacts"
-                                     className={() => BTN}>{t("cta_contact")}<ArrowUpRight className="ml-1 h-4 w-4"/></NavLink>
+                                     className={() => BTN_CTA}>{t("cta_contact")}<ArrowUpRight className="ml-1 h-4 w-4"/></NavLink>
                             {isAuth ? (
                                 <>
                                     <AdminMenu/>

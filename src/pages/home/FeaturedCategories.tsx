@@ -1,10 +1,10 @@
 // src/home/FeaturedCategories.tsx
 import React, {useRef} from "react";
-import Container from "../shared/Container";
+import Container from "../../shared/Container.tsx";
 import {useNavigate} from "react-router-dom";
-import {SUBCAT_IMAGES} from "../data/catalog/catImages.ts";
-import {useI18n} from "../shared/i18n/i18n.tsx";
-import {CATS} from "../data/catalog/categories.ts";
+import {SUBCAT_IMAGES} from "../../data/catalog/catImages.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {CATS} from "../../data/catalog/categories.ts";
 
 function RowScroller({
                          children,

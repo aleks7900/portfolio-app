@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import Container from "../shared/Container";
+import Container from "../../shared/Container.tsx";
 import {useNavigate} from "react-router-dom";
-import {listProducts, type ProductsPage} from "../shared/api/repo.ts";
-import type {Product} from "../data/types.ts";
+import {listProducts, type ProductsPage} from "../../shared/api/repo.ts";
+import type {Product} from "../../data/types.ts";
 
 type BlockState = {
     loading: boolean;

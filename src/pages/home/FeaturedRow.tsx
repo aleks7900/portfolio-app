@@ -1,10 +1,10 @@
 // src/home/FeaturedRow.tsx
 import {useEffect, useMemo, useRef, useState} from "react";
-import type {Product} from "../data/types.ts";
-import {loadAdminProducts} from "../data/data.ts";
-import {useI18n} from "../shared/i18n/i18n.tsx";
-import ProductDetails from "../modals/ProductDetails.tsx";
-import Container from "../shared/Container"; // ⬅️ добавляем
+import type {Product} from "../../data/types.ts";
+import {loadAdminProducts} from "../../data/data.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
+import ProductDetails from "../../modals/ProductDetails.tsx";
+import Container from "../../shared/Container.tsx"; // ⬅️ добавляем
 
 type Props = {
     title?: string;
