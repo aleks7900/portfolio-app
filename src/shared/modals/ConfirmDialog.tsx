@@ -79,23 +79,31 @@ export default function ConfirmDialog({
                 <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">{message}</div>
 
                 <div className="mt-6 flex justify-end gap-3">
-                    <button
-                        ref={firstRef}
-                        onClick={onClose}
-                        className="rounded-xl border px-4 py-2 text-sm hover:bg-black/5
-                       dark:border-white/10 dark:hover:bg-white/10"
-                    >
-                        {cancelText}
-                    </button>
+                    {/* Войти */}
                     <button
                         onClick={async () => {
                             await onConfirm();
                             onClose();
                         }}
-                        className="rounded-xl bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-700
-                       dark:bg-rose-500 dark:hover:bg-rose-400"
+                        className="rounded-xl border px-4 py-2 text-sm font-medium
+                               bg-white text-black shadow
+                               hover:!bg-black hover:!text-white hover:shadow-lg
+                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                               dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
                     >
                         {confirmText}
+                    </button>
+                    {/* Отмена */}
+                    <button
+                        ref={firstRef}
+                        onClick={onClose}
+                        className="rounded-xl border px-4 py-2 text-sm font-medium
+                                   !bg-white !text-black shadow transition-colors
+                                   hover:!bg-rose-600 hover:!text-white hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:!ring-rose-400 active:scale-[0.99]
+                                   dark:!bg-neutral-900 dark:!text-white dark:hover:!bg-rose-500"
+                    >
+                        {cancelText}
                     </button>
                 </div>
             </div>

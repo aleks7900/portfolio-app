@@ -1,6 +1,6 @@
 import {SERVICES} from "../../data/data.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import {Hammer} from "lucide-react";
+import {ArrowRight, Hammer} from "lucide-react";
 import {Link} from "react-router-dom";
 
 export default function ServiceCard({titleKey, descKey, s}: { titleKey: string; descKey: string; s: (typeof SERVICES)[number] }) {
@@ -17,12 +17,15 @@ export default function ServiceCard({titleKey, descKey, s}: { titleKey: string; 
             <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">{t(descKey)}</p>
             <Link
                 to={`/services/${s.slug}`}
-                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 border text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black transition shadow-2xl"
+                className="mt-6 inline-flex items-center justify-center gap-2
+                         rounded-2xl border px-8 py-4 text-base font-medium
+                         !bg-white !text-black shadow
+                         hover:!bg-black hover:!text-white hover:shadow-lg
+                         focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                         dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition"
             >
                 {t("more") ?? "Подробнее"}
-                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill="currentColor" d="M8 5l8 7-8 7V5z"/>
-                </svg>
+                <ArrowRight className="h-5 w-5" />
             </Link>
         </div>
     );

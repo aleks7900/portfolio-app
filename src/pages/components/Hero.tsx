@@ -23,13 +23,21 @@ export default function Hero() {
                                 className="underline decoration-gray-300 dark:decoration-white/20">{t("hero_title")}</span>
                         </h1>
                         <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
-                        <div className="mt-6 flex flex-wrap gap-3">
+                        <div className="mt-6 flex flex-wrap gap-4">
                             <button onClick={() => navigate("/service")}
-                                    className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90">
+                                    className="w-56 rounded-2xl border px-8 py-4 text-lg font-medium
+                                               !bg-white !text-black shadow
+                                               hover:!bg-black hover:!text-white hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                               dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white">
                                 {t("hero_to_services")}
                             </button>
                             <button onClick={() => navigate("/contacts")}
-                                    className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+                                    className="w-56 rounded-2xl border px-8 py-4 text-5xl font-medium
+                                               !bg-green-500 !text-white shadow
+                                               hover:!bg-green-600 hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
+                                               dark:bg-green-600 dark:hover:bg-green-500">
                                 {t("hero_to_contacts")}
                             </button>
                         </div>

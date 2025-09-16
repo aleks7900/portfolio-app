@@ -104,8 +104,8 @@ export default function Slideshow() {
                 onClick={() => instanceRef.current?.prev()}
                 className="group absolute left-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center
                          rounded-2xl px-5 py-3 text-base font-medium
-                         !bg-red-200 !text-black no-underline shadow transition-colors
-                         hover:!bg-red-300 hover:!text-white hover:shadow-xl
+                         !bg-white !text-black no-underline shadow transition-colors
+                         hover:!bg-red-500 hover:!text-white hover:shadow-xl
                          focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] z-10"
                 aria-label="Prev"
             >
@@ -116,8 +116,8 @@ export default function Slideshow() {
                 onClick={() => instanceRef.current?.next()}
                 className="group absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center
                          rounded-2xl px-5 py-3 text-base font-medium
-                         !bg-red-200 !text-black no-underline shadow transition-colors
-                         hover:!bg-red-300 hover:!text-white hover:shadow-xl
+                         !bg-white !text-black no-underline shadow transition-colors
+                         hover:!bg-red-500 hover:!text-white hover:shadow-xl
                          focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] z-10"
                 aria-label="Next"
             >
@@ -138,7 +138,7 @@ export default function Slideshow() {
                             "h-3.5 w-3.5 rounded-full transition transform duration-200",
                             "!focus:outline-none !focus:ring-2 !focus:ring-red-400",
                             current === i
-                                ? "!bg-red-500 !shadow-xl !shadow-red-500/40 !ring-2 !ring-red-400 scale-110"
+                                ? "!bg-red-300 !shadow-xl !shadow-red-500/40 !ring-2 !ring-white scale-110"
                                 : "!bg-white/80 dark:!bg-white/50 hover:!bg-red-300 hover:!shadow"
                         ].join(" ")}
                     />

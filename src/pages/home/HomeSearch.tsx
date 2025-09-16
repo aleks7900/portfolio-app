@@ -60,6 +60,20 @@ export default function HomeSearch() {
 
     const {ref: inputRef, rect} = useAnchorRect<HTMLInputElement>();
 
+    // сверху у тебя уже есть inputRef, setOpen, setQ и т.п.
+    useEffect(() => {
+        const onOpen = () => {
+            // раскрыть подсказки (если нужны) и фокус в поле
+            setOpen(true);
+            // прокрутить к блоку поиска
+            document.getElementById("home-search")?.scrollIntoView({behavior: "smooth", block: "start"});
+            // фокус
+            setTimeout(() => inputRef.current?.focus(), 50);
+        };
+        window.addEventListener("open-search", onOpen as EventListener);
+        return () => window.removeEventListener("open-search", onOpen as EventListener);
+    }, [inputRef]);
+
     // грузим подсказки с бэка
     useEffect(() => {
         let cancelled = false;
@@ -173,7 +187,7 @@ export default function HomeSearch() {
         <Container>
             <div className="w-full">
                 <div className="mx-auto max-w-4xl px-4">
-                    <label className="block">
+                    <label id="home-search" className="block">
                         <div className="mt-12 mb-2 text-lg font-medium text-gray-700 dark:text-gray-200">
                             {tf("search_all_products", "Поиск по товарам")}
                         </div>
@@ -205,7 +219,7 @@ export default function HomeSearch() {
                                 aria-label={tf("search_action", "Искать")}
                             >
                                 {/* ВАЖНО: без классов цвета — иконка унаследует color от кнопки */}
-                                <Search className="h-5 w-5" />
+                                <Search className="h-5 w-5"/>
                                 <span className="hidden sm:inline">{tf("search_button", "Найти")}</span>
                             </button>
                         </div>

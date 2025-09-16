@@ -1,6 +1,20 @@
 import React, {useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {ArrowUpRight, Hammer, Info, Languages, LogIn, LogOut, Menu, Moon, Phone, Sun, User, X} from "lucide-react";
+import {
+    ArrowUpRight,
+    Hammer,
+    Info,
+    Languages,
+    LogIn,
+    LogOut,
+    Menu,
+    Moon,
+    Phone,
+    Search,
+    Sun,
+    User,
+    X
+} from "lucide-react";
 import {useTheme} from "./theme/theme.tsx";
 import {useI18n} from "./i18n/i18n.tsx";
 import {useAuth} from "./auth/auth.tsx";
@@ -10,8 +24,6 @@ import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
 import LoginDialog from "../modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
-import { Search } from "lucide-react";
-
 
 
 function LangToggle() {
@@ -19,7 +31,10 @@ function LangToggle() {
     const next = lang === "ru" ? "en" : "ru";
     return (
         <button
-            className={BTN}
+            className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
+                    bg-white !text-black no-underline shadow-lg transition
+                    hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
+                    visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
             onClick={() => setLang(next)}>
             <Languages className="h-4 w-4"/> {next.toUpperCase()}
         </button>
@@ -29,7 +44,11 @@ function LangToggle() {
 function ThemeToggleBtn() {
     const {theme, toggle} = useTheme();
     return (
-        <button className={BTN_ICON} onClick={toggle} aria-label="Theme">
+        <button className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
+                    bg-white !text-black no-underline shadow-lg transition
+                    hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
+                    visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
+                onClick={toggle} aria-label="Theme">
             {theme === "dark" ? <Sun className="h-5 w-5"/> : <Moon className="h-5 w-5"/>}
         </button>
     );
@@ -73,7 +92,7 @@ const BTN =
 const BTN_ICON =
     "rounded-2xl p-3 text-base font-medium " +
     "bg-white !text-black no-underline shadow-lg transition " +
-    "hover:bg-neutral-800 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +
+    "hover:bg-neutral-800 hover:!text-white hover:!shadow-2xl hover:!shadow-black/40 " +
     "visited:!text-black " +
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
 
@@ -100,6 +119,16 @@ export default function Navbar() {
 // константа порога (пиксели)
     const SCROLL_TRIGGER = 220;
 
+    const openSearch = () => {
+        const fire = () => window.dispatchEvent(new Event("open-search"));
+        if (location.pathname !== "/") {
+            navigate("/");
+            setTimeout(fire, 0); // дождаться рендера главной
+        } else {
+            fire();
+        }
+    };
+
     React.useEffect(() => {
         let ticking = false;
         const onScroll = () => {
@@ -112,12 +141,11 @@ export default function Navbar() {
             }
         };
         onScroll(); // выставить начальное состояние
-        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("scroll", onScroll, {passive: true});
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-
-    const linkClass = ({ isActive }: { isActive: boolean }) =>
+    const linkClass = ({isActive}: { isActive: boolean }) =>
         [BTN, isActive ? "bg-neutral-900 text-white" : ""].join(" ");
     return (
         <header
@@ -132,7 +160,7 @@ export default function Navbar() {
                 "before:pointer-events-none after:pointer-events-none",
                 metalPatternByVariant[METAL_VARIANT],
             ].join(" ")}
-            style={{ boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.08), 0 8px 30px rgba(0,0,0,0.25)" }}
+            style={{boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.08), 0 8px 30px rgba(0,0,0,0.25)"}}
         >
             <Container>
                 <div className="relative z-10 flex h-36 items-center justify-between">
@@ -157,19 +185,21 @@ export default function Navbar() {
                             <button
                                 type="button"
                                 aria-label="Search"
-                                onClick={() => navigate("/search")} // ← замени на свой обработчик, если нужно открыть модалку/фокус инпут
+                                onClick={openSearch} // ← замени на свой обработчик, если нужно открыть модалку/фокус инпут
                                 className={[
-                                    BTN_ICON,
+                                    "rounded-2xl p-3 text-base font-medium bg-white !text-black no-underline shadow-lg transition " +
+                                    "hover:bg-neutral-800 hover:!shadow-2xl hover:!shadow-black/40 " +
+                                    "visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]",
                                     // плавное появление/исчезновение, без «дёрганья»
-                                    "transition-opacity transition-transform duration-200",
+                                    "transition-opacity duration-200",
                                     showSearchBtn ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-1"
                                 ].join(" ")}
                             >
-                                <Search className="h-5 w-5" />
+                                <Search className="h-5 w-5"/>
                             </button>
                         </div>
                         <div className="flex items-center gap-2">
-                            <DesktopCatalog />
+                            <DesktopCatalog/>
                             <NavLink to="/service" className={linkClass} end><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
                             <NavLink to="/contacts" className={linkClass} end><Phone
@@ -177,18 +207,25 @@ export default function Navbar() {
                             <NavLink to="/about" className={linkClass} end><Info className="h-4 w-4"/> {t("nav_about")}
                             </NavLink>
                             <NavLink to="/contacts"
-                                     className={() => BTN_CTA}>{t("cta_contact")}<ArrowUpRight className="ml-1 h-4 w-4"/></NavLink>
+                                     className={() => BTN_CTA}>{t("cta_contact")}<ArrowUpRight
+                                className="ml-1 h-4 w-4"/></NavLink>
                             {isAuth ? (
                                 <>
                                     <AdminMenu/>
                                     <button onClick={() => setConfirmOpen(true)}
-                                            className={BTN}>
+                                            className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
+                                                    bg-white !text-black no-underline shadow-lg transition
+                                                    hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
+                                                    visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]">
                                         <LogOut className="h-4 w-4"/> {t("logout")}
                                     </button>
                                 </>
                             ) : (
                                 <button onClick={() => setShowLogin(true)}
-                                        className={BTN}>
+                                        className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
+                                                bg-white !text-black no-underline shadow-lg transition
+                                                hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
+                                                visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]">
                                     <LogIn className="h-4 w-4"/> {t("login")}
                                 </button>
                             )}

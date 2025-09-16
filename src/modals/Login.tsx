@@ -41,10 +41,30 @@ export default function LoginDialog({open, onClose}: { open: boolean; onClose: (
                            className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
                            placeholder="••••••••"/>
                     <div className="mt-5 flex items-center gap-2">
-                        <button type="submit"
-                                className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-white/90">{t("sign_in")}</button>
-                        <button type="button" onClick={onClose}
-                                className="rounded-xl border px-4 py-2 text-sm hover:bg-black hover:text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black">{t("cancel")}</button>
+                        {/* Войти */}
+                        <button
+                            type="submit"
+                            className="rounded-xl border px-4 py-2 text-sm font-medium
+                                   bg-white text-black shadow
+                                   hover:!bg-black hover:!text-white hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                   dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+                        >
+                            {t("sign_in")}
+                        </button>
+
+                        {/* Отмена */}
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="rounded-xl border px-4 py-2 text-sm font-medium
+                                   bg-white text-black shadow
+                                   hover:!bg-rose-600 hover:!text-white hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:!ring-rose-400 active:scale-[0.99]
+                                   dark:bg-neutral-900 dark:text-white dark:hover:bg-rose-500"
+                        >
+                            {t("cancel")}
+                        </button>
                     </div>
                 </form>
             </div>

@@ -73,7 +73,7 @@ export default function DesktopCatalog() {
             <button
                 className="relative z-10 inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
              !bg-red-200 !text-black no-underline shadow transition-colors
-             hover:!bg-red-300 hover:!text-white hover:shadow-xl
+             hover:!bg-red-500 hover:!text-white hover:shadow-xl
              focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] mix-blend-normal"
                 aria-haspopup="menu"
                 aria-expanded={open}

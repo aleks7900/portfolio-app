@@ -1,5 +1,6 @@
 import {useEffect, useMemo, useState} from "react";
 import {createPortal} from "react-dom";
+import {ChevronUp} from "lucide-react";
 
 type Props = {
     /** Если скролл не у window — селектор контейнера (напр. "#app-scroll-root") */
@@ -13,7 +14,7 @@ type Props = {
 export default function ScrollTopButton({
                                             containerSelector,
                                             threshold = 300,
-                                            side = "left", // вы просили слева
+                                            side = "left",
                                         }: Props) {
     const [visible, setVisible] = useState(false);
 
@@ -62,14 +63,12 @@ export default function ScrollTopButton({
                 "fixed bottom-6 z-[9999]",
                 side === "left" ? "left-6" : "right-6",
                 "flex items-center justify-center rounded-full shadow-lg",
-                "bg-gray-900 text-white dark:bg-white dark:text-black",
-                "p-3 transition-all duration-300 hover:bg-gray-700 dark:hover:bg-gray-200",
+                "!bg-gray-900 !text-white dark:bg-white dark:text-black",
+                "p-3 transition-all duration-300 hover:!bg-gray-700 dark:hover:bg-gray-200",
                 visible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4",
             ].join(" ")}
         >
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                <path fill="currentColor" d="M12 4l-7 7h4v9h6v-9h4z"/>
-            </svg>
+            <ChevronUp className="h-5 w-5" />
         </button>,
         document.body
     );
