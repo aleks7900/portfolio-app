@@ -338,7 +338,7 @@ export default function ProductsPrivate() {
                 {isAdmin && edit.mode !== "none" && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
                         <div
-                            className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:bg-black">
+                            className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:!bg-gray-800">
                             <div className="mb-4 text-lg font-semibold">
                                 {edit.mode === "edit" ? "Редактировать товар" : "Новый товар"}
                             </div>
@@ -493,7 +493,7 @@ export default function ProductsPrivate() {
                                                !bg-white !text-black shadow
                                                hover:!bg-black hover:!text-white hover:shadow-lg
                                                focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                                               dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
+                                               dark:bg-white dark:!text-black dark:hover:!bg-black dark:hover:!text-white"
                                 >
                                     Отмена
                                 </button>
@@ -589,7 +589,7 @@ function ActionBtn({
         ${
                 danger
                     ? "!bg-rose-600 !text-white hover:!bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400"
-                    : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                    : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10 dark:!text-black"
             }
         ${className}`}
         >
@@ -619,7 +619,7 @@ function PaginationControls({
     const hasNext = totalPages != null ? page < totalPages - 1 : false;
 
     return (
-        <div className={`flex flex-wrap items-center justify-end gap-3 ${className}`}>
+        <div className={`mt-5 flex flex-wrap items-center justify-end gap-3 ${className}`}>
             <label className="flex items-center gap-2 text-sm">
                 <span className="text-gray-600 dark:text-gray-300">Показывать по:</span>
                 <select
@@ -640,7 +640,7 @@ function PaginationControls({
                     <button
                         onClick={onPrev}
                         disabled={!hasPrev}
-                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20 dark:!text-black"
                     >
                         ◀ Пред
                     </button>
@@ -650,7 +650,7 @@ function PaginationControls({
                     <button
                         onClick={onNext}
                         disabled={!hasNext}
-                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20 dark:!text-black"
                     >
                         След ▶
                     </button>

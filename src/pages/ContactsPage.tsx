@@ -9,25 +9,25 @@ export default function ContactsPage() {
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const fd = new FormData(e.currentTarget);
 
-        // ВАЖНО: имена точно совпадают с DTO на бэке
+        const form = e.currentTarget;          // 1) сохраняем ссылку
+        const fd = new FormData(form);         // 2) FormData берём с неё
+
         const name = String(fd.get("name") || "").trim();
         const email = String(fd.get("email") || "").trim();
         const phone = String(fd.get("phone") || "").trim();
         const subject = String(fd.get("subject") || "").trim();
         const message = String(fd.get("message") || "").trim();
 
-        // простая валидация до запроса
         if (!name || !message) {
             alert("Введите имя и сообщение.");
             return;
         }
 
         try {
-            await createRequest({name, email, phone, subject, message});
+            await createRequest({ name, email, phone, subject, message });
             alert("Заявка отправлена!");
-            e.currentTarget.reset(); // очистить форму
+            form.reset();                         // 3) очищаем сохранённую форму
         } catch (err) {
             console.error(err);
             alert("Не удалось отправить заявку");

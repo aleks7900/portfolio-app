@@ -19,14 +19,14 @@ export default function AdminMenu() {
         <div className="relative" ref={ref}>
             <button
                 onClick={() => setOpen((v) => !v)}
-                className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm hover:bg-black/5 dark:hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-black hover:bg-black/5 dark:hover:bg-white/10 hover:shadow-2xl"
             >
                 Админка <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}/>
             </button>
 
             {open && (
                 <div className="absolute right-0 z-50 mt-2 w-56 rounded-2xl border bg-white p-2 shadow-xl
-                        dark:border-white/10 dark:bg-neutral-900">
+                        dark:border-white/10 dark:!bg-gray-800">
                     <MenuItem to="/admin/products" label="Мои товары" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/users" label="Пользователи" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/requests" label="Заявки" onClick={() => setOpen(false)}/>

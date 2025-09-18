@@ -175,12 +175,12 @@ export default function Navbar() {
                         <img
                             src="/src/assets/logo.png"     // путь к твоей картинке
                             alt="Logo"
-                            className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo logo-light"
+                            className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo block dark:!hidden"
                         />
                         <img
                             src="/src/assets/logo_dark.png"     // путь к твоей картинке
                             alt="Logo"
-                            className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo logo-dark"
+                            className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo hidden dark:!block"
                         />
                         <span className="text-lg">{t("brandLogo")}</span>
                     </a>
