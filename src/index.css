@@ -18,6 +18,21 @@ main {
     display: block;
 }
 
+/* по умолчанию скрываем тёмный */
+.logo-dark {
+    display: none;
+}
+
+/* если включена тёмная тема */
+@media (prefers-color-scheme: dark) {
+    .logo-light {
+        display: none;
+    }
+    .logo-dark {
+        display: inline;
+    }
+}
+
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
