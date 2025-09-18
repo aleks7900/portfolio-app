@@ -13,7 +13,7 @@ export default function LoginDialog({open, onClose}: { open: boolean; onClose: (
         <div className="fixed inset-0 z-[100] grid items-center justify-center bg-black/40 p-4" role="dialog"
              aria-modal="true">
             <div
-                className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl dark:bg-black dark:border-white/10">
+                className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl dark:!bg-gray-800 dark:border-white/10">
                 <div className="mb-4 text-lg font-semibold">{t("login")}</div>
                 {err && <div
                     className="mb-3 rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">{err}</div>}
@@ -61,7 +61,7 @@ export default function LoginDialog({open, onClose}: { open: boolean; onClose: (
                                    bg-white text-black shadow
                                    hover:!bg-rose-600 hover:!text-white hover:shadow-lg
                                    focus:outline-none focus:ring-2 focus:!ring-rose-400 active:scale-[0.99]
-                                   dark:bg-neutral-900 dark:text-white dark:hover:bg-rose-500"
+                                   dark:bg-neutral-900 dark:text-black dark:hover:bg-rose-500"
                         >
                             {t("cancel")}
                         </button>
