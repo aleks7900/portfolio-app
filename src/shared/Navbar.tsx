@@ -257,7 +257,11 @@ export default function Navbar() {
                     </div>
                 </div>
                 {open && (
-                    <div className="md:hidden pb-4">
+                    <div
+                        className="md:hidden pb-4 relative z-20
+                                   !bg-white/90 dark:!bg-black/90
+                                   !shadow-xl !rounded-b-2xl
+                                   supports-[backdrop-filter]:backdrop-blur-md">
                         <div className="grid gap-2">
                             <MobileCatalog onDone={() => setOpen(false)}/>
                             <NavLink to="/service" onClick={() => setOpen(false)}

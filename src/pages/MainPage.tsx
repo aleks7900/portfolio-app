@@ -17,7 +17,7 @@ export default function MainPage() {
             {/* 🎞️ Твой слайдер (Keen-slider) */}
             <Slideshow/>
             <Hero/>
-            <FeaturedCategories />
+            <FeaturedCategories/>
             {/* горизонтальный скролл под слайд-шоу */}
             {/*<FeaturedRow title="Популярное"/>*/}
             {/*/!* можно дополнительные ряды по категориям *!/*/}

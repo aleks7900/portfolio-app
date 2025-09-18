@@ -5,6 +5,6 @@ import "./output.css"; // tailwind компилируется сюда
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <App />
+        <App/>
     </React.StrictMode>
 );

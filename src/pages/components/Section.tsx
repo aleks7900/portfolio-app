@@ -2,7 +2,11 @@ import React from "react";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {motion} from "framer-motion";
 
-export default function Section({titleKey, leadKey, children}: { titleKey: string; leadKey: string; children: React.ReactNode }) {
+export default function Section({titleKey, leadKey, children}: {
+    titleKey: string;
+    leadKey: string;
+    children: React.ReactNode
+}) {
     const {t} = useI18n();
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">

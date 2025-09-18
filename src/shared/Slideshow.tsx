@@ -11,7 +11,7 @@ import slide6 from "../assets/img/slide6.jpg";
 import slide7 from "../assets/img/slide7.png";
 
 const slides = [
-    {id: 1, title: "Металлоконструкции из нержавеющей стали", text: "Быстро и в срок", img: slide1 },
+    {id: 1, title: "Металлоконструкции из нержавеющей стали", text: "Быстро и в срок", img: slide1},
     {id: 2, title: "Металлоконструкции из нержавеющей стали", text: "Быстро и в срок", img: slide2},
     {id: 3, title: "Лазерная резка", text: "На современном оборудовании", img: slide3},
     {id: 3, title: "Большой ассортимент материалов", text: "Все виды нержавеющей стали", img: slide4},

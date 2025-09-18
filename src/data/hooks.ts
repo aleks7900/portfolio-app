@@ -28,7 +28,7 @@ export function useQueryFilters(defaults: Filters) {
         const nextStr = sp.toString();
         const currStr = params.toString();
         if (nextStr !== currStr) {
-            setParams(sp, { replace: true });
+            setParams(sp, {replace: true});
         }
     }, [setParams, defaults.perPage, params]);
     return {filters: fromUrl, setFiltersUrl: update};

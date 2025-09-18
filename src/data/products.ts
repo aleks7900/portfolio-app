@@ -46,5 +46,5 @@ export function normalizeProductsResponse(resp: HalProductsResponse) {
         number: 0,
     };
 
-    return { products, page };
+    return {products, page};
 }

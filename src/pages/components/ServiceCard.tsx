@@ -3,7 +3,11 @@ import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {ArrowRight, Hammer} from "lucide-react";
 import {Link} from "react-router-dom";
 
-export default function ServiceCard({titleKey, descKey, s}: { titleKey: string; descKey: string; s: (typeof SERVICES)[number] }) {
+export default function ServiceCard({titleKey, descKey, s}: {
+    titleKey: string;
+    descKey: string;
+    s: (typeof SERVICES)[number]
+}) {
     const {t} = useI18n();
     return (
         <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
@@ -25,7 +29,7 @@ export default function ServiceCard({titleKey, descKey, s}: { titleKey: string; 
                          dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white transition"
             >
                 {t("more") ?? "Подробнее"}
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-5 w-5"/>
             </Link>
         </div>
     );

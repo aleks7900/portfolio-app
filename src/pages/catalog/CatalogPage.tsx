@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useSearchParams, useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import CatalogFilters, {type FiltersValue} from "./Filters.tsx";
 import type {Product} from "../../data/types.ts";
 import {listProducts, type ProductQuery, type ProductsPage} from "../../shared/api/repo.ts";
@@ -37,7 +37,7 @@ function fromSearchParams(sp: URLSearchParams, routeCat?: string, routeSub?: str
 
 export default function CatalogPage() {
 
-    const { category, subcategory } = useParams();
+    const {category, subcategory} = useParams();
     const [sp, setSp] = useSearchParams();
 
     // номер страницы/размер (0-based)
@@ -69,7 +69,7 @@ export default function CatalogPage() {
         next.set("page", String(page));
         next.set("size", String(size));
 
-        setSp(next, { replace: true });
+        setSp(next, {replace: true});
     }, [filters, page, size, setSp]);
 
     // загрузка с бэка
@@ -117,14 +117,15 @@ export default function CatalogPage() {
                 <div className="grid gap-6 lg:grid-cols-[280px,1fr]">
                     {/* ФИЛЬТРЫ */}
                     <aside className="lg:top-24 lg:self-start">
-                        <CatalogFilters value={filters} onChange={handleChange} />
+                        <CatalogFilters value={filters} onChange={handleChange}/>
                     </aside>
 
                     {/* КОНТЕНТ */}
                     <div className="space-y-4">
                         {/* статус */}
                         {err && (
-                            <div className="rounded-xl bg-rose-50 p-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-200">
+                            <div
+                                className="rounded-xl bg-rose-50 p-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-200">
                                 {err}
                             </div>
                         )}

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
+import React, {useEffect, useRef} from "react";
+import {createPortal} from "react-dom";
 
 type Props = {
     open: boolean;
@@ -67,7 +67,7 @@ export default function ConfirmDialog({
             }}
         >
             {/* фон */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"/>
             {/* окно */}
             <div
                 data-confirm-root

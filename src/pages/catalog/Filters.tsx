@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import {Eraser} from "lucide-react";
 
 export type FiltersValue = {
@@ -27,13 +27,13 @@ export default function CatalogFilters({
 
     useEffect(() => {
         const id = setTimeout(() => {
-            if (qDraft !== value.q) onChange({ ...value, q: qDraft });
+            if (qDraft !== value.q) onChange({...value, q: qDraft});
         }, 300);
         return () => clearTimeout(id);
     }, [qDraft]); // eslint-disable-line
 
     const set = <K extends keyof FiltersValue>(k: K, v: FiltersValue[K]) =>
-        onChange({ ...value, [k]: v });
+        onChange({...value, [k]: v});
 
     return (
         <div className="rounded-2xl border p-4 dark:-white/10 dark:bg-black/40">
@@ -166,7 +166,7 @@ export default function CatalogFilters({
                              focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
                              dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                 >
-                    <Eraser className="h-4 w-4" />
+                    <Eraser className="h-4 w-4"/>
                     <span>Clear</span>
                 </button>
             </div>

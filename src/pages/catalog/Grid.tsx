@@ -1,6 +1,6 @@
 import React from "react";
-import type { Product } from "../../data/types.ts";
-import { useI18n } from "../../shared/i18n/i18n.tsx";
+import type {Product} from "../../data/types.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 export function CatalogGrid({
                                 items,
@@ -11,11 +11,12 @@ export function CatalogGrid({
     loading: boolean;
     onOpen?: (p: Product) => void;
 }) {
-    const { t } = useI18n();
-    if (loading) return <SkeletonGrid />;
+    const {t} = useI18n();
+    if (loading) return <SkeletonGrid/>;
     if (!items.length)
         return (
-            <div className="rounded-2xl border bg-white p-6 text-sm text-gray-600 shadow-sm dark:bg-black dark:border-white/10 dark:text-gray-300">
+            <div
+                className="rounded-2xl border bg-white p-6 text-sm text-gray-600 shadow-sm dark:bg-black dark:border-white/10 dark:text-gray-300">
                 {t("nothing_found")}
             </div>
         );
@@ -46,7 +47,7 @@ export function CatalogGrid({
                     className="rounded-2xl border bg-white p-4 shadow-sm outline-none ring-offset-2 ring-offset-white
                      hover:ring-2 hover:ring-gray-300 dark:bg-black dark:border-white/10 dark:ring-offset-black cursor-pointer"
                 >
-                    <div className="h-36 rounded-xl bg-gray-100 dark:bg-white/10" draggable={false} />
+                    <div className="h-36 rounded-xl bg-gray-100 dark:bg-white/10" draggable={false}/>
 
                     <div className="mt-3 flex items-start justify-between">
                         <div>
@@ -60,11 +61,13 @@ export function CatalogGrid({
                     <div className="mt-3 flex items-center justify-between">
                         <div className="text-xs">
                             {p.inStock ? (
-                                <span className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+                                <span
+                                    className="rounded-full bg-emerald-100 px-2 py-1 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
                   {t("in_stock")}
                 </span>
                             ) : (
-                                <span className="rounded-full bg-rose-100 px-2 py-1 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+                                <span
+                                    className="rounded-full bg-rose-100 px-2 py-1 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
                   {t("out_of_stock")}
                 </span>
                             )}

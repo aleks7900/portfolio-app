@@ -68,7 +68,7 @@ export default function ScrollTopButton({
                 visible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4",
             ].join(" ")}
         >
-            <ChevronUp className="h-5 w-5" />
+            <ChevronUp className="h-5 w-5"/>
         </button>,
         document.body
     );

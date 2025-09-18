@@ -96,14 +96,14 @@ export async function listProducts(params: ProductQuery = {}): Promise<ProductsP
         content = [];
     }
 
-    return { content, totalPages, number, size };
+    return {content, totalPages, number, size};
 }
 
 /** Подсказки для поиска на главной: берём первые N результатов через серверную фильтрацию */
 export async function suggestProducts(q: string, size = 8): Promise<Product[]> {
     if (!q.trim()) return [];
     // берём первую страницу с сортировкой по названию
-    const page = await listProducts({ q, page: 0, size, sort: "title,asc" });
+    const page = await listProducts({q, page: 0, size, sort: "title,asc"});
     return page.content;
 }
 
@@ -115,14 +115,14 @@ export async function createProduct(
     p: Omit<Product, "id"> & Partial<Pick<Product, "id">>
 ): Promise<Product> {
     // сервер генерирует id
-    const { id: _omit, ...body } = p;
-    return apiFetch<Product>("/api/products", { method: "POST", body });
+    const {id: _omit, ...body} = p;
+    return apiFetch<Product>("/api/products", {method: "POST", body});
 }
 
 export async function updateProduct(p: Product): Promise<Product> {
-    return apiFetch<Product>(`/api/products/${p.id}`, { method: "PUT", body: p });
+    return apiFetch<Product>(`/api/products/${p.id}`, {method: "PUT", body: p});
 }
 
 export async function deleteProductById(id: number): Promise<void> {
-    await apiFetch<void>(`/api/products/${id}`, { method: "DELETE" });
+    await apiFetch<void>(`/api/products/${id}`, {method: "DELETE"});
 }

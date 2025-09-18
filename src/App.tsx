@@ -60,7 +60,7 @@ export default function App() {
                                         path="/admin/requests"
                                         element={
                                             <AdminRoute>
-                                                <RequestsPage />
+                                                <RequestsPage/>
                                             </AdminRoute>
                                         }
                                     />
@@ -68,7 +68,7 @@ export default function App() {
                                         path="/admin/users"
                                         element={
                                             <AdminRoute>
-                                                <UsersPage />
+                                                <UsersPage/>
                                             </AdminRoute>
                                         }
                                     />
