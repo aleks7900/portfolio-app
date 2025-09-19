@@ -6,6 +6,7 @@ import type {Product} from "../../data/types.ts";
 import {suggestProducts} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import {Search} from "lucide-react";
+import {AnimatePresence, motion} from "framer-motion";
 
 // Если нет вашего i18n-хука, замени на простую функцию:
 // const t = (_k: string, d: string) => d;
@@ -63,11 +64,8 @@ export default function HomeSearch() {
     // сверху у тебя уже есть inputRef, setOpen, setQ и т.п.
     useEffect(() => {
         const onOpen = () => {
-            // раскрыть подсказки (если нужны) и фокус в поле
             setOpen(true);
-            // прокрутить к блоку поиска
             document.getElementById("home-search")?.scrollIntoView({behavior: "smooth", block: "start"});
-            // фокус
             setTimeout(() => inputRef.current?.focus(), 50);
         };
         window.addEventListener("open-search", onOpen as EventListener);
@@ -114,15 +112,11 @@ export default function HomeSearch() {
     }, [qDebounced]);
 
     // закрытие по клику вне
-    // 1) refs
     const menuRef = useRef<HTMLDivElement | null>(null);
-
-// 2) Вне-клик — по "click" и с проверкой на меню
     useEffect(() => {
         const onDocClick = (e: MouseEvent) => {
             if (!open) return;
             const target = e.target as Node;
-            // если клик внутри инпута или меню — не закрываем
             if (
                 (inputRef.current && inputRef.current.contains(target)) ||
                 (menuRef.current && menuRef.current.contains(target))
@@ -131,7 +125,7 @@ export default function HomeSearch() {
             }
             setOpen(false);
         };
-        document.addEventListener("click", onDocClick);  // ⬅ было mousedown
+        document.addEventListener("click", onDocClick);
         return () => document.removeEventListener("click", onDocClick);
     }, [open, inputRef]);
 
@@ -164,7 +158,7 @@ export default function HomeSearch() {
             e.preventDefault();
             if (open && activeIdx >= 0 && activeIdx < suggestions.length) {
                 const s = suggestions[activeIdx];
-                submit(s.title); // при желании можно подставить бренд/категорию
+                submit(s.title);
             } else {
                 submit(q);
             }
@@ -179,21 +173,33 @@ export default function HomeSearch() {
             top: rect.bottom + window.scrollY,
             left: rect.left + window.scrollX,
             width: rect.width,
-            zIndex: 60, // поверх слайдера
+            zIndex: 60,
         };
     }, [rect]);
+
+    // Варианты анимаций
+    const dropdownVariants = {
+        hidden: {opacity: 0, y: -8, scale: 0.98},
+        visible: {opacity: 1, y: 0, scale: 1, transition: {type: "spring", stiffness: 420, damping: 30, mass: 0.6}},
+        exit: {opacity: 0, y: -4, scale: 0.98, transition: {duration: 0.15}},
+    } as const;
 
     return (
         <Container>
             <div className="w-full">
                 <div className="mx-auto max-w-4xl px-4">
                     <label id="home-search" className="block">
-                        <div className="mt-12 mb-2 text-lg font-medium text-gray-700 dark:text-gray-200">
+                        <motion.div
+                            initial={{opacity: 0, y: 6}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.25}}
+                            className="mt-12 mb-2 text-lg font-medium text-gray-700 dark:text-gray-200"
+                        >
                             {tf("search_all_products", "Поиск по товарам")}
-                        </div>
+                        </motion.div>
 
-                        <div className="relative">
-                            <input
+                        <div className="relative group">
+                            <motion.input
                                 ref={inputRef}
                                 value={q}
                                 onChange={(e) => setQ(e.currentTarget.value)}
@@ -202,91 +208,126 @@ export default function HomeSearch() {
                                 }}
                                 onKeyDown={onKeyDown}
                                 placeholder={tf("search_placeholder", "Введите название, бренд, категорию…")}
-                                className="w-full rounded-2xl border px-4 pr-20 py-3 text-base shadow-sm
-                                                    dark:border-white/15 dark:bg-neutral-900 dark:text-white"
                                 aria-label={tf("search_all_products", "Поиск по товарам")}
+                                whileFocus={{scale: 1.003}}
+                                transition={{type: "spring", stiffness: 500, damping: 30, mass: 0.4}}
+                                className="w-full rounded-2xl border px-4 pr-20 py-3 text-base shadow-sm outline-none
+                           transition-shadow duration-200
+                           focus:shadow-[0_0_0_3px_rgba(0,0,0,0.08)]
+                           dark:border-white/15 dark:bg-neutral-900 dark:text-white dark:focus:shadow-[0_0_0_3px_rgba(255,255,255,0.15)]"
                             />
 
                             {/* Большая кнопка поиска справа */}
-                            <button
+                            <motion.button
                                 type="button"
                                 onClick={() => submit(q)}
+                                whileTap={{scale: 0.97}}
+                                whileHover={{y: -1}}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2
-                                             h-8 px-5 rounded-2xl bg-white text-black font-medium
-                                             shadow-lg hover:!bg-black hover:!text-white active:scale-[0.99]
-                                             focus:outline-none focus:ring-2 focus:ring-black/30
-                                             dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
+                           h-8 px-5 rounded-2xl bg-white text-black font-medium
+                           shadow-lg hover:!bg-black hover:!text-white active:scale-[0.99]
+                           focus:outline-none focus:ring-2 focus:ring-black/30
+                           dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
                                 aria-label={tf("search_action", "Искать")}
                             >
-                                {/* ВАЖНО: без классов цвета — иконка унаследует color от кнопки */}
-                                <Search className="h-5 w-5"/>
+                                <Search className="h-5 w-5 transition-transform duration-200 group-hover:rotate-12"/>
                                 <span className="hidden sm:inline">{tf("search_button", "Найти")}</span>
-                            </button>
+                            </motion.button>
                         </div>
                     </label>
-
                 </div>
 
                 {/* Портал с подсказками */}
-                {open && rect && createPortal(
-                    <div style={portalStyle}>
-                        <div
-                            ref={menuRef}
-                            className="overflow-hidden rounded-2xl border bg-white/95 shadow-xl backdrop-blur dark:border-white/10 dark:bg-neutral-900/95">
-                            <div className="transition-opacity duration-150 ease-out">
-                                {loading && (
-                                    <div className="p-3 text-sm text-gray-500 dark:text-gray-400">
-                                        {tf("search_loading", "Загрузка…")}
-                                    </div>
-                                )}
+                {createPortal(
+                    <AnimatePresence>
+                        {open && rect && (
+                            <motion.div style={portalStyle} initial="hidden" animate="visible" exit="exit"
+                                        variants={dropdownVariants}>
+                                <motion.div
+                                    ref={menuRef}
+                                    layout
+                                    className="overflow-hidden rounded-2xl border bg-white/95 shadow-xl backdrop-blur
+                             dark:border-white/10 dark:bg-neutral-900/95"
+                                >
+                                    <motion.div className="transition-opacity duration-150 ease-out" layout>
+                                        {loading && (
+                                            <div className="p-3">
+                                                {/* скелетон вместо текста Загрузка… */}
+                                                <div className="space-y-2">
+                                                    <div
+                                                        className="h-3 w-1/2 rounded bg-black/10 animate-pulse dark:bg-white/10"/>
+                                                    <div
+                                                        className="h-3 w-1/3 rounded bg-black/10 animate-pulse dark:bg-white/10"/>
+                                                </div>
+                                            </div>
+                                        )}
 
-                                {!loading && suggestions.length === 0 && (
-                                    <div className="p-3 text-sm text-gray-500 dark:text-gray-400">
-                                        {tf("search_no_results", "Ничего не найдено")}
-                                    </div>
-                                )}
+                                        {!loading && suggestions.length === 0 && (
+                                            <motion.div
+                                                initial={{opacity: 0}}
+                                                animate={{opacity: 1}}
+                                                transition={{duration: 0.15}}
+                                                className="p-3 text-sm text-gray-500 dark:text-gray-400"
+                                            >
+                                                {tf("search_no_results", "Ничего не найдено")}
+                                            </motion.div>
+                                        )}
 
-                                {!loading && suggestions.length > 0 && (
-                                    <ul className="max-h-[60vh] overflow-y-auto py-1">
-                                        {suggestions.map((p, idx) => {
-                                            const active = idx === activeIdx;
-                                            return (
-                                                <li key={p.id}>
-                                                    <button
-                                                        type="button"
-                                                        onMouseEnter={() => setActiveIdx(idx)}
-                                                        onMouseDown={() => submit(p.title)}
-                                                        className={`flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm
-                                     ${active ? "bg-black/5 dark:bg-white/10" : ""}`}
-                                                    >
-                                                        <div className="min-w-0">
-                                                            <div className="truncate font-medium">{p.title}</div>
-                                                            <div
-                                                                className="truncate text-xs text-gray-500 dark:text-gray-400">
-                                                                {(p.brand || "—")}
-                                                                {p.category ? ` • ${p.category}${p.subcategory ? `/${p.subcategory}` : ""}` : ""}
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className="shrink-0 text-sm font-semibold tabular-nums">${p.price}</div>
-                                                    </button>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                )}
+                                        {!loading && suggestions.length > 0 && (
+                                            <motion.ul className="max-h-[60vh] overflow-y-auto py-1" layout>
+                                                {suggestions.map((p, idx) => {
+                                                    const active = idx === activeIdx;
+                                                    return (
+                                                        <li key={p.id}>
+                                                            <motion.button
+                                                                type="button"
+                                                                onMouseEnter={() => setActiveIdx(idx)}
+                                                                onMouseDown={() => submit(p.title)}
+                                                                initial={false}
+                                                                animate={{backgroundColor: active ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0)"}}
+                                                                transition={{duration: 0.12}}
+                                                                whileHover={{x: 2}}
+                                                                whileTap={{scale: 0.995}}
+                                                                className={`flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm
+                                  dark:${active ? "bg-white/10" : ""}`}
+                                                            >
+                                                                <div className="min-w-0">
+                                                                    <div
+                                                                        className="truncate font-medium">{p.title}</div>
+                                                                    <div
+                                                                        className="truncate text-xs text-gray-500 dark:text-gray-400">
+                                                                        {(p.brand || "—")}
+                                                                        {p.category ? ` • ${p.category}${p.subcategory ? `/${p.subcategory}` : ""}` : ""}
+                                                                    </div>
+                                                                </div>
+                                                                <motion.div
+                                                                    layout
+                                                                    initial={{opacity: 0, y: 2}}
+                                                                    animate={{opacity: 1, y: 0}}
+                                                                    className="shrink-0 text-sm font-semibold tabular-nums"
+                                                                >
+                                                                    ${p.price}
+                                                                </motion.div>
+                                                            </motion.button>
+                                                        </li>
+                                                    );
+                                                })}
+                                            </motion.ul>
+                                        )}
 
-                                <div
-                                    className="border-t p-2 text-right text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                                    {tf("search_hint", "Enter — искать, ↑/↓ — выбрать, Esc — закрыть")}
-                                </div>
-                            </div>
-                        </div>
-                    </div>,
+                                        <div
+                                            className="border-t p-2 text-right text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                            {tf("search_hint", "Enter — искать, ↑/↓ — выбрать, Esc — закрыть")}
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>,
                     document.body
                 )}
             </div>
-            <div className="mb-4"></div>
+            <div className="mb-4"/>
         </Container>
     );
 }

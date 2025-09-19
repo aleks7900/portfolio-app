@@ -2,7 +2,7 @@ export type Subcat = { key: string; labelKey: string };
 export type Cat = { key: string; labelKey: string; children: Subcat[] };
 
 // пример (подставь свой реальный список)
-export const CATS: Cat[] = [
+export const CAT: Cat[] = [
     {
         key: "metal",
         labelKey: "cat_metal",
@@ -32,5 +32,27 @@ export const CATS: Cat[] = [
             {key: "shelves", labelKey: "cat_furniture_shelves"},
             {key: "legs", labelKey: "cat_furniture_legs"},
         ],
+    },
+];
+
+export const CATS: Cat[] = [
+    {
+        key: "electronics", labelKey: "cat_electronics", children: [
+            {key: "laptops", labelKey: "sub_laptops"},
+            {key: "phones", labelKey: "sub_phones"},
+            {key: "tablets", labelKey: "sub_tablets"},
+        ]
+    },
+    {
+        key: "home", labelKey: "cat_home", children: [
+            {key: "vacuum", labelKey: "sub_vacuum"},
+            {key: "fridges", labelKey: "sub_fridges"},
+        ]
+    },
+    {
+        key: "accessories", labelKey: "cat_accessories", children: [
+            {key: "headphones", labelKey: "sub_headphones"},
+            {key: "chargers", labelKey: "sub_chargers"},
+        ]
     },
 ];

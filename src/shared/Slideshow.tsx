@@ -183,7 +183,10 @@ export default function Slideshow() {
                 {slides.map((_, i) => (
                     <button
                         key={i}
-                        onClick={() => instanceRef.current?.moveToIdx(i)}
+                        onClick={() => {
+                            const abs = instanceRef.current?.track.details.abs ?? 0;
+                            instanceRef.current?.moveToIdx(abs + i); // ✅ вместо moveToIdx(i)
+                        }}
                         aria-label={`Go to slide ${i + 1}`}
                         className={[
                             "h-3.5 w-3.5 rounded-full transition transform duration-200",
