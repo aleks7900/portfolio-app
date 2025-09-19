@@ -6,9 +6,6 @@ export default function AboutPage() {
     const {t} = useI18n();
     return (
         <Section titleKey="about_title" leadKey="about_lead">
-            <div className="prose max-w-none prose-p:leading-relaxed dark:prose-invert"><p>{t("about_p1")}</p>
-                <p>{t("about_p2")}</p></div>
-
             <div className="prose max-w-none prose-p:leading-relaxed dark:prose-invert">
                 <p><TransHTML k="about_intro1"/></p>
                 <p><TransHTML k="about_intro2"/></p>
@@ -139,43 +136,79 @@ export default function AboutPage() {
             </div>
 
             <div className="hidden mt-12 prose max-w-none prose-p:leading-relaxed dark:prose-invert">
-                <p>Suntem o echipă de specialiști în prelucrarea metalului, care transformă ideile dvs. în produse finite. Experiența și <strong>echipamentele moderne</strong> ne permit să executăm o gamă largă de lucrări — de la tăiere simplă până la construcții sudate complexe.</p>
-                <p>Compania noastră este specializată în prelucrarea profesională a oțelului inoxidabil și a construcțiilor metalice, oferind un ciclu complet de servicii — de la debitare până la asamblare. Ajutăm clienții să realizeze atât proiecte simple, cât și construcții complexe, care necesită precizie și fiabilitate.</p>
+                <p>Suntem o echipă de specialiști în prelucrarea metalului, care transformă ideile dvs. în produse
+                    finite. Experiența și <strong>echipamentele moderne</strong> ne permit să executăm o gamă largă de
+                    lucrări — de la tăiere simplă până la construcții sudate complexe.</p>
+                <p>Compania noastră este specializată în prelucrarea profesională a oțelului inoxidabil și a
+                    construcțiilor metalice, oferind un ciclu complet de servicii — de la debitare până la asamblare.
+                    Ajutăm clienții să realizeze atât proiecte simple, cât și construcții complexe, care necesită
+                    precizie și fiabilitate.</p>
 
                 <h3>Punctele noastre forte</h3>
                 <ul>
-                    <li><strong>Echipamente moderne</strong> — ghilotine, mașini de roluit și îndoit, fierăstraie cu bandă și aparate de sudură de ultimă generație. Acest lucru permite realizarea operațiunilor rapid, precis și cu pierderi minime de material.</li>
-                    <li><strong>Gamă largă de servicii</strong> — debitare, îndoire, roluire, găurire, sudură, finisare și multe altele. Toate lucrările se realizează într-un singur loc.</li>
-                    <li><strong>Meșteri calificați</strong> — echipa noastră cu mulți ani de experiență garantează rezistența și precizia fiecărui detaliu.</li>
-                    <li><strong>Abordare individuală</strong> — lucrăm atât cu comenzi tipice, cât și după schițele și desenele dvs.</li>
-                    <li><strong>Calitate</strong> — fiecare cusătură și fiecare îndoire sunt verificate, produsele arată impecabil atât tehnic, cât și vizual.</li>
+                    <li><strong>Echipamente moderne</strong> — ghilotine, mașini de roluit și îndoit, fierăstraie cu
+                        bandă și aparate de sudură de ultimă generație. Acest lucru permite realizarea operațiunilor
+                        rapid, precis și cu pierderi minime de material.
+                    </li>
+                    <li><strong>Gamă largă de servicii</strong> — debitare, îndoire, roluire, găurire, sudură, finisare
+                        și multe altele. Toate lucrările se realizează într-un singur loc.
+                    </li>
+                    <li><strong>Meșteri calificați</strong> — echipa noastră cu mulți ani de experiență garantează
+                        rezistența și precizia fiecărui detaliu.
+                    </li>
+                    <li><strong>Abordare individuală</strong> — lucrăm atât cu comenzi tipice, cât și după schițele și
+                        desenele dvs.
+                    </li>
+                    <li><strong>Calitate</strong> — fiecare cusătură și fiecare îndoire sunt verificate, produsele arată
+                        impecabil atât tehnic, cât și vizual.
+                    </li>
                     <li><strong>Prețuri transparente</strong> — listă de prețuri clară, fără costuri ascunse.</li>
-                    <li><strong>Respectarea termenelor</strong> — procese optimizate care permit livrarea comenzilor la timp.</li>
+                    <li><strong>Respectarea termenelor</strong> — procese optimizate care permit livrarea comenzilor la
+                        timp.
+                    </li>
                 </ul>
 
                 <h3>Serviciile noastre</h3>
                 <ul>
-                    <li><strong>Debitarea metalului</strong> — cu ghilotina, fierăstrăul cu bandă și polizorul, precis conform dimensiunilor dvs.</li>
-                    <li><strong>Îndoire și roluire</strong> — realizăm îndoiri, cilindri și conuri de orice complexitate.</li>
+                    <li><strong>Debitarea metalului</strong> — cu ghilotina, fierăstrăul cu bandă și polizorul, precis
+                        conform dimensiunilor dvs.
+                    </li>
+                    <li><strong>Îndoire și roluire</strong> — realizăm îndoiri, cilindri și conuri de orice
+                        complexitate.
+                    </li>
                     <li><strong>Găurire și decupare</strong> — în tablă, țevi profilate și țevi rotunde.</li>
-                    <li><strong>Sudură</strong> — cusături constructive, șlefuite și polisate, precum și sudură prin puncte.</li>
+                    <li><strong>Sudură</strong> — cusături constructive, șlefuite și polisate, precum și sudură prin
+                        puncte.
+                    </li>
                     <li><strong>Îmbinări de țevi</strong> — decupare la unghi de 90° și 45°.</li>
                     <li><strong>Finisare</strong> — îndepărtarea bavurilor, șlefuire, lustruire și tratare acidă.</li>
-                    <li><strong>Măsurători pe șantier</strong> — deplasarea specialiștilor în Chișinău și în afara orașului.</li>
+                    <li><strong>Măsurători pe șantier</strong> — deplasarea specialiștilor în Chișinău și în afara
+                        orașului.
+                    </li>
                 </ul>
 
                 <h3>Clienții noștri</h3>
-                <p>Colaborăm cu clienți privați, companii de construcții, întreprinderi de producție și HoReCa. Realizăm atât elemente separate (blaturi, cadre, structuri), cât și construcții complete pentru obiective din Chișinău și din toată Moldova.</p>
+                <p>Colaborăm cu clienți privați, companii de construcții, întreprinderi de producție și HoReCa. Realizăm
+                    atât elemente separate (blaturi, cadre, structuri), cât și construcții complete pentru obiective din
+                    Chișinău și din toată Moldova.</p>
 
                 <h3>Abordarea noastră</h3>
-                <p>Construim relații pe termen lung cu clienții. Este important pentru noi ca fiecare lucrare realizată să devină un exemplu de calitate și profesionalism. Scopul nostru nu este doar să executăm o comandă, ci să oferim o soluție care să reziste mult timp și să se evidențieze prin valoare.</p>
-                <p>Prețuim încrederea clienților și oferim mereu cel mai bun rezultat — fie că este vorba de construcții, piese sau elemente decorative.</p>
+                <p>Construim relații pe termen lung cu clienții. Este important pentru noi ca fiecare lucrare realizată
+                    să devină un exemplu de calitate și profesionalism. Scopul nostru nu este doar să executăm o
+                    comandă, ci să oferim o soluție care să reziste mult timp și să se evidențieze prin valoare.</p>
+                <p>Prețuim încrederea clienților și oferim mereu cel mai bun rezultat — fie că este vorba de
+                    construcții, piese sau elemente decorative.</p>
 
                 <h3>De ce să ne alegeți</h3>
                 <ul>
-                    <li><strong>Precizie și calitate</strong> — folosim echipamente profesionale și respectăm dimensiunile la milimetru.</li>
-                    <li><strong>Abordare complexă</strong> — de la pregătirea materialului până la sudură și finisare.</li>
-                    <li><strong>Soluții individuale</strong> — lucrăm atât cu comenzi standard, cât și după desene personalizate.</li>
+                    <li><strong>Precizie și calitate</strong> — folosim echipamente profesionale și respectăm
+                        dimensiunile la milimetru.
+                    </li>
+                    <li><strong>Abordare complexă</strong> — de la pregătirea materialului până la sudură și finisare.
+                    </li>
+                    <li><strong>Soluții individuale</strong> — lucrăm atât cu comenzi standard, cât și după desene
+                        personalizate.
+                    </li>
                     <li><strong>Prețuri transparente</strong> — listă clară pentru toate tipurile de lucrări.</li>
                     <li><strong>Rapiditate</strong> — procese optimizate care permit predarea comenzilor la timp.</li>
                 </ul>
