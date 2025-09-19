@@ -88,18 +88,16 @@ export default function HeroDownServices() {
                                     whileTap={{scale: 0.995}}
                                     className="card-appear rounded-xl"
                                 >
-                                    <div className="card-icon-anim">
-                                        {i === 0 && <ServiceCardOdd titleKey="services_welding_title"
-                                                                    descKey="services_welding_desc" s={SERVICES[8]}/>}
-                                        {i === 1 && <ServiceCard titleKey="services_stiffener_title"
-                                                                 descKey="services_stiffener_desc" s={SERVICES[9]}/>}
-                                        {i === 2 &&
-                                            <ServiceCard titleKey="services_leg_title" descKey="services_leg_desc"
-                                                         s={SERVICES[10]}/>}
-                                        {i === 3 &&
-                                            <ServiceCardOdd titleKey="services_acid_title" descKey="services_acid_desc"
-                                                            s={SERVICES[11]}/>}
-                                    </div>
+                                    {i === 0 && <ServiceCardOdd titleKey="services_welding_title"
+                                                                descKey="services_welding_desc" s={SERVICES[8]}/>}
+                                    {i === 1 && <ServiceCard titleKey="services_stiffener_title"
+                                                             descKey="services_stiffener_desc" s={SERVICES[9]}/>}
+                                    {i === 2 &&
+                                        <ServiceCard titleKey="services_leg_title" descKey="services_leg_desc"
+                                                     s={SERVICES[10]}/>}
+                                    {i === 3 &&
+                                        <ServiceCardOdd titleKey="services_acid_title" descKey="services_acid_desc"
+                                                        s={SERVICES[11]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>

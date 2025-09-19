@@ -88,16 +88,14 @@ export default function Hero() {
                                     className="card-appear rounded-xl"
                                 >
                                     {/* Обёртка добавляет класс для анимации иконок внутри карточки */}
-                                    <div className="card-icon-anim">
-                                        {i === 0 && <ServiceCardOdd titleKey="services_laser_title"
-                                                                    descKey="services_laser_desc" s={SERVICES[0]}/>}
-                                        {i === 1 && <ServiceCard titleKey="services_shearing_title"
-                                                                 descKey="services_shearing_desc" s={SERVICES[1]}/>}
-                                        {i === 2 && <ServiceCard titleKey="services_bending_title"
-                                                                 descKey="services_bending_desc" s={SERVICES[2]}/>}
-                                        {i === 3 && <ServiceCardOdd titleKey="services_rolling_title"
-                                                                    descKey="services_rolling_desc" s={SERVICES[3]}/>}
-                                    </div>
+                                    {i === 0 && <ServiceCardOdd titleKey="services_laser_title"
+                                                                descKey="services_laser_desc" s={SERVICES[0]}/>}
+                                    {i === 1 && <ServiceCard titleKey="services_shearing_title"
+                                                             descKey="services_shearing_desc" s={SERVICES[1]}/>}
+                                    {i === 2 && <ServiceCard titleKey="services_bending_title"
+                                                             descKey="services_bending_desc" s={SERVICES[2]}/>}
+                                    {i === 3 && <ServiceCardOdd titleKey="services_rolling_title"
+                                                                descKey="services_rolling_desc" s={SERVICES[3]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>

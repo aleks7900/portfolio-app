@@ -64,17 +64,15 @@ export default function HeroMirrored() {
                                     whileTap={{scale: 0.995}}
                                     className="card-appear rounded-xl"
                                 >
-                                    <div className="card-icon-anim">
-                                        {i === 0 && <ServiceCardOdd titleKey="services_drilling_title"
-                                                                    descKey="services_drilling_desc" s={SERVICES[4]}/>}
-                                        {i === 1 && <ServiceCard titleKey="services_bandsaw_title"
-                                                                 descKey="services_bandsaw_desc" s={SERVICES[5]}/>}
-                                        {i === 2 &&
-                                            <ServiceCard titleKey="services_pipe_title" descKey="services_pipe_desc"
-                                                         s={SERVICES[6]}/>}
-                                        {i === 3 && <ServiceCardOdd titleKey="services_grinder_title"
-                                                                    descKey="services_grinder_desc" s={SERVICES[7]}/>}
-                                    </div>
+                                    {i === 0 && <ServiceCardOdd titleKey="services_drilling_title"
+                                                                descKey="services_drilling_desc" s={SERVICES[4]}/>}
+                                    {i === 1 && <ServiceCard titleKey="services_bandsaw_title"
+                                                             descKey="services_bandsaw_desc" s={SERVICES[5]}/>}
+                                    {i === 2 &&
+                                        <ServiceCard titleKey="services_pipe_title" descKey="services_pipe_desc"
+                                                     s={SERVICES[6]}/>}
+                                    {i === 3 && <ServiceCardOdd titleKey="services_grinder_title"
+                                                                descKey="services_grinder_desc" s={SERVICES[7]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>
