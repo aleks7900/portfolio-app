@@ -115,7 +115,42 @@ export const dict: Dictionary = {
 
         cat_furniture_tables: "СТОЛЫ",
         cat_furniture_shelves: "ПОЛКИ",
-        cat_furniture_legs: "ОПОРЫ"
+        cat_furniture_legs: "ОПОРЫ",
+
+        about_intro1: "Мы — команда специалистов по обработке металла, которая превращает ваши идеи в готовые изделия. Наш опыт и современное оборудование позволяют выполнять широкий спектр работ — от простой резки до сложных сварных конструкций.",
+        about_intro2: "Наша компания специализируется на профессиональной обработке нержавеющей стали и металлоконструкций, предлагая полный цикл услуг — от раскроя листового металла до сборки готовых изделий. Мы помогаем клиентам реализовать как простые проекты, так и сложные конструкции, требующие высокой точности и надежности.",
+
+        about_strengths_title: "Наши сильные стороны",
+        about_strengths_1: "Современное оборудование — используем гильотины, вальцовочные и гибочные станки, ленточные пилы и сварочные аппараты последнего поколения. Это позволяет выполнять операции быстро, точно и с минимальными потерями материала.",
+        about_strengths_2: "Широкий спектр услуг — резка, гибка, вальцовка, сверление, сварка, финишная обработка и многое другое. Все работы выполняются в одном месте.",
+        about_strengths_3: "Квалифицированные мастера — команда специалистов с многолетним опытом гарантирует прочность и аккуратность каждой детали.",
+        about_strengths_4: "Индивидуальный подход — работаем как с типовыми заказами, так и по вашим чертежам, эскизам и идеям.",
+        about_strengths_5: "Качество — каждый шов и изгиб проходят проверку, изделия выглядят безупречно технически и визуально.",
+        about_strengths_6: "Прозрачные цены — понятный прайс-лист без скрытых платежей.",
+        about_strengths_7: "Соблюдение сроков — оптимизированные процессы позволяют сдавать заказы вовремя.",
+
+        about_services_title: "Наши услуги",
+        about_services_1: "Резка металла — на гильотине, ленточной пиле и болгаркой, точная под ваши размеры.",
+        about_services_2: "Гибка и вальцовка — создаём изгибы, цилиндры и конусы любой сложности.",
+        about_services_3: "Сверление и вырезка отверстий — в листовом металле, профильных и круглых трубах.",
+        about_services_4: "Сварка — конструктивные, шлифованные и полированные швы, а также сварка точками.",
+        about_services_5: "Изготовление соединений труб — врезка под углом 90° и 45°.",
+        about_services_6: "Финишная обработка — снятие заусенцев, шлифовка, полировка и кислотная обработка.",
+        about_services_7: "Замеры на объекте — выезд специалистов в Кишинёве и за его пределами.",
+
+        about_clients_title: "Наши клиенты",
+        about_clients: "С нами сотрудничают частные заказчики, строительные компании, производственные предприятия и сфера HoReCa. Мы изготавливаем как отдельные элементы (столешницы, стойки, каркасы), так и целые конструкции для объектов в Кишинёве и по всей Молдове.",
+
+        about_approach_title: "Наш подход",
+        about_approach_1: "Мы строим долгосрочные отношения с клиентами. Для нас важно, чтобы каждая выполненная работа становилась примером качества и профессионализма. Наша цель — не просто выполнить заказ, а предложить решение, которое будет служить долго и выгодно выделяться среди аналогов.",
+        about_approach_2: "Мы ценим доверие клиентов и всегда стремимся предложить лучший результат — будь то изготовление конструкций, деталей или декоративных элементов. Для нас важно, чтобы каждая выполненная работа становилась примером качества и профессионализма.",
+
+        about_why_title: "Почему выбирают нас",
+        about_why_1: "Точность и качество — используем профессиональное оборудование, выдерживаем размеры до миллиметра.",
+        about_why_2: "Комплексный подход — от подготовки материала до финальной сварки и полировки.",
+        about_why_3: "Индивидуальные решения — работаем как с типовыми заказами, так и по вашим чертежам.",
+        about_why_4: "Прозрачные цены — понятный прайс-лист на все виды работ.",
+        about_why_5: "Скорость выполнения — оптимизированные процессы позволяют сдавать заказы в срок."
     },
     en: {
         brandLogo: "",
@@ -223,7 +258,42 @@ export const dict: Dictionary = {
 
         cat_furniture_tables: "СТОЛЫ",
         cat_furniture_shelves: "ПОЛКИ",
-        cat_furniture_legs: "ОПОРЫ"
+        cat_furniture_legs: "ОПОРЫ",
+
+        about_intro1: "Suntem o echipă de specialiști în prelucrarea metalului, care transformă ideile dumneavoastră în produse finite. Experiența și echipamentele moderne ne permit să executăm o gamă largă de lucrări — de la tăiere simplă până la construcții sudate complexe.",
+        about_intro2: "Compania noastră este specializată în prelucrarea profesională a oțelului inoxidabil și a construcțiilor metalice, oferind un ciclu complet de servicii — de la debitarea tablei până la asamblarea produsului finit. Ajutăm clienții să realizeze atât proiecte simple, cât și construcții complexe, care necesită precizie și fiabilitate ridicată.",
+
+        about_strengths_title: "Punctele noastre forte",
+        about_strengths_1: "Echipamente moderne — utilizăm ghilotine, mașini de roluit și îndoit, fierăstraie cu bandă și aparate de sudură de ultimă generație. Acest lucru ne permite să executăm operațiunile rapid, precis și cu pierderi minime de material.",
+        about_strengths_2: "Gamă largă de servicii — debitare, îndoire, roluire, găurire, sudură, finisare și multe altele. Toate lucrările se realizează într-un singur loc.",
+        about_strengths_3: "Meșteri calificați — echipa noastră cu mulți ani de experiență garantează rezistența și precizia fiecărui detaliu.",
+        about_strengths_4: "Abordare individuală — lucrăm atât cu comenzi tipice, cât și după schițele și desenele dumneavoastră.",
+        about_strengths_5: "Calitate — fiecare cusătură și fiecare îndoire sunt verificate, produsele arată impecabil atât tehnic, cât și vizual.",
+        about_strengths_6: "Prețuri transparente — listă de prețuri clară, fără taxe ascunse.",
+        about_strengths_7: "Respectarea termenelor — procese optimizate care permit livrarea comenzilor la timp.",
+
+        about_services_title: "Serviciile noastre",
+        about_services_1: "Debitarea metalului — cu ghilotina, fierăstrăul cu bandă și polizorul, precis conform dimensiunilor dumneavoastră.",
+        about_services_2: "Îndoire și roluire — realizăm îndoiri, cilindri și conuri de orice complexitate.",
+        about_services_3: "Găurire și decupare — în tablă, țevi profilate și țevi rotunde.",
+        about_services_4: "Sudură — cusături constructive, șlefuite și polisate, precum și sudură prin puncte.",
+        about_services_5: "Realizarea îmbinărilor de țevi — decupare la unghi de 90° și 45°.",
+        about_services_6: "Finisare — îndepărtarea bavurilor, șlefuire, lustruire și tratare acidă.",
+        about_services_7: "Măsurători pe șantier — deplasarea specialiștilor în Chișinău și în afara orașului.",
+
+        about_clients_title: "Clienții noștri",
+        about_clients: "Colaborăm cu clienți privați, companii de construcții, întreprinderi de producție și domeniul HoReCa. Realizăm atât elemente separate (blaturi, cadre, structuri), cât și construcții complete pentru obiective din Chișinău și din toată Moldova.",
+
+        about_approach_title: "Abordarea noastră",
+        about_approach_1: "Construim relații pe termen lung cu clienții. Pentru noi este important ca fiecare lucrare realizată să devină un exemplu de calitate și profesionalism. Scopul nostru nu este doar să executăm o comandă, ci să oferim o soluție care să reziste mult timp și să se evidențieze prin valoare.",
+        about_approach_2: "Prețuim încrederea clienților și ne străduim mereu să oferim cel mai bun rezultat — fie că este vorba de construcții, piese sau elemente decorative.",
+
+        about_why_title: "De ce să ne alegeți",
+        about_why_1: "Precizie și calitate — folosim echipamente profesionale și respectăm dimensiunile la milimetru.",
+        about_why_2: "Abordare complexă — de la pregătirea materialului până la sudură și finisare.",
+        about_why_3: "Soluții individuale — lucrăm atât cu comenzi standard, cât și după desene personalizate.",
+        about_why_4: "Prețuri transparente — listă clară pentru toate tipurile de lucrări.",
+        about_why_5: "Rapiditate — procese optimizate care permit predarea comenzilor la timp."
     },
 };
 

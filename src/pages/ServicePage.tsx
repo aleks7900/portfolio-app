@@ -1,14 +1,18 @@
 import Slideshow from "../shared/Slideshow.tsx";
 import {SERVICES} from "../data/data.ts";
-import Hero from "./components/Hero.tsx";
+import HeroUpServices from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import ServiceCard from "./components/ServiceCard.tsx";
+import HeroServicesMirrored from "./components/HeroMirrored.tsx";
+import HeroDownServices from "./components/HeroDown.tsx";
 
 export default function ServicePage() {
     return (
         <>
             <Slideshow/>
-            <Hero/>
+            <HeroUpServices/>
+            <HeroServicesMirrored/>
+            <HeroDownServices/>
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <ServiceCard titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
