@@ -4,7 +4,6 @@ import {motion} from "framer-motion";
 import {SERVICES} from "../../data/data.ts";
 import ServiceCard from "./ServiceCard.tsx";
 import ServiceCardOdd from "./ServiceCardOdd.tsx";
-import React from "react";
 
 // ===== Варианты анимаций (те же, что в Hero/HeroDown) =====
 const containerVariants = {
@@ -21,58 +20,23 @@ const cardVariants = {
     visible: {opacity: 1, y: 0, scale: 1, transition: {type: "spring", stiffness: 420, damping: 32, mass: 0.6}},
 } as const;
 
-// ===== Хук параллакса (tilt по курсору) =====
-function useParallax(maxTilt = 6) {
-    const ref = React.useRef<HTMLDivElement | null>(null);
-    const [rot, setRot] = React.useState({rx: 0, ry: 0});
-    const onMouseMove = (e: React.MouseEvent) => {
-        const el = ref.current;
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;   // 0..1
-        const py = (e.clientY - r.top) / r.height;   // 0..1
-        const ry = (px - 0.5) * 2 * maxTilt;         // -max..max (по оси Y)
-        const rx = -(py - 0.5) * 2 * maxTilt;        // -max..max (по оси X)
-        setRot({rx, ry});
-    };
-    const onMouseLeave = () => setRot({rx: 0, ry: 0});
-    return {ref, rot, onMouseMove, onMouseLeave};
-}
-
 export default function HeroMirrored() {
     const {t} = useI18n();
     const navigate = useNavigate();
 
     return (
         <section className="pt-28 sm:pt-32">
-            {/* Локальные keyframes и утилиты: icon-float + shimmer-граница */}
+            {/* Локальные keyframes как в Hero.tsx */}
             <style>{`
         @media (prefers-reduced-motion: no-preference) {
           @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
           @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
           .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
           .card-appear { animation: soft-glow .35s ease both; }
-
-          /* Shimmer-граница: контейнер + бегущий градиент под внутренним блоком */
-          .shimmer-wrap { position: relative; border-radius: 0.75rem; padding: 2px; overflow: hidden; }
-          .shimmer-wrap::before {
-            content: ""; position: absolute; inset: -150%; pointer-events: none;
-            background:
-              conic-gradient(from 0deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.45) 10%, rgba(255,255,255,0.0) 20%),
-              linear-gradient(90deg,#16a34a,#0ea5e9,#16a34a);
-            background-size: 40% 40%, 300% 100%;
-            animation: shimmer-rot 5s linear infinite, shimmer-move 4s linear infinite;
-            filter: blur(10px); opacity: .55;
-          }
-          @keyframes shimmer-rot { to { transform: rotate(360deg); } }
-          @keyframes shimmer-move { 0% { background-position: 0% 0, 0% 0 } 100% { background-position: 0% 0, 300% 0 } }
-          .shimmer-inner { position: relative; border-radius: 0.70rem; background: white; }
-          .dark .shimmer-inner { background: #000; }
         }
         @media (prefers-reduced-motion: reduce) {
           .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
           .card-appear { animation: none !important; }
-          .shimmer-wrap::before { display: none !important; }
         }
       `}</style>
 
@@ -83,53 +47,36 @@ export default function HeroMirrored() {
                     variants={containerVariants}
                     className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center"
                 >
-                    {/* Левая колонка — карточки с анимациями + shimmer + tilt */}
+                    {/* Левая колонка — карточки с анимациями */}
                     <motion.div variants={cardVariants}
-                                className="rounded-2xl bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
+                                className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
                         <motion.div
                             initial="hidden"
                             animate="visible"
                             variants={{hidden: {}, visible: {transition: {staggerChildren: 0.05}}}}
                             className="grid grid-cols-2 gap-4"
                         >
-                            {[0, 1, 2, 3].map((i) => {
-                                // eslint-disable-next-line react-hooks/rules-of-hooks
-                                const {ref, rot, onMouseMove, onMouseLeave} = useParallax(7);
-                                return (
-                                    <motion.div
-                                        key={i}
-                                        variants={cardVariants}
-                                        whileHover={{y: -2}}
-                                        whileTap={{scale: 0.995}}
-                                        className="card-appear shimmer-wrap"
-                                        onMouseMove={onMouseMove}
-                                        onMouseLeave={onMouseLeave}
-                                        ref={ref}
-                                        style={{perspective: 900}}
-                                    >
-                                        <motion.div
-                                            className="shimmer-inner"
-                                            style={{transformStyle: "preserve-3d", willChange: "transform"}}
-                                            animate={{rotateX: rot.rx, rotateY: rot.ry}}
-                                            transition={{type: "spring", stiffness: 220, damping: 18, mass: 0.5}}
-                                        >
-                                            <div className="card-icon-anim">
-                                                {i === 0 && <ServiceCardOdd titleKey="services_drilling_title"
-                                                                            descKey="services_drilling_desc"
-                                                                            s={SERVICES[4]}/>}
-                                                {i === 1 && <ServiceCard titleKey="services_bandsaw_title"
-                                                                         descKey="services_bandsaw_desc"
-                                                                         s={SERVICES[5]}/>}
-                                                {i === 2 && <ServiceCard titleKey="services_pipe_title"
-                                                                         descKey="services_pipe_desc" s={SERVICES[6]}/>}
-                                                {i === 3 && <ServiceCardOdd titleKey="services_grinder_title"
-                                                                            descKey="services_grinder_desc"
-                                                                            s={SERVICES[7]}/>}
-                                            </div>
-                                        </motion.div>
-                                    </motion.div>
-                                );
-                            })}
+                            {[0, 1, 2, 3].map((i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={cardVariants}
+                                    whileHover={{y: -2}}
+                                    whileTap={{scale: 0.995}}
+                                    className="card-appear rounded-xl"
+                                >
+                                    <div className="card-icon-anim">
+                                        {i === 0 && <ServiceCardOdd titleKey="services_drilling_title"
+                                                                    descKey="services_drilling_desc" s={SERVICES[4]}/>}
+                                        {i === 1 && <ServiceCard titleKey="services_bandsaw_title"
+                                                                 descKey="services_bandsaw_desc" s={SERVICES[5]}/>}
+                                        {i === 2 &&
+                                            <ServiceCard titleKey="services_pipe_title" descKey="services_pipe_desc"
+                                                         s={SERVICES[6]}/>}
+                                        {i === 3 && <ServiceCardOdd titleKey="services_grinder_title"
+                                                                    descKey="services_grinder_desc" s={SERVICES[7]}/>}
+                                    </div>
+                                </motion.div>
+                            ))}
                         </motion.div>
                     </motion.div>
 
