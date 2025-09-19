@@ -28,7 +28,7 @@ import AdminMenu from "../pages/admin/AdminMenu.tsx";
 
 function LangToggle() {
     const {lang, setLang} = useI18n();
-    const next = lang === "ru" ? "en" : "ru";
+    const next = lang === "ru" ? "ro" : "ru";
     return (
         <button
             className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
