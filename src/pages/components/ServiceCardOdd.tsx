@@ -3,14 +3,14 @@ import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {ArrowRight} from "lucide-react";
 import {Link} from "react-router-dom";
 
-export default function ServiceCard({titleKey, descKey, s}: {
+export default function ServiceCardOdd({titleKey, descKey, s}: {
     titleKey: string;
     descKey: string;
     s: (typeof SERVICES)[number]
 }) {
     const {t} = useI18n();
     return (
-        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:!bg-gray-800 dark:border-white/10">
+        <div className="rounded-2xl border !bg-gray-300 p-6 shadow-sm dark:!bg-gray-800 dark:border-white/10">
             <div className="flex items-center gap-3">
                 <div
                     className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white dark:bg-white dark:text-black">

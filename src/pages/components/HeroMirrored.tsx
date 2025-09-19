@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import {SERVICES} from "../../data/data.ts";
 import ServiceCard from "./ServiceCard.tsx";
+import ServiceCardOdd from "./ServiceCardOdd.tsx";
 
 
 // ============================
@@ -18,10 +19,10 @@ export default function HeroMirrored() {
                             className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center">
                     <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
                         <div className="grid grid-cols-2 gap-4">
-                            <ServiceCard titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
+                            <ServiceCardOdd titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
                             <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
                             <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
-                            <ServiceCard titleKey="services_uikit" descKey="services_uikit_desc" s={SERVICES[2]}/>
+                            <ServiceCardOdd titleKey="services_uikit" descKey="services_uikit_desc" s={SERVICES[3]}/>
                         </div>
                     </div>
                     <div className="ml-12">

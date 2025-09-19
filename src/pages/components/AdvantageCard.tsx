@@ -1,12 +1,12 @@
-import {SERVICES} from "../../data/data.ts";
+import {ADV} from "../../data/data.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {ArrowRight} from "lucide-react";
 import {Link} from "react-router-dom";
 
-export default function ServiceCard({titleKey, descKey, s}: {
+export default function AdvantageCard({titleKey, descKey, s}: {
     titleKey: string;
     descKey: string;
-    s: (typeof SERVICES)[number]
+    s: (typeof ADV)[number]
 }) {
     const {t} = useI18n();
     return (
@@ -14,7 +14,7 @@ export default function ServiceCard({titleKey, descKey, s}: {
             <div className="flex items-center gap-3">
                 <div
                     className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white dark:bg-white dark:text-black">
-                    <s.icon className="h-6 w-6"/>
+                    <s.icon className="h-5 w-5"/>
                 </div>
                 <h3 className="text-2xl font-medium">{t(titleKey)}</h3>
             </div>
