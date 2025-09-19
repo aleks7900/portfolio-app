@@ -2139,6 +2139,11 @@
       line-height: var(--tw-leading, var(--text-xl--line-height));
     }
   }
+  .md\:ml-12 {
+    @media (width >= 48rem) {
+      margin-left: calc(var(--spacing) * 12);
+    }
+  }
   .md\:flex {
     @media (width >= 48rem) {
       display: flex;
