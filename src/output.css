@@ -86,6 +86,7 @@
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --blur-sm: 8px;
     --blur-md: 12px;
@@ -1461,6 +1462,10 @@
     --tw-duration: 300ms;
     transition-duration: 300ms;
   }
+  .ease-in-out {
+    --tw-ease: var(--ease-in-out);
+    transition-timing-function: var(--ease-in-out);
+  }
   .ease-out {
     --tw-ease: var(--ease-out);
     transition-timing-function: var(--ease-out);
@@ -1897,6 +1902,13 @@
       }
     }
   }
+  .hover\:\[animation-play-state\:paused\] {
+    &:hover {
+      @media (hover: hover) {
+        animation-play-state: paused;
+      }
+    }
+  }
   .focus\:shadow-\[0_0_0_3px_rgba\(0\,0\,0\,0\.08\)\] {
     &:focus {
       --tw-shadow: 0 0 0 3px var(--tw-shadow-color, rgba(0,0,0,0.08));
@@ -1973,6 +1985,11 @@
     &:focus {
       --tw-outline-style: none;
       outline-style: none;
+    }
+  }
+  .focus\:\[animation-play-state\:paused\] {
+    &:focus {
+      animation-play-state: paused;
     }
   }
   .active\:scale-\[0\.99\] {

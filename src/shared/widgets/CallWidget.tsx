@@ -1,4 +1,3 @@
-// src/shared/CallWidget.tsx
 import {useEffect, useState} from "react";
 import {createPortal} from "react-dom";
 
@@ -60,7 +59,7 @@ export default function CallWidget({
         },
         {
             key: "instagram",
-            href: "https://instagram.com/yourusername", // замени username
+            href: "https://instagram.com/yourusername",
             bg: "bg-pink-500 hover:bg-pink-600",
             label: "Instagram",
             icon: (
@@ -72,7 +71,7 @@ export default function CallWidget({
         },
         {
             key: "facebook",
-            href: "https://facebook.com/yourusername", // замени username
+            href: "https://facebook.com/yourusername",
             bg: "bg-blue-600 hover:bg-blue-700",
             label: "Facebook",
             icon: (
@@ -86,6 +85,30 @@ export default function CallWidget({
 
     return createPortal(
         <div className="fixed bottom-6 right-6 z-[9999]">
+            {/* Глобальные keyframes для вибрации и появления; учитываем prefers-reduced-motion */}
+            <style>{`
+        @media (prefers-reduced-motion: no-preference) {
+          @keyframes call-wiggle {
+            0%, 100% { transform: translate3d(0,0,0) rotate(0deg) scale(1); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+            10% { transform: translate3d(0.6px, -0.6px, 0) rotate(1deg) scale(1.008); }
+            20% { transform: translate3d(-0.6px, 0.6px, 0) rotate(-1deg) scale(1.006); }
+            30% { transform: translate3d(0.5px, 0.8px, 0) rotate(1deg) scale(1.007); }
+            40% { transform: translate3d(-0.5px, -0.6px, 0) rotate(-1deg) scale(1.005); }
+            50% { transform: translate3d(0.4px, -0.3px, 0) rotate(1deg) scale(1.008); }
+            60% { transform: translate3d(-0.4px, 0.4px, 0) rotate(-1deg) scale(1.006); }
+            70% { transform: translate3d(0.3px, 0.2px, 0) rotate(1deg) scale(1.007); }
+            80% { transform: translate3d(-0.3px, -0.4px, 0) rotate(-1deg) scale(1.005); }
+            90% { transform: translate3d(0.2px, 0.3px, 0) rotate(1deg) scale(1.006); }
+          }
+          .call-wiggle { animation: call-wiggle 1.6s ease-in-out infinite; transform: translateZ(0); }
+          .soc-appear { animation: soc-appear .28s cubic-bezier(.22,.61,.36,1) both; }
+          @keyframes soc-appear { from { opacity: 0; transform: translateY(8px) scale(.96);} to { opacity: 1; transform: translateY(0) scale(1);} }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .call-wiggle, .soc-appear { animation: none !important; }
+        }
+      `}</style>
+
             {/* Кнопки мессенджеров — монтируем ТОЛЬКО когда open=true */}
             {open && (
                 <div className="mb-2 flex flex-col items-end space-y-3">
@@ -99,17 +122,11 @@ export default function CallWidget({
                                 rel="noopener noreferrer"
                                 aria-label={it.label}
                                 className={[
-                                    "flex h-12 w-12 items-center justify-center rounded-full !text-white shadow-lg",
+                                    "soc-appear flex h-12 w-12 items-center justify-center rounded-full !text-white shadow-lg",
                                     "transform-gpu will-change-transform transition",
                                     it.bg,
-                                    "opacity-100 translate-y-0 scale-100",
                                 ].join(" ")}
-                                style={{
-                                    transitionProperty: "opacity, transform, background-color, box-shadow",
-                                    transitionDuration: "220ms",
-                                    transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                                    transitionDelay: `${delay}ms`,
-                                }}
+                                style={{animationDelay: `${delay}ms`}}
                             >
                                 {it.icon}
                             </a>
@@ -118,22 +135,20 @@ export default function CallWidget({
                 </div>
             )}
 
-            {/* Главная кнопка — переключатель */}
+            {/* Главная кнопка — переключатель, с постоянной вибрацией */}
             <button
                 onClick={() => setOpen(v => !v)}
                 aria-expanded={open}
                 aria-label={open ? "Скрыть контакты" : "Показать контакты"}
-                className="flex h-14 w-14 items-center justify-center rounded-full
-                         !bg-green-500 !text-white shadow-xl transition-colors
-                         hover:!bg-black focus:outline-none focus:ring-2
-                         focus:ring-offset-2 focus:ring-green-400 dark:focus:ring-offset-black"
+                className={[
+                    "call-wiggle hover:[animation-play-state:paused] focus:[animation-play-state:paused]",
+                    "flex h-14 w-14 items-center justify-center rounded-full",
+                    "!bg-green-500 !text-white shadow-xl transition-colors",
+                    "hover:!bg-black focus:outline-none focus:ring-2",
+                    "focus:ring-offset-2 focus:ring-green-400 dark:focus:ring-offset-black",
+                ].join(" ")}
             >
-                <svg
-                    viewBox="0 0 24 24"
-                    className="h-12 w-12"   // ← вместо фиксированных width/height
-                    fill="currentColor"
-                    aria-hidden="true"
-                >
+                <svg viewBox="0 0 24 24" className="h-12 w-12" fill="currentColor" aria-hidden="true">
                     <path
                         d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 22 2 13.93 2 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.59a1 1 0 01-.25 1.01l-2.2 2.19z"/>
                 </svg>
