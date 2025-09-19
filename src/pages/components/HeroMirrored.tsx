@@ -19,10 +19,10 @@ export default function HeroMirrored() {
                             className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center">
                     <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
                         <div className="grid grid-cols-2 gap-4">
-                            <ServiceCardOdd titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
-                            <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
-                            <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
-                            <ServiceCardOdd titleKey="services_uikit" descKey="services_uikit_desc" s={SERVICES[3]}/>
+                            <ServiceCardOdd titleKey="services_drilling_title" descKey="services_drilling_desc" s={SERVICES[4]}/>
+                            <ServiceCard titleKey="services_bandsaw_title" descKey="services_bandsaw_desc" s={SERVICES[5]}/>
+                            <ServiceCard titleKey="services_pipe_title" descKey="services_pipe_desc" s={SERVICES[6]}/>
+                            <ServiceCardOdd titleKey="services_grinder_title" descKey="services_grinder_desc" s={SERVICES[7]}/>
                         </div>
                     </div>
                     <div className="ml-12">

@@ -69,20 +69,42 @@ export const dict: Dictionary = {
         sort_brand_az: "Бренд A→Z",
         back: "Назад",
         next: "Вперёд",
-        services_audit: "Аудит фронтенда",
-        services_audit_desc: "Разбираем производительность, доступность и структуру проекта.",
-        services_uikit: "Индивидуальные заказы",
-        services_uikit_desc: "По требованиям заказчика",
-        services_ssr: "SPA/SSR",
-        services_ssr_desc: "Клиентская навигация, роутинг и SEO-дружественные страницы.",
-        services_integr: "Интеграции",
-        services_integr_desc: "Подключаем API, обновляем данные, формы и аналитики.",
-        services_spa: "Лазерная резка",
-        services_spa_desc: "На современном оборудовании",
-        services_opt: "Гибка",
-        services_opt_desc: "Гибка любой сложности",
-        services_base: "Сварка",
-        services_base_desc: "Аргонная сварка",
+
+        services_laser_title: "Лазерная резка",
+        services_laser_desc: "Высокоточная резка листового металла с минимальными заусенцами.",
+
+        services_shearing_title: "Рубка (гильотина)",
+        services_shearing_desc: "Прямая рубка листового металла на гильотине.",
+
+        services_bending_title: "Гибка",
+        services_bending_desc: "Прецизионная гибка металла на прессах.",
+
+        services_rolling_title: "Вальцовка",
+        services_rolling_desc: "Формирование цилиндров и дуг из листового металла.",
+
+        services_drilling_title: "Отверстие в листовом материале и трубе",
+        services_drilling_desc: "Высверливание и вырезание отверстий в листах и трубах.",
+
+        services_bandsaw_title: "Торцовка на ленточной пиле",
+        services_bandsaw_desc: "Резка труб и профилей под прямым или заданным углом.",
+
+        services_pipe_title: "Врезка труба в трубу",
+        services_pipe_desc: "Аккуратная врезка труб с обеспечением герметичности соединений.",
+
+        services_grinder_title: "Резка болгаркой",
+        services_grinder_desc: "Резка металла ручной углошлифовальной машинкой.",
+
+        services_welding_title: "Сварка",
+        services_welding_desc: "Соединение металлических деталей сваркой MIG/MAG, TIG или ручной дуговой.",
+
+        services_stiffener_title: "Установка ребра жёсткости («ласточка»)",
+        services_stiffener_desc: "Повышение прочности изделий за счёт установки усилителей.",
+
+        services_leg_title: "Забивание ножки",
+        services_leg_desc: "Монтаж и фиксация опорных ножек в конструкции.",
+
+        services_acid_title: "Обработка кислотой",
+        services_acid_desc: "Химическая обработка для очистки и защиты металла.",
 
         login: "Войти",
         logout: "Выйти",
@@ -152,9 +174,16 @@ export const dict: Dictionary = {
         about_why_4: "<b>Прозрачные цены</b> — понятный прайс-лист на все виды работ.",
         about_why_5: "<b>Скорость выполнения</b> — оптимизированные процессы позволяют сдавать заказы в срок.",
 
-        about_open_map: "Открыть маршрут в Google Maps"
+        about_open_map: "Открыть маршрут в Google Maps",
 
+        adv_quality_title: "Гарантия качества",
+        adv_quality_desc: "Мы гарантируем надёжность и долговечность всех наших изделий и услуг.",
 
+        adv_custom_title: "Индивидуальные заказы",
+        adv_custom_desc: "Мы создаём проекты по индивидуальным чертежам и требованиям заказчика.",
+
+        adv_consult_title: "Консультации специалистов",
+        adv_consult_desc: "Наши инженеры и мастера помогут подобрать оптимальные решения под ваши задачи."
     },
     ro: {
         brandLogo: "",
@@ -227,20 +256,41 @@ export const dict: Dictionary = {
         next: "Înainte",
 
         // Servicii IT demo
-        services_audit: "Audit frontend",
-        services_audit_desc: "Analiza performanței, accesibilității și arhitecturii proiectului.",
-        services_uikit: "UI Kit",
-        services_uikit_desc: "Componente unificate, teme și tokeni de design pentru scalare.",
-        services_ssr: "SPA/SSR",
-        services_ssr_desc: "Navigare client, rutare și pagini SEO-friendly.",
-        services_integr: "Integrare",
-        services_integr_desc: "Conectăm API-uri, date live, formulare și analitice.",
-        services_spa: "Dezvoltare SPA",
-        services_spa_desc: "Aplicații single-page în React.",
-        services_opt: "Optimizare",
-        services_opt_desc: "Code-splitting, lazy loading, caching și Lighthouse 95+.",
-        services_base: "Bază de componente",
-        services_base_desc: "Componente atomice/compound, documentație, Storybook.",
+        services_laser_title: "Tăiere cu laser",
+        services_laser_desc: "Tăiere de înaltă precizie a tablei metalice cu margini curate.",
+
+        services_shearing_title: "Foarfecare (Tăiere la ghilotină)",
+        services_shearing_desc: "Tăiere dreaptă a tablei metalice pe ghilotină.",
+
+        services_bending_title: "Îndoire",
+        services_bending_desc: "Îndoire precisă a metalului pe prese hidraulice.",
+
+        services_rolling_title: "Rularea (Valțuirea)",
+        services_rolling_desc: "Formarea cilindrilor și arcurilor din tablă metalică.",
+
+        services_drilling_title: "Găurire și decupare",
+        services_drilling_desc: "Realizarea găurilor și decupajelor în table și țevi.",
+
+        services_bandsaw_title: "Tăiere pe ferăstrău cu bandă",
+        services_bandsaw_desc: "Tăierea țevilor și profilelor la unghi drept sau înclinat.",
+
+        services_pipe_title: "Racord țeavă în țeavă",
+        services_pipe_desc: "Îmbinare precisă a țevilor prin decupare și ajustare.",
+
+        services_grinder_title: "Tăiere cu polizor unghiular",
+        services_grinder_desc: "Tăiere manuală a metalului cu polizor unghiular.",
+
+        services_welding_title: "Sudură",
+        services_welding_desc: "Îmbinarea pieselor metalice prin sudură MIG/MAG, TIG sau arc electric.",
+
+        services_stiffener_title: "Montarea nervurii de rigidizare („rândunică”)",
+        services_stiffener_desc: "Consolidarea structurii prin instalarea de elemente de rigidizare.",
+
+        services_leg_title: "Montarea piciorului",
+        services_leg_desc: "Fixarea și montarea picioarelor de susținere în construcții.",
+
+        services_acid_title: "Tratament cu acid",
+        services_acid_desc: "Curățarea și protecția metalului prin tratament chimic.",
 
         // Auth
         login: "Autentificare",
@@ -313,7 +363,17 @@ export const dict: Dictionary = {
         about_why_4: "<b>Prețuri transparente</b> — listă clară pentru toate tipurile de lucrări.",
         about_why_5: "<b>Rapiditate</b> — procese optimizate care permit predarea comenzilor la timp.",
 
-        about_open_map: "Deschide ruta în Google Maps"
+        about_open_map: "Deschide ruta în Google Maps",
+
+        adv_quality_title: "Garanția calității",
+        adv_quality_desc: "Garantăm fiabilitatea și durabilitatea tuturor produselor și serviciilor noastre.",
+
+        adv_custom_title: "Comenzi individuale",
+        adv_custom_desc: "Realizăm proiecte conform desenelor și cerințelor clientului.",
+
+        adv_consult_title: "Consultanța specialiștilor",
+        adv_consult_desc: "Inginerii și meșterii noștri vă ajută să alegeți soluții optime pentru proiectele dvs."
+
     }
 };
 

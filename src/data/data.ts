@@ -1,4 +1,4 @@
-import {Hammer, type LucideProps, Ruler, ScanLine, Sparkles} from "lucide-react";
+import {Hammer, type LucideProps, Ruler, ScanLine, Sparkles, Users} from "lucide-react";
 import * as react from "react";
 
 export type Service = {
@@ -20,380 +20,238 @@ export type Service = {
 export const SERVICES: Service[] = [
     {
         id: 1,
-        slug: "laser",
+        slug: "laser-cutting",
         icon: ScanLine,
         title: "Лазерная резка",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "Быстро выявим причину неисправности: железо, драйверы, система.",
-        hero: "/images/services/diagnostics.jpg",
-        features: ["Экспресс-проверка 30 мин", "Отчёт с рекомендациями", "Гарантия на работу"],
-        priceFrom: 200,
-        duration: "от 30 минут",
+        titleKey: "services_laser_title",
+        descKey: "services_laser_desc",
+        lead: "Высокоточная резка листового металла с минимальными заусенцами.",
+        hero: "/images/services/laser.jpg",
+        features: ["Толщина до 20 мм", "Чистый рез без доработки", "Высокая скорость"],
         sections: [
             {
-                heading: "Что входит",
-                html: `
-          <ul class="list-disc pl-5 space-y-1">
-            <li>Проверка SMART/памяти/температур</li>
-            <li>Сканирование драйверов и журналов событий</li>
-            <li>Оценка состояния ОС и автозагрузки</li>
-          </ul>
-        `,
-            },
-            {
-                heading: "Почему мы",
-                html: `
-          <p>Работаем бережно, без потери данных. Детальный отчёт и понятные рекомендации, без навязываний.</p>
-        `,
-            },
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
         ],
         faqs: [
-            {q: "Сколько длится?", a: "Обычно 30–60 минут."},
-            {q: "Нужно ли оставлять устройство?", a: "Нет, базовую диагностику делаем при вас."},
-        ],
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
     },
     {
         id: 2,
-        slug: "laptop-repair",
-        icon: Hammer,
-        title: "Ремонт ноутбуков",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "Замена компонентов, пайка, чистка, термопаста, восстановление зарядки.",
-        hero: "/images/services/laptop-repair.jpg",
-        features: ["Оригинальные запчасти", "Чистка и термопаста в каждом ремонте", "Гарантия до 6 мес"],
-        priceFrom: 600,
-        duration: "от 1 часа",
+        slug: "shearing",
+        icon: Ruler,
+        title: "Рубка",
+        titleKey: "services_shearing_title",
+        descKey: "services_shearing_desc",
+        lead: "Прямая рубка листового металла на гильотине.",
+        hero: "/images/services/shearing.jpg",
+        features: ["Листы до 3 м", "Толщина до 10 мм", "Аккуратный край"],
         sections: [
             {
-                heading: "Типовые работы",
-                html: `
-          <ul class="list-disc pl-5 space-y-1">
-            <li>Замена клавиатуры/экрана/батареи/SSD</li>
-            <li>Чистка системы охлаждения</li>
-            <li>Ремонт разъёмов, петель, платы питания</li>
-          </ul>
-        `,
-            },
-            {
-                heading: "Процесс",
-                html: `
-          <ol class="list-decimal pl-5 space-y-1">
-            <li>Диагностика и смета</li>
-            <li>Согласование сроков и стоимости</li>
-            <li>Ремонт и финальное тестирование</li>
-          </ol>
-        `,
-            },
+                heading: "Особенности",
+                html: `<p>Используется для подготовки заготовок перед гибкой или сваркой.</p>`
+            }
         ],
         faqs: [
-            {
-                q: "Сохранятся ли данные?",
-                a: "Да, работы проводим без форматирования. Предупредим, если потребуется перенос."
-            },
-        ],
+            {q: "Какая максимальная длина?", a: "До 3000 мм."}
+        ]
     },
     {
         id: 3,
-        slug: "data-recovery",
-        icon: Sparkles,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "bending",
+        icon: Hammer,
+        title: "Гибка",
+        titleKey: "services_bending_title",
+        descKey: "services_bending_desc",
+        lead: "Прецизионная гибка металла на прессах.",
+        hero: "/images/services/bending.jpg",
+        features: ["Гибка до 3 м", "Радиусы по требованию", "Многократные операции"],
         sections: [
             {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+                heading: "Примеры",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Короба и профили</li>
+          <li>Углы 90° и произвольные</li>
+          <li>Технические детали для конструкций</li>
+        </ul>`
+            }
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Какое отклонение угла?", a: "Не более ±1°."}
+        ]
     },
     {
         id: 4,
-        slug: "data-recovery",
-        icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "rolling",
+        icon: Sparkles,
+        title: "Вальцовка",
+        titleKey: "services_rolling_title",
+        descKey: "services_rolling_desc",
+        lead: "Формирование цилиндров и дуг из листового металла.",
+        hero: "/images/services/rolling.jpg",
+        features: ["Диаметр от 100 мм", "Длина до 2,5 м", "Равномерная геометрия"],
         sections: [
             {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+                heading: "Где применяется",
+                html: `<p>Трубы, кожухи, корпуса, емкости из листового металла.</p>`
+            }
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Минимальная толщина?", a: "От 1 мм."}
+        ]
     },
     {
         id: 5,
-        slug: "data-recovery",
+        slug: "drilling-cutting",
         icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        title: "Отверстие в листовом материале и трубе",
+        titleKey: "services_drilling_title",
+        descKey: "services_drilling_desc",
+        lead: "Высверливание и вырезание отверстий в листах и трубах.",
+        hero: "/images/services/drilling.jpg",
+        features: ["Разные диаметры", "Точная геометрия", "Без деформации края"],
         sections: [
             {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+                heading: "Виды отверстий",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Круглые</li>
+          <li>Прямоугольные</li>
+          <li>Фигурные по заказу</li>
+        </ul>`
+            }
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Максимальный диаметр?", a: "До 120 мм."}
+        ]
     },
     {
         id: 6,
-        slug: "data-recovery",
-        icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "bandsaw-cutting",
+        icon: Hammer,
+        title: "Торцовка на ленточной пиле",
+        titleKey: "services_bandsaw_title",
+        descKey: "services_bandsaw_desc",
+        lead: "Резка труб и профилей под прямым или заданным углом.",
+        hero: "/images/services/bandsaw.jpg",
+        features: ["Чистый срез", "Толстостенные трубы", "Большие партии"],
         sections: [
-            {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+            {heading: "Преимущества", html: `<p>Минимум отходов и высокая производительность.</p>`}
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Какие углы доступны?", a: "От 0° до 60°."}
+        ]
     },
     {
         id: 7,
-        slug: "data-recovery",
-        icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "pipe-connection",
+        icon: ScanLine,
+        title: "Врезка труба в трубу",
+        titleKey: "services_pipe_title",
+        descKey: "services_pipe_desc",
+        lead: "Аккуратная врезка с обеспечением герметичности соединений.",
+        hero: "/images/services/pipe.jpg",
+        features: ["Разные диаметры", "Точная геометрия", "Под сварку"],
         sections: [
-            {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+            {heading: "Применение", html: `<p>Конструкции из труб, инженерные сети.</p>`}
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Можно ли под углом?", a: "Да, выполняем врезку под любым углом."}
+        ]
     },
     {
         id: 8,
-        slug: "data-recovery",
+        slug: "grinder-cutting",
         icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        title: "Резка болгаркой",
+        titleKey: "services_grinder_title",
+        descKey: "services_grinder_desc",
+        lead: "Резка металла ручной углошлифовальной машинкой.",
+        hero: "/images/services/grinder.jpg",
+        features: ["Быстро", "Удобно", "Для небольших объемов"],
         sections: [
-            {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+            {heading: "Когда используется", html: `<p>Для мелких партий и нестандартных операций.</p>`}
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Толщина металла?", a: "До 10 мм."}
+        ]
     },
     {
         id: 9,
-        slug: "data-recovery",
-        icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "welding",
+        icon: Hammer,
+        title: "Сварка",
+        titleKey: "services_welding_title",
+        descKey: "services_welding_desc",
+        lead: "Соединение металлических деталей сваркой разных типов.",
+        hero: "/images/services/welding.jpg",
+        features: ["MIG/MAG", "TIG", "Ручная дуговая"],
         sections: [
             {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+                heading: "Где применяется",
+                html: `<p>Металлоконструкции, трубы, каркасы, опоры.</p>`
+            }
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Есть ли сертифицированные сварщики?", a: "Да, все работы выполняют специалисты с опытом более 10 лет."}
+        ]
     },
     {
         id: 10,
-        slug: "data-recovery",
-        icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "stiffener",
+        icon: Sparkles,
+        title: "Установка ребра жёсткости («ласточка»)",
+        titleKey: "services_stiffener_title",
+        descKey: "services_stiffener_desc",
+        lead: "Повышение прочности изделий за счёт установки усилителей.",
+        hero: "/images/services/stiffener.jpg",
+        features: ["Надёжность конструкции", "Увеличение ресурса", "Снижение вибраций"],
         sections: [
-            {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+            {heading: "Применение", html: `<p>Рамы, корпуса, опоры.</p>`}
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Можно ли установить на готовое изделие?", a: "Да, выполняем доработку уже готовых конструкций."}
+        ]
     },
     {
         id: 11,
-        slug: "data-recovery",
+        slug: "leg-installation",
         icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        title: "Забивание ножки",
+        titleKey: "services_leg_title",
+        descKey: "services_leg_desc",
+        lead: "Монтаж и фиксация опорных ножек в конструкции.",
+        hero: "/images/services/leg.jpg",
+        features: ["Прочная фиксация", "Ровная установка", "Быстрое выполнение"],
         sections: [
-            {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+            {heading: "Примеры", html: `<p>Мебельные и промышленные конструкции.</p>`}
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
+            {q: "Под какие материалы?", a: "Сталь, нержавейка, алюминий."}
+        ]
     },
     {
         id: 12,
-        slug: "data-recovery",
-        icon: Ruler,
-        title: "Восстановление данных",
-        titleKey: "services_diagnostics_title",
-        descKey: "services_diagnostics_desc",
-        lead: "SSD, HDD, флешки. От логических до аппаратных неисправностей.",
-        hero: "/images/services/data-recovery.jpg",
-        features: ["Конфиденциально", "Безопасные методики", "Предварительная оценка"],
-        priceFrom: 900,
-        duration: "зависит от объёма",
+        slug: "acid-treatment",
+        icon: Sparkles,
+        title: "Обработка кислотой",
+        titleKey: "services_acid_title",
+        descKey: "services_acid_desc",
+        lead: "Химическая обработка для очистки и защиты металла.",
+        hero: "/images/services/acid.jpg",
+        features: ["Удаление окалины", "Защита от коррозии", "Гладкая поверхность"],
         sections: [
-            {
-                heading: "Когда возможно",
-                html: `
-          <p>Удаление, форматирование, битая таблица, «сырой» раздел, сбои прошивки.</p>
-        `,
-            },
-            {
-                heading: "Не делайте",
-                html: `
-          <p>Не перезаписывайте носитель. Чем меньше действий — тем выше шанс восстановления.</p>
-        `,
-            },
+            {heading: "Особенности", html: `<p>Применяется для нержавейки и других сплавов.</p>`}
         ],
         faqs: [
-            {q: "Сроки?", a: "От нескольких часов до нескольких дней — зависит от состояния носителя."},
-        ],
-    },
+            {q: "Безопасно ли?", a: "Все работы выполняются в соответствии с нормами безопасности."}
+        ]
+    }
 ];
 
 export type Advantage = {
@@ -440,7 +298,10 @@ export const ADV: Advantage[] = [
             },
         ],
         faqs: [
-            { q: "Какая гарантия предоставляется?", a: "На все изделия – от 12 до 24 месяцев в зависимости от типа продукции." },
+            {
+                q: "Какая гарантия предоставляется?",
+                a: "На все изделия – от 12 до 24 месяцев в зависимости от типа продукции."
+            },
         ],
     },
     {
@@ -471,12 +332,12 @@ export const ADV: Advantage[] = [
             },
         ],
         faqs: [
-            { q: "Можно ли внести изменения в процессе?", a: "Да, согласуем корректировки на любом этапе работы." },
+            {q: "Можно ли внести изменения в процессе?", a: "Да, согласуем корректировки на любом этапе работы."},
         ],
     },
     {
         slug: "expert-consulting",
-        icon: Hammer, // символ опыта и мастерства
+        icon: Users, // символ опыта и мастерства
         title: "Консультации специалистов",
         titleKey: "adv_consult_title",
         descKey: "adv_consult_desc",
@@ -502,7 +363,7 @@ export const ADV: Advantage[] = [
             },
         ],
         faqs: [
-            { q: "Консультация платная?", a: "Базовая консультация бесплатна, расширенные услуги – по договорённости." },
+            {q: "Консультация платная?", a: "Базовая консультация бесплатна, расширенные услуги – по договорённости."},
         ],
     },
 ];

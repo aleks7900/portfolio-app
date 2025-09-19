@@ -25,9 +25,9 @@ export default function MainPage() {
             <PopularBlocks/>
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <AdvantageCard titleKey="services_spa" descKey="services_spa_desc" s={ADV[0]}/>
-                    <AdvantageCard titleKey="services_opt" descKey="services_opt_desc" s={ADV[1]}/>
-                    <AdvantageCard titleKey="services_base" descKey="services_base_desc" s={ADV[2]}/>
+                    <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>
+                    <AdvantageCard titleKey="adv_custom_title" descKey="adv_custom_desc" s={ADV[1]}/>
+                    <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
                 </div>
             </Section>
         </>

@@ -44,10 +44,10 @@ export default function HeroDownServices() {
                     </div>
                     <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
                         <div className="grid grid-cols-2 gap-4">
-                            <ServiceCardOdd titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
-                            <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
-                            <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
-                            <ServiceCardOdd titleKey="services_uikit" descKey="services_uikit_desc" s={SERVICES[3]}/>
+                            <ServiceCardOdd titleKey="services_welding_title" descKey="services_welding_desc" s={SERVICES[8]}/>
+                            <ServiceCard titleKey="services_stiffener_title" descKey="services_stiffener_desc" s={SERVICES[9]}/>
+                            <ServiceCard titleKey="services_leg_title" descKey="services_leg_desc" s={SERVICES[10]}/>
+                            <ServiceCardOdd titleKey="services_acid_title" descKey="services_acid_desc" s={SERVICES[11]}/>
                         </div>
                     </div>
                 </motion.div>

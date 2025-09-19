@@ -44,10 +44,10 @@ export default function Hero() {
                     </div>
                     <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
                         <div className="grid grid-cols-2 gap-4">
-                            <ServiceCardOdd titleKey="services_spa" descKey="services_spa_desc" s={SERVICES[0]}/>
-                            <ServiceCard titleKey="services_opt" descKey="services_opt_desc" s={SERVICES[1]}/>
-                            <ServiceCard titleKey="services_base" descKey="services_base_desc" s={SERVICES[2]}/>
-                            <ServiceCardOdd titleKey="services_uikit" descKey="services_uikit_desc" s={SERVICES[3]}/>
+                            <ServiceCardOdd titleKey="services_laser_title" descKey="services_laser_desc" s={SERVICES[0]}/>
+                            <ServiceCard titleKey="services_shearing_title" descKey="services_shearing_desc" s={SERVICES[1]}/>
+                            <ServiceCard titleKey="services_bending_title" descKey="services_bending_desc" s={SERVICES[2]}/>
+                            <ServiceCardOdd titleKey="services_rolling_title" descKey="services_rolling_desc" s={SERVICES[3]}/>
                         </div>
                     </div>
                 </motion.div>
