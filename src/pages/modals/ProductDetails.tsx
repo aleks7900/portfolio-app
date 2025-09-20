@@ -1,12 +1,13 @@
 import React, {useEffect, useMemo, useState} from "react";
-import type {Product} from "../../data/types.ts";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 // галерея
 import {useKeenSlider} from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
-import {AnimatePresence, motion} from "framer-motion"; // + анимации
+import {AnimatePresence, motion} from "framer-motion";
+import {ChevronLeft, ChevronRight, X} from "lucide-react";
+import type {Product} from "../../data/types.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 export default function ProductDetails({
                                            product,
@@ -20,19 +21,25 @@ export default function ProductDetails({
     const {t} = useI18n();
     const [tab, setTab] = useState<"details" | "specs" | "reviews">("details");
 
-    // ХУКИ ВСЕГДА ВЫЗЫВАЕМ (без условных return до них)
+    // список изображений
     const images = useMemo<string[]>(() => {
         if (product?.images?.length) return product.images;
-        // заглушки, если нет картинок
         return ["/img/placeholder-1.jpg", "/img/placeholder-2.jpg"];
     }, [product]);
 
+    // основной слайдер + превью
     const [sliderRef, inst] = useKeenSlider({loop: true});
     const [thumbsRef, thumbs] = useKeenSlider({
         slides: {perView: Math.min(4, images.length), spacing: 8},
     });
 
-    // Esc для закрытия — только когда модалка открыта
+    // lightbox (полноэкранная картинка)
+    const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
+        open: false,
+        index: 0,
+    });
+
+    // Esc закрывает модалку product details
     useEffect(() => {
         if (!open) return;
         const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -40,17 +47,7 @@ export default function ProductDetails({
         return () => document.removeEventListener("keydown", onKey);
     }, [open, onClose]);
 
-    // Блокируем прокрутку фона, пока открыто окно
-    useEffect(() => {
-        if (!open) return;
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
-        return () => {
-            document.body.style.overflow = prev;
-        };
-    }, [open]);
-
-    // Клик по превью -> переход к слайду
+    // Привязка кликов по превью к основному слайдеру
     useEffect(() => {
         if (!inst.current || !thumbs.current) return;
         const main = inst.current;
@@ -63,22 +60,15 @@ export default function ProductDetails({
         return () => cleanups.forEach((fn) => fn());
     }, [inst, thumbs, images.length]);
 
-    // Сброс вкладки при открытии нового товара
+    // Сброс вкладки при открытии товара
     useEffect(() => {
         if (open) setTab("details");
     }, [open, product?.id]);
 
-    // Пересчитать слайдеры сразу после открытия (контент меняется из-за анимации)
-    useEffect(() => {
-        if (!open) return;
-        const id = setTimeout(() => {
-            inst.current?.update?.();
-            thumbs.current?.update?.();
-        }, 0);
-        return () => clearTimeout(id);
-    }, [open, images.length, inst, thumbs]);
+    // если окно закрыто или нет товара — ничего не рендерим
+    if (!open || !product) return null;
 
-    const badge = product?.inStock ? (
+    const badge = product.inStock ? (
         <span
             className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
       {t("in_stock")}
@@ -91,9 +81,8 @@ export default function ProductDetails({
 
     return (
         <AnimatePresence>
-            {open && product && (
+            {open && (
                 <motion.div
-                    key="product-details"
                     className="fixed inset-0 z-[9999] flex items-center justify-center px-4 py-12"
                     role="dialog"
                     aria-modal="true"
@@ -108,12 +97,7 @@ export default function ProductDetails({
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: 8, scale: 0.98}}
                         transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                        className="
-              w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2
-              max-w-2xl
-              rounded-2xl border bg-white p-8 shadow-xl
-              dark:bg-black dark:border-white/10
-            "
+                        className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl rounded-2xl border bg-white p-8 shadow-xl dark:bg-black dark:border-white/10"
                     >
                         {/* Заголовок */}
                         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -128,22 +112,48 @@ export default function ProductDetails({
 
                         {/* Галерея */}
                         <div className="mt-6">
-                            <div
-                                ref={sliderRef}
-                                className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3]"
-                            >
-                                {images.map((src, i) => (
-                                    <div key={i} className="keen-slider__slide flex items-center justify-center">
-                                        <img
-                                            src={src}
-                                            alt={`${product.title} ${i + 1}`}
-                                            className="h-full w-full object-cover"
-                                            draggable={false}
-                                        />
-                                    </div>
-                                ))}
+                            <div className="relative">
+                                <div
+                                    ref={sliderRef}
+                                    className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3]"
+                                >
+                                    {images.map((src, i) => (
+                                        <div key={i} className="keen-slider__slide flex items-center justify-center">
+                                            <img
+                                                src={src}
+                                                alt={`${product.title} ${i + 1}`}
+                                                className="h-full w-full cursor-zoom-in object-cover"
+                                                draggable={false}
+                                                onClick={() => setLightbox({open: true, index: i})}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Кнопки навигации по слайдам */}
+                                {images.length > 1 && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            aria-label="Previous slide"
+                                            onClick={() => inst.current?.prev()}
+                                            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                        >
+                                            <ChevronLeft className="h-5 w-5"/>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            aria-label="Next slide"
+                                            onClick={() => inst.current?.next()}
+                                            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg.black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                        >
+                                            <ChevronRight className="h-5 w-5"/>
+                                        </button>
+                                    </>
+                                )}
                             </div>
 
+                            {/* Превьюшки */}
                             <div ref={thumbsRef} className="keen-slider mt-3">
                                 {images.map((src, i) => (
                                     <div
@@ -193,8 +203,8 @@ export default function ProductDetails({
                                     <div className="prose max-w-none text-sm dark:prose-invert">
                                         <p>
                                             {product.title} — {product.brand}. Отличный выбор для ежедневной работы и
-                                            учёбы. Цена: ${product.price}.{" "}
-                                            {product.inStock ? "В наличии." : "Нет в наличии."}
+                                            учёбы. Цена:
+                                            ${product.price}. {product.inStock ? "В наличии." : "Нет в наличии."}
                                         </p>
                                     </div>
                                 )}
@@ -210,9 +220,8 @@ export default function ProductDetails({
                                                 </div>
                                             ))
                                         ) : (
-                                            <div className="text-gray-500 dark:text-gray-400">
-                                                Характеристики не указаны.
-                                            </div>
+                                            <div className="text-gray-500 dark:text-gray-400">Характеристики не
+                                                указаны.</div>
                                         )}
                                     </div>
                                 )}
@@ -245,7 +254,6 @@ export default function ProductDetails({
 
                         {/* Кнопки */}
                         <div className="mt-6 flex flex-wrap items-center gap-2">
-                            {/* Cancel */}
                             <button
                                 type="button"
                                 onClick={onClose}
@@ -253,12 +261,87 @@ export default function ProductDetails({
                            !bg-white !text-black shadow
                            hover:!bg-black hover:!text-white hover:shadow-lg
                            focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                           dark:bg-neutral-900 dark:text-white dark:hover:bg:black"
+                           dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                             >
                                 {t("cancel")}
                             </button>
                         </div>
                     </motion.div>
+
+                    {/* LIGHTBOX: полноэкранное изображение */}
+                    <AnimatePresence>
+                        {lightbox.open && (
+                            <motion.div
+                                key="lightbox"
+                                className="fixed inset-0 z-[10000]"
+                                initial={{backgroundColor: "rgba(0,0,0,0)"}}
+                                animate={{backgroundColor: "rgba(0,0,0,0.9)"}}
+                                exit={{backgroundColor: "rgba(0,0,0,0)"}}
+                                transition={{duration: 0.18}}
+                                onMouseDown={(e) => e.target === e.currentTarget && setLightbox({
+                                    open: false,
+                                    index: 0
+                                })}
+                            >
+                                {/* Закрыть (крестик) */}
+                                <button
+                                    type="button"
+                                    aria-label="Close"
+                                    onClick={() => setLightbox({open: false, index: 0})}
+                                    className="absolute right-4 top-4 z-[10001] rounded-full border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                >
+                                    <X className="h-5 w-5"/>
+                                </button>
+
+                                {/* Стрелки в лайтбоксе */}
+                                {images.length > 1 && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            aria-label="Previous image"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setLightbox((s) => ({
+                                                    open: true,
+                                                    index: (s.index - 1 + images.length) % images.length,
+                                                }));
+                                            }}
+                                            className="absolute left-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                        >
+                                            <ChevronLeft className="h-6 w-6"/>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            aria-label="Next image"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setLightbox((s) => ({
+                                                    open: true,
+                                                    index: (s.index + 1) % images.length,
+                                                }));
+                                            }}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                        >
+                                            <ChevronRight className="h-6 w-6"/>
+                                        </button>
+                                    </>
+                                )}
+
+                                {/* Само изображение */}
+                                <motion.img
+                                    key={lightbox.index}
+                                    src={images[lightbox.index]}
+                                    alt={`image ${lightbox.index + 1}`}
+                                    initial={{opacity: 0, scale: 0.98}}
+                                    animate={{opacity: 1, scale: 1}}
+                                    exit={{opacity: 0, scale: 0.98}}
+                                    transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
+                                    className="absolute inset-0 m-auto h-auto max-h-[95vh] w-auto max-w-[95vw] select-none object-contain"
+                                    draggable={false}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.div>
             )}
         </AnimatePresence>
