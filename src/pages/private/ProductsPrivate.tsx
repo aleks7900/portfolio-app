@@ -11,6 +11,7 @@ import {
 } from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
+import {AnimatePresence, motion} from "framer-motion";
 
 
 /* =========================
@@ -107,6 +108,25 @@ export default function ProductsPrivate() {
         window.addEventListener("products:updated", onUpdated as EventListener);
         return () => window.removeEventListener("products:updated", onUpdated as EventListener);
     }, [fetchProducts]);
+
+    useEffect(() => {
+        const opened = (isAdmin && edit.mode !== "none") || confirm.open;
+        const onKey = (e: KeyboardEvent) => {
+            if (!opened) return;
+            if (e.key === "Escape") {
+                if (confirm.open) setConfirm({open: false});
+                else setEdit({mode: "none"});
+            }
+        };
+        if (opened) {
+            document.body.style.overflow = "hidden";
+            document.addEventListener("keydown", onKey);
+        }
+        return () => {
+            document.body.style.overflow = "";
+            document.removeEventListener("keydown", onKey);
+        };
+    }, [isAdmin, edit.mode, confirm.open]);
 
     // действия
     const startCreate = () => {
@@ -334,183 +354,209 @@ export default function ProductsPrivate() {
                     </Container>
                 )}
 
-                {/* Модалка редактирования/создания */}
-                {isAdmin && edit.mode !== "none" && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4">
-                        <div
-                            className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:!bg-gray-800">
-                            <div className="mb-4 text-lg font-semibold">
-                                {edit.mode === "edit" ? "Редактировать товар" : "Новый товар"}
-                            </div>
+                {/* Модалка редактирования/создания (с анимацией) */}
+                <AnimatePresence>
+                    {isAdmin && edit.mode !== "none" && (
+                        <motion.div
+                            key="edit-modal"
+                            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+                            onMouseDown={(e) => {
+                                if (e.target === e.currentTarget) setEdit({mode: "none"});
+                            }}
+                            initial={{backgroundColor: "rgba(0,0,0,0)"}}
+                            animate={{backgroundColor: "rgba(0,0,0,0.40)"}}
+                            exit={{backgroundColor: "rgba(0,0,0,0)"}}
+                            transition={{duration: 0.18}}
+                        >
+                            <motion.div
+                                initial={{opacity: 0, y: 12, scale: 0.98}}
+                                animate={{opacity: 1, y: 0, scale: 1}}
+                                exit={{opacity: 0, y: 8, scale: 0.98}}
+                                transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
+                                className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:!bg-gray-800"
+                            >
+                                <div className="mb-4 text-lg font-semibold">
+                                    {edit.mode === "edit" ? "Редактировать товар" : "Новый товар"}
+                                </div>
 
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                {edit.mode === "edit" && (
-                                    <Field label="ID">
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    {edit.mode === "edit" && (
+                                        <Field label="ID">
+                                            <input
+                                                type="number"
+                                                value={edit.draft.id}
+                                                disabled
+                                                className="w-full cursor-not-allowed rounded-xl border px-3 py-2 opacity-70 dark:border_WHITE/20 dark:bg-black"
+                                            />
+                                        </Field>
+                                    )}
+
+                                    <Field label="Название">
                                         <input
-                                            type="number"
-                                            value={edit.draft.id}
-                                            disabled
-                                            className="w-full cursor-not-allowed rounded-xl border px-3 py-2 opacity-70 dark:border-white/20 dark:bg-black"
+                                            value={edit.draft.title}
+                                            onChange={(e) => setDraft("title", e.currentTarget.value)}
+                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                         />
                                     </Field>
-                                )}
 
-                                <Field label="Название">
-                                    <input
-                                        value={edit.draft.title}
-                                        onChange={(e) => setDraft("title", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
-                                    />
-                                </Field>
-
-                                <Field label="Бренд">
-                                    <input
-                                        list="brands"
-                                        value={edit.draft.brand}
-                                        onChange={(e) => setDraft("brand", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
-                                    />
-                                    <datalist id="brands">
-                                        {brands.map((b) => (
-                                            <option key={b} value={b}/>
-                                        ))}
-                                    </datalist>
-                                </Field>
-
-                                <Field label="Цена">
-                                    <input
-                                        type="number"
-                                        value={edit.draft.price}
-                                        onChange={(e) => setDraft("price", Number(e.currentTarget.value))}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
-                                    />
-                                </Field>
-
-                                <Field label="Наличие">
-                                    <label className="inline-flex items-center gap-2">
+                                    <Field label="Бренд">
                                         <input
-                                            type="checkbox"
-                                            checked={edit.draft.inStock}
-                                            onChange={(e) => setDraft("inStock", e.currentTarget.checked)}
+                                            list="brands"
+                                            value={edit.draft.brand}
+                                            onChange={(e) => setDraft("brand", e.currentTarget.value)}
+                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
                                         />
-                                        есть на складе
-                                    </label>
-                                </Field>
+                                        <datalist id="brands">
+                                            {brands.map((b) => (
+                                                <option key={b} value={b}/>
+                                            ))}
+                                        </datalist>
+                                    </Field>
 
-                                <Field label="Категория">
-                                    <input
-                                        list="cats"
-                                        value={edit.draft.category}
-                                        onChange={(e) => setDraft("category", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
-                                    />
-                                    <datalist id="cats">
-                                        {categories.map((c) => (
-                                            <option key={c} value={c}/>
-                                        ))}
-                                    </datalist>
-                                </Field>
+                                    <Field label="Цена">
+                                        <input
+                                            type="number"
+                                            value={edit.draft.price}
+                                            onChange={(e) => setDraft("price", Number(e.currentTarget.value))}
+                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                        />
+                                    </Field>
 
-                                <Field label="Подкатегория">
-                                    <input
-                                        list="subs"
-                                        value={edit.draft.subcategory}
-                                        onChange={(e) => setDraft("subcategory", e.currentTarget.value)}
-                                        className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
-                                    />
-                                    <datalist id="subs">
-                                        {subcategories.map((s) => (
-                                            <option key={s} value={s}/>
-                                        ))}
-                                    </datalist>
-                                </Field>
-                            </div>
+                                    <Field label="Наличие">
+                                        <label className="inline-flex items-center gap-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={edit.draft.inStock}
+                                                onChange={(e) => setDraft("inStock", e.currentTarget.checked)}
+                                            />
+                                            есть на складе
+                                        </label>
+                                    </Field>
 
-                            <div className="mt-6 flex flex-wrap items-center gap-2">
-                                {/* Подтвердить */}
-                                <button
-                                    onClick={askSaveFromForm}
-                                    className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white
+                                    <Field label="Категория">
+                                        <input
+                                            list="cats"
+                                            value={edit.draft.category}
+                                            onChange={(e) => setDraft("category", e.currentTarget.value)}
+                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                        />
+                                        <datalist id="cats">
+                                            {categories.map((c) => (
+                                                <option key={c} value={c}/>
+                                            ))}
+                                        </datalist>
+                                    </Field>
+
+                                    <Field label="Подкатегория">
+                                        <input
+                                            list="subs"
+                                            value={edit.draft.subcategory}
+                                            onChange={(e) => setDraft("subcategory", e.currentTarget.value)}
+                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                        />
+                                        <datalist id="subs">
+                                            {subcategories.map((s) => (
+                                                <option key={s} value={s}/>
+                                            ))}
+                                        </datalist>
+                                    </Field>
+                                </div>
+
+                                <div className="mt-6 flex flex-wrap items-center gap-2">
+                                    {/* Подтвердить */}
+                                    <button
+                                        onClick={askSaveFromForm}
+                                        className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white
                                                hover:!bg-green-700 hover:shadow-lg
                                                focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
                                                dark:bg-green-500 dark:hover:bg-green-400"
-                                >
-                                    Сохранить
-                                </button>
+                                    >
+                                        Сохранить
+                                    </button>
 
-                                {/* Отмена */}
-                                <button
-                                    onClick={() => setEdit({mode: "none"})}
-                                    className="rounded-xl border px-4 py-2 text-sm font-medium
-                                           !bg-white !text-black shadow
-                                           hover:!bg-black hover:!text-white hover:shadow-lg
-                                           focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                                           dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
-                                >
-                                    Отмена
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                                    {/* Отмена */}
+                                    <button
+                                        onClick={() => setEdit({mode: "none"})}
+                                        className="rounded-xl border px-4 py-2 text-sm font_medium
+                                               !bg-white !text-black shadow
+                                               hover:!bg-black hover:!text-white hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                               dark:bg-neutral-900 dark:text_white dark:hover:bg_black"
+                                    >
+                                        Отмена
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-                {/* Модалка подтверждения */}
-                {confirm.open && (
-                    <div
-                        role="dialog"
-                        aria-modal="true"
-                        className="fixed inset-0 z-[120] flex items-center justify-center p-4"
-                        onMouseDown={(e) => {
-                            if (e.target === e.currentTarget) setConfirm({open: false});
-                        }}
-                    >
-                        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"/>
-                        <div
-                            className="relative w-3/5 max-w-md rounded-2xl border bg-white p-5 shadow-xl dark:border-white/10 dark:bg-neutral-900">
-                            <div className="text-lg font-semibold">
-                                {confirm.kind === "delete" && "Удалить продукт?"}
-                                {confirm.kind === "save-edit" && "Сохранить изменения?"}
-                                {confirm.kind === "save-create" && "Добавить продукт?"}
-                            </div>
+                {/* Модалка подтверждения (с анимацией) */}
+                <AnimatePresence>
+                    {confirm.open && (
+                        <motion.div
+                            key="confirm-modal"
+                            role="dialog"
+                            aria-modal="true"
+                            className="fixed inset-0 z-[120] flex items-center justify-center p-4"
+                            onMouseDown={(e) => {
+                                if (e.target === e.currentTarget) setConfirm({ open: false });
+                            }}
+                            initial={{ backgroundColor: "rgba(0,0,0,0)" }}
+                            animate={{ backgroundColor: "rgba(0,0,0,0.40)" }}
+                            exit={{ backgroundColor: "rgba(0,0,0,0)" }}
+                            transition={{ duration: 0.18 }}
+                        >
+                            <motion.div
+                                initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                                transition={{ type: "spring", stiffness: 420, damping: 32, mass: 0.6 }}
+                                className="w-3/5 max-w-md rounded-2xl border bg-white p-5 shadow-xl dark:border-white/10 dark:bg-neutral-900"
+                            >
+                                <div className="text-lg font-semibold">
+                                    {confirm.kind === "delete" && "Удалить продукт?"}
+                                    {confirm.kind === "save-edit" && "Сохранить изменения?"}
+                                    {confirm.kind === "save-create" && "Добавить продукт?"}
+                                </div>
 
-                            <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">
-                                {confirm.kind === "delete" && (
-                                    <>Вы действительно хотите удалить <b>{confirm.product.title}</b>?</>
-                                )}
-                                {confirm.kind === "save-edit" && (
-                                    <>Сохранить изменения для <b>{confirm.draft.title || `#${confirm.draft.id}`}</b>?</>
-                                )}
-                                {confirm.kind === "save-create" && (
-                                    <>Добавить новый продукт <b>{confirm.draft.title || "без названия"}</b>?</>
-                                )}
-                            </div>
+                                <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">
+                                    {confirm.kind === "delete" && (
+                                        <>Вы действительно хотите удалить <b>{confirm.product.title}</b>?</>
+                                    )}
+                                    {confirm.kind === "save-edit" && (
+                                        <>Сохранить изменения для <b>{confirm.draft.title || `#${confirm.draft.id}`}</b>?</>
+                                    )}
+                                    {confirm.kind === "save-create" && (
+                                        <>Добавить новый продукт <b>{confirm.draft.title || "без названия"}</b>?</>
+                                    )}
+                                </div>
 
-                            <div className="mt-6 flex justify-end gap-2">
-                                {/* Отмена */}
-                                <button
-                                    onClick={() => setConfirm({open: false})}
-                                    className="rounded-xl border px-4 py-2 text-sm font-medium
+                                <div className="mt-6 flex justify-end gap-2">
+                                    <button
+                                        onClick={() => setConfirm({ open: false })}
+                                        className="rounded-xl border px-4 py-2 text-sm font-medium
                                                !bg-white !text-black shadow
                                                hover:!bg-black hover:!text-white hover:shadow-lg
                                                focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
                                                dark:bg-white dark:!text-black dark:hover:!bg-black dark:hover:!text-white"
-                                >
-                                    Отмена
-                                </button>
+                                    >
+                                        Отмена
+                                    </button>
 
-                                {/* Удалить */}
-                                <button
-                                    onClick={handleConfirm}
-                                    className="rounded-xl !bg-rose-600 px-4 py-2 text-sm font-medium !text-white
+                                    <button
+                                        onClick={handleConfirm}
+                                        className="rounded-xl !bg-rose-600 px-4 py-2 text-sm font-medium !text-white
                                                hover:!bg-rose-700 hover:shadow-lg
                                                focus:outline-none focus:ring-2 focus:ring-rose-400 active:scale-[0.99]"
-                                >
-                                    Удалить
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                                    >
+                                        Удалить
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </Container>
         </section>
     );
