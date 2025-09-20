@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "keen-slider/keen-slider.min.css";
 import {type KeenSliderPlugin, useKeenSlider} from "keen-slider/react";
 import {useTranslation} from "react-i18next";
@@ -6,7 +6,6 @@ import {useTranslation} from "react-i18next";
 import slide1 from "../assets/img/slide1.jpg";
 import slide2 from "../assets/img/slide2.jpg";
 import slide3 from "../assets/img/slide3.png";
-import slide4 from "../assets/img/slide4.jpg";
 import slide5 from "../assets/img/slide5.jpg";
 import slide6 from "../assets/img/slide6.jpg";
 import slide7 from "../assets/img/slide7.png";
@@ -17,16 +16,16 @@ const slides = [
         id: 1,
         img: slide1,
         translations: {
-            ru: {title: "Изделия из нержавеющей стали INOX", text: "И не только"},
-            ro: {titlu: "Produse din oțel inoxidabil INOX", text: "Și multe altele"},
+            ru: {title: "Изделия из нержавеющей стали", text: "И не только"},
+            ro: {title: "Produse din oțel inoxidabil", text: "Și multe altele"},
         },
     },
     {
         id: 2,
         img: slide2,
         translations: {
-            ru: {title: "Гарантии качества", text: "Работаем по индивидуальным заказам"},
-            ro: {title: "Garanția calității", text: "Lucrăm pe comenzi individuale"},
+            ru: {title: "Индивидуальные заказы", text: "Работаем по индивидуальным заказам"},
+            ro: {title: "Сomenzi individuale", text: "Lucrăm pe comenzi individuale"},
         },
     },
     {
@@ -39,14 +38,6 @@ const slides = [
     },
     {
         id: 4,
-        img: slide4,
-        translations: {
-            ru: {title: "Большой ассортимент материалов", text: "Все виды нержавеющей стали"},
-            ro: {title: "Gamă largă de materiale", text: "Toate tipurile de oțel inoxidabil"},
-        },
-    },
-    {
-        id: 5,
         img: slide5,
         translations: {
             ru: {title: "Сварка всех типов соединений", text: "Сварка труб, столешниц, полок"},
@@ -54,7 +45,7 @@ const slides = [
         },
     },
     {
-        id: 6,
+        id: 5,
         img: slide6,
         translations: {
             ru: {title: "Слесарные работы", text: "Любая сложность работ"},
@@ -62,7 +53,7 @@ const slides = [
         },
     },
     {
-        id: 7,
+        id: 6,
         img: slide7,
         translations: {
             ru: {title: "Гибка и вальцовка металла", text: "По требованиям заказчика"},
@@ -107,9 +98,9 @@ const AutoPlay: KeenSliderPlugin = (slider) => {
 
 export default function Slideshow() {
     const [current, setCurrent] = useState(0);
-    const {i18n} = useTranslation();
-    // нормализуем язык: "ro-RO" -> "ro", "ru" -> "ru"
-    const lang = i18n.language?.toLowerCase().startsWith("ro") ? "ro" : "ru";
+
+    const { i18n } = useTranslation();
+    const lang = ((i18n.resolvedLanguage || i18n.language || "ru").toLowerCase().startsWith("ro")) ? "ro" : "ru";
 
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {
@@ -124,11 +115,14 @@ export default function Slideshow() {
         [AutoPlay]
     );
 
+    useEffect(() => { instanceRef.current?.update(); }, [instanceRef, lang]);
+    // реагируем на переключение языка и обновляем текущий слайд
+
     return (
         <div className="relative mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem]">
             {/* Слайды */}
             <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden shadow">
-                {slides.map((s, i) => {
+                {slides.map((s) => {
                     const t = s.translations[lang];
                     return (
                         <div

@@ -2292,6 +2292,21 @@
       }
     }
   }
+  .dark\:\!bg-gray-200 {
+    &:where(.dark, .dark *) {
+      background-color: var(--color-gray-200) !important;
+    }
+  }
+  .dark\:\!bg-gray-300 {
+    &:where(.dark, .dark *) {
+      background-color: var(--color-gray-300) !important;
+    }
+  }
+  .dark\:\!bg-gray-700 {
+    &:where(.dark, .dark *) {
+      background-color: var(--color-gray-700) !important;
+    }
+  }
   .dark\:\!bg-gray-800 {
     &:where(.dark, .dark *) {
       background-color: var(--color-gray-800) !important;

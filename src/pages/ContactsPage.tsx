@@ -139,32 +139,32 @@ export default function ContactsPage() {
                     <label className="block">
                         <div className="mb-1 text-sm font-medium">Ваше имя *</div>
                         <input name="name" required autoComplete="name"
-                               className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-white dark:!text-black"/>
+                               className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
                     </label>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                         <label className="block">
                             <div className="mb-1 text-sm font-medium">Email</div>
                             <input name="email" type="email" autoComplete="email"
-                                   className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-white dark:!text-black"/>
+                                   className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
                         </label>
                         <label className="block">
                             <div className="mb-1 text-sm font-medium">Телефон</div>
                             <input name="phone" autoComplete="tel"
-                                   className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-white dark:!text-black"/>
+                                   className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
                         </label>
                     </div>
 
                     <label className="block">
                         <div className="mb-1 text-sm font-medium">Тема</div>
                         <input name="subject"
-                               className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-white dark:!text-black"/>
+                               className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
                     </label>
 
                     <label className="block">
                         <div className="mb-1 text-sm font-medium">Сообщение *</div>
                         <textarea name="message" required rows={5}
-                                  className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-white dark:!text-black"/>
+                                  className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
                     </label>
 
                     <div className="pt-2 mb-12">

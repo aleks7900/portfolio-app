@@ -24,19 +24,29 @@ import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
 import LoginDialog from "../pages/modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
+import {useTranslation} from "react-i18next";
 
 
 function LangToggle() {
-    const {lang, setLang} = useI18n();
-    const next = lang === "ru" ? "ro" : "ru";
+    const { lang, setLang } = useI18n();
+    const { i18n } = useTranslation();
+    const next = (i18n.resolvedLanguage || i18n.language || "ru").startsWith("ro") ? "ru" : "ro";
+
+
     return (
         <button
             className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
-                    bg-white !text-black no-underline shadow-lg transition
-                    hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
-                    visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
-            onClick={() => setLang(next)}>
-            <Languages className="h-4 w-4"/> {next.toUpperCase()}
+                 bg-white !text-black no-underline shadow-lg transition
+                 hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
+                 visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
+            onClick={() => {
+                setLang(next);                          // твой контекст
+                i18n.changeLanguage(next);
+                try { localStorage.setItem("lang", next); } catch { /* empty */ }
+                document.documentElement.lang = next;
+            }}
+        >
+            <Languages className="h-4 w-4" /> {next.toUpperCase()}
         </button>
     );
 }
@@ -145,6 +155,9 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
+    const scrollTop = () =>
+        requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+
     const linkClass = ({isActive}: { isActive: boolean }) =>
         [BTN, isActive ? "bg-neutral-900 text-white" : ""].join(" ");
     return (
@@ -170,6 +183,7 @@ export default function Navbar() {
                         onClick={(e) => {
                             e.preventDefault();
                             navigate("/");
+                            scrollTop();
                         }}
                     >
                         <img
@@ -205,14 +219,14 @@ export default function Navbar() {
                         </div>
                         <div className="flex items-center gap-2">
                             <DesktopCatalog/>
-                            <NavLink to="/service" className={linkClass} end><Hammer
+                            <NavLink to="/service" className={linkClass} end onClick={scrollTop}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
-                            <NavLink to="/contacts" className={linkClass} end><Phone
+                            <NavLink to="/contacts" className={linkClass} end onClick={scrollTop}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" className={linkClass} end><Info className="h-4 w-4"/> {t("nav_about")}
+                            <NavLink to="/about" className={linkClass} end onClick={scrollTop}><Info className="h-4 w-4"/> {t("nav_about")}
                             </NavLink>
                             <NavLink to="/contacts"
-                                     className={() => BTN_CTA}>{t("cta_contact")}<ArrowUpRight
+                                     className={() => BTN_CTA} onClick={scrollTop}>{t("cta_contact")}<ArrowUpRight
                                 className="ml-1 h-4 w-4"/></NavLink>
                             {isAuth ? (
                                 <>
@@ -269,13 +283,13 @@ export default function Navbar() {
                                    supports-[backdrop-filter]:backdrop-blur-md">
                         <div className="grid gap-2">
                             <MobileCatalog onDone={() => setOpen(false)}/>
-                            <NavLink to="/service" onClick={() => setOpen(false)}
+                            <NavLink to="/service" onClick={() => { setOpen(false); scrollTop(); }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
-                            <NavLink to="/contacts" onClick={() => setOpen(false)}
+                            <NavLink to="/contacts" onClick={() => { setOpen(false); scrollTop(); }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" onClick={() => setOpen(false)}
+                            <NavLink to="/about" onClick={() => { setOpen(false); scrollTop(); }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Info
                                 className="h-4 w-4"/> {t("nav_about")}</NavLink>
                         </div>

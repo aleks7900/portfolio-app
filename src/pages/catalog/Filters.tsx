@@ -48,7 +48,7 @@ export default function CatalogFilters({
                     placeholder="id / title / brand / category"
                     className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                 />
             </div>
 
@@ -61,7 +61,7 @@ export default function CatalogFilters({
                     placeholder="e.g. Bytek"
                     className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                 />
             </div>
 
@@ -75,7 +75,7 @@ export default function CatalogFilters({
                         onChange={(e) => set("min", e.currentTarget.value ? Number(e.currentTarget.value) : undefined)}
                         className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                     />
                 </div>
                 <div>
@@ -86,7 +86,7 @@ export default function CatalogFilters({
                         onChange={(e) => set("max", e.currentTarget.value ? Number(e.currentTarget.value) : undefined)}
                         className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                     />
                 </div>
             </div>
@@ -112,7 +112,7 @@ export default function CatalogFilters({
                         onChange={(e) => set("category", e.currentTarget.value)}
                         className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                     />
                 </div>
                 <div>
@@ -122,7 +122,7 @@ export default function CatalogFilters({
                         onChange={(e) => set("subcategory", e.currentTarget.value)}
                         className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                     />
                 </div>
             </div>
@@ -135,7 +135,7 @@ export default function CatalogFilters({
                     onChange={(e) => set("sort", e.currentTarget.value)}
                     className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
-                             dark:!bg-white dark:!text-black"
+                             dark:!bg-gray-300 dark:!text-black"
                 >
                     <option value="title,asc">Title ↑</option>
                     <option value="title,desc">Title ↓</option>
