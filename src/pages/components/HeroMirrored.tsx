@@ -82,14 +82,17 @@ export default function HeroMirrored() {
                     <motion.div variants={cardVariants} className="md:ml-12">
                         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
                             <span
-                                className="underline decoration-gray-300 dark:decoration-white/20">{t("hero_title")}</span>
+                                className="underline decoration-gray-300 dark:decoration-white/20">{t("hero_title_1")}</span>
                         </h1>
-                        <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
+                        <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub_1")}</p>
                         <div className="mt-6 flex flex-wrap gap-4">
                             <motion.button
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
-                                onClick={() => navigate("/service")}
+                                onClick={() => {
+                                    navigate("/service");
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black shadow hover:!bg-black hover:!text-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99] dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
                             >
                                 {t("hero_to_services")}
@@ -97,7 +100,10 @@ export default function HeroMirrored() {
                             <motion.button
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
-                                onClick={() => navigate("/contacts")}
+                                onClick={() => {
+                                    navigate("/contacts");
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-green-500 !text-white shadow hover:!bg-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:bg-green-600 dark:hover:bg-green-500"
                             >
                                 {t("hero_to_contacts")}

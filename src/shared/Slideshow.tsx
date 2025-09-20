@@ -17,8 +17,8 @@ const slides = [
         id: 1,
         img: slide1,
         translations: {
-            ru: {title: "Металлоконструкции из нержавеющей стали", text: "Быстро и в срок"},
-            ro: {title: "Construcții metalice din oțel inoxidabil", text: "Rapid și la timp"},
+            ru: {title: "Изделия из нержавеющей стали INOX", text: "И не только"},
+            ro: {titlu: "Produse din oțel inoxidabil INOX", text: "Și multe altele"},
         },
     },
     {

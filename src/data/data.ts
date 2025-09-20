@@ -44,22 +44,31 @@ export const SERVICES: Service[] = [
     },
     {
         id: 2,
-        slug: "shearing",
-        icon: Ruler,
-        title: "Рубка",
-        titleKey: "services_shearing_title",
-        descKey: "services_shearing_desc",
-        lead: "Прямая рубка листового металла на гильотине.",
-        hero: "/images/services/shearing.jpg",
-        features: ["Листы до 3 м", "Толщина до 10 мм", "Аккуратный край"],
+        slug: "design-engineering",
+        icon: Ruler, // можешь заменить на другой символ, например Hammer или PencilRuler
+        title: "Конструкторское проектирование",
+        titleKey: "services_design_title",
+        descKey: "services_design_desc",
+        lead: "Разработка чертежей и 3D-моделей для металлоконструкций любой сложности.",
+        hero: "/images/services/design.jpg",
+        features: [
+            "Индивидуальные проекты",
+            "3D-моделирование в CAD",
+            "Оптимизация конструкции под производство"
+        ],
         sections: [
             {
-                heading: "Особенности",
-                html: `<p>Используется для подготовки заготовок перед гибкой или сваркой.</p>`
+                heading: "Что входит",
+                html: `<ul class="list-disc pl-5 space-y-1">
+              <li>Создание рабочих чертежей</li>
+              <li>Подготовка разверток и спецификаций</li>
+              <li>Проработка узлов и соединений</li>
+              <li>Подбор материалов и технологий</li>
+            </ul>`
             }
         ],
         faqs: [
-            {q: "Какая максимальная длина?", a: "До 3000 мм."}
+            {q: "Можно ли заказать проект под ключ?", a: "Да, мы разрабатываем проект и сопровождаем его до готового изделия."}
         ]
     },
     {

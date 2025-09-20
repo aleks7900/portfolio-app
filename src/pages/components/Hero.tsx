@@ -54,16 +54,25 @@ export default function Hero() {
                             <motion.button
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
-                                onClick={() => navigate("/service")}
-                                className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black shadow hover:!bg-black hover:!text-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99] dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
+                                onClick={() => {
+                                    navigate("/service");
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }}
+                                className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black
+                                shadow hover:!bg-black hover:!text-white hover:shadow-lg focus:outline-none focus:ring-2
+                                focus:ring-black/40 active:scale-[0.99] dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
                             >
                                 {t("hero_to_services")}
                             </motion.button>
                             <motion.button
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
-                                onClick={() => navigate("/contacts")}
-                                className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-green-500 !text-white shadow hover:!bg-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:bg-green-600 dark:hover:bg-green-500"
+                                onClick={() => {
+                                    navigate("/contacts");
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }}
+                                className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-green-500 !text-white
+                                shadow hover:!bg-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:bg-green-600 dark:hover:bg-green-500"
                             >
                                 {t("hero_to_contacts")}
                             </motion.button>

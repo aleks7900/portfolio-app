@@ -23,13 +23,17 @@ export const dict: Dictionary = {
         sub_chargers: "Зарядки",
 // Hero/общие
         cta_contact: "Связаться",
-        hero_title: "Изготовление металлоконструкций из нержавейки",
-        hero_sub: "Базовая модель с верхней панелью навигации и каталогом.",
+        hero_title: "Изготовление металлоконструкций из нержавейки, лазерная резка, конструкторское проектирование",
+        hero_title_1: "Отверстие в листовом материале и трубе, торцовка на ленточной пиле, слесарные работы",
+        hero_title_2: "Сварка, фрезерные работы, обработка кислотой",
+        hero_sub: "Изготовление по индивидуальным заказам",
+        hero_sub_1: "Гарантия качества и внимательность к деталям",
+        hero_sub_2: "Все берём на себя",
         hero_to_services: "К услугам",
         hero_to_contacts: "Связаться",
 // Секции
         service_title: "Сервис",
-        service_lead: "Пример списка услуг. Замените на ваши предложения.",
+        service_lead: "Наши принципы в предоставлении услуг",
         contacts_title: "Контакты",
         contacts_lead: "Демо-форма. Подключите обработчик.",
         contacts_name: "Имя",
@@ -70,11 +74,13 @@ export const dict: Dictionary = {
         back: "Назад",
         next: "Вперёд",
 
+        home_catalog_title: "Каталог продукции",
+
         services_laser_title: "Лазерная резка",
         services_laser_desc: "Высокоточная резка листового металла с минимальными заусенцами.",
 
-        services_shearing_title: "Рубка (гильотина)",
-        services_shearing_desc: "Прямая рубка листового металла на гильотине.",
+        services_shearing_title: "Конструкторское проектирование",
+        services_shearing_desc: "Услуги по разработке и визуализация",
 
         services_bending_title: "Гибка",
         services_bending_desc: "Прецизионная гибка металла на прессах.",
@@ -206,14 +212,18 @@ export const dict: Dictionary = {
 
         // Hero/comun
         cta_contact: "Contactați-ne",
-        hero_title: "Construcții metalice din inox",
-        hero_sub: "Model de bază cu navigație superioară și catalog.",
+        hero_title: "Construcții metalice din inox, tăiere cu laser, inginerie de proiectare",
+        hero_title_1: "Tăiere tablă și țevi, tăiere cu ferăstrău cu bandă, prelucrarea metalelor",
+        hero_title_2: "Sudare, frezare, tratament cu acid",
+        hero_sub: "Fabricat la comandă",
+        hero_sub_1: "Calitate garantată și atenție la detalii",
+        hero_sub_2: "Ne ocupăm singuri de toate",
         hero_to_services: "Servicii",
         hero_to_contacts: "Contacte",
 
         // Secțiuni
         service_title: "Servicii",
-        service_lead: "Exemplu de listă a serviciilor. Înlocuiți cu oferta dvs.",
+        service_lead: "Principiile noastre în furnizarea serviciilor",
         contacts_title: "Contacte",
         contacts_lead: "Formular demo. Conectați procesarea.",
         contacts_name: "Nume",
@@ -255,12 +265,13 @@ export const dict: Dictionary = {
         back: "Înapoi",
         next: "Înainte",
 
-        // Servicii IT demo
+        home_catalog_title: "Catalog de produse",
+
         services_laser_title: "Tăiere cu laser",
         services_laser_desc: "Tăiere de înaltă precizie a tablei metalice cu margini curate.",
 
-        services_shearing_title: "Foarfecare (Tăiere la ghilotină)",
-        services_shearing_desc: "Tăiere dreaptă a tablei metalice pe ghilotină.",
+        services_shearing_title: "Inginerie de proiectare",
+        services_shearing_desc: "Servicii de dezvoltare și vizualizare",
 
         services_bending_title: "Îndoire",
         services_bending_desc: "Îndoire precisă a metalului pe prese hidraulice.",
