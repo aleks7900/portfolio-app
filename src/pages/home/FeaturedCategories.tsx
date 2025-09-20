@@ -94,8 +94,8 @@ export default function FeaturedCategories() {
                         <div key={cat.key} className="rounded-2xl border shadow-sm dark:border-white/10">
                             {/* полоса заголовка */}
                             <div
-                                className="rounded-t-2xl bg-[#4b5f41] px-5 py-3 text-center text-white dark:bg-neutral-900">
-                                <div className="text-base sm:text-lg font-semibold tracking-wide uppercase">
+                                className="rounded-t-2xl !bg-gray-700 px-5 py-3 text-center text-white dark:!bg-neutral-900">
+                                <div className="text-base sm:text-lg font-semibold tracking-wide">
                                     {t(cat.labelKey)}
                                 </div>
                             </div>

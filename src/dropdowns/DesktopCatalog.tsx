@@ -172,7 +172,7 @@ export default function DesktopCatalog() {
                                                         variants={itemVariants}
                                                         transition={{
                                                             type: "spring",
-                                                            stiffness: 500,
+                                                            stiffness: 100,
                                                             damping: 30,
                                                             mass: 0.4,
                                                             delay: idx * 0.03

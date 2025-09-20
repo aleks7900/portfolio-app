@@ -71,7 +71,7 @@ export default function ProductDetails({
 
     return (
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4 py-12"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 px-4 py-12"
             role="dialog"
             aria-modal="true"
             onMouseDown={(e) => e.target === e.currentTarget && onClose()}
@@ -221,18 +221,6 @@ export default function ProductDetails({
                                    dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                     >
                         {t("cancel")}
-                    </button>
-
-                    {/* More */}
-                    <button
-                        type="button"
-                        className="rounded-xl border px-4 py-2 text-sm font-medium
-                                   !bg-white !text-black shadow
-                                   hover:!bg-black hover:!text-white hover:shadow-lg
-                                   focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                                   dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
-                    >
-                        {t("more")}
                     </button>
                 </div>
             </div>
