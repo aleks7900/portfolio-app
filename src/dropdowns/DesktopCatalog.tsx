@@ -6,11 +6,20 @@ import {AnimatePresence, motion} from "framer-motion";
 import {createPortal} from "react-dom";
 import {CATS} from "../data/catalog/categories.ts";
 
+/** Кнопка подкатегории: ширина = по контенту */
 const BTN = [
-    "flex items-center justify-between gap-2 rounded-lg px-5 py-3 text-base font-medium",
+    // раскладка
+    "inline-flex items-center justify-between gap-2 self-start",
+    // размеры
+    "rounded-lg px-5 py-3 text-base font-medium",
+    // оформление + тени
     "bg-white text-black no-underline shadow-lg transition",
     "hover:!bg-black hover:!text-white hover:!shadow-2xl hover:!shadow-black/40",
+    // фокус/актив
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]",
+    // ширина по содержимому
+    "w-full",
+    // текст/перенос
     "text-left whitespace-normal break-words leading-snug overflow-visible",
 ].join(" ");
 
@@ -42,9 +51,7 @@ export default function DesktopCatalog() {
     const {ref: btnRef, rect} = useAnchorRect<HTMLButtonElement>();
     const [open, setOpen] = useState(false);
 
-    React.useEffect(() => {
-        setOpen(false);
-    }, [location.pathname]);
+    React.useEffect(() => setOpen(false), [location.pathname]);
     React.useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") setOpen(false);
@@ -76,18 +83,13 @@ export default function DesktopCatalog() {
             zIndex: 9999,
             maxHeight: maxH,
             overflowY: "auto",
+            scrollbarGutter: "stable both-edges", // НЕ прыгать при появлении скролла
         };
 
         if (openUp) {
-            return {
-                ...base,
-                bottom: Math.round(viewportH - rect.top + 8),
-            };
+            return {...base, bottom: Math.round(viewportH - rect.top + 8)};
         }
-        return {
-            ...base,
-            top: Math.round(rect.bottom + 8),
-        };
+        return {...base, top: Math.round(rect.bottom + 8)};
     }, [rect]);
 
     const backdropStyle: React.CSSProperties = {
@@ -100,16 +102,10 @@ export default function DesktopCatalog() {
     const sheetVariants = {
         hidden: {opacity: 0, y: -8, scale: 0.98},
         visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
+            opacity: 1, y: 0, scale: 1,
             transition: {
-                type: "spring",
-                stiffness: 420,
-                damping: 30,
-                mass: 0.6,
-                when: "beforeChildren",
-                staggerChildren: 0.03,
+                type: "spring", stiffness: 420, damping: 30, mass: 0.6,
+                when: "beforeChildren", staggerChildren: 0.03,
             },
         },
         exit: {opacity: 0, y: -6, scale: 0.98, transition: {duration: 0.15}},
@@ -156,18 +152,23 @@ export default function DesktopCatalog() {
                                 animate="visible"
                                 exit="exit"
                                 variants={sheetVariants}
-                                className="rounded-2xl border bg-white p-4 drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] dark:bg-gray-800 dark:border-white/10 overscroll-contain"
+                                className="rounded-2xl border bg-white p-4 pr-5 drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] dark:bg-gray-800 dark:border-white/10 overscroll-contain"
                                 role="menu"
                             >
-                                <div className="flex flex-wrap gap-6">
+                                {/* GRID вместо flex-wrap */}
+                                <div className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
                                     {CATS.map(cat => (
-                                        <motion.div key={cat.key} variants={colVariants}
-                                                    className="flex flex-col min-w-[260px] max-w-[340px]">
+                                        <motion.div
+                                            key={cat.key}
+                                            variants={colVariants}
+                                            className="flex flex-col min-w-0"
+                                        >
                                             <div
                                                 className="sticky top-0 z-10 -mx-1 mb-2 px-1 py-1 text-sm font-semibold text-gray-700/90 backdrop-blur-[2px] dark:text-gray-100">
                                                 {t(cat.labelKey)}
                                             </div>
-                                            <div className="flex flex-col items-stretch w-full">
+
+                                            <div className="flex flex-col w-full gap-2">
                                                 {cat.children?.map((sub, idx) => (
                                                     <motion.button
                                                         key={sub.key}
@@ -177,20 +178,21 @@ export default function DesktopCatalog() {
                                                             navigate(`/catalog/${cat.key}/${sub.key}`);
                                                             setOpen(false);
                                                         }}
-                                                        className={BTN + " w-full"}
+                                                        className={BTN}
                                                         variants={itemVariants}
                                                         transition={{
                                                             type: "spring",
                                                             stiffness: 120,
                                                             damping: 24,
                                                             mass: 0.4,
-                                                            delay: idx * 0.02
+                                                            delay: idx * 0.02,
                                                         }}
                                                         whileHover={{x: 2}}
                                                         whileTap={{scale: 0.985}}
                                                     >
-                                                        <span
-                                                            className="block grow leading-snug break-words whitespace-normal text-left pr-2">{t(sub.labelKey)}</span>
+                            <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
+                              {t(sub.labelKey)}
+                            </span>
                                                         <ChevronRight className="h-4 w-4 shrink-0"/>
                                                     </motion.button>
                                                 ))}

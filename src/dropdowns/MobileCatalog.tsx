@@ -1,97 +1,106 @@
-import {useI18n} from "../shared/i18n/i18n.tsx";
+// src/components/MobileCatalog.tsx
+import React from "react";
+import {ChevronDown, ChevronRight} from "lucide-react";
 import {useNavigate} from "react-router-dom";
-import React, {useEffect, useRef, useState} from "react";
-import {ChevronDown} from "lucide-react";
+import {useI18n} from "../shared/i18n/i18n.tsx";
 import {CATS} from "../data/catalog/categories.ts";
+import {AnimatePresence, motion} from "framer-motion";
 
-export default function MobileCatalog({onDone}: { onDone: () => void }) {
+/** Кнопка подкатегории: ширина по контенту + тень */
+const SUB_BTN = [
+    "inline-flex items-center justify-between gap-2 self-start", // ширина по контенту
+    "rounded-lg px-4 py-3 text-base font-medium",
+    "bg-white text-black no-underline shadow-lg transition",
+    "hover:!bg-black hover:!text-white hover:!shadow-2xl hover:!shadow-black/40",
+    "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]",
+    "w-full", // важно: не растягиваем на всю ширину
+    "text-left whitespace-normal break-words leading-snug overflow-visible",
+].join(" ");
+
+type OpenMap = Record<string, boolean>;
+
+export default function MobileCatalog() {
     const {t} = useI18n();
     const navigate = useNavigate();
-    const [open, setOpen] = useState<string | null>(null);
+    const [open, setOpen] = React.useState<OpenMap>({});
 
-    // === Блокируем фоновый скролл страницы, пока открыт каталог ===
-    useEffect(() => {
-        const y = window.scrollY;
-        // Способ без "скачка" страницы
-        document.body.style.position = "fixed";
-        document.body.style.top = `-${y}px`;
-        document.body.style.left = "0";
-        document.body.style.right = "0";
-        document.body.style.width = "100%";
-        (document.documentElement as HTMLElement).style.overscrollBehavior = "contain";
+    const toggle = (key: string) =>
+        setOpen((m) => ({...m, [key]: !m[key]}));
 
-        return () => {
-            const top = document.body.style.top;
-            document.body.style.position = "";
-            document.body.style.top = "";
-            document.body.style.left = "";
-            document.body.style.right = "";
-            document.body.style.width = "";
-            (document.documentElement as HTMLElement).style.overscrollBehavior = "";
-            // вернёмся туда, где пользователь был до открытия
-            const restoreY = top ? -parseInt(top, 10) : 0;
-            window.scrollTo(0, restoreY);
-        };
-    }, []);
-
-    // При клике на заголовок — аккордеон
-    const catRefs = useRef<Record<string, HTMLDivElement | null>>({});
-    const toggle = (key: string) => {
-        setOpen(v => (v === key ? null : key));
-        requestAnimationFrame(() => catRefs.current[key]?.scrollIntoView({block: "nearest", behavior: "smooth"}));
-    };
+    const itemVariants = {hidden: {opacity: 0, x: -6}, visible: {opacity: 1, x: 0}};
 
     return (
-        <div
-            className={[
-                // Автоматическая высота панели: берём 85% высоты малого вьюпорта (svh) или всё окно минус 88px шапки/отступов
-                "max-h-[min(85svh,calc(100svh-88px))] overflow-y-auto overscroll-contain",
-                "rounded-xl bg-gray-50 dark:bg-white/5 border border-black/5 dark:border-white/10",
-            ].join(" ")}
-            style={{WebkitOverflowScrolling: "touch"}}
-            role="dialog"
-            aria-label={t("nav_catalog")}
-        >
-            {CATS.map(cat => (
-                <div key={cat.key} ref={el => (catRefs.current[cat.key] = el)}
-                     className="border-b last:border-none border-black/5 dark:border-white/10">
-                    <button
-                        onClick={() => toggle(cat.key)}
-                        className="flex w-full items-center justify-between px-4 py-4 text-base"
-                        aria-expanded={open === cat.key}
-                        aria-controls={`cat-${cat.key}`}
-                    >
-                        <span className="font-medium text-left pr-3">{t(cat.labelKey)}</span>
-                        <ChevronDown
-                            className={`h-5 w-5 shrink-0 transition-transform ${open === cat.key ? "rotate-180" : ""}`}/>
-                    </button>
+        <div className="w-full p-3">
+            {/* Заголовок мобильного каталога (опционально) */}
+            <div className="mb-3 text-lg font-semibold">{t("nav_catalog")}</div>
 
-                    <div
-                        id={`cat-${cat.key}`}
-                        className={[
-                            open === cat.key ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-                            "grid transition-[grid-template-rows] duration-200 ease-out",
-                        ].join(" ")}
-                    >
-                        <div className="min-h-0 overflow-y-auto max-h-[min(70svh,calc(100svh-128px))] p-2"
-                             style={{WebkitOverflowScrolling: "touch"}}>
-                            {cat.children?.map(sub => (
-                                <button
-                                    key={sub.key}
-                                    onClick={() => {
-                                        setOpen(null);
-                                        onDone();
-                                        navigate(`/catalog/${cat.key}/${sub.key}`);
-                                    }}
-                                    className="block w-full rounded-lg px-3 py-3 text-left text-sm hover:bg-black/5 active:bg-black/10 dark:hover:bg-white/10"
-                                >
-                                    {t(sub.labelKey)}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            ))}
+            <ul className="flex flex-col gap-2">
+                {CATS.map((cat) => {
+                    const isOpen = !!open[cat.key];
+                    return (
+                        <li key={cat.key}
+                            className="rounded-2xl border bg-white shadow-sm dark:bg-gray-800 dark:border-white/10">
+                            {/* Кнопка секции (категория) */}
+                            <button
+                                className="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-base font-medium
+                           bg-white text-black dark:bg-gray-800 dark:text-white
+                           focus:outline-none focus-visible:ring-0 active:scale-[0.99]"
+                                onClick={() => toggle(cat.key)}
+                                aria-expanded={isOpen}
+                                aria-controls={`sec-${cat.key}`}
+                            >
+                                <span className="truncate">{t(cat.labelKey)}</span>
+                                <ChevronDown
+                                    className={`h-5 w-5 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}/>
+                            </button>
+
+                            {/* Контейнер списка подкатегорий */}
+                            <div
+                                id={`sec-${cat.key}`}
+                                className={[
+                                    "w-full",
+                                    "transition-[max-height] duration-300 ease-out", // плавное сворачивание
+                                    isOpen
+                                        ? "max-h-[70svh] overflow-y-auto no-scrollbar pr-2 [scrollbar-gutter:stable] touch-pan-y"
+                                        : "max-h-0 overflow-hidden pointer-events-none py-0",
+                                ].join(" ")}
+                            >
+                                <div className="px-3 pb-3 pt-1">
+                                    {/* список подкатегорий */}
+                                    <AnimatePresence initial={false}>
+                                        {isOpen && (
+                                            <motion.ul
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit="hidden"
+                                                className="flex flex-col gap-2"
+                                            >
+                                                {cat.children?.map((sub, idx) => (
+                                                    <motion.li key={sub.key} variants={itemVariants}
+                                                               transition={{delay: idx * 0.02}}>
+                                                        <button
+                                                            className={SUB_BTN}
+                                                            onClick={() => {
+                                                                navigate(`/catalog/${cat.key}/${sub.key}`);
+                                                            }}
+                                                            title={t(sub.labelKey)}
+                                                        >
+                              <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
+                                {t(sub.labelKey)}
+                              </span>
+                                                            <ChevronRight className="h-4 w-4 shrink-0"/>
+                                                        </button>
+                                                    </motion.li>
+                                                ))}
+                                            </motion.ul>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 }
