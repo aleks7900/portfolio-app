@@ -2,10 +2,60 @@
 import {useEffect, useRef, useState} from "react";
 import Container from "../../shared/Container.tsx";
 import {useNavigate} from "react-router-dom";
-import {listProducts, type ProductsPage} from "../../shared/api/repo.ts";
+import {listProducts} from "../../shared/api/repo.ts";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import SafeImg from "../../data/SafeImg.tsx";
+
+/* ---------- helpers ---------- */
+// ---------- types & guards ----------
+type PageLike<T> = { content: T[] };
+type WrapperPage<T> = { page: { content: T[] } };
+type EmbeddedProducts = { _embedded: { products: Product[] } };
+type ItemsWrapper<T> = { items: T[] };
+
+function isRecord(x: unknown): x is Record<string, unknown> {
+    return typeof x === "object" && x !== null;
+}
+function isArrayOfProducts(x: unknown): x is Product[] {
+    return Array.isArray(x);
+}
+
+// ---------- safe extractor (без any) ----------
+function extractProducts(payload: unknown): Product[] {
+    // 1) Сам массив
+    if (isArrayOfProducts(payload)) return payload;
+
+    // 2) { content: [...] }
+    if (isRecord(payload) && isArrayOfProducts((payload as PageLike<Product>).content)) {
+        return (payload as PageLike<Product>).content;
+    }
+
+    // 3) { page: { content: [...] } }
+    if (
+        isRecord(payload) &&
+        isRecord((payload as WrapperPage<Product>).page) &&
+        isArrayOfProducts((payload as WrapperPage<Product>).page.content)
+    ) {
+        return (payload as WrapperPage<Product>).page.content;
+    }
+
+    // 4) { _embedded: { products: [...] } }
+    if (
+        isRecord(payload) &&
+        isRecord((payload as EmbeddedProducts)._embedded) &&
+        isArrayOfProducts((payload as EmbeddedProducts)._embedded.products)
+    ) {
+        return (payload as EmbeddedProducts)._embedded.products;
+    }
+
+    // 5) { items: [...] }
+    if (isRecord(payload) && isArrayOfProducts((payload as ItemsWrapper<Product>).items)) {
+        return (payload as ItemsWrapper<Product>).items;
+    }
+
+    return [];
+}
 
 type BlockState = {
     loading: boolean;
@@ -22,14 +72,17 @@ function useProductsBlock(params: Parameters<typeof listProducts>[0]) {
         async function run() {
             setState((s) => ({...s, loading: true, error: null}));
             try {
-                const page: ProductsPage = await listProducts(params || {});
-                if (!cancelled) setState({loading: false, error: null, items: page.content});
+                const payload = await listProducts(params);
+                const items = extractProducts(payload);
+                if (!cancelled) setState({loading: false, error: null, items});
             } catch (e: unknown) {
-                if (!cancelled) setState({
-                    loading: false,
-                    error: e instanceof Error ? e.message : "Load error",
-                    items: [],
-                });
+                if (!cancelled) {
+                    setState({
+                        loading: false,
+                        error: e instanceof Error ? e.message : "Load error",
+                        items: [],
+                    });
+                }
             }
         }
 
@@ -147,12 +200,12 @@ function ImageCarousel({
         if (startX.current == null) return;
         const dx = e.changedTouches[0].clientX - startX.current;
         startX.current = null;
-        const threshold = 30; // пиксели
+        const threshold = 30;
         if (dx > threshold) prev();
         else if (dx < -threshold) next();
     };
 
-    // клавиатура (стрелки)
+    // клавиатура
     const onKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "ArrowLeft") {
             e.stopPropagation();
@@ -175,13 +228,12 @@ function ImageCarousel({
     if (images.length === 1) {
         return (
             <div className="mb-3 h-28 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5">
-                <img
+                <SafeImg
                     src={images[0]}
                     alt={alt}
                     className="h-full w-full object-cover"
                     loading="lazy"
                     decoding="async"
-                    referrerPolicy="no-referrer"
                     draggable={false}
                 />
             </div>
@@ -212,7 +264,6 @@ function ImageCarousel({
                             className="h-full w-full select-none object-cover"
                             loading="lazy"
                             decoding="async"
-                            referrerPolicy="no-referrer"
                             draggable={false}
                         />
                     </div>
@@ -249,7 +300,8 @@ function ImageCarousel({
                         }}
                         aria-label={`Go to image ${i + 1}`}
                         className={[
-                            "pointer-events-auto h-1 w-1 rounded-full transition",
+                            "pointer-events-auto inline-block h-1 w-1 shrink-0 rounded-full transition",
+                            "p-0 border-0 appearance-none bg-transparent m-0 align-middle",
                             i === idx ? "bg-black/80 dark:bg-white" : "bg-black/30 dark:bg-white/40",
                         ].join(" ")}
                     />
@@ -269,7 +321,7 @@ function ProductCard({p}: { p: Product }) {
 
     return (
         <article
-            className="group rounded-2xl border p-4 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg.black/40 dark:bg-black/40"
+            className="group rounded-2xl border p-4 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-black/40"
             role="button"
             onClick={() => navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`)}
             tabIndex={0}
