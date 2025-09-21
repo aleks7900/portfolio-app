@@ -1,53 +1,154 @@
 export type Subcat = { key: string; labelKey: string };
 export type Cat = { key: string; labelKey: string; children: Subcat[] };
 
-// пример (подставь свой реальный список)
-export const CAT: Cat[] = [
-    {
-        key: "metal",
-        labelKey: "cat_metal",
-        children: [
-            {key: "sheet", labelKey: "cat_metal_sheet"},
-            {key: "profile-pipe", labelKey: "cat_metal_profile_pipe"},
-            {key: "round-pipe", labelKey: "cat_metal_round_pipe"},
-            {key: "strip", labelKey: "cat_metal_strip"},
-            {key: "angle", labelKey: "cat_metal_angle"},
-            {key: "rod", labelKey: "cat_metal_rod"},
-        ],
-    },
-    {
-        key: "vinification",
-        labelKey: "cat_vini",
-        children: [
-            {key: "tanks", labelKey: "cat_vini_tanks"},
-            {key: "pumps", labelKey: "cat_vini_pumps"},
-            {key: "fittings", labelKey: "cat_vini_fittings"},
-        ],
-    },
-    {
-        key: "furniture",
-        labelKey: "cat_furniture",
-        children: [
-            {key: "tables", labelKey: "cat_furniture_tables"},
-            {key: "shelves", labelKey: "cat_furniture_shelves"},
-            {key: "legs", labelKey: "cat_furniture_legs"},
-        ],
-    },
-];
-
 export const CATS: Cat[] = [
     {
-        key: "electronics", labelKey: "cat_electronics", children: [
-            {key: "laptops", labelKey: "sub_laptops"},
-            {key: "phones", labelKey: "sub_phones"},
-            {key: "tablets", labelKey: "sub_tablets"},
-        ]
+        key:  "custom_orders",
+        children:  [
+            {
+                key:  "balustrade_perila",
+                labelKey:  "sub_balustrade_perila"
+            },
+            {
+                key:  "boxes",
+                labelKey:  "sub_boxes"
+            },
+            {
+                key:  "cafe",
+                labelKey:  "sub_cafe"
+            },
+            {
+                key:  "carcase",
+                labelKey:  "sub_carcase"
+            },
+            {
+                key:  "caruciors",
+                labelKey:  "sub_caruciors"
+            },
+            {
+                key:  "cauldrons",
+                labelKey:  "sub_cauldrons"
+            },
+            {
+                key:  "decor",
+                labelKey:  "sub_decor"
+            },
+            {
+                key:  "furnitura",
+                labelKey:  "sub_furnitura"
+            },
+            {
+                key:  "ladder",
+                labelKey:  "sub_ladder"
+            },
+            {
+                key:  "mangal_and_grill",
+                labelKey:  "sub_mangal_and_grill"
+            },
+            {
+                key:  "masa",
+                labelKey:  "sub_masa"
+            },
+            {
+                key:  "melochi",
+                labelKey:  "sub_melochi"
+            },
+            {
+                key:  "mobila",
+                labelKey:  "sub_mobila"
+            },
+            {
+                key:  "other",
+                labelKey:  "sub_other"
+            },
+            {
+                key:  "podstavki",
+                labelKey:  "sub_podstavki"
+            },
+            {
+                key:  "prom",
+                labelKey:  "sub_prom"
+            },
+            {
+                key:  "reshetki",
+                labelKey:  "sub_reshetki"
+            },
+            {
+                key:  "sckaph",
+                labelKey:  "sub_sckaph"
+            },
+            {
+                key:  "sinks",
+                labelKey:  "sub_sinks"
+            },
+            {
+                key:  "tandoors",
+                labelKey:  "sub_tandoors"
+            },
+            {
+                key:  "tanks",
+                labelKey:  "sub_tanks"
+            },
+            {
+                key:  "tavas",
+                labelKey:  "sub_tavas"
+            },
+            {
+                key:  "towel",
+                labelKey:  "sub_towel"
+            },
+            {
+                key:  "trash_bins",
+                labelKey:  "sub_trash_bins"
+            },
+            {
+                key:  "wheels",
+                labelKey:  "sub_wheels"
+            }
+        ],
+        labelKey:  "cat_custom_orders"
     },
     {
-        key: "home", labelKey: "cat_home", children: [
-            {key: "vacuum", labelKey: "sub_vacuum"},
-            {key: "fridges", labelKey: "sub_fridges"},
-        ]
+        key:  "standard_products",
+        children:  [
+            {
+                key:  "0_podtovarniki",
+                labelKey:  "sub_0_podtovarniki"
+            },
+            {
+                key:  "1_proizvodstvennye_moyki",
+                labelKey:  "sub_1_proizvodstvennye_moyki"
+            },
+            {
+                key:  "2_proizvodstvennye_stellazhy",
+                labelKey:  "sub_2_proizvodstvennye_stellazhy"
+            },
+            {
+                key:  "3_﻿poruchni_opornye",
+                labelKey:  "sub_3_﻿poruchni_opornye"
+            },
+            {
+                key:  "4_proizvodstvenye_polki",
+                labelKey:  "sub_4_proizvodstvenye_polki"
+            },
+            {
+                key:  "5_kompleksnye_resheniya_(_barnaya_stantsiya_)",
+                labelKey:  "sub_5_kompleksnye_resheniya_(_barnaya_stantsiya_)"
+            },
+            {
+                key:  "6_stoli-tumba_na_zakaza",
+                labelKey:  "sub_6_stoli-tumba_na_zakaza"
+            },
+            {
+                key:  "7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog",
+                labelKey:  "sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog"
+            },
+            {
+                key:  "8_proizvodstvennye_stoly_katalog",
+                labelKey:  "sub_8_proizvodstvennye_stoly_katalog"
+            }
+        ],
+        labelKey:  "cat_standard_products"
     },
     {
         key: "accessories", labelKey: "cat_accessories", children: [

@@ -4,29 +4,7 @@ import React, {useState} from "react";
 import {ChevronDown, ChevronRight} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {createPortal} from "react-dom";
-
-// ===== Demo data (замени на реальные категории) =====
-const CATS = [
-    {
-        key: "electronics", labelKey: "cat_electronics", children: [
-            {key: "laptops", labelKey: "sub_laptops"},
-            {key: "phones", labelKey: "sub_phones"},
-            {key: "tablets", labelKey: "sub_tablets"},
-        ]
-    },
-    {
-        key: "home", labelKey: "cat_home", children: [
-            {key: "vacuum", labelKey: "sub_vacuum"},
-            {key: "fridges", labelKey: "sub_fridges"},
-        ]
-    },
-    {
-        key: "accessories", labelKey: "cat_accessories", children: [
-            {key: "headphones", labelKey: "sub_headphones"},
-            {key: "chargers", labelKey: "sub_chargers"},
-        ]
-    },
-];
+import {CATS} from "../data/catalog/categories.ts";
 
 const BTN = [
     "flex items-center justify-between rounded-lg px-5 py-3 text-base font-medium",
