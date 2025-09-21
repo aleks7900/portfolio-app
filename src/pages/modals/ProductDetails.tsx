@@ -164,10 +164,10 @@ export default function ProductDetails({
                                         key={i}
                                         className="keen-slider__slide !w-20 cursor-pointer overflow-hidden rounded-lg border bg-white dark:bg-black dark:border-white/10"
                                     >
-                                        <img
+                                        <SafeImg
                                             src={src}
                                             alt={`thumb ${i + 1}`}
-                                            className="h-16 w-full object-cover"
+                                            className="h-20 w-full object-cover"
                                             draggable={false}
                                         />
                                     </div>

@@ -249,7 +249,7 @@ function ImageCarousel({
                         }}
                         aria-label={`Go to image ${i + 1}`}
                         className={[
-                            "pointer-events-auto h-1.5 w-1.5 rounded-full transition",
+                            "pointer-events-auto h-1 w-1 rounded-full transition",
                             i === idx ? "bg-black/80 dark:bg-white" : "bg-black/30 dark:bg-white/40",
                         ].join(" ")}
                     />

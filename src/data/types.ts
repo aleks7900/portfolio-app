@@ -14,6 +14,7 @@ export type Product = {
     inStock: boolean;
     category: string;
     subcategory: string;
+    description: string;
 
     // ↓ новые, опциональные
     imgLinks?: string[];                        // ['/img/products/1-1.jpg', ...]
