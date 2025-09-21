@@ -32,21 +32,17 @@ function RowScroller({
                 type="button"
                 onClick={() => scroll(-1)}
                 aria-label="Prev"
-                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:bg-white dark:bg-black/80 dark:hover:bg-black"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:!bg-black hover:!shadow-2xl hover:!text-white dark:bg-black/80 dark:hover:bg-black"
             >
-                <svg width="18" height="18" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M15 18l-6-6 6-6v12z"/>
-                </svg>
+                <span className="leading-none select-none text-3xl h-10">‹</span>
             </button>
             <button
                 type="button"
                 onClick={() => scroll(1)}
                 aria-label="Next"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:bg-white dark:bg-black/80 dark:hover:bg-black"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:!bg-black hover:!shadow-2xl hover:!text-white dark:bg-black/80 dark:hover:bg-black"
             >
-                <svg width="18" height="18" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M9 6l6 6-6 6V6z"/>
-                </svg>
+                <span className="leading-none select-none text-3xl h-10">›</span>
             </button>
         </div>
     );

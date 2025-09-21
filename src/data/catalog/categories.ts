@@ -124,20 +124,20 @@ export const CATS: Cat[] = [
                 labelKey:  "sub_2_proizvodstvennye_stellazhy"
             },
             {
-                key:  "3_﻿poruchni_opornye",
-                labelKey:  "sub_3_﻿poruchni_opornye"
+                key:  "3_poruchni_opornye",
+                labelKey:  "sub_3_poruchni_opornye"
             },
             {
                 key:  "4_proizvodstvenye_polki",
                 labelKey:  "sub_4_proizvodstvenye_polki"
             },
             {
-                key:  "5_kompleksnye_resheniya_(_barnaya_stantsiya_)",
-                labelKey:  "sub_5_kompleksnye_resheniya_(_barnaya_stantsiya_)"
+                key:  "5_kompleksnye_resheniya",
+                labelKey:  "sub_5_kompleksnye_resheniya"
             },
             {
-                key:  "6_stoli-tumba_na_zakaza",
-                labelKey:  "sub_6_stoli-tumba_na_zakaza"
+                key:  "6_stoli_tumba_na_zakaz",
+                labelKey:  "sub_6_stoli_tumba_na_zakaz"
             },
             {
                 key:  "7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog",
