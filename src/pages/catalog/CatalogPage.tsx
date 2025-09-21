@@ -107,6 +107,17 @@ export default function CatalogPage() {
         setSp(next, {replace: true});
     }, [filters, page, size, setSp]);
 
+    // когда меняются route-параметры (клик по категории в navbar) — переинициализируем фильтры и страницу
+    useEffect(() => {
+        // читаем «свежие» фильтры из URL с приоритетом route-параметров
+        const next = fromSearchParams(sp, category, subcategory);
+
+        // если реально что-то изменилось — обновляем стейт и сбрасываем на первую страницу
+        setPage(0);
+        setFilters(next);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [category, subcategory]);
+
     // загрузка с бэка
     async function fetchPage() {
         setLoading(true);
