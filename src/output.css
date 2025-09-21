@@ -2185,6 +2185,11 @@
       height: 880px;
     }
   }
+  .sm\:h-\[1000px\] {
+    @media (width >= 40rem) {
+      height: 1000px;
+    }
+  }
   .sm\:w-4\/5 {
     @media (width >= 40rem) {
       width: calc(4/5 * 100%);
@@ -2333,6 +2338,11 @@
   .lg\:order-none {
     @media (width >= 64rem) {
       order: 0;
+    }
+  }
+  .lg\:h-\[100px\] {
+    @media (width >= 64rem) {
+      height: 100px;
     }
   }
   .lg\:h-\[900px\] {
