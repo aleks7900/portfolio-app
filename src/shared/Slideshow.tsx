@@ -3,12 +3,12 @@ import "keen-slider/keen-slider.min.css";
 import {type KeenSliderPlugin, useKeenSlider} from "keen-slider/react";
 import {useTranslation} from "react-i18next";
 
-import slide1 from "../assets/img/slide1.jpg";
+import slide1 from "../assets/img/slide1.png";
 import slide2 from "../assets/img/slide2.jpg";
 import slide3 from "../assets/img/slide3.png";
 import slide5 from "../assets/img/slide5.jpg";
 import slide6 from "../assets/img/slide6.jpg";
-import slide7 from "../assets/img/slide7.png";
+import slide7 from "../assets/img/slide7.jpg";
 
 /** Двухъязычный массив слайдов */
 const slides = [
@@ -127,12 +127,12 @@ export default function Slideshow() {
                     return (
                         <div
                             key={s.id}
-                            className="keen-slider__slide relative h-[400px] flex items-center justify-center bg-gray-200 dark:bg-black"
+                            className="keen-slider__slide relative h-[700px] flex items-center justify-center bg-gray-200 dark:bg-black"
                         >
                             <img
                                 src={s.img}
                                 alt={t.title}
-                                className="absolute inset-0 h-full w-full object-cover opacity-70"
+                                className="absolute inset-0 h-full w-full object-cover"
                             />
                             <div className="relative z-0 text-center text-white px-4">
                                 <h2 className="text-5xl font-bold drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">

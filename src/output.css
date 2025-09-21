@@ -541,6 +541,12 @@
   .h-\[400px\] {
     height: 400px;
   }
+  .h-\[700px\] {
+    height: 700px;
+  }
+  .h-\[800px\] {
+    height: 800px;
+  }
   .h-auto {
     height: auto;
   }
