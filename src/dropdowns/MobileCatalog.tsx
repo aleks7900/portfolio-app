@@ -8,7 +8,7 @@ import {AnimatePresence, motion} from "framer-motion";
 
 /** Кнопка подкатегории: ширина по контенту + тень */
 const SUB_BTN = [
-    "inline-flex items-center justify-between gap-2 self-start", // ширина по контенту
+    "inline-flex items-center justify-between gap-2 self-start",
     "rounded-lg px-4 py-3 text-base font-medium",
     "bg-white text-black no-underline shadow-lg transition",
     "hover:!bg-black hover:!text-white hover:!shadow-2xl hover:!shadow-black/40",
@@ -31,20 +31,20 @@ export default function MobileCatalog() {
 
     return (
         <div className="w-full p-3">
-            {/* Заголовок мобильного каталога (опционально) */}
             <div className="mb-3 text-lg font-semibold">{t("nav_catalog")}</div>
 
             <ul className="flex flex-col gap-2">
                 {CATS.map((cat) => {
                     const isOpen = !!open[cat.key];
                     return (
-                        <li key={cat.key}
-                            className="rounded-2xl border bg-white shadow-sm dark:bg-gray-800 dark:border-white/10">
+                        <li key={cat.key} className="rounded-2xl bg-white dark:bg-gray-800">
                             {/* Кнопка секции (категория) */}
                             <button
                                 className="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-base font-medium
                            bg-white text-black dark:bg-gray-800 dark:text-white
-                           focus:outline-none focus-visible:ring-0 active:scale-[0.99]"
+                           border border-black/10 dark:border-white/15 shadow-sm
+                           focus:outline-none focus-visible:ring-0 outline-none
+                           active:scale-[0.99]"
                                 onClick={() => toggle(cat.key)}
                                 aria-expanded={isOpen}
                                 aria-controls={`sec-${cat.key}`}
@@ -58,15 +58,13 @@ export default function MobileCatalog() {
                             <div
                                 id={`sec-${cat.key}`}
                                 className={[
-                                    "w-full",
-                                    "transition-[max-height] duration-300 ease-out", // плавное сворачивание
+                                    "w-full transition-[max-height] duration-300 ease-out",
                                     isOpen
-                                        ? "max-h-[70svh] overflow-y-auto no-scrollbar pr-2 [scrollbar-gutter:stable] touch-pan-y"
+                                        ? "max-h-[70svh] overflow-y-auto no-scrollbar pr-2 [scrollbar-gutter:stable] touch-pan-y border-t border-black/5 dark:border-white/10"
                                         : "max-h-0 overflow-hidden pointer-events-none py-0",
                                 ].join(" ")}
                             >
                                 <div className="px-3 pb-3 pt-1">
-                                    {/* список подкатегорий */}
                                     <AnimatePresence initial={false}>
                                         {isOpen && (
                                             <motion.ul
@@ -76,8 +74,11 @@ export default function MobileCatalog() {
                                                 className="flex flex-col gap-2"
                                             >
                                                 {cat.children?.map((sub, idx) => (
-                                                    <motion.li key={sub.key} variants={itemVariants}
-                                                               transition={{delay: idx * 0.02}}>
+                                                    <motion.li
+                                                        key={sub.key}
+                                                        variants={itemVariants}
+                                                        transition={{delay: idx * 0.02}}
+                                                    >
                                                         <button
                                                             className={SUB_BTN}
                                                             onClick={() => {
