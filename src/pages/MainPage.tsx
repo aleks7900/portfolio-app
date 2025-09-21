@@ -1,13 +1,18 @@
 import HomeSearch from "./home/HomeSearch.tsx";
 import Slideshow from "../shared/Slideshow.tsx";
-import PopularBlocks from "./home/PopularBlocks.tsx";
 import {ADV} from "../data/data.ts";
 import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import FeaturedCategories from "./home/FeaturedCategories.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
+import {ProductsBlock} from "./home/PopularBlocks.tsx";
+import {useI18n} from "../shared/i18n/i18n.tsx";
+import FeaturedRow from "./home/FeaturedRow.tsx";
 
 export default function MainPage() {
+
+    const {t} = useI18n();
+
     return (
         <>
             <div className="mt-12 min-h-[1rem]"></div>
@@ -665,11 +670,135 @@ export default function MainPage() {
             </div>
 
             <FeaturedCategories/>
-            {/* горизонтальный скролл под слайд-шоу */}
-            {/*<FeaturedRow title="Популярное"/>*/}
-            {/*/!* можно дополнительные ряды по категориям *!/*/}
-            {/*<FeaturedRow title="Ноутбуки" category="electronics" subcategory="laptops"/>*/}
-            <PopularBlocks/>
+
+            <div className="hidden">
+                cat_custom_orders: "Изделия на заказ",
+                sub_balustrade_perila: "Балюстрады, перила",
+                sub_boxes: "Боксы",
+                sub_cafe: "Кафе",
+                sub_carcase: "Каркасы",
+                sub_caruciors: "Тележки",
+                sub_cauldrons: "Котлы",
+                sub_decor: "Декор",
+                sub_furnitura: "Фурнитура",
+                sub_ladder: "Лестницы",
+                sub_mangal_and_grill: "Мангалы и гриль",
+                sub_masa: "Столы",
+                sub_melochi: "Мелкие детали",
+                sub_mobila: "Мебель",
+                sub_other: "Прочее",
+                sub_podstavki: "Подставки",
+                sub_prom: "Пром изделия",
+                sub_reshetki: "Решётки",
+                sub_sckaph: "Шкафы",
+                sub_sinks: "Мойки",
+                sub_tandoors: "Тандыры",
+                sub_tanks: "Баки",
+                sub_tavas: "Тавас",
+                sub_towel: "Для душа",
+                sub_trash_bins: "Корзины",
+                sub_wheels: "Колеса",
+
+                cat_standard_products: "Стандартная продукция",
+                sub_0_podtovarniki: "Подтоварники",
+                sub_1_proizvodstvennye_moyki: "Производственные мойки",
+                sub_2_proizvodstvennye_stellazhy: "Производственные стеллажи",
+                sub_3_poruchni_opornye: "Поручни опорные",
+                sub_4_proizvodstvenye_polki: "Производственные полки",
+                sub_5_kompleksnye_resheniya: "Комплексные решения",
+                sub_6_stoli_tumba_na_zakaz: "Столы и тумбы",
+                sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog: "Производственные столы с ящиками",
+                sub_8_proizvodstvennye_stoly_katalog: "Производственные столы",
+
+                popular_products: "Популярные товары",
+                laptops: "Ноутбуки",
+                see_all: "Смотреть всё",
+                in_stock: "в наличии",
+                out_of_stock: "нет на складе",
+                cat_custom_orders: "Produse la comandă",
+                sub_balustrade_perila: "Balustrade, balustrade de sprijin",
+                sub_boxes: "Cutii",
+                sub_cafe: "Mobilier pentru cafenea",
+                sub_carcase: "Carcase",
+                sub_caruciors: "Cărucioare",
+                sub_cauldrons: "Cazane",
+                sub_decor: "Decor",
+                sub_furnitura: "Accesorii",
+                sub_ladder: "Scări",
+                sub_mangal_and_grill: "Mangaluri și grătare",
+                sub_masa: "Mese",
+                sub_melochi: "Piese mici",
+                sub_mobila: "Mobilier",
+                sub_other: "Altele",
+                sub_podstavki: "Suporturi",
+                sub_prom: "Produse industriale",
+                sub_reshetki: "Grătare / grile",
+                sub_sckaph: "Dulapuri",
+                sub_sinks: "Chiuvete",
+                sub_tandoors: "Tandooruri",
+                sub_tanks: "Rezervoare",
+                sub_tavas: "Tăvi",
+                sub_towel: "Accesorii pentru baie",
+                sub_trash_bins: "Coșuri de gunoi",
+                sub_wheels: "Roți",
+
+                cat_standard_products: "Produse standard",
+                sub_0_podtovarniki: "Suporturi pentru marfă",
+                sub_1_proizvodstvennye_moyki: "Chiuvete industriale",
+                sub_2_proizvodstvennye_stellazhy: "Rafturi industriale",
+                sub_3_poruchni_opornye: "Bare de sprijin",
+                sub_4_proizvodstvenye_polki: "Polițe industriale",
+                sub_5_kompleksnye_resheniya: "Soluții complexe",
+                sub_6_stoli_tumba_na_zakaz: "Mese și dulapuri",
+                sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog: "Mese industriale cu sertare",
+                sub_8_proizvodstvennye_stoly_katalog: "Mese industriale",
+
+                popular_products: "Produse populare",
+                laptops: "Laptopuri",
+                see_all: "Vezi toate",
+                in_stock: "în stoc",
+                out_of_stock: "nu este în stoc",
+            </div>
+
+            <ProductsBlock
+                title={t("popular_products")}
+                query={{ page: 0, size: 8, sort: "price,desc" }}
+                seeAllLink="/catalog?sort=price,desc&page=0&size=12"
+            />
+
+            <FeaturedRow title={t("sub_balustrade_perila")} category="custom_orders" subcategory="balustrade_perila"/>
+
+            <ProductsBlock
+                title={t("sub_balustrade_perila")}
+                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "balustrade_perila" }}
+                seeAllLink="/catalog?category=custom_orders&subcategory=balustrade_perila&sort=title,asc&page=0&size=12"
+            />
+
+            <ProductsBlock
+                title={t("sub_ladder")}
+                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "ladder" }}
+                seeAllLink="/catalog?category=custom_orders&subcategory=ladder&sort=title,asc&page=0&size=12"
+            />
+            <ProductsBlock
+                title={t("sub_caruciors")}
+                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "caruciors" }}
+                seeAllLink="/catalog?category=custom_orders&subcategory=caruciors&sort=title,asc&page=0&size=12"
+            />
+            <ProductsBlock
+                title={t("sub_mangal_and_grill")}
+                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "mangal_and_grill" }}
+                seeAllLink="/catalog?category=custom_orders&subcategory=mangal_and_grill&sort=title,asc&page=0&size=12"
+            />
+            <ProductsBlock
+                title={t("sub_2_proizvodstvennye_stellazhy")}
+                query={{ page: 0, size: 8, sort: "title,asc", category: "standard_products", subcategory: "2_proizvodstvennye_stellazhy" }}
+                seeAllLink="/catalog?category=standard_products&subcategory=2_proizvodstvennye_stellazhy&sort=title,asc&page=0&size=12"
+            />
+            <ProductsBlock
+                title={t("sub_6_stoli_tumba_na_zakaz")}
+                query={{ page: 0, size: 8, sort: "title,asc", category: "standard_products", subcategory: "6_stoli_tumba_na_zakaz" }}
+                seeAllLink="/catalog?category=standard_products&subcategory=6_stoli_tumba_na_zakaz&sort=title,asc&page=0&size=12"
+            />
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>

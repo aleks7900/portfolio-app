@@ -16,7 +16,7 @@ export type Product = {
     subcategory: string;
 
     // ↓ новые, опциональные
-    images?: string[];                        // ['/img/products/1-1.jpg', ...]
+    imgLinks?: string[];                        // ['/img/products/1-1.jpg', ...]
     specs?: Record<string, string>;           // { 'Процессор': '…', 'Вес': '…' }
     rating?: number;                          // средняя оценка
     reviews?: Review[];                       // отзывы

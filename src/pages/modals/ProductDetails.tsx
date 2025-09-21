@@ -8,6 +8,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {ChevronLeft, ChevronRight, X} from "lucide-react";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {resolveImg} from "../../data/resolveImg.ts";
 
 export default function ProductDetails({
                                            product,
@@ -23,7 +24,7 @@ export default function ProductDetails({
 
     // список изображений
     const images = useMemo<string[]>(() => {
-        if (product?.images?.length) return product.images;
+        if (product?.imgLinks?.length) return product.imgLinks;
         return ["/img/placeholder-1.jpg", "/img/placeholder-2.jpg"];
     }, [product]);
 
@@ -120,9 +121,12 @@ export default function ProductDetails({
                                     {images.map((src, i) => (
                                         <div key={i} className="keen-slider__slide flex items-center justify-center">
                                             <img
-                                                src={src}
+                                                src={resolveImg(src)}
                                                 alt={`${product.title} ${i + 1}`}
                                                 className="h-full w-full cursor-zoom-in object-cover"
+                                                loading="lazy"
+                                                decoding="async"
+                                                referrerPolicy="no-referrer"
                                                 draggable={false}
                                                 onClick={() => setLightbox({open: true, index: i})}
                                             />

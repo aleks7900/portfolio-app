@@ -1,10 +1,9 @@
 // src/home/FeaturedRow.tsx
 import {useEffect, useMemo, useRef, useState} from "react";
 import type {Product} from "../../data/types.ts";
-import {loadAdminProducts} from "../../data/data.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import ProductDetails from "../modals/ProductDetails.tsx";
-import Container from "../../shared/Container.tsx"; // ⬅️ добавляем
+import Container from "../../shared/Container.tsx";
 
 type Props = {
     title?: string;
@@ -13,6 +12,41 @@ type Props = {
     limit?: number;
 };
 
+// Универсальный парсер возможных ответов бэка
+function extractProducts(payload: any): any[] {
+    if (!payload) return [];
+    if (Array.isArray(payload)) return payload;
+    if (Array.isArray(payload.content)) return payload.content;           // page-like
+    if (payload.page?.content && Array.isArray(payload.page.content)) {
+        return payload.page.content;
+    }
+    if (payload._embedded?.products && Array.isArray(payload._embedded.products)) {
+        return payload._embedded.products;                                  // HATEOAS
+    }
+    if (payload.items && Array.isArray(payload.items)) return payload.items;
+    return [];
+}
+
+// Маппер к вашему типу Product (переводит snake_case → camelCase и ставит дефолты)
+function toProduct(x: any): Product {
+    return {
+        id: Number(x.id ?? x.productId ?? 0),
+        title: String(x.title ?? x.name ?? ""),
+        brand: String(x.brand ?? "—"),
+        description: String(x.description ?? ""),
+        price: Number(x.price ?? 0),
+        inStock: Boolean(x.inStock ?? x.in_stock ?? x.available ?? false),
+        availability: String(x.availability ?? x.status ?? ""),
+        category: String(x.category ?? ""),
+        subcategory: String(x.subcategory ?? ""),
+        imgLinks: Array.isArray(x.imgLinks)
+            ? x.imgLinks
+            : typeof x.img_links === "string"
+                ? x.img_links.split(";").map((s: string) => s.trim()).filter(Boolean)
+                : [],
+    } as Product;
+}
+
 export default function FeaturedRow({
                                         title,
                                         category,
@@ -20,35 +54,64 @@ export default function FeaturedRow({
                                         limit = 12,
                                     }: Props) {
     const {t} = useI18n();
-    const [items, setItems] = useState<Product[]>(() => loadAdminProducts());
-    const ref = useRef<HTMLDivElement | null>(null);
+
+    const [items, setItems] = useState<Product[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     const [selected, setSelected] = useState<Product | null>(null);
     const [open, setOpen] = useState(false);
+    const ref = useRef<HTMLDivElement | null>(null);
+
     const openDetails = (p: Product) => {
         setSelected(p);
         setOpen(true);
     };
 
     useEffect(() => {
-        const reload = () => setItems(loadAdminProducts());
-        window.addEventListener("products:updated", reload);
-        window.addEventListener("storage", reload);
-        return () => {
-            window.removeEventListener("products:updated", reload);
-            window.removeEventListener("storage", reload);
-        };
-    }, []);
+        const ac = new AbortController();
 
-    const data = useMemo(() => {
-        let arr = items;
-        if (category) arr = arr.filter((p) => p.category === category);
-        if (subcategory) arr = arr.filter((p) => p.subcategory === subcategory);
-        return arr
-            .slice()
-            .sort((a, b) => Number(b.inStock) - Number(a.inStock) || b.id - a.id)
-            .slice(0, limit);
-    }, [items, category, subcategory, limit]);
+        const params = new URLSearchParams();
+        if (category) params.set("category", category);
+        if (subcategory) params.set("subcategory", subcategory);
+        if (limit) params.set("limit", String(limit));
+
+        // Если ваш бэк ожидает другие имена параметров (page/size и т.д.), скорректируйте здесь
+        const url = `/api/products${params.toString() ? `?${params.toString()}` : ""}`;
+
+        async function run() {
+            setLoading(true);
+            setError(null);
+            try {
+                const res = await fetch(url, {signal: ac.signal});
+                if (!res.ok) {
+                    throw new Error(`HTTP ${res.status}`);
+                }
+                const json = await res.json();
+                const raw = extractProducts(json);
+                const mapped = raw.map(toProduct);
+
+                // На всякий случай сортируем в том же духе, что было локально
+                mapped.sort(
+                    (a, b) => Number(b.inStock) - Number(a.inStock) || b.id - a.id
+                );
+
+                setItems(limit ? mapped.slice(0, limit) : mapped);
+            } catch (e: any) {
+                if (e.name !== "AbortError") {
+                    setError(e.message ?? "Failed to load");
+                    setItems([]);
+                }
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        run();
+        return () => ac.abort();
+    }, [category, subcategory, limit]);
+
+    const data = useMemo(() => items, [items]);
 
     const scrollBy = (dir: 1 | -1) => {
         const el = ref.current;
@@ -57,6 +120,40 @@ export default function FeaturedRow({
         el.scrollBy({left: step, behavior: "smooth"});
     };
 
+    // Скелеты при загрузке
+    const skeleton = (
+        <section className="mt-10">
+            <Container>
+                <div className="mb-3 flex items-center justify-between">
+                    <h3 className="text-lg sm:text-xl font-semibold tracking-tight">
+                        {title ?? "Популярное"}
+                    </h3>
+                    <div className="hidden sm:flex gap-2">
+                        <div className="h-8 w-10 rounded-xl border animate-pulse"/>
+                        <div className="h-8 w-10 rounded-xl border animate-pulse"/>
+                    </div>
+                </div>
+                <div className="relative overflow-x-hidden pb-2 -mb-2">
+                    <div className="inline-flex w-max gap-4">
+                        {Array.from({length: Math.min(limit, 8)}).map((_, i) => (
+                            <div
+                                key={i}
+                                className="w-[240px] sm:w-[260px] lg:w-[300px] rounded-2xl border bg-white p-4 shadow-sm dark:bg-black dark:border-white/10"
+                            >
+                                <div className="h-40 rounded-xl bg-gray-100 dark:bg-white/10 animate-pulse"/>
+                                <div className="mt-3 h-5 w-3/4 rounded bg-gray-100 dark:bg-white/10 animate-pulse"/>
+                                <div className="mt-2 h-4 w-1/2 rounded bg-gray-100 dark:bg-white/10 animate-pulse"/>
+                                <div className="mt-3 h-6 w-24 rounded-full bg-gray-100 dark:bg-white/10 animate-pulse"/>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Container>
+        </section>
+    );
+
+    if (loading) return skeleton;
+    if (error) return null; // тихо скрываем ряд при ошибке загрузки
     if (!data.length) return null;
 
     return (
@@ -97,22 +194,36 @@ export default function FeaturedRow({
                                 role="button"
                                 tabIndex={0}
                                 onClick={() => openDetails(p)}
-                                className="
-                  snap-start cursor-pointer flex-none
-                  w-[240px] sm:w-[260px] lg:w-[300px]
-                  rounded-2xl border bg-white p-4 shadow-sm outline-none
-                  hover:ring-2 hover:ring-gray-300 ring-offset-2 ring-offset-white
-                  dark:bg-black dark:border-white/10 dark:ring-offset-black
+                                className="snap-start cursor-pointer flex-none
+                                          w-[240px] sm:w-[260px] lg:w-[300px]
+                                          rounded-2xl border bg-white p-4 shadow-sm outline-none
+                                          hover:ring-2 hover:ring-gray-300 ring-offset-2 ring-offset-white
+                                          dark:bg-black dark:border-white/10 dark:ring-offset-black
                 "
                             >
-                                <div className="h-40 rounded-xl bg-gray-100 dark:bg-white/10"/>
+                                {/* Картинка: берем первую ссылку при наличии */}
+                                <div
+                                    className="h-40 rounded-xl bg-gray-100 dark:bg-white/10 overflow-hidden flex items-center justify-center">
+                                    {p.imgLinks?.[0] ? (
+                                        <img
+                                            src={p.imgLinks[0]}
+                                            alt={p.title}
+                                            className="h-full w-full object-cover"
+                                            loading="lazy"
+                                        />
+                                    ) : (
+                                        <div className="text-xs text-gray-400 select-none">no image</div>
+                                    )}
+                                </div>
+
                                 <div className="mt-3 flex items-start justify-between">
                                     <div>
-                                        <div className="text-sm font-medium">{p.title}</div>
+                                        <div className="text-sm font-medium line-clamp-2">{p.title}</div>
                                         <div className="text-xs text-gray-500">{p.brand}</div>
                                     </div>
                                     <div className="text-sm font-semibold">${p.price}</div>
                                 </div>
+
                                 <div className="mt-2 text-xs">
                                     {p.inStock ? (
                                         <span

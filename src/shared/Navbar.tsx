@@ -28,7 +28,7 @@ import {useTranslation} from "react-i18next";
 
 
 function LangToggle() {
-    const { lang, setLang } = useI18n();
+    const { setLang } = useI18n();
     const { i18n } = useTranslation();
     const next = (i18n.resolvedLanguage || i18n.language || "ru").startsWith("ro") ? "ru" : "ro";
 
@@ -97,13 +97,6 @@ const BTN =
     "bg-white !text-black no-underline shadow-lg transition " +                             // ← !text-black
     "hover:bg-neutral-800 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +      // ← hover:!text-white
     "visited:!text-black " +                                                                 // ← visited
-    "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
-
-const BTN_ICON =
-    "rounded-2xl p-3 text-base font-medium " +
-    "bg-white !text-black no-underline shadow-lg transition " +
-    "hover:bg-neutral-800 hover:!text-white hover:!shadow-2xl hover:!shadow-black/40 " +
-    "visited:!text-black " +
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
 
 // Кнопка "Связаться" со спец. зелёным ховером

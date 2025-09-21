@@ -60,6 +60,12 @@ export const dict: Dictionary = {
         sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog: "Производственные столы с ящиками",
         sub_8_proizvodstvennye_stoly_katalog: "Производственные столы",
 
+        popular_products: "Популярные товары",
+        laptops: "Ноутбуки",
+        see_all: "Смотреть всё",
+        in_stock: "в наличии",
+        out_of_stock: "нет на складе",
+
 // Hero/общие
         cta_contact: "Связаться",
         hero_title: "Изготовление металлоконструкций из нержавейки, лазерная резка, конструкторское проектирование",
@@ -103,8 +109,6 @@ export const dict: Dictionary = {
         sort: "Сортировка",
         per_page: "Товаров на странице",
         found: "Найдено",
-        in_stock: "В наличии",
-        out_of_stock: "Нет в наличии",
         nothing_found: "Ничего не найдено",
         sort_relevance: "По релевантности",
         sort_price_asc: "Цена ↑",
@@ -287,6 +291,12 @@ export const dict: Dictionary = {
         sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog: "Mese industriale cu sertare",
         sub_8_proizvodstvennye_stoly_katalog: "Mese industriale",
 
+        popular_products: "Produse populare",
+        laptops: "Laptopuri",
+        see_all: "Vezi toate",
+        in_stock: "în stoc",
+        out_of_stock: "nu este în stoc",
+
         // Hero/comun
         cta_contact: "Contactați-ne",
         hero_title: "Construcții metalice din inox, tăiere cu laser, inginerie de proiectare",
@@ -332,8 +342,6 @@ export const dict: Dictionary = {
         sort: "Sortare",
         per_page: "Produse pe pagină",
         found: "Găsite",
-        in_stock: "În stoc",
-        out_of_stock: "Stoc epuizat",
         nothing_found: "Nu s-a găsit nimic",
         sort_relevance: "Relevanță",
         sort_price_asc: "Preț ↑",
@@ -461,7 +469,6 @@ export const dict: Dictionary = {
 
         adv_consult_title: "Consultanța specialiștilor",
         adv_consult_desc: "Inginerii și meșterii noștri vă ajută să alegeți soluții optime pentru proiectele dvs."
-
     }
 };
 
