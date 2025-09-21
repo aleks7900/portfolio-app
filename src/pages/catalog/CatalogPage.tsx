@@ -2,10 +2,45 @@ import {useEffect, useState} from "react";
 import {useParams, useSearchParams} from "react-router-dom";
 import CatalogFilters, {type FiltersValue} from "./Filters.tsx";
 import type {Product} from "../../data/types.ts";
-import {listProducts, type ProductQuery, type ProductsPage} from "../../shared/api/repo.ts";
+import {listProducts, type ProductQuery} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import {CatalogGrid} from "./Grid.tsx";
 import ProductDetails from "../modals/ProductDetails.tsx";
+
+// --- type guards ---
+type PageLike = { content: Product[]; totalPages?: number; number?: number; size?: number };
+type WrapperPage = { page: { content: Product[]; totalPages?: number; number?: number; size?: number } };
+type Embedded = { _embedded: { products: Product[] } };
+type ItemsWrap = { items: Product[] };
+
+function isRecord(x: unknown): x is Record<string, unknown> {
+    return typeof x === "object" && x !== null;
+}
+
+function extractProducts(payload: unknown): Product[] {
+    if (Array.isArray(payload)) return payload as Product[];
+    if (isRecord(payload) && Array.isArray((payload as PageLike).content)) return (payload as PageLike).content;
+    if (isRecord(payload) && isRecord((payload as WrapperPage).page) && Array.isArray((payload as WrapperPage).page.content)) {
+        return (payload as WrapperPage).page.content;
+    }
+    if (isRecord(payload) && isRecord((payload as Embedded)._embedded) && Array.isArray((payload as Embedded)._embedded.products)) {
+        return (payload as Embedded)._embedded.products;
+    }
+    if (isRecord(payload) && Array.isArray((payload as ItemsWrap).items)) return (payload as ItemsWrap).items;
+    return [];
+}
+
+function extractPageMeta(payload: unknown): { totalPages?: number; number?: number; size?: number } {
+    if (isRecord(payload) && Array.isArray((payload as PageLike).content)) {
+        const p = payload as PageLike;
+        return { totalPages: p.totalPages, number: p.number, size: p.size };
+    }
+    if (isRecord(payload) && isRecord((payload as WrapperPage).page)) {
+        const p = (payload as WrapperPage).page;
+        return { totalPages: p.totalPages, number: p.number, size: p.size };
+    }
+    return {};
+}
 
 function toQuery(v: FiltersValue, page: number, size: number): ProductQuery {
     return {
@@ -78,12 +113,18 @@ export default function CatalogPage() {
         setErr(null);
         try {
             const qp = toQuery(filters, page, size);
-            const res: ProductsPage = await listProducts(qp);
-            setItems(res.content);
-            setTotalPages(res.totalPages);
-            // синхронизация (если бэк вернул другие значения)
-            setPage(res.number);
-            setSize(res.size);
+            const payload = await listProducts(qp);
+
+            const items = extractProducts(payload);
+            setItems(items);
+
+            // метаданные страницы — если бэк их прислал
+            const meta = extractPageMeta(payload);
+            if (meta.totalPages != null) setTotalPages(meta.totalPages);
+            else setTotalPages(1); // если массив — считаем, что одна «страница»
+
+            if (meta.number != null) setPage(meta.number);
+            if (meta.size != null) setSize(meta.size);
         } catch (e: unknown) {
             setErr(e instanceof Error ? e.message : "Load error");
         } finally {

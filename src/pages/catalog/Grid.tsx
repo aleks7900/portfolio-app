@@ -3,15 +3,36 @@ import {useRef, useState} from "react";
 import type {Product} from "../../data/types";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import SafeImg from "../../data/SafeImg.tsx";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
-type Props = {
+export type CatalogGridProps = {
     items: Product[];
-    openDetails: (e: React.MouseEvent, p: Product) => void;
-    onKeyOpen: (e: React.KeyboardEvent, p: Product) => void;
+    loading?: boolean;
+    onOpen: (p: Product) => void; // единый колбэк открытия карточки
 };
 
-export default function CatalogGrid({items, openDetails, onKeyOpen}: Props) {
+// Именованный экспорт — совпадает с import { CatalogGrid } from "./Grid"
+export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) {
     const {t} = useI18n();
+
+    // Скелеты во время загрузки
+    if (loading) {
+        return (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {Array.from({length: 8}).map((_, i) => (
+                    <div
+                        key={i}
+                        className="rounded-2xl border p-4 shadow-sm dark:border-white/10"
+                    >
+                        <div className="mb-3 h-36 w-full animate-pulse rounded-xl bg-gray-100 dark:bg-white/10"/>
+                        <div className="h-4 w-24 animate-pulse rounded bg-gray-100 dark:bg-white/10"/>
+                        <div className="mt-2 h-4 w-3/4 animate-pulse rounded bg-gray-100 dark:bg-white/10"/>
+                        <div className="mt-3 h-5 w-16 animate-pulse rounded-full bg-gray-100 dark:bg-white/10"/>
+                    </div>
+                ))}
+            </div>
+        );
+    }
 
     return (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -23,8 +44,13 @@ export default function CatalogGrid({items, openDetails, onKeyOpen}: Props) {
                         key={p.id}
                         role="button"
                         tabIndex={0}
-                        onClick={(e) => openDetails(e, p)}
-                        onKeyDown={(e) => onKeyOpen(e, p)}
+                        onClick={() => onOpen(p)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                onOpen(p);
+                            }
+                        }}
                         className="cursor-pointer rounded-2xl border bg-white p-4 shadow-sm outline-none ring-offset-2 ring-offset-white hover:ring-2 hover:ring-gray-300 dark:bg-black dark:border-white/10 dark:ring-offset-black"
                     >
                         <ImageCarousel images={images} alt={p.title}/>
@@ -60,7 +86,7 @@ export default function CatalogGrid({items, openDetails, onKeyOpen}: Props) {
     );
 }
 
-/* ---------- Встроенный мини-слайдер ---------- */
+/* ---------- Мини-слайдер внутри карточки ---------- */
 
 function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
     const [idx, setIdx] = useState(0);
@@ -161,17 +187,17 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
                 type="button"
                 onClick={prev}
                 aria-label="Previous image"
-                className="absolute left-1 top-1/2 -translate-y-1/2 rounded-md border bg-white/90 p-0.5 text-[10px] opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                ←
+                <ChevronLeft size={8} />
             </button>
             <button
                 type="button"
                 onClick={next}
                 aria-label="Next image"
-                className="absolute right-1 top-1/2 -translate-y-1/2 rounded-md border bg-white/90 p-0.5 text-[10px] opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                →
+                <ChevronRight size={8} />
             </button>
 
             {/* маленькие кружки */}
