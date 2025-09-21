@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {listProducts, type ProductsPage} from "../../shared/api/repo.ts";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import { resolveImg } from "../../data/resolveImg.ts";
+import SafeImg from "../../data/SafeImg.tsx";
 
 type BlockState = {
     loading: boolean;
@@ -206,8 +206,8 @@ function ImageCarousel({
             >
                 {images.map((src, i) => (
                     <div key={i} className="h-28 w-full flex-none">
-                        <img
-                            src={resolveImg(src)}
+                        <SafeImg
+                            src={src}
                             alt={`${alt} ${i + 1}/${images.length}`}
                             className="h-full w-full select-none object-cover"
                             loading="lazy"

@@ -8,7 +8,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {ChevronLeft, ChevronRight, X} from "lucide-react";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import {resolveImg} from "../../data/resolveImg.ts";
+import SafeImg from "../../data/SafeImg.tsx";
 
 export default function ProductDetails({
                                            product,
@@ -120,8 +120,8 @@ export default function ProductDetails({
                                 >
                                     {images.map((src, i) => (
                                         <div key={i} className="keen-slider__slide flex items-center justify-center">
-                                            <img
-                                                src={resolveImg(src)}
+                                            <SafeImg
+                                                src={src}
                                                 alt={`${product.title} ${i + 1}`}
                                                 className="h-full w-full cursor-zoom-in object-cover"
                                                 loading="lazy"

@@ -1,7 +1,16 @@
-const IMG_BASE = import.meta.env.VITE_IMG_BASE_URL ?? "";
-export function resolveImg(src: string) {
+const IMG_BASE = import.meta.env.VITE_IMG_BASE_URL ?? "http://localhost:8081";
+
+export function resolveImg(src?: string | null): string {
     if (!src) return "";
-    if (/^https?:\/\//i.test(src)) return src;   // уже полный URL
-    if (src.startsWith("/")) return `${IMG_BASE}${src}`;
-    return `${IMG_BASE}/${src}`;
+
+    // уже полный http(s) — ничего не делаем
+    if (/^https?:\/\//i.test(src)) return src;
+
+    // нормализуем разделители
+    const s = src.replace(/\\/g, "/").replace(/^\/+/, "");
+
+    // гарантируем префикс /images/
+    const withPrefix = s.startsWith("images/") ? `/${s}` : `/images/${s}`;
+
+    return `${IMG_BASE}${withPrefix}`;
 }
