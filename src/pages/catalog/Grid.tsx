@@ -8,7 +8,7 @@ import {ChevronLeft, ChevronRight} from "lucide-react";
 export type CatalogGridProps = {
     items: Product[];
     loading?: boolean;
-    onOpen: (p: Product) => void; // единый колбэк открытия карточки
+    onOpen: (p: Product) => void; // открытие по кнопке
 };
 
 // Именованный экспорт — совпадает с import { CatalogGrid } from "./Grid"
@@ -20,10 +20,7 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
         return (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {Array.from({length: 8}).map((_, i) => (
-                    <div
-                        key={i}
-                        className="rounded-2xl border p-4 shadow-sm dark:border-white/10"
-                    >
+                    <div key={i} className="rounded-2xl border p-4 shadow-sm dark:border-white/10">
                         <div className="mb-3 h-36 w-full animate-pulse rounded-xl bg-gray-100 dark:bg-white/10"/>
                         <div className="h-4 w-24 animate-pulse rounded bg-gray-100 dark:bg-white/10"/>
                         <div className="mt-2 h-4 w-3/4 animate-pulse rounded bg-gray-100 dark:bg-white/10"/>
@@ -42,16 +39,7 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
                 return (
                     <div
                         key={p.id}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => onOpen(p)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                                e.preventDefault();
-                                onOpen(p);
-                            }
-                        }}
-                        className="cursor-pointer rounded-2xl border bg-white p-4 shadow-sm outline-none ring-offset-2 ring-offset-white hover:ring-2 hover:ring-gray-300 dark:bg-black dark:border-white/10 dark:ring-offset-black"
+                        className="rounded-2xl border bg-white p-4 shadow-sm outline-none ring-offset-2 ring-offset-white hover:ring-2 hover:ring-gray-300 dark:bg-black dark:border-white/10 dark:ring-offset-black"
                     >
                         <ImageCarousel images={images} alt={p.title}/>
 
@@ -66,18 +54,29 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
                             <div className="font-semibold tabular-nums">${p.price}</div>
                         </div>
 
-                        <div className="mt-2 text-xs">
-                            {p.inStock ? (
-                                <span
-                                    className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
-                  {t("in_stock")}
-                </span>
-                            ) : (
-                                <span
-                                    className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-                  {t("out_of_stock")}
-                </span>
-                            )}
+                        <div className="mt-2 flex items-center justify-between">
+                            <div className="text-xs">
+                                {p.inStock ? (
+                                    <span
+                                        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+                    {t("in_stock")}
+                  </span>
+                                ) : (
+                                    <span
+                                        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+                    {t("out_of_stock")}
+                  </span>
+                                )}
+                            </div>
+
+                            {/* Кнопка "Подробнее" — только она открывает карточку */}
+                            <button
+                                type="button"
+                                onClick={() => onOpen(p)}
+                                className="rounded-xl border px-3 py-1.5 text-sm hover:!bg-black hover:!text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
+                            >
+                                {t("more") ?? "Подробнее"}
+                            </button>
                         </div>
                     </div>
                 );
@@ -87,7 +86,6 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
 }
 
 /* ---------- Мини-слайдер внутри карточки ---------- */
-
 function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
     const [idx, setIdx] = useState(0);
     const wrap = (n: number) => (n + images.length) % images.length;
@@ -189,7 +187,7 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
                 aria-label="Previous image"
                 className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                <ChevronLeft size={8} />
+                <ChevronLeft size={8}/>
             </button>
             <button
                 type="button"
@@ -197,7 +195,7 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
                 aria-label="Next image"
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                <ChevronRight size={8} />
+                <ChevronRight size={8}/>
             </button>
 
             {/* маленькие кружки */}

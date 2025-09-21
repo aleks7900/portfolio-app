@@ -332,17 +332,23 @@ export default function ProductDetails({
                                 )}
 
                                 {/* Само изображение */}
-                                <motion.img
+                                <motion.div
                                     key={lightbox.index}
-                                    src={images[lightbox.index]}
-                                    alt={`image ${lightbox.index + 1}`}
                                     initial={{opacity: 0, scale: 0.98}}
                                     animate={{opacity: 1, scale: 1}}
                                     exit={{opacity: 0, scale: 0.98}}
                                     transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                                    className="absolute inset-0 m-auto h-auto max-h-[95vh] w-auto max-w-[95vw] select-none object-contain"
-                                    draggable={false}
-                                />
+                                    className="absolute inset-0 m-auto flex max-h-[95vh] max-w-[95vw] items-center justify-center"
+                                >
+                                    <SafeImg
+                                        src={images[lightbox.index]}
+                                        alt={`image ${lightbox.index + 1}`}
+                                        className="h-auto w-auto max-h-[95vh] max-w-[95vw] select-none object-contain"
+                                        draggable={false}
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </motion.div>
                             </motion.div>
                         )}
                     </AnimatePresence>

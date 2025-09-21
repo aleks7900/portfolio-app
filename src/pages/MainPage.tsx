@@ -7,7 +7,6 @@ import FeaturedCategories from "./home/FeaturedCategories.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import {ProductsBlock} from "./home/PopularBlocks.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
-import FeaturedRow from "./home/FeaturedRow.tsx";
 
 export default function MainPage() {
 
@@ -766,13 +765,13 @@ export default function MainPage() {
                 seeAllLink="/catalog?sort=price,desc&page=0&size=12"
             />
 
-            <FeaturedRow title={t("sub_balustrade_perila")} category="custom_orders" subcategory="balustrade_perila"/>
+            {/*<FeaturedRow title={t("sub_balustrade_perila")} category="custom_orders" subcategory="balustrade_perila"/>*/}
 
-            <ProductsBlock
-                title={t("sub_balustrade_perila")}
-                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "balustrade_perila" }}
-                seeAllLink="/catalog?category=custom_orders&subcategory=balustrade_perila&sort=title,asc&page=0&size=12"
-            />
+            {/*<ProductsBlock*/}
+            {/*    title={t("sub_balustrade_perila")}*/}
+            {/*    query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "balustrade_perila" }}*/}
+            {/*    seeAllLink="/catalog?category=custom_orders&subcategory=balustrade_perila&sort=title,asc&page=0&size=12"*/}
+            {/*/>*/}
 
             <ProductsBlock
                 title={t("sub_ladder")}
