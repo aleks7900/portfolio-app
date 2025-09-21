@@ -6,6 +6,7 @@ import {listProducts} from "../../shared/api/repo.ts";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import SafeImg from "../../data/SafeImg.tsx";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 /* ---------- helpers ---------- */
 // ---------- types & guards ----------
@@ -242,7 +243,7 @@ function ImageCarousel({
 
     return (
         <div
-            className="group relative mb-3 h-28 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5"
+            className="group relative mb-3 h-40 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5"
             role="region"
             aria-roledescription="carousel"
             aria-label={alt}
@@ -257,7 +258,7 @@ function ImageCarousel({
                 style={{transform: `translateX(-${idx * 100}%)`}}
             >
                 {images.map((src, i) => (
-                    <div key={i} className="h-28 w-full flex-none">
+                    <div key={i} className="h-40 w-full flex-none">
                         <SafeImg
                             src={src}
                             alt={`${alt} ${i + 1}/${images.length}`}
@@ -277,7 +278,7 @@ function ImageCarousel({
                 aria-label="Previous image"
                 className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                ←
+                <ChevronLeft size={8} />
             </button>
             <button
                 type="button"
@@ -285,23 +286,26 @@ function ImageCarousel({
                 aria-label="Next image"
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                →
+                <ChevronRight size={8} />
             </button>
 
             {/* Точки */}
             <div className="pointer-events-none absolute inset-x-0 bottom-1 flex justify-center gap-1">
                 {images.map((_, i) => (
-                    <button
+                    <span
                         key={i}
-                        type="button"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setIdx(i); }
+                        }}
                         onClick={(e) => {
                             e.stopPropagation();
                             setIdx(i);
                         }}
                         aria-label={`Go to image ${i + 1}`}
                         className={[
-                            "pointer-events-auto inline-block h-1 w-1 shrink-0 rounded-full transition",
-                            "p-0 border-0 appearance-none bg-transparent m-0 align-middle",
+                            "pointer-events-auto inline-block h-2 w-2 shrink-0 rounded-full transition",
                             i === idx ? "bg-black/80 dark:bg-white" : "bg-black/30 dark:bg-white/40",
                         ].join(" ")}
                     />
