@@ -597,7 +597,7 @@ export const dict: Dictionary = {
 
         filterstitle: "Фильтры",
         filterssearch: "Поиск",
-        filterssearschPlaceholder: "Введите название...",
+        filterssearchPlaceholder: "Введите название...",
         filtersbrand: "Бренд",
         filtersbrandPlaceholder: "Введите бренд...",
         filtersmin: "Мин. цена",
