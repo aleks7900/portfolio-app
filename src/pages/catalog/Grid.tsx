@@ -44,7 +44,7 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
                         <ImageCarousel images={images} alt={p.title}/>
 
                         <div className="text-sm text-gray-500 dark:text-gray-400">{p.brand || "—"}</div>
-                        <div className="mt-0.5 line-clamp-2 font-medium">{p.title}</div>
+                        <div className="mt-0.5 line-clamp-2 font-medium">{t(p.title.toLowerCase())}</div>
 
                         <div className="mt-2 flex items-center justify-between text-sm">
                             <div className="text-gray-600 dark:text-gray-300">

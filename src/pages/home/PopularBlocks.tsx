@@ -325,7 +325,7 @@ function ProductCard({p}: { p: Product }) {
 
     return (
         <article
-            className="group rounded-2xl border p-4 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-black/40"
+            className="group rounded-2xl border p-4 shadow-sm transition !bg-gray-100 hover:shadow-md dark:border-white/10 dark:bg-black/40"
             role="button"
             onClick={() => navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`)}
             tabIndex={0}
@@ -338,7 +338,7 @@ function ProductCard({p}: { p: Product }) {
             <ImageCarousel images={images} alt={p.title}/>
 
             <div className="text-sm text-gray-500 dark:text-gray-400">{p.brand || "\u2014"}</div>
-            <div className="mt-0.5 line-clamp-2 font-medium">{p.title}</div>
+            <div className="mt-0.5 line-clamp-2 font-medium">{t(p.title.toLowerCase())}</div>
 
             <div className="mt-2 flex items-center justify-between text-sm">
                 <div className="text-gray-600 dark:text-gray-300">

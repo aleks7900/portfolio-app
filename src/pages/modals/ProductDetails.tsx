@@ -103,7 +103,7 @@ export default function ProductDetails({
                         {/* Заголовок */}
                         <div className="flex flex-wrap items-start justify-between gap-4">
                             <div>
-                                <h3 className="text-xl font-semibold">{product.title}</h3>
+                                <h3 className="text-xl font-semibold">{t(product.title.toLowerCase())}</h3>
                                 <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                     {product.brand}
                                 </div>

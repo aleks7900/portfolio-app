@@ -222,8 +222,8 @@ export default function CatalogPage() {
                                         ◀ Prev
                                     </button>
                                     <span className="tabular-nums text-sm text-gray-600 dark:text-gray-300">
-                    {page + 1} / {totalPages}
-                  </span>
+                                        {page + 1} / {totalPages}
+                                    </span>
                                     <button
                                         onClick={() =>
                                             setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))
