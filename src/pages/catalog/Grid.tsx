@@ -140,7 +140,7 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
     if (!images?.length) {
         return (
             <div
-                className="mb-3 flex h-36 w-full items-center justify-center overflow-hidden rounded-xl bg-gray-100 text-xs text-gray-400 dark:bg-white/10">
+                className="mb-3 flex h-56 w-full items-center justify-center overflow-hidden rounded-xl bg-gray-100 text-xs text-gray-400 dark:bg-white/10">
                 no image
             </div>
         );
@@ -148,7 +148,7 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
 
     if (images.length === 1) {
         return (
-            <div className="mb-3 h-36 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10">
+            <div className="mb-3 h-56 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10">
                 <SafeImg
                     src={images[0]}
                     alt={alt}
@@ -163,7 +163,7 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
 
     return (
         <div
-            className="group relative mb-3 h-36 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10"
+            className="group relative mb-3 h-56 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10"
             role="region"
             aria-roledescription="carousel"
             aria-label={alt}
@@ -178,7 +178,7 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
                 style={{transform: `translateX(-${idx * 100}%)`}}
             >
                 {images.map((src, i) => (
-                    <div key={i} className="h-36 w-full flex-none">
+                    <div key={i} className="h-56 w-full flex-none">
                         <SafeImg
                             src={src}
                             alt={`${alt} ${i + 1}/${images.length}`}

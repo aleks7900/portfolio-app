@@ -244,7 +244,7 @@ function ImageCarousel({
 
     return (
         <div
-            className="group relative mb-3 h-40 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5"
+            className="group relative mb-3 h-56 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5"
             role="region"
             aria-roledescription="carousel"
             aria-label={alt}
@@ -259,7 +259,7 @@ function ImageCarousel({
                 style={{transform: `translateX(-${idx * 100}%)`}}
             >
                 {images.map((src, i) => (
-                    <div key={i} className="h-40 w-full flex-none">
+                    <div key={i} className="h-56 w-full flex-none">
                         <SafeImg
                             src={src}
                             alt={`${alt} ${i + 1}/${images.length}`}
