@@ -15,6 +15,7 @@ export type Product = {
     category: string;
     subcategory: string;
     description: string;
+    availability: string;
 
     // ↓ новые, опциональные
     imgLinks?: string[];                        // ['/img/products/1-1.jpg', ...]

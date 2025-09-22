@@ -18,6 +18,7 @@ type ItemsWrapper<T> = { items: T[] };
 function isRecord(x: unknown): x is Record<string, unknown> {
     return typeof x === "object" && x !== null;
 }
+
 function isArrayOfProducts(x: unknown): x is Product[] {
     return Array.isArray(x);
 }
@@ -278,7 +279,7 @@ function ImageCarousel({
                 aria-label="Previous image"
                 className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                <ChevronLeft size={8} />
+                <ChevronLeft size={8}/>
             </button>
             <button
                 type="button"
@@ -286,7 +287,7 @@ function ImageCarousel({
                 aria-label="Next image"
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
             >
-                <ChevronRight size={8} />
+                <ChevronRight size={8}/>
             </button>
 
             {/* Точки */}
@@ -297,7 +298,10 @@ function ImageCarousel({
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setIdx(i); }
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                setIdx(i);
+                            }
                         }}
                         onClick={(e) => {
                             e.stopPropagation();
@@ -342,24 +346,35 @@ function ProductCard({p}: { p: Product }) {
 
             <div className="mt-2 flex items-center justify-between text-sm">
                 <div className="text-gray-600 dark:text-gray-300">
-                    {p.category}
-                    {p.subcategory ? ` / ${p.subcategory}` : ""}
+                    {t(p.category.toLowerCase())}
+                    {p.subcategory ? ` / ${t(p.subcategory.toLowerCase())}` : ""}
                 </div>
                 <div className="font-semibold tabular-nums">${p.price}</div>
             </div>
 
             <div className="mt-2 text-xs">
-                {p.inStock ? (
+                {p.availability == 'ORDER_ON_DEMAND' ? (
                     <span
                         className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
-            {t("in_stock")}
-          </span>
+                    {t("order_on_demand")}
+                  </span>
                 ) : (
                     <span
                         className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-            {t("out_of_stock")}
-          </span>
+                    {t("out_of_stock")}
+                  </span>
                 )}
+                {/*{p.inStock ? (*/}
+                {/*    <span*/}
+                {/*        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">*/}
+                {/*    {t("in_stock")}*/}
+                {/*  </span>*/}
+                {/*) : (*/}
+                {/*    <span*/}
+                {/*        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">*/}
+                {/*    {t("out_of_stock")}*/}
+                {/*  </span>*/}
+                {/*)}*/}
             </div>
         </article>
     );

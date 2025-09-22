@@ -48,25 +48,36 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
 
                         <div className="mt-2 flex items-center justify-between text-sm">
                             <div className="text-gray-600 dark:text-gray-300">
-                                {p.category}
-                                {p.subcategory ? ` / ${p.subcategory}` : ""}
+                                {t(p.category.toLowerCase())}
+                                {p.subcategory ? ` / ${t(p.subcategory.toLowerCase())}` : ""}
                             </div>
                             <div className="font-semibold tabular-nums">${p.price}</div>
                         </div>
 
                         <div className="mt-2 flex items-center justify-between">
                             <div className="text-xs">
-                                {p.inStock ? (
+                                {p.availability == 'ORDER_ON_DEMAND' ? (
                                     <span
                                         className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
-                    {t("in_stock")}
-                  </span>
+                                    {t("order_on_demand")}
+                                  </span>
                                 ) : (
                                     <span
                                         className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-                    {t("out_of_stock")}
-                  </span>
+                                    {t("out_of_stock")}
+                                  </span>
                                 )}
+                                {/*{p.inStock ? (*/}
+                                {/*    <span*/}
+                                {/*        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">*/}
+                                {/*    {t("in_stock")}*/}
+                                {/*  </span>*/}
+                                {/*) : (*/}
+                                {/*    <span*/}
+                                {/*        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">*/}
+                                {/*    {t("out_of_stock")}*/}
+                                {/*  </span>*/}
+                                {/*)}*/}
                             </div>
 
                             {/* Кнопка "Подробнее" — только она открывает карточку */}

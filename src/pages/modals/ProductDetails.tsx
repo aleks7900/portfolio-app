@@ -69,16 +69,28 @@ export default function ProductDetails({
     // если окно закрыто или нет товара — ничего не рендерим
     if (!open || !product) return null;
 
-    const badge = product.inStock ? (
-        <span
-            className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
-      {t("in_stock")}
-    </span>
-    ) : (
-        <span className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
-      {t("out_of_stock")}
-    </span>
-    );
+    const badge = product.availability == 'ORDER_ON_DEMAND' ? (
+            <span
+                className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+                    {t("order_on_demand")}
+                  </span>
+        ) : (
+            <span
+                className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+                    {t("out_of_stock")}
+                  </span>
+        );
+    {/*{p.inStock ? (*/}
+    {/*    <span*/}
+    {/*        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">*/}
+    {/*    {t("in_stock")}*/}
+    {/*  </span>*/}
+    {/*) : (*/}
+    {/*    <span*/}
+    {/*        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">*/}
+    {/*    {t("out_of_stock")}*/}
+    {/*  </span>*/}
+    {/*)}*/}
 
     return (
         <AnimatePresence>
@@ -184,7 +196,7 @@ export default function ProductDetails({
                                 </div>
                             )}
                             <div className="text-xs text-gray-500 dark:text-gray-400">
-                                ID: {product.id} • {product.category} / {product.subcategory}
+                                ID: {product.id} • {t(product.category.toLowerCase())} / {t(product.subcategory.toLowerCase())}
                             </div>
                         </div>
 
@@ -206,9 +218,8 @@ export default function ProductDetails({
                                 {tab === "details" && (
                                     <div className="prose max-w-none text-sm dark:prose-invert">
                                         <p>
-                                            {product.title} — {product.brand}. Отличный выбор для ежедневной работы и
-                                            учёбы. Цена:
-                                            ${product.price}. {product.inStock ? "В наличии." : "Нет в наличии."}
+                                            {product.title} — {product.brand}. Отличный выбор. Цена:
+                                            Договорная. {product.availability == 'ORDER_ON_DEMAND' ? t("order_on_demand") : t("out_of_stock")}
                                         </p>
                                     </div>
                                 )}
