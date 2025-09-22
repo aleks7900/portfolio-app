@@ -17,6 +17,10 @@ import RequestsPage from "./pages/private/RequestsPage.tsx";
 import UsersPage from "./pages/private/UsersPage.tsx";
 import Navbar from "./shared/Navbar.tsx";
 
+function ScrollToTop() {
+    return null;
+}
+
 export default function App() {
     return (
         <I18nProvider>
@@ -27,6 +31,8 @@ export default function App() {
                         // style={{ backgroundImage: "url('/src/assets/img/bg/bg_dark.png')" }}
                     >
                         <BrowserRouter>
+                            {/* Глобальный слушатель изменения маршрута */}
+                            <ScrollToTop />
                             <Navbar/>
                             <main id="app-scroll-root" className="pt-24 min-h-dvh overflow-y-auto">
                                 <Routes>

@@ -327,6 +327,14 @@ function ProductCard({p}: { p: Product }) {
 
     const images = Array.isArray(p.imgLinks) ? p.imgLinks.filter(Boolean) : [];
 
+    const goToProduct = () => {
+        navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`);
+        // подстраховка — если вдруг глобальный хук недоступен
+        requestAnimationFrame(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    };
+
     return (
         <article
             className="group rounded-2xl border p-4 shadow-sm transition !bg-gray-100 hover:shadow-md dark:border-white/10 dark:bg-black/40"
@@ -335,7 +343,7 @@ function ProductCard({p}: { p: Product }) {
             tabIndex={0}
             onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                    navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`);
+                    goToProduct();
                 }
             }}
         >
