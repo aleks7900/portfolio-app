@@ -593,7 +593,24 @@ export const dict: Dictionary = {
         adv_custom_desc: "Мы создаём проекты по индивидуальным чертежам и требованиям заказчика.",
 
         adv_consult_title: "Консультации специалистов",
-        adv_consult_desc: "Наши инженеры и мастера помогут подобрать оптимальные решения под ваши задачи."
+        adv_consult_desc: "Наши инженеры и мастера помогут подобрать оптимальные решения под ваши задачи.",
+
+        filterstitle: "Фильтры",
+        filterssearch: "Поиск",
+        filterssearschPlaceholder: "Введите название...",
+        filtersbrand: "Бренд",
+        filtersbrandPlaceholder: "Введите бренд...",
+        filtersmin: "Мин. цена",
+        filtersmax: "Макс. цена",
+        filtersinStockOnly: "Только в наличии",
+        filterscategory: "Категория",
+        filterssubcategory: "Подкатегория",
+        filterssort: "Сортировка",
+        filterssortTitleAsc: "Название (А–Я)",
+        filterssortTitleDesc: "Название (Я–А)",
+        filterssortPriceAsc: "Цена (возрастание)",
+        filterssortPriceDesc: "Цена (убывание)",
+        filtersclear: "Сбросить фильтры",
     },
     ro: {
         brandLogo: "",
@@ -1060,6 +1077,48 @@ export const dict: Dictionary = {
         rv31: "Masă de producție 31",
         rv32: "Masă de producție 32",
 
+        'rvpd_3_(_usilennyy_)': "Suporturi pentru mărfuri RVPD 3 (întărit)",
+        'rvpd_4_(_usilennyy_)': "Suporturi pentru mărfuri RVPD 4 (întărit)",
+
+        'rvst_10_(_usilennyy_)': "Raft RVST 10 (întărit)",
+        'rvst_11_(_usilennyy_)': "Raft RVST 11 (întărit)",
+        'rvst_12__(_usilennyy_)': "Raft RVST 12 (întărit)",
+        'rvst_13_(_usilennyy_)': "Raft RVST 13 (întărit)",
+        'rvst_14_(_usilennyy_)': "Raft RVST 14 (întărit)",
+        'rvst_15_(_usilennyy_)': "Raft RVST 15 (întărit)",
+        'rvst_16_(_usilennyy_)': "Raft RVST 16 (întărit)",
+        'rvst_17_(_usilennyy_)': "Raft RVST 17 (întărit)",
+        'rvst_18_(_usilennyy_)': "Raft RVST 18 (întărit)",
+
+        'rvp_10_poruchen_dlya_sanuzla_(_rakavina,_nitaz,_pisuar_)': "Mână curentă pentru grup sanitar (chiuvetă, vas WC, pisoar)",
+        'rvp_11_poruchen_dlya_unitaza_(_statsionarnyy)': "Mână curentă pentru vas WC (fixă)",
+        'rvp_12_poruchen_dlya_unitaza_(_otkidnoy_s_fiksatarom_)': "Mână curentă pentru vas WC (rabatalbilă cu fixator)",
+        'rvp_13_poruchen_opornyy_napolnyy_(_otkidnoy_s_fiksatarom_)': "Mână curentă de sprijin pe podea (rabatalbilă cu fixator)",
+        'rvp_14_poruchen_dlya_sanuzla_(_vanna,_unitaz,_pisuar)': "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar)",
+        'rvp_15_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)': "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar)",
+        'rvp_16_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)': "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar)",
+        'rvp_17_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)': "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar)",
+
+        rvpl_1: "Poliță RVPL 1",
+        rvpl_2: "Poliță RVPL 2",
+        rvpl_3: "Poliță RVPL 3",
+        rvpl_4: "Poliță RVPL 4",
+        rvpl_5: "Poliță RVPL 5",
+        rvpl_6: "Poliță RVPL 6",
+        rvpl_7: "Poliță RVPL 7",
+
+        'kr-barnaya_stantsiya_1': "Stație de bar 1",
+        'kr-barnaya_stantsiya_2': "Stație de bar 2",
+
+        'stol-tumba_1': "Masă-dulap 1",
+        'stol-tumba_2': "Masă-dulap 2",
+        'stol-tumba_3': "Masă-dulap 3",
+        'stol-tumba_4': "Masă-dulap 4",
+        'stol-tumba_5': "Masă-dulap 5",
+        'stol-tumba_6': "Masă-dulap 6",
+        'stol-tumba_7': "Masă-dulap 7",
+        'stol-tumba_8': "Masă-dulap 8",
+
         home_catalog_title: "Catalog de produse",
 
         services_laser_title: "Tăiere cu laser",
@@ -1178,7 +1237,24 @@ export const dict: Dictionary = {
         adv_custom_desc: "Realizăm proiecte conform desenelor și cerințelor clientului.",
 
         adv_consult_title: "Consultanța specialiștilor",
-        adv_consult_desc: "Inginerii și meșterii noștri vă ajută să alegeți soluții optime pentru proiectele dvs."
+        adv_consult_desc: "Inginerii și meșterii noștri vă ajută să alegeți soluții optime pentru proiectele dvs.",
+
+        filterstitle: "Filtre",
+        filterssearch: "Căutare",
+        filterssearchPlaceholder: "Introduceți denumirea...",
+        filtersbrand: "Marcă",
+        filtersbrandPlaceholder: "Introduceți marca...",
+        filtersmin: "Preț minim",
+        filtersmax: "Preț maxim",
+        filtersinStockOnly: "Doar în stoc",
+        filterscategory: "Categorie",
+        filterssubcategory: "Subcategorie",
+        filterssort: "Sortare",
+        filterssortTitleAsc: "Denumire (A–Z)",
+        filterssortTitleDesc: "Denumire (Z–A)",
+        filterssortPriceAsc: "Preț (crescător)",
+        filterssortPriceDesc: "Preț (descrescător)",
+        filtersclear: "Resetați filtrele",
     }
 };
 

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {Eraser} from "lucide-react";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 export type FiltersValue = {
     q: string;
@@ -19,8 +20,8 @@ export default function CatalogFilters({
     value: FiltersValue;
     onChange: (v: FiltersValue) => void;
 }) {
-    // управляемые поля без локального «state копии».
-    // единственное — делаем маленький debounce для q
+    const {t} = useI18n();
+
     const [qDraft, setQDraft] = useState(value.q);
 
     useEffect(() => setQDraft(value.q), [value.q]);
@@ -37,15 +38,15 @@ export default function CatalogFilters({
 
     return (
         <div className="rounded-2xl border p-4 dark:-white/10 dark:bg-black/40">
-            <div className="text-sm font-semibold">Filters</div>
+            <div className="text-sm font-semibold">{t('filterstitle')}</div>
 
             {/* поиск */}
             <div className="mt-3">
-                <label className="block text-xs text-gray-500 dark:text-gray-400">Search</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filterssearch')}</label>
                 <input
                     value={qDraft}
                     onChange={(e) => setQDraft(e.currentTarget.value)}
-                    placeholder="id / title / brand / category"
+                    placeholder={t('filterssearchPlaceholder')}
                     className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
                              dark:!bg-gray-300 dark:!text-black"
@@ -54,11 +55,11 @@ export default function CatalogFilters({
 
             {/* бренд */}
             <div className="mt-3">
-                <label className="block text-xs text-gray-500 dark:text-gray-400">Brand</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filtersbrand')}</label>
                 <input
                     value={value.brand}
                     onChange={(e) => set("brand", e.currentTarget.value)}
-                    placeholder="e.g. Bytek"
+                    placeholder={t('filtersbrandPlaceholder')}
                     className="mt-1 w-full rounded-xl  px-3 py-2 text-sm
                              !bg-white !text-black
                              dark:!bg-gray-300 dark:!text-black"
@@ -68,7 +69,7 @@ export default function CatalogFilters({
             {/* диапазон цен */}
             <div className="mt-3 grid grid-cols-2 gap-2">
                 <div>
-                    <label className="block text-xs text-gray-500 dark:text-gray-400">Min</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filtersmin')}</label>
                     <input
                         type="number"
                         value={value.min ?? ""}
@@ -79,7 +80,7 @@ export default function CatalogFilters({
                     />
                 </div>
                 <div>
-                    <label className="block text-xs text-gray-500 dark:text-gray-400">Max</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filtersmax')}</label>
                     <input
                         type="number"
                         value={value.max ?? ""}
@@ -99,14 +100,14 @@ export default function CatalogFilters({
                         checked={value.inStockOnly}
                         onChange={(e) => set("inStockOnly", e.currentTarget.checked)}
                     />
-                    in stock only
+                    {t('filtersinStockOnly')}
                 </label>
             </div>
 
-            {/* категория / подкатегория (простые инпуты: серверная фильтрация) */}
+            {/* категория / подкатегория */}
             <div className="mt-3 grid grid-cols-2 gap-2">
                 <div>
-                    <label className="block text-xs text-gray-500 dark:text-gray-400">Category</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filterscategory')}</label>
                     <input
                         value={value.category}
                         onChange={(e) => set("category", e.currentTarget.value)}
@@ -116,7 +117,7 @@ export default function CatalogFilters({
                     />
                 </div>
                 <div>
-                    <label className="block text-xs text-gray-500 dark:text-gray-400">Subcategory</label>
+                    <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filterssubcategory')}</label>
                     <input
                         value={value.subcategory}
                         onChange={(e) => set("subcategory", e.currentTarget.value)}
@@ -129,7 +130,7 @@ export default function CatalogFilters({
 
             {/* сортировка */}
             <div className="mt-3">
-                <label className="block text-xs text-gray-500 dark:text-gray-400">Sort</label>
+                <label className="block text-xs text-gray-500 dark:text-gray-400">{t('filterssort')}</label>
                 <select
                     value={value.sort}
                     onChange={(e) => set("sort", e.currentTarget.value)}
@@ -137,10 +138,10 @@ export default function CatalogFilters({
                              !bg-white !text-black
                              dark:!bg-gray-300 dark:!text-black"
                 >
-                    <option value="title,asc">Title ↑</option>
-                    <option value="title,desc">Title ↓</option>
-                    <option value="price,asc">Price ↑</option>
-                    <option value="price,desc">Price ↓</option>
+                    <option value="title,asc">{t('filterssortTitleAsc')}</option>
+                    <option value="title,desc">{t('filterssortTitleDesc')}</option>
+                    <option value="price,asc">{t('filterssortPriceAsc')}</option>
+                    <option value="price,desc">{t('filterssortPriceDesc')}</option>
                 </select>
             </div>
 
@@ -167,7 +168,7 @@ export default function CatalogFilters({
                              dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                 >
                     <Eraser className="h-4 w-4"/>
-                    <span>Clear</span>
+                    <span>{t("filtersclear") ?? "Cброс"}</span>
                 </button>
             </div>
         </div>
