@@ -218,7 +218,7 @@ export default function ProductDetails({
                                 {tab === "details" && (
                                     <div className="prose max-w-none text-sm dark:prose-invert">
                                         <p>
-                                            {product.title} — {product.brand}. Отличный выбор. Цена:
+                                            {t(product.title.toLowerCase())} — {product.brand}. Отличный выбор. Цена:
                                             Договорная. {product.availability == 'ORDER_ON_DEMAND' ? t("order_on_demand") : t("out_of_stock")}
                                         </p>
                                     </div>

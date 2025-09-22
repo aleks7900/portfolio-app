@@ -597,7 +597,7 @@ export const dict: Dictionary = {
 
         filterstitle: "Фильтры",
         filterssearch: "Поиск",
-        filterssearschPlaceholder: "Введите название...",
+        filterssearchPlaceholder: "Введите название...",
         filtersbrand: "Бренд",
         filtersbrandPlaceholder: "Введите бренд...",
         filtersmin: "Мин. цена",
@@ -611,6 +611,10 @@ export const dict: Dictionary = {
         filterssortPriceAsc: "Цена (возрастание)",
         filterssortPriceDesc: "Цена (убывание)",
         filtersclear: "Сбросить фильтры",
+
+        filterscategoryPlaceholder: "---",
+        filterssubcategoryPlaceholder: "---",
+        filterssubcategoryPickCategoryFirst: "— выберите категорию —",
     },
     ro: {
         brandLogo: "",
@@ -1255,6 +1259,10 @@ export const dict: Dictionary = {
         filterssortPriceAsc: "Preț (crescător)",
         filterssortPriceDesc: "Preț (descrescător)",
         filtersclear: "Resetați filtrele",
+
+        filterscategoryPlaceholder: "---",
+        filterssubcategoryPlaceholder: "---",
+        filterssubcategoryPickCategoryFirst: "— selectați categoria —",
     }
 };
 
