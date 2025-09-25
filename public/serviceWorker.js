@@ -15,7 +15,7 @@ const STATIC_ASSETS = [
 ];
 
 // Установка: прогреваем статический кеш
-(self as unknown as ServiceWorkerGlobalScope).addEventListener("install", (event: ExtendableEvent) => {
+self.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS))
     );
@@ -25,7 +25,7 @@ const STATIC_ASSETS = [
 });
 
 // Активация: чистим старые кеши
-(self as unknown as ServiceWorkerGlobalScope).addEventListener("activate", (event: ExtendableEvent) => {
+self.addEventListener("activate", (event) => {
     event.waitUntil(
         (async () => {
             const keys = await caches.keys();
@@ -41,12 +41,12 @@ const STATIC_ASSETS = [
 });
 
 // Помощники
-const isNavigationRequest = (req: Request) =>
+const isNavigationRequest = (req) =>
     req.mode === "navigate" ||
     (req.method === "GET" && req.headers.get("accept")?.includes("text/html"));
 
 // Stale-While-Revalidate для статики
-async function staleWhileRevalidate(req: Request, cacheName: string): Promise<Response> {
+async function staleWhileRevalidate(req, cacheName) {
     const cache = await caches.open(cacheName);
     const cached = await cache.match(req);
     const fetchPromise = fetch(req)
@@ -59,7 +59,7 @@ async function staleWhileRevalidate(req: Request, cacheName: string): Promise<Re
 }
 
 // Network-First для HTML/навигации (SPA)
-async function networkFirstHTML(req: Request): Promise<Response> {
+async function networkFirstHTML(req) {
     const cache = await caches.open(HTML_CACHE);
     try {
         const res = await fetch(req);
@@ -80,7 +80,7 @@ async function networkFirstHTML(req: Request): Promise<Response> {
     }
 }
 
-(self as unknown as ServiceWorkerGlobalScope).addEventListener("fetch", (event: FetchEvent) => {
+self.addEventListener("fetch", (event) => {
     const req = event.request;
     const url = new URL(req.url);
 
