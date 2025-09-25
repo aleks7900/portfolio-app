@@ -202,7 +202,7 @@ export default function ProductDetails({
                             animate={{opacity: 1, y: 0, scale: 1}}
                             exit={{opacity: 0, y: 8, scale: 0.98}}
                             transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                            className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl rounded-2xl border bg-white p-8 shadow-xl dark:bg-black dark:border-white/10"
+                            className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl rounded-2xl border bg-white p-8 shadow-xl dark:bg-zinc-800 dark:border-white/10"
                         >
                             {/* Заголовок */}
                             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -247,7 +247,7 @@ export default function ProductDetails({
                                                 type="button"
                                                 aria-label="Previous slide"
                                                 onClick={() => inst.current?.prev()}
-                                                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 text-black p-2 shadow hover:bg-white dark:!bg-gray-500 dark:hover:bg-black/80 dark:border-white/10"
                                             >
                                                 <ChevronLeft className="h-5 w-5"/>
                                             </button>
@@ -255,7 +255,7 @@ export default function ProductDetails({
                                                 type="button"
                                                 aria-label="Next slide"
                                                 onClick={() => inst.current?.next()}
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg.black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 text-black p-2 shadow hover:bg-white dark:!bg-gray-500 dark:hover:bg-black/80 dark:border-white/10"
                                             >
                                                 <ChevronRight className="h-5 w-5"/>
                                             </button>
@@ -370,12 +370,12 @@ export default function ProductDetails({
                                     type="button"
                                     onClick={onClose}
                                     className="rounded-xl border px-4 py-2 text-sm font-medium
-                           !bg-white !text-black shadow
-                           hover:!bg-black hover:!text-white hover:shadow-lg
-                           focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                           dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
+                                   !bg-white !text-black shadow
+                                   hover:!bg-black hover:!text-white hover:shadow-lg
+                                   focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                   dark:bg-neutral-900 dark:text-white dark:hover:bg-black"
                                 >
-                                    {t("cancel")}
+                                    {t("back")}
                                 </button>
                             </div>
                         </motion.div>
@@ -400,7 +400,7 @@ export default function ProductDetails({
                                         type="button"
                                         aria-label="Close"
                                         onClick={() => setLightbox({open: false, index: 0})}
-                                        className="absolute right-4 top-4 z-[10001] rounded-full border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                        className="absolute right-4 top-4 z-[10001] rounded-full border bg-white/90 p-2 shadow hover:bg-white dark:!bg-zinc-700 dark:hover:!bg-black/80 dark:border-white/10"
                                     >
                                         <X className="h-5 w-5"/>
                                     </button>
@@ -418,7 +418,7 @@ export default function ProductDetails({
                                                         index: (s.index - 1 + images.length) % images.length,
                                                     }));
                                                 }}
-                                                className="absolute left-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                                className="absolute left-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:!bg-zinc-700 dark:hover:bg-black/80 dark:border-white/10"
                                             >
                                                 <ChevronLeft className="h-6 w-6"/>
                                             </button>
@@ -432,7 +432,7 @@ export default function ProductDetails({
                                                         index: (s.index + 1) % images.length,
                                                     }));
                                                 }}
-                                                className="absolute right-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:bg-black/70 dark:hover:bg-black/80 dark:border-white/10"
+                                                className="absolute right-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:!bg-zinc-700 dark:hover:bg-black/80 dark:border-white/10"
                                             >
                                                 <ChevronRight className="h-6 w-6"/>
                                             </button>
@@ -482,7 +482,7 @@ function TabBtn({
             onClick={onClick}
             className={`rounded-xl px-3 py-1.5 text-sm ${
                 active
-                    ? "bg-gray-900 text-white dark:bg-white dark:text-black"
+                    ? "bg-gray-900 text-black dark:bg-white dark:text-black"
                     : "border dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10"
             }`}
         >

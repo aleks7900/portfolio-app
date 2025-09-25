@@ -33,7 +33,7 @@ function RowScroller({
                 type="button"
                 onClick={() => scroll(-1)}
                 aria-label="Prev"
-                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:!bg-black hover:!shadow-2xl hover:!text-white dark:bg-black/80 dark:hover:bg-black"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:!bg-black hover:!shadow-2xl hover:!text-white dark:bg-black/80 dark:hover:bg-black dark:text-black"
             >
                 <span className="leading-none select-none text-3xl h-10">‹</span>
             </button>
@@ -41,7 +41,7 @@ function RowScroller({
                 type="button"
                 onClick={() => scroll(1)}
                 aria-label="Next"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:!bg-black hover:!shadow-2xl hover:!text-white dark:bg-black/80 dark:hover:bg-black"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:!bg-black hover:!shadow-2xl hover:!text-white dark:bg-black/80 dark:hover:bg-black dark:text-black"
             >
                 <span className="leading-none select-none text-3xl h-10">›</span>
             </button>
@@ -65,12 +65,12 @@ function SubcatCard({
         <button
             onClick={onClick}
             className="w-[260px] shrink-0 rounded-xl border bg-white p-4 text-left shadow-sm transition
-                 hover:shadow-md dark:border-white/10 dark:bg-black"
+                 hover:shadow-md dark:border-white/10 dark:!bg-gray-500"
         >
             <div className="h-48 overflow-hidden rounded-lg bg-gray-50 dark:bg-white/10">
                 <ImageWithFallback src={img} alt="" className="h-full w-full object-contain" fallback="/src/assets/img/elementor-placeholder-image.png"/>
             </div>
-            <div className="mt-3 text-sm font-semibold tracking-tight">
+            <div className="mt-3 text-lg font-semibold tracking-tight">
                 {label}
             </div>
         </button>

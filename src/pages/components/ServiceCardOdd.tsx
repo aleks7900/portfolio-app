@@ -10,7 +10,7 @@ export default function ServiceCardOdd({titleKey, descKey, s}: {
 }) {
     const {t} = useI18n();
     return (
-        <div className="rounded-2xl !bg-gray-300 min-h-full p-6 shadow-sm dark:!bg-gray-800 dark:border-white/10">
+        <div className="rounded-2xl !bg-gray-300 min-h-full p-6 shadow-sm dark:!bg-gray-700 dark:border-white/10">
             <div className="flex items-center gap-3">
                 <div
                     className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-900 text-white dark:bg-white dark:text-black">

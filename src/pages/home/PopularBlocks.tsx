@@ -143,7 +143,7 @@ function Block({
                 <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h3>
                 <button
                     onClick={onSeeAll}
-                    className="rounded-xl border px-3 py-1.5 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                    className="rounded-xl border px-3 py-1.5 text-sm hover:!shadow-2xl hover:bg-black/5 dark:!text-black dark:border-white/20 dark:hover:!bg-zinc-900 dark:hover:!text-white"
                 >
                     {t("see_all")}
                 </button>
@@ -279,17 +279,17 @@ function ImageCarousel({
                 type="button"
                 onClick={prev}
                 aria-label="Previous image"
-                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
+                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:!bg-black/60"
             >
-                <ChevronLeft size={8}/>
+                <ChevronLeft size={18}/>
             </button>
             <button
                 type="button"
                 onClick={next}
                 aria-label="Next image"
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:bg-black/60"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 px-2 py-1 text-xs opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100 dark:border-white/10 dark:!bg-black/60"
             >
-                <ChevronRight size={8}/>
+                <ChevronRight size={18}/>
             </button>
 
             {/* Точки */}
@@ -339,7 +339,7 @@ function ProductCard({p}: { p: Product }) {
 
     return (
         <article
-            className="group rounded-2xl border p-4 shadow-sm transition !bg-gray-100 hover:shadow-md dark:border-white/10 dark:bg-black/40"
+            className="group rounded-2xl border p-4 hover:!shadow-2xl transition !bg-gray-100 dark:border-white/10 dark:!bg-black/40"
             role="button"
             onClick={() => navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`)}
             tabIndex={0}

@@ -7,6 +7,7 @@ import Container from "../../shared/Container.tsx";
 import {CatalogGrid} from "./Grid.tsx";
 import ProductDetails from "../modals/ProductDetails.tsx";
 import {track, trackPageView} from "../../lib/analytics.ts";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 // --- type guards ---
 type PageLike = { content: Product[]; totalPages?: number; number?: number; size?: number };
@@ -174,6 +175,8 @@ export default function CatalogPage() {
 
     // + время открытия для подсчёта длительности
     const [openedAt, setOpenedAt] = useState<number | null>(null);
+
+    const {t} = useI18n();
 
     return (
         <section className="scroll-mt-24 py-16 sm:py-20">
@@ -663,9 +666,9 @@ export default function CatalogPage() {
                         {/* ПАГИНАЦИЯ */}
                         <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
                             <label className="flex items-center gap-2 text-sm">
-                                <span className="text-gray-600 dark:text-gray-300">per page:</span>
+                                <span className="text-gray-900 dark:text-gray-300">{t("per_page")}</span>
                                 <select
-                                    className="rounded-lg border px-2 py-1 text-sm dark:border-white/20 dark:bg-black"
+                                    className="rounded-lg border px-2 py-1 text-sm bg-white dark:border-white/20 dark:bg-black"
                                     value={size}
                                     onChange={(e) => {
                                         setPage(0);
@@ -685,7 +688,7 @@ export default function CatalogPage() {
                                     <button
                                         onClick={() => setPage((p) => Math.max(0, p - 1))}
                                         disabled={page <= 0}
-                                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:!text-black dark:border-white/20"
                                     >
                                         ◀ Prev
                                     </button>
@@ -697,7 +700,7 @@ export default function CatalogPage() {
                                             setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))
                                         }
                                         disabled={totalPages != null ? page >= totalPages - 1 : true}
-                                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:!text-black dark:border-white/20"
                                     >
                                         Next ▶
                                     </button>

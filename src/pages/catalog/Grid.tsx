@@ -39,7 +39,7 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
                 return (
                     <div
                         key={p.id}
-                        className="rounded-2xl border bg-white p-4 shadow-sm outline-none ring-offset-2 ring-offset-white hover:ring-2 hover:ring-gray-300 dark:bg-black dark:border-white/10 dark:ring-offset-black"
+                        className="rounded-2xl border bg-white p-4 shadow-sm outline-none dark:!bg-black/40 dark:border-white/10 dark:ring-offset-black"
                     >
                         <ImageCarousel images={images} alt={p.title}/>
 
@@ -84,7 +84,7 @@ export function CatalogGrid({items, loading = false, onOpen}: CatalogGridProps) 
                             <button
                                 type="button"
                                 onClick={() => onOpen(p)}
-                                className="rounded-xl border px-3 py-1.5 text-sm hover:!bg-black hover:!text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
+                                className="rounded-xl border-amber-400 px-3 py-1.5 text-sm shadow-2xl text-black !bg-gray-300 dark:!bg-gray-400 hover:!bg-black hover:!text-white dark:border-white/20 dark:hover:bg-white dark:hover:text-black"
                             >
                                 {t("more") ?? "Подробнее"}
                             </button>

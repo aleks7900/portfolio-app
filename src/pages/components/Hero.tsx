@@ -28,17 +28,17 @@ export default function Hero() {
         <section className="pt-28 sm:pt-32">
             {/* Локальные keyframes (не требует правок tailwind.config) */}
             <style>{`
-        @media (prefers-reduced-motion: no-preference) {
-          @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
-          @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
-          .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
-          .card-appear { animation: soft-glow .35s ease both; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
-          .card-appear { animation: none !important; }
-        }
-      `}</style>
+                    @media (prefers-reduced-motion: no-preference) {
+                      @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
+                      @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
+                      .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
+                      .card-appear { animation: soft-glow .35s ease both; }
+                    }
+                    @media (prefers-reduced-motion: reduce) {
+                      .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
+                      .card-appear { animation: none !important; }
+                    }
+            `}</style>
 
             <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
                 <motion.div initial="hidden" animate="visible" variants={containerVariants}
@@ -56,7 +56,7 @@ export default function Hero() {
                                 whileTap={{scale: 0.985}}
                                 onClick={() => {
                                     navigate("/service");
-                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                    window.scrollTo({top: 0, behavior: "smooth"});
                                 }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black
                                 shadow hover:!bg-black hover:!text-white hover:shadow-lg focus:outline-none focus:ring-2
@@ -69,7 +69,7 @@ export default function Hero() {
                                 whileTap={{scale: 0.985}}
                                 onClick={() => {
                                     navigate("/contacts");
-                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                    window.scrollTo({top: 0, behavior: "smooth"});
                                 }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-green-500 !text-white
                                 shadow hover:!bg-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:bg-green-600 dark:hover:bg-green-500"
@@ -81,7 +81,7 @@ export default function Hero() {
 
                     {/* Правая — карточки услуг с анимацией */}
                     <motion.div variants={cardVariants}
-                                className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-black dark:border-white/10">
+                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10">
                         <motion.div
                             initial="hidden"
                             animate="visible"

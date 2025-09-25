@@ -628,6 +628,8 @@ export const dict: Dictionary = {
         filterssubcategoryPlaceholder: "---",
         filterssubcategoryPickCategoryFirst: "— выберите категорию —",
 
+        search_button: "Найти",
+
         contacts_ytitle: "Контакты",
         contacts_company: "RV Steel Engineering SRL",
         contacts_md_title: "Реквизиты MD",
@@ -1323,6 +1325,8 @@ export const dict: Dictionary = {
         filterssubcategoryPlaceholder: "---",
         filterssubcategoryPickCategoryFirst: "— selectați categoria —",
 
+        search_button: "Caută",
+
         contacts_ytitle: "Contacte",
         contacts_company: "RV Steel Engineering SRL",
         contacts_md_title: "Date MD",
@@ -1357,7 +1361,7 @@ export const dict: Dictionary = {
         contacts_md_bic_value: "AGRNMD2X710",
 
         contacts_md_iban_label: "IBAN:",
-        contacts_md_iban_value: "MD65AG000000022513991091 (MDL)"
+        contacts_md_iban_value: "MD65AG000000022513991091 (MDL)",
     }
 };
 
