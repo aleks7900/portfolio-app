@@ -70,12 +70,32 @@ export default function HomeSearch() {
     // === Демо-набор поверх пустого инпута ===
     const demoPhrases = useMemo(
         () => [
-            tf("search_demo_1", "нержавейка 2 мм"),
-            tf("search_demo_2", "лист 1000×2000"),
-            tf("search_demo_3", "гибка профиля"),
-            tf("search_demo_4", "лазерная резка трубы"),
+            tf("search_demo_1", "производственный стол из нержавейки"),
+            tf("search_demo_2", "мойка для кухни horeca"),
+            tf("search_demo_3", "барная станция из металла"),
+            tf("search_demo_4", "перила и поручни из нержавеющей стали"),
+            tf("search_demo_5", "производственный стол из нержавейки"),
+            tf("search_demo_6", "мойка horeca из нержавейки"),
+            tf("search_demo_7", "барная станция из металла"),
+            tf("search_demo_8", "перила и поручни из нержавейки"),
+            tf("search_demo_9", "стеллаж складской из нержавейки"),
+            tf("search_demo_10", "подтоварник из нержавеющей стали"),
+            tf("search_demo_11", "рабочий каркас под оборудование"),
+            tf("search_demo_12", "короб из нержавейки на заказ"),
+            tf("search_demo_13", "кафейная стойка из металла"),
+            tf("search_demo_14", "крышка для мойки из нержавейки"),
+            tf("search_demo_15", "жаровня и гриль из нержавейки"),
+            tf("search_demo_16", "фартук из листовой нержавейки"),
+            tf("search_demo_17", "тележка сервировочная из нержавейки"),
+            tf("search_demo_18", "настенная полка из нержавейки"),
+            tf("search_demo_19", "шкаф для инвентаря из нержавейки"),
+            tf("search_demo_20", "стол-тумба с ящиками из металла"),
+            tf("search_demo_21", "мойка с двумя чашами"),
+            tf("search_demo_22", "производственная вытяжка из нержавейки"),
+            tf("search_demo_23", "подиум под оборудование"),
+            tf("search_demo_24", "решётка водоотводная из нержавейки"),
         ],
-        [t]
+        [tf]
     );
 
     const [demoText, setDemoText] = useState("");
@@ -83,6 +103,13 @@ export default function HomeSearch() {
     const [charIdx, setCharIdx] = useState(0);
     const [demoMode, setDemoMode] = useState<"typing" | "pausing" | "deleting">("typing");
 
+    // Обновляем демо-текст по индексу символа/фразы
+    useEffect(() => {
+        const phrase = demoPhrases[phraseIdx % demoPhrases.length] || "";
+        setDemoText(phrase.slice(0, charIdx));
+    }, [charIdx, phraseIdx, demoPhrases]);
+
+    // Строго один тик за раз (без setInterval)
     useEffect(() => {
         const active = !focused && !open && q.trim() === "";
         if (!active) {
@@ -91,47 +118,34 @@ export default function HomeSearch() {
             setDemoMode("typing");
             return;
         }
+
         const phrase = demoPhrases[phraseIdx % demoPhrases.length] || "";
         const typingSpeed = 110;
         const deletingSpeed = 55;
         const pauseDelay = 1200;
 
-        let timer: number | undefined;
+        let timeout: number;
+
         if (demoMode === "typing") {
-            timer = window.setInterval(() => {
-                setCharIdx((i) => {
-                    if (i < phrase.length) {
-                        const next = i + 1;
-                        setDemoText(phrase.slice(0, next));
-                        return next;
-                    } else {
-                        window.clearInterval(timer);
-                        setDemoMode("pausing");
-                        return i;
-                    }
-                });
-            }, typingSpeed);
+            if (charIdx < phrase.length) {
+                timeout = window.setTimeout(() => setCharIdx(i => i + 1), typingSpeed);
+            } else {
+                timeout = window.setTimeout(() => setDemoMode("pausing"), pauseDelay);
+            }
         } else if (demoMode === "pausing") {
-            timer = window.setTimeout(() => setDemoMode("deleting"), pauseDelay) as unknown as number;
-        } else if (demoMode === "deleting") {
-            timer = window.setInterval(() => {
-                setCharIdx((i) => {
-                    if (i > 0) {
-                        const next = i - 1;
-                        setDemoText(phrase.slice(0, next));
-                        return next;
-                    } else {
-                        window.clearInterval(timer);
-                        setDemoMode("typing");
-                        setPhraseIdx((p) => (p + 1) % demoPhrases.length);
-                        return 0;
-                    }
-                });
-            }, deletingSpeed);
+            timeout = window.setTimeout(() => setDemoMode("deleting"), pauseDelay);
+        } else { // deleting
+            if (charIdx > 0) {
+                timeout = window.setTimeout(() => setCharIdx(i => i - 1), deletingSpeed);
+            } else {
+                // Переключаемся на следующую фразу однократно и начинаем снова печатать
+                setPhraseIdx(p => (p + 1) % demoPhrases.length);
+                timeout = window.setTimeout(() => setDemoMode("typing"), typingSpeed);
+            }
         }
 
-        return () => timer && window.clearInterval(timer);
-    }, [focused, open, q, demoMode, phraseIdx, demoPhrases]); // эта часть осталась как у тебя :contentReference[oaicite:3]{index=3}
+        return () => window.clearTimeout(timeout);
+    }, [focused, open, q, demoMode, phraseIdx, charIdx, demoPhrases]);
 
     // Слушатель внешнего открытия поиска
     useEffect(() => {
@@ -284,7 +298,7 @@ export default function HomeSearch() {
                                 aria-label={tf("search_all_products", "Поиск по товарам")}
                                 whileFocus={{scale: 1.003}}
                                 transition={{type: "spring", stiffness: 500, damping: 30, mass: 0.4}}
-                                className="w-full rounded-2xl border px-4 pr-20 py-3 text-base shadow-sm outline-none transition-shadow duration-200 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.08)] dark:border-white/15 dark:bg-neutral-900 dark:text-white dark:focus:shadow-[0_0_0_3px_rgba(255,255,255,0.15)]"
+                                className="w-full rounded-2xl border px-4 pr-20 py-3 text-base shadow-sm outline-none transition-shadow duration-200 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.08)] dark:border-white/15 dark:!bg-zinc-800 dark:!text-white dark:focus:shadow-[0_0_0_3px_rgba(255,255,255,0.15)]"
                             />
 
                             {/* Имитация набора поверх пустого поля */}
@@ -293,7 +307,7 @@ export default function HomeSearch() {
                                     aria-hidden
                                     className="pointer-events-none absolute left-4 right-20 top-1/2 -translate-y-1/2 text-base text-gray-400 dark:text-gray-500 whitespace-nowrap overflow-hidden"
                                 >
-                                    <span className="font-[mono] tracking-tight">{demoText}</span>
+                                    <span className="dark:!text-white tracking-tight">{demoText}</span>
                                     <motion.span
                                         initial={{opacity: 1}}
                                         animate={{opacity: [1, 0, 1]}}

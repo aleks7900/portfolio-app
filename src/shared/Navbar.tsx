@@ -36,9 +36,9 @@ function LangToggle() {
     return (
         <button
             className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
-                 bg-white !text-black no-underline shadow-lg transition
-                 hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
-                 visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
+                 !bg-slate-900 !text-white no-underline shadow-lg transition
+                 hover:!bg-slate-400 hover:!shadow-2xl hover:!shadow-black/40
+                 visited:text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
             onClick={() => {
                 setLang(next);                          // твой контекст
                 i18n.changeLanguage(next);
@@ -59,7 +59,7 @@ function ThemeToggleBtn() {
                     hover:bg-neutral-800 hover:shadow-2xl hover:shadow-black/40
                     visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
                 onClick={toggle} aria-label="Theme">
-            {theme === "dark" ? <Sun className="h-5 w-5"/> : <Moon className="h-5 w-5"/>}
+            {theme === "dark" ? <Sun className="h-5 w-5 text-yellow-400"/> : <Moon className="h-5 w-5 text-sky-500"/>}
         </button>
     );
 }
@@ -99,12 +99,33 @@ const BTN =
     "visited:!text-black " +                                                                 // ← visited
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
 
+const BTN_YLW =
+    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium " +
+    "bg-yellow-400 !text-black no-underline shadow-lg transition " +                             // ← !text-black
+    "hover:bg-amber-500 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +      // ← hover:!text-white
+    "visited:!text-black dark:!bg-amber-500 dark:hover:!bg-yellow-700 " +                                                                 // ← visited
+    "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
+
+const BTN_GRAY =
+    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium " +
+    "bg-slate-500 !text-white no-underline shadow-lg transition " +                             // ← !text-black
+    "hover:bg-slate-900 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +      // ← hover:!text-white
+    "visited:text-black dark:!bg-slate-700 dark:hover:!bg-gray-900 " +                                                                 // ← visited
+    "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
+
+const BTN_BLUE =
+    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium " +
+    "bg-sky-600 !text-white no-underline shadow-lg transition " +                             // ← !text-black
+    "hover:bg-sky-900 hover:!text-white hover:shadow-2xl hover:shadow-black/40 " +      // ← hover:!text-white
+    "visited:text-black dark:!bg-sky-800 dark:hover:!bg-black " +                                                                 // ← visited
+    "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]";
+
 // Кнопка "Связаться" со спец. зелёным ховером
 const BTN_CTA =
     "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium " +
-    "bg-white !text-black no-underline shadow-lg transition " +
-    "hover:bg-green-600 hover:!text-white hover:shadow-2xl hover:shadow-green-600/50 " +
-    "visited:!text-black " +
+    "bg-green-600 !text-white no-underline shadow-lg transition " +
+    "hover:bg-emerald-300 hover:!text-black hover:shadow-2xl hover:shadow-green-600/50 " +
+    "visited:text-black " +
     "focus:outline-none focus:ring-2 focus:ring-green-500 active:scale-[0.99]";
 
 export default function Navbar() {
@@ -153,6 +174,16 @@ export default function Navbar() {
 
     const linkClass = ({isActive}: { isActive: boolean }) =>
         [BTN, isActive ? "bg-neutral-900 text-white" : ""].join(" ");
+
+    const linkClassYlw = ({isActive}: { isActive: boolean }) =>
+        [BTN_YLW, isActive ? "bg-neutral-900 !text-white" : ""].join(" ");
+
+    const linkClassBlue = ({isActive}: { isActive: boolean }) =>
+        [BTN_BLUE, isActive ? "bg-neutral-900 !text-white" : ""].join(" ");
+
+    const linkClassGray = ({isActive}: { isActive: boolean }) =>
+        [BTN_GRAY, isActive ? "bg-neutral-900 !text-white" : ""].join(" ");
+
     return (
         <header
             className={[
@@ -212,11 +243,11 @@ export default function Navbar() {
                         </div>
                         <div className="flex items-center gap-2">
                             <DesktopCatalog/>
-                            <NavLink to="/service" className={linkClass} end onClick={scrollTop}><Hammer
+                            <NavLink to="/service" className={linkClassYlw} end onClick={scrollTop}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
-                            <NavLink to="/contacts" className={linkClass} end onClick={scrollTop}><Phone
+                            <NavLink to="/contacts" className={linkClassGray} end onClick={scrollTop}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" className={linkClass} end onClick={scrollTop}><Info className="h-4 w-4"/> {t("nav_about")}
+                            <NavLink to="/about" className={linkClassBlue} end onClick={scrollTop}><Info className="h-4 w-4"/> {t("nav_about")}
                             </NavLink>
                             <NavLink to="/contacts"
                                      className={() => BTN_CTA} onClick={scrollTop}>{t("cta_contact")}<ArrowUpRight
