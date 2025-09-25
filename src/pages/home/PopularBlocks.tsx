@@ -5,8 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {listProducts} from "../../shared/api/repo.ts";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import SafeImg from "../../data/SafeImg.tsx";
 import {ChevronLeft, ChevronRight} from "lucide-react";
+import ImageWithFallback from "../../data/ImageWithFallback.tsx";
 
 /* ---------- helpers ---------- */
 // ---------- types & guards ----------
@@ -230,13 +230,14 @@ function ImageCarousel({
     if (images.length === 1) {
         return (
             <div className="mb-3 h-28 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5">
-                <SafeImg
+                <ImageWithFallback
                     src={images[0]}
                     alt={alt}
                     className="h-full w-full object-cover"
                     loading="lazy"
                     decoding="async"
                     draggable={false}
+                    fallback="/src/assets/img/elementor-placeholder-image.png"
                 />
             </div>
         );
@@ -260,13 +261,14 @@ function ImageCarousel({
             >
                 {images.map((src, i) => (
                     <div key={i} className="h-56 w-full flex-none">
-                        <SafeImg
+                        <ImageWithFallback
                             src={src}
                             alt={`${alt} ${i + 1}/${images.length}`}
                             className="h-full w-full select-none object-cover"
                             loading="lazy"
                             decoding="async"
                             draggable={false}
+                            fallback="/src/assets/img/elementor-placeholder-image.png"
                         />
                     </div>
                 ))}
@@ -331,7 +333,7 @@ function ProductCard({p}: { p: Product }) {
         navigate(`/catalog?q=${encodeURIComponent(p.title)}&page=0&size=12`);
         // подстраховка — если вдруг глобальный хук недоступен
         requestAnimationFrame(() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({top: 0, behavior: "smooth"});
         });
     };
 

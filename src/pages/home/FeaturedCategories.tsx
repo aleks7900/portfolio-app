@@ -57,7 +57,7 @@ function SubcatCard({
     label: string;
     onClick: () => void;
 }) {
-    const img = SUBCAT_IMAGES[`${category}/${subKey}`] ?? "/img/placeholder-1.jpg";
+    const img = SUBCAT_IMAGES[`${category}/${subKey}`] ?? "/src/assets/img/elementor-placeholder-image.png";
     return (
         <button
             onClick={onClick}

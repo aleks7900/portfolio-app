@@ -3,12 +3,11 @@ import React, {useEffect, useMemo, useState} from "react";
 // галерея
 import {useKeenSlider} from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-
 import {AnimatePresence, motion} from "framer-motion";
 import {ChevronLeft, ChevronRight, X} from "lucide-react";
 import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import SafeImg from "../../data/SafeImg.tsx";
+import ImageWithFallback from "../../data/ImageWithFallback.tsx";
 
 export default function ProductDetails({
                                            product,
@@ -70,27 +69,38 @@ export default function ProductDetails({
     if (!open || !product) return null;
 
     const badge = product.availability == 'ORDER_ON_DEMAND' ? (
-            <span
-                className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+        <span
+            className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
                     {t("order_on_demand")}
                   </span>
-        ) : (
-            <span
-                className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
+    ) : (
+        <span
+            className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">
                     {t("out_of_stock")}
                   </span>
-        );
-    {/*{p.inStock ? (*/}
-    {/*    <span*/}
-    {/*        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">*/}
-    {/*    {t("in_stock")}*/}
-    {/*  </span>*/}
-    {/*) : (*/}
-    {/*    <span*/}
-    {/*        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">*/}
-    {/*    {t("out_of_stock")}*/}
-    {/*  </span>*/}
-    {/*)}*/}
+    );
+    {/*{p.inStock ? (*/
+    }
+    {/*    <span*/
+    }
+    {/*        className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">*/
+    }
+    {/*    {t("in_stock")}*/
+    }
+    {/*  </span>*/
+    }
+    {/*) : (*/
+    }
+    {/*    <span*/
+    }
+    {/*        className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300">*/
+    }
+    {/*    {t("out_of_stock")}*/
+    }
+    {/*  </span>*/
+    }
+    {/*)}*/
+    }
 
     return (
         <AnimatePresence>
@@ -132,7 +142,7 @@ export default function ProductDetails({
                                 >
                                     {images.map((src, i) => (
                                         <div key={i} className="keen-slider__slide flex items-center justify-center">
-                                            <SafeImg
+                                            <ImageWithFallback
                                                 src={src}
                                                 alt={`${product.title} ${i + 1}`}
                                                 className="h-full w-full cursor-zoom-in object-cover"
@@ -141,6 +151,7 @@ export default function ProductDetails({
                                                 referrerPolicy="no-referrer"
                                                 draggable={false}
                                                 onClick={() => setLightbox({open: true, index: i})}
+                                                fallback="/src/assets/img/elementor-placeholder-image.png"
                                             />
                                         </div>
                                     ))}
@@ -176,11 +187,12 @@ export default function ProductDetails({
                                         key={i}
                                         className="keen-slider__slide !w-20 cursor-pointer overflow-hidden rounded-lg border bg-white dark:bg-black dark:border-white/10"
                                     >
-                                        <SafeImg
+                                        <ImageWithFallback
                                             src={src}
                                             alt={`thumb ${i + 1}`}
                                             className="h-20 w-full object-cover"
                                             draggable={false}
+                                            fallback="/src/assets/img/elementor-placeholder-image.png"
                                         />
                                     </div>
                                 ))}
@@ -351,13 +363,14 @@ export default function ProductDetails({
                                     transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
                                     className="absolute inset-0 m-auto flex max-h-[95vh] max-w-[95vw] items-center justify-center"
                                 >
-                                    <SafeImg
+                                    <ImageWithFallback
                                         src={images[lightbox.index]}
                                         alt={`image ${lightbox.index + 1}`}
                                         className="h-auto w-auto max-h-[95vh] max-w-[95vw] select-none object-contain"
                                         draggable={false}
                                         loading="lazy"
                                         decoding="async"
+                                        fallback="/src/assets/img/elementor-placeholder-image.png"
                                     />
                                 </motion.div>
                             </motion.div>

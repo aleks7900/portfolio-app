@@ -2,8 +2,8 @@
 import {useRef, useState} from "react";
 import type {Product} from "../../data/types";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import SafeImg from "../../data/SafeImg.tsx";
 import {ChevronLeft, ChevronRight} from "lucide-react";
+import ImageWithFallback from "../../data/ImageWithFallback.tsx";
 
 export type CatalogGridProps = {
     items: Product[];
@@ -149,13 +149,14 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
     if (images.length === 1) {
         return (
             <div className="mb-3 h-56 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10">
-                <SafeImg
+                <ImageWithFallback
                     src={images[0]}
                     alt={alt}
                     className="h-full w-full object-cover"
                     loading="lazy"
                     decoding="async"
                     draggable={false}
+                    fallback="/src/assets/img/elementor-placeholder-image.png"
                 />
             </div>
         );
@@ -179,13 +180,14 @@ function ImageCarousel({images, alt}: { images: string[]; alt: string }) {
             >
                 {images.map((src, i) => (
                     <div key={i} className="h-56 w-full flex-none">
-                        <SafeImg
+                        <ImageWithFallback
                             src={src}
                             alt={`${alt} ${i + 1}/${images.length}`}
                             className="h-full w-full select-none object-cover"
                             loading="lazy"
                             decoding="async"
                             draggable={false}
+                            fallback="/src/assets/img/elementor-placeholder-image.png"
                         />
                     </div>
                 ))}
