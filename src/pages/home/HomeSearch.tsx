@@ -338,7 +338,7 @@ export default function HomeSearch() {
                                                                     <div
                                                                         className="truncate font-medium">{t(p.title.toLowerCase())}</div>
                                                                     <div
-                                                                        className="truncate text-xs text-gray-500 dark:text-gray-400">{(p.brand || "—")} {p.category ? ` • ${p.category}${p.subcategory ? `/${p.subcategory}` : ""}` : ""}</div>
+                                                                        className="truncate text-xs text-gray-500 dark:text-gray-400">{(p.brand || "—")} {t(p.category) ? ` • ${t(p.category)}${t(p.subcategory) ? `/${t(p.subcategory)}` : ""}` : ""}</div>
                                                                 </div>
                                                                 <motion.div layout initial={{opacity: 0, y: 2}}
                                                                             animate={{opacity: 1, y: 0}}
