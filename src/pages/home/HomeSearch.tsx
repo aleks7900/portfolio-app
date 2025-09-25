@@ -343,26 +343,35 @@ export default function HomeSearch() {
                                         )}
 
                                         {!loading && suggestions.length > 0 && (
-                                            <div role="listbox" aria-labelledby="home-search"
-                                                 className="divide-y divide-black/5 dark:divide-white/10">
+                                            <motion.ul className="max-h-[60vh] overflow-y-auto py-1" layout>
                                                 {suggestions.map((p, idx) => {
                                                     const active = idx === activeIdx;
                                                     return (
-                                                        <button
-                                                            key={p.id}
-                                                            onMouseEnter={() => setActiveIdx(idx)}
-                                                            onClick={() => submit(p.title)} // если сервер ждёт ключи — p.title уже может быть ключом
-                                                            role="option"
-                                                            aria-selected={active}
-                                                            className={`w-full text-left px-4 py-2 text-sm transition ${
-                                                                active ? "bg-black/5 dark:bg-white/10" : ""
-                                                            }`}
-                                                        >
-                                                            {t(p.title)}{/* показываем локализованно */}
-                                                        </button>
+                                                        <li key={p.id}>
+                                                            <motion.button type="button"
+                                                                           onMouseEnter={() => setActiveIdx(idx)}
+                                                                           onMouseDown={() => submit(p.title)}
+                                                                           initial={false}
+                                                                           animate={{backgroundColor: active ? "rgba(0,0,0,0.05)" : "rgba(0,0,0,0)"}}
+                                                                           transition={{duration: 0.12}}
+                                                                           whileHover={{x: 2}} whileTap={{scale: 0.995}}
+                                                                           className={`flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-sm dark:${active ? "bg-white/10" : ""}`}>
+                                                                <div className="min-w-0">
+                                                                    <div
+                                                                        className="truncate font-medium">{t(p.title.toLowerCase())}</div>
+                                                                    <div
+                                                                        className="truncate text-xs text-gray-500 dark:text-gray-400">{(p.brand || "—")} {t(p.category) ? ` • ${t(p.category)}${t(p.subcategory) ? `/${t(p.subcategory)}` : ""}` : ""}</div>
+                                                                </div>
+                                                                <motion.div layout initial={{opacity: 0, y: 2}}
+                                                                            animate={{opacity: 1, y: 0}}
+                                                                            className="shrink-0 text-sm font-semibold tabular-nums">
+                                                                    ${p.price}
+                                                                </motion.div>
+                                                            </motion.button>
+                                                        </li>
                                                     );
                                                 })}
-                                            </div>
+                                            </motion.ul>
                                         )}
 
                                         {!loading && suggestions.length === 0 && (
