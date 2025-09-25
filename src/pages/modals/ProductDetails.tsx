@@ -482,8 +482,8 @@ function TabBtn({
             onClick={onClick}
             className={`rounded-xl px-3 py-1.5 text-sm ${
                 active
-                    ? "bg-gray-900 text-black dark:bg-white dark:text-black"
-                    : "border dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10"
+                    ? "!bg-gray-300 !text-black dark:!bg-gray-400 dark:!text-black"
+                    : "!text-black border dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10"
             }`}
         >
             {children}
