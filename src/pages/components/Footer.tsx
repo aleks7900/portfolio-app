@@ -6,7 +6,7 @@ export default function Footer() {
         <footer className="border-t bg-white/60 dark:bg-black/40 dark:border-white/10">
             <div
                 className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6 py-8 text-sm text-gray-500 dark:text-gray-300 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <span>© {new Date().getFullYear()} ReactOne</span>
+                <span>© {new Date().getFullYear()} RVSteel</span>
                 <div className="flex items-center gap-4"><a href="/about"
                                                             className="hover:underline">{t("footer_about")}</a><a
                     href="/contacts" className="hover:underline">{t("footer_contacts")}</a></div>

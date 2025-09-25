@@ -6,7 +6,7 @@ import {listProducts, type ProductQuery} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import {CatalogGrid} from "./Grid.tsx";
 import ProductDetails from "../modals/ProductDetails.tsx";
-import {track} from "../../lib/analytics.ts";
+import {track, trackPageView} from "../../lib/analytics.ts";
 
 // --- type guards ---
 type PageLike = { content: Product[]; totalPages?: number; number?: number; size?: number };
@@ -152,6 +152,14 @@ export default function CatalogPage() {
         window.addEventListener("products:updated", onUpd as EventListener);
         return () => window.removeEventListener("products:updated", onUpd as EventListener);
         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filters, page, size]);
+
+    useEffect(() => {
+        trackPageView({
+            path: window.location.pathname + window.location.search,
+            title: document.title,
+            referrer: document.referrer || null,
+        });
     }, [filters, page, size]);
 
     // обработчик изменения фильтров из дочернего компонента
