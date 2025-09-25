@@ -10,8 +10,7 @@ export const dict: Dictionary = {
         nav_contacts: "Контакты",
         nav_about: "О нас",
         nav_catalog: "Каталог",
-// Каталог меню
-
+        // Каталог меню
         cat_custom_orders: "Изделия на заказ",
         sub_balustrade_perila: "Балюстрады, перила",
         sub_boxes: "Боксы",
@@ -42,7 +41,7 @@ export const dict: Dictionary = {
         cat_non_standard_products: "Нестандартные изделия",
         sub_street_mobil: "Уличная мебель",
         sub_signs: "Таблички, лого, флюгеры",
-        sub_tanks: "Баки и бочки",
+        sub_tank: "Баки и бочки",
         sub_air: "Воздуховоды",
         sub_water: "Трубопроводы",
         sub_stock: "Канализация",
@@ -631,17 +630,6 @@ export const dict: Dictionary = {
         nav_catalog: "Catalog",
 
         // Catalog meniu
-        cat_electronics: "Electronice",
-        cat_home: "Electrocasnice",
-        cat_accessories: "Accesorii",
-        sub_laptops: "Laptopuri",
-        sub_phones: "Telefoane",
-        sub_tablets: "Tablete",
-        sub_vacuum: "Aspiratoare",
-        sub_fridges: "Frigidere",
-        sub_headphones: "Căști",
-        sub_chargers: "Încărcătoare",
-
         cat_custom_orders: "Produse la comandă",
         sub_balustrade_perila: "Balustrade, balustrade de sprijin",
         sub_boxes: "Cutii",
@@ -672,7 +660,7 @@ export const dict: Dictionary = {
         cat_non_standard_products: "Produse nestandard",
         sub_street_mobil: "Mobilier stradal",
         sub_signs: "Plăcuțe, logo-uri, giruete",
-        sub_tanks: "Rezervoare și butoaie",
+        sub_tank: "Rezervoare și butoaie",
         sub_air: "Ventilație (conducte de aer)",
         sub_water: "Conducte de apă",
         sub_stock: "Canalizare",
