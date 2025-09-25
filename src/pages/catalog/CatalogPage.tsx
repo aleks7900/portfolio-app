@@ -33,11 +33,11 @@ function extractProducts(payload: unknown): Product[] {
 function extractPageMeta(payload: unknown): { totalPages?: number; number?: number; size?: number } {
     if (isRecord(payload) && Array.isArray((payload as PageLike).content)) {
         const p = payload as PageLike;
-        return { totalPages: p.totalPages, number: p.number, size: p.size };
+        return {totalPages: p.totalPages, number: p.number, size: p.size};
     }
     if (isRecord(payload) && isRecord((payload as WrapperPage).page)) {
         const p = (payload as WrapperPage).page;
-        return { totalPages: p.totalPages, number: p.number, size: p.size };
+        return {totalPages: p.totalPages, number: p.number, size: p.size};
     }
     return {};
 }
@@ -173,6 +173,451 @@ export default function CatalogPage() {
                     </aside>
 
                     {/* КОНТЕНТ */}
+                    <div className="hidden">
+                        🔹 Основные общие ключи
+
+                        изделия из нержавеющей стали
+
+                        продукция из нержавейки
+
+                        нержавеющая сталь купить
+
+                        мебель из нержавеющей стали
+
+                        оборудование из нержавейки
+
+                        производство из нержавейки
+
+                        нержавейка под заказ
+
+                        конструкция из нержавейки
+
+                        цена нержавейки изделия
+
+                        магазин изделий из нержавейки
+
+                        🔹 Столы и тумбы
+
+                        производственные столы из нержавейки
+
+                        стол из нержавейки для кухни
+
+                        стол нержавеющий для кафе
+
+                        стол нержавейка для ресторана
+
+                        рабочий стол из нержавейки
+
+                        разделочный стол нержавейка
+
+                        стол с бортиком из нержавейки
+
+                        стол с ящиками из нержавейки
+
+                        стол с полкой из нержавейки
+
+                        тумба из нержавеющей стали
+
+                        🔹 Мойки
+
+                        мойка из нержавейки для кухни
+
+                        производственные мойки нержавейка
+
+                        мойка для ресторана нержавейка
+
+                        двойная мойка нержавейка
+
+                        мойка с крылом из нержавейки
+
+                        мойка для общепита нержавейка
+
+                        раковина из нержавейки купить
+
+                        кухонная мойка из нержавейки
+
+                        моечная ванна нержавейка
+
+                        мойка сварная из нержавейки
+
+                        🔹 Стеллажи, полки, подтоварники
+
+                        стеллаж из нержавейки
+
+                        производственный стеллаж нержавейка
+
+                        полки из нержавейки
+
+                        настенные полки из нержавейки
+
+                        подтоварник нержавейка
+
+                        подставка из нержавейки
+
+                        каркас из нержавейки
+
+                        стеллаж для кухни нержавейка
+
+                        складской стеллаж из нержавейки
+
+                        полка кухонная нержавейка
+
+                        🔹 Барные станции и мебель
+
+                        барная станция из нержавейки
+
+                        барная стойка нержавейка
+
+                        оборудование бара из нержавейки
+
+                        барная мойка нержавейка
+
+                        станция бармена из нержавейки
+
+                        мебель для бара нержавейка
+
+                        коктейльная станция нержавейка
+
+                        стол барный нержавейка
+
+                        барная тумба из нержавейки
+
+                        станция для напитков нержавейка
+
+                        🔹 Перила, поручни, ограждения
+
+                        перила из нержавейки
+
+                        поручни из нержавейки
+
+                        лестничные перила нержавейка
+
+                        ограждения из нержавейки
+
+                        балюстрада из нержавейки
+
+                        поручни для ванной нержавейка
+
+                        перила для крыльца нержавейка
+
+                        перила для балкона нержавейка
+
+                        опорные поручни нержавейка
+
+                        перила сварные из нержавейки
+
+                        🔹 Кухонное и производственное оборудование
+
+                        гриль из нержавейки
+
+                        жаровня нержавейка
+
+                        стол для пиццы нержавейка
+
+                        тележка из нержавейки
+
+                        оборудование общепит нержавейка
+
+                        вытяжка из нержавейки
+
+                        шкаф из нержавейки
+
+                        подкатная тележка нержавейка
+
+                        фартук из нержавейки
+
+                        оборудование кафе нержавейка
+
+                        🔹 Ящики, коробки, каркасы
+
+                        короб из нержавейки
+
+                        ящик из нержавейки
+
+                        каркас под оборудование нержавейка
+
+                        шкаф-тумба нержавейка
+
+                        контейнер из нержавейки
+
+                        урна из нержавейки
+
+                        бак из нержавейки
+
+                        лоток нержавейка
+
+                        ящик с дверцей нержавейка
+
+                        корзина нержавейка
+
+                        🔹 Декор и архитектура
+
+                        козырек из нержавейки
+
+                        навес из нержавейки
+
+                        декоративные элементы нержавейка
+
+                        мебель для улицы нержавейка
+
+                        перила для террасы нержавейка
+
+                        дизайн из нержавейки
+
+                        каркас лестницы нержавейка
+
+                        архитектурные изделия нержавейка
+
+                        ограждение террасы нержавейка
+
+                        поручни для инвалидов нержавейка
+
+                        🔹 SEO-варианты с географией и услугами
+
+                        изделия из нержавейки Кишинев
+
+                        нержавейка Молдова
+
+                        производство из нержавейки под заказ
+
+                        купить стол нержавейка Кишинев
+
+                        изготовление изделий из нержавейки
+
+                        заказ нержавейки Кишинев
+
+                        изготовление мебели нержавейка
+
+                        сварка нержавейки под заказ
+
+                        ремонт изделий из нержавейки
+
+                        интернет магазин изделий из нержавейки
+
+                    </div>
+                    <div className="hidden">
+
+                        🔹 Termeni generali
+
+                        produse din oțel inoxidabil
+
+                        mobilier inox
+
+                        echipamente inox
+
+                        confecții inox
+
+                        construcții inox
+
+                        inox la comandă
+
+                        articole inox
+
+                        inox prelucrare
+
+                        preț produse inox
+
+                        magazin produse inox
+
+                        🔹 Mese și dulapuri
+
+                        mese de lucru inox
+
+                        masă inox bucătărie
+
+                        masă inox restaurant
+
+                        masă inox cafenea
+
+                        masă profesională inox
+
+                        masă de tranșare inox
+
+                        masă cu blat inox
+
+                        masă inox cu sertare
+
+                        masă inox cu poliță
+
+                        dulap inox
+
+                        🔹 Chiuvete
+
+                        chiuvetă inox bucătărie
+
+                        chiuvetă profesională inox
+
+                        chiuvetă inox restaurant
+
+                        chiuvetă dublă inox
+
+                        chiuvetă cu aripă inox
+
+                        chiuvetă inox horeca
+
+                        lavoar inox
+
+                        chiuvetă inox catering
+
+                        vană inox spălare
+
+                        chiuvetă sudată inox
+
+                        🔹 Rafturi, polițe, suporturi
+
+                        raft inox
+
+                        raft profesional inox
+
+                        polițe inox
+
+                        poliță inox perete
+
+                        suport marfă inox
+
+                        suport inox bucătărie
+
+                        cadru inox
+
+                        raft inox bucătărie
+
+                        raft depozit inox
+
+                        poliță de perete inox
+
+                        🔹 Stații bar și mobilier horeca
+
+                        stație bar inox
+
+                        tejghea inox
+
+                        echipamente bar inox
+
+                        chiuvetă bar inox
+
+                        stație barman inox
+
+                        mobilier bar inox
+
+                        stație cocktail inox
+
+                        masă bar inox
+
+                        dulap bar inox
+
+                        stație băuturi inox
+
+                        🔹 Balustrade, mânere, garduri
+
+                        balustrade inox
+
+                        mânere inox
+
+                        balustradă scară inox
+
+                        gard inox
+
+                        balustradă inox exterior
+
+                        bară sprijin inox
+
+                        balustradă balcon inox
+
+                        mână curent inox
+
+                        balustradă rampă inox
+
+                        balustradă sudată inox
+
+                        🔹 Echipamente de bucătărie și producție
+
+                        grătar inox
+
+                        plită inox
+
+                        masă pizza inox
+
+                        cărucior inox
+
+                        echipamente horeca inox
+
+                        hotă inox
+
+                        dulap profesional inox
+
+                        cărucior transport inox
+
+                        panou inox
+
+                        echipamente bucătărie inox
+
+                        🔹 Sertare, cutii, carcase
+
+                        cutie inox
+
+                        sertar inox
+
+                        cadru echipament inox
+
+                        dulap tip coloană inox
+
+                        container inox
+
+                        coș inox
+
+                        rezervor inox
+
+                        tavă inox
+
+                        sertar cu ușă inox
+
+                        coș de gunoi inox
+
+                        🔹 Decorațiuni și arhitectură
+
+                        copertină inox
+
+                        acoperiș inox
+
+                        elemente decorative inox
+
+                        mobilier exterior inox
+
+                        balustradă terasă inox
+
+                        design inox
+
+                        cadru scară inox
+
+                        produse arhitecturale inox
+
+                        gard terasă inox
+
+                        bare sprijin persoane cu dizabilități inox
+
+                        🔹 Variante cu geolocație și servicii
+
+                        produse inox Chișinău
+
+                        inox Moldova
+
+                        producție inox la comandă
+
+                        masă inox Chișinău
+
+                        confecții inox personalizate
+
+                        comandă inox Chișinău
+
+                        mobilier inox la comandă
+
+                        sudură inox la comandă
+
+                        reparații produse inox
+
+                        magazin online produse inox
+                    </div>
+
                     <div className="space-y-4">
                         {/* статус */}
                         {err && (
