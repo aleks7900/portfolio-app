@@ -627,6 +627,42 @@ export const dict: Dictionary = {
         filterscategoryPlaceholder: "---",
         filterssubcategoryPlaceholder: "---",
         filterssubcategoryPickCategoryFirst: "— выберите категорию —",
+
+        contacts_ytitle: "Контакты",
+        contacts_company: "RV Steel Engineering SRL",
+        contacts_md_title: "Реквизиты MD",
+        contacts_form_title: "Связаться с нами",
+        contacts_socials: "Мы в социальных сетях",
+        contacts_yname: "Ваше имя *",
+        contacts_yemail: "Email",
+        contacts_phone: "Телефон",
+        contacts_subject: "Тема",
+        contacts_message: "Сообщение *",
+        contacts_ysend: "Отправить",
+        contacts_address: "MD 2002, Кишинёв, ул. Пэду́рий 21/1",
+        contacts_hours: "ПН – ПТ: 9:00 – 18:00",
+        contacts_route: "Открыть маршрут в Google Maps",
+
+        contacts_alert_fill: "Введите имя и сообщение.",
+        contacts_alert_sent: "Заявка отправлена!",
+        contacts_alert_failed: "Не удалось отправить заявку",
+
+        contacts_md_legal_address_label: "Юридический адрес:",
+        contacts_md_legal_address_value: "MD 2023, mun.Chisinau, Uzinelor 11/1",
+
+        contacts_md_fiscal_code_label: "Фискальный код:",
+        contacts_md_fiscal_code_value: "1020600017959",
+
+        contacts_md_vat_label: "НДС:",
+        contacts_md_vat_value: "0611069",
+
+        contacts_md_bank_name: "BC \"MOLDOVA-AGROINDBANK\" S.A.",
+
+        contacts_md_bic_label: "BIC:",
+        contacts_md_bic_value: "AGRNMD2X710",
+
+        contacts_md_iban_label: "IBAN:",
+        contacts_md_iban_value: "MD65AG000000022513991091 (MDL)",
     },
     ro: {
         brandLogo: "",
@@ -1286,6 +1322,42 @@ export const dict: Dictionary = {
         filterscategoryPlaceholder: "---",
         filterssubcategoryPlaceholder: "---",
         filterssubcategoryPickCategoryFirst: "— selectați categoria —",
+
+        contacts_ytitle: "Contacte",
+        contacts_company: "RV Steel Engineering SRL",
+        contacts_md_title: "Date MD",
+        contacts_form_title: "Contactați-ne",
+        contacts_socials: "Suntem pe rețele sociale",
+        contacts_yname: "Numele dvs. *",
+        contacts_yemail: "Email",
+        contacts_phone: "Telefon",
+        contacts_subject: "Subiect",
+        contacts_message: "Mesaj *",
+        contacts_ysend: "Trimite",
+        contacts_address: "MD 2002, Chișinău, str. Pădurii 21/1",
+        contacts_hours: "LU – VI: 9:00 – 18:00",
+        contacts_route: "Deschide ruta în Google Maps",
+
+        contacts_alert_fill: "Introduceți numele și mesajul.",
+        contacts_alert_sent: "Cererea a fost trimisă!",
+        contacts_alert_failed: "Nu s-a putut trimite cererea",
+
+        contacts_md_legal_address_label: "Adresă juridică:",
+        contacts_md_legal_address_value: "MD 2023, mun. Chișinău, Uzinelor 11/1",
+
+        contacts_md_fiscal_code_label: "Cod fiscal:",
+        contacts_md_fiscal_code_value: "1020600017959",
+
+        contacts_md_vat_label: "TVA:",
+        contacts_md_vat_value: "0611069",
+
+        contacts_md_bank_name: "BC \"MOLDOVA-AGROINDBANK\" S.A.",
+
+        contacts_md_bic_label: "BIC:",
+        contacts_md_bic_value: "AGRNMD2X710",
+
+        contacts_md_iban_label: "IBAN:",
+        contacts_md_iban_value: "MD65AG000000022513991091 (MDL)"
     }
 };
 

@@ -4,7 +4,7 @@ import {createRequest} from "../shared/api/requestsRepo.ts";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 
-// Простые иконки (SVG), чтобы не тянуть дополнительные зависимости
+// Простейшие SVG-иконки (без внешних зависимостей)
 const Icon = {
     Pin: (props: React.SVGProps<SVGSVGElement>) => (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
@@ -48,6 +48,11 @@ const Icon = {
 export default function ContactsPage() {
     const {t} = useI18n();
 
+    const tf = (key: string, fallback: string) => {
+        const v = t(key);
+        return v === key || !v ? fallback : v;
+    };
+
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const form = e.currentTarget;
@@ -57,34 +62,38 @@ export default function ContactsPage() {
         const phone = String(fd.get("phone") || "").trim();
         const subject = String(fd.get("subject") || "").trim();
         const message = String(fd.get("message") || "").trim();
+
         if (!name || !message) {
-            alert("Введите имя и сообщение.");
+            alert(tf("contacts_alert_fill", "Введите имя и сообщение."));
             return;
         }
+
         try {
             await createRequest({name, email, phone, subject, message});
-            alert("Заявка отправлена!");
+            alert(tf("contacts_alert_sent", "Заявка отправлена!"));
             form.reset();
         } catch (err) {
             console.error(err);
-            alert("Не удалось отправить заявку");
+            alert(tf("contacts_alert_failed", "Не удалось отправить заявку"));
         }
     }
 
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
             <Container>
-                <h1 className="mb-10 text-3xl font-semibold">Контакты</h1>
+                {/* Заголовок страницы */}
+                <h1 className="mb-10 text-3xl font-semibold">{t("contacts_ytitle")}</h1>
 
-                {/* ТРИ КОЛОНКИ, как на скриншоте */}
+                {/* Три колонки */}
                 <div className="grid gap-10 lg:grid-cols-3">
-                    {/* Левая колонка */}
+                    {/* Левая колонка: адрес/тел/часы/почта + соцсети */}
                     <div>
-                        <h2 className="mb-6 text-2xl font-semibold">RV Steel Engineering SRL</h2>
+                        <h2 className="mb-6 text-2xl font-semibold">{t("contacts_company")}</h2>
+
                         <ul className="space-y-4 text-[15px] leading-relaxed">
                             <li className="flex items-start gap-3">
                                 <Icon.Pin className="mt-0.5 h-5 w-5"/>
-                                <span>MD 2002,Chisinau Padurii 21/1</span>
+                                <span>{t("contacts_address")}</span>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Phone className="mt-0.5 h-5 w-5"/>
@@ -92,40 +101,65 @@ export default function ContactsPage() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Clock className="mt-0.5 h-5 w-5"/>
-                                <span>ПН – ПТ: 9:00 – 18:00</span>
+                                <span>{t("contacts_hours")}</span>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Mail className="mt-0.5 h-5 w-5"/>
-                                <a className="hover:underline"
-                                   href="mailto:engineeringrvsteel@gmail.com">engineeringrvsteel@gmail.com</a>
+                                <a className="hover:underline" href="mailto:engineeringrvsteel@gmail.com">
+                                    engineeringrvsteel@gmail.com
+                                </a>
                             </li>
                         </ul>
 
                         <div className="mt-8">
-                            <div className="mb-3 text-lg font-semibold">Мы в социальных сетях</div>
+                            <div className="mb-3 text-lg font-semibold">{t("contacts_socials")}</div>
                             <div className="flex items-center gap-4 text-gray-700 dark:text-gray-200">
-                                <a href="#" aria-label="Facebook"
-                                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"><Icon.Facebook
-                                    className="h-5 w-5"/></a>
-                                <a href="#" aria-label="Instagram"
-                                   className="inline-flex h-9 w-9 items-center justify-center rounded-xl border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"><Icon.Instagram
-                                    className="h-5 w-5"/></a>
+                                <a
+                                    href="#"
+                                    aria-label="Facebook"
+                                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                                >
+                                    <Icon.Facebook className="h-5 w-5"/>
+                                </a>
+                                <a
+                                    href="#"
+                                    aria-label="Instagram"
+                                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                                >
+                                    <Icon.Instagram className="h-5 w-5"/>
+                                </a>
                             </div>
                         </div>
                     </div>
 
-                    {/* Средняя колонка */}
+                    {/* Средняя колонка: реквизиты */}
                     <div>
-                        <h3 className="mb-4 text-2xl font-semibold">Реквизиты MD</h3>
+                        <h3 className="mb-4 text-2xl font-semibold">{t("contacts_md_title")}</h3>
                         <div className="space-y-2 text-[15px] leading-relaxed">
-                            <div className="font-semibold">RV Steel Engineering SRL</div>
-                            <div><span className="font-medium">Юридический адрес:</span> MD 2023, mun.Chisinau, Uzinelor 11/1
+                            <div className="font-semibold">{t("contacts_company")}</div>
+                            <div>
+                                <span
+                                    className="font-medium">{tf("contacts_md_legal_address_label", "Юридический адрес:")}</span>{" "}
+                                {tf("contacts_md_legal_address_value", "MD 2023, mun.Chisinau, Uzinelor 11/1")}
                             </div>
-                            <div><span className="font-medium">Фискальный код:</span> 1020600017959</div>
-                            <div><span className="font-medium">НДС:</span> 0611069</div>
-                            <div>BC"MOLDOVA-AGROINDBANK"S.A.</div>
-                            <div><span className="font-medium">BIC:</span> AGRNMD2X710</div>
-                            <div><span className="font-medium">IBAN:</span> MD65AG000000022513991091 (MDL)</div>
+                            <div>
+                                <span
+                                    className="font-medium">{tf("contacts_md_fiscal_code_label", "Фискальный код:")}</span>{" "}
+                                {tf("contacts_md_fiscal_code_value", "1020600017959")}
+                            </div>
+                            <div>
+                                <span className="font-medium">{tf("contacts_md_vat_label", "НДС:")}</span>{" "}
+                                {tf("contacts_md_vat_value", "0611069")}
+                            </div>
+                            <div>{tf("contacts_md_bank_name", "BC \"MOLDOVA-AGROINDBANK\" S.A.")}</div>
+                            <div>
+                                <span className="font-medium">{tf("contacts_md_bic_label", "BIC:")}</span>{" "}
+                                {tf("contacts_md_bic_value", "AGRNMD2X710")}
+                            </div>
+                            <div>
+                                <span className="font-medium">{tf("contacts_md_iban_label", "IBAN:")}</span>{" "}
+                                {tf("contacts_md_iban_value", "MD65AG000000022513991091 (MDL)")}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,44 +167,63 @@ export default function ContactsPage() {
                 {/* Разделитель */}
                 <div className="my-12 h-px w-full bg-gray-200 dark:bg-gray-800"/>
 
-                {/* ФОРМА (как была), слегка подзаголовок */}
-                <h2 className="mb-6 text-2xl font-semibold">Связаться с нами</h2>
+                {/* Форма */}
+                <h2 className="mb-6 text-2xl font-semibold">{t("contacts_form_title")}</h2>
                 <form onSubmit={onSubmit} className="grid max-w-2xl gap-4">
                     <label className="block">
-                        <div className="mb-1 text-sm font-medium">Ваше имя *</div>
-                        <input name="name" required autoComplete="name"
-                               className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
+                        <div className="mb-1 text-sm font-medium">{t("contacts_yname")}</div>
+                        <input
+                            name="name"
+                            required
+                            autoComplete="name"
+                            className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
+                        />
                     </label>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                         <label className="block">
-                            <div className="mb-1 text-sm font-medium">Email</div>
-                            <input name="email" type="email" autoComplete="email"
-                                   className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
+                            <div className="mb-1 text-sm font-medium">{t("contacts_yemail")}</div>
+                            <input
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
+                            />
                         </label>
                         <label className="block">
-                            <div className="mb-1 text-sm font-medium">Телефон</div>
-                            <input name="phone" autoComplete="tel"
-                                   className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
+                            <div className="mb-1 text-sm font-medium">{t("contacts_phone")}</div>
+                            <input
+                                name="phone"
+                                autoComplete="tel"
+                                className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
+                            />
                         </label>
                     </div>
 
                     <label className="block">
-                        <div className="mb-1 text-sm font-medium">Тема</div>
-                        <input name="subject"
-                               className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
+                        <div className="mb-1 text-sm font-medium">{t("contacts_subject")}</div>
+                        <input
+                            name="subject"
+                            className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
+                        />
                     </label>
 
                     <label className="block">
-                        <div className="mb-1 text-sm font-medium">Сообщение *</div>
-                        <textarea name="message" required rows={5}
-                                  className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"/>
+                        <div className="mb-1 text-sm font-medium">{t("contacts_message")}</div>
+                        <textarea
+                            name="message"
+                            required
+                            rows={5}
+                            className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
+                        />
                     </label>
 
                     <div className="pt-2 mb-12">
-                        <button type="submit"
-                                className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white hover:!bg-green-700 hover:!shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:!bg-green-500 dark:hover:!bg-green-400">
-                            {t("contacts_send")}
+                        <button
+                            type="submit"
+                            className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white hover:!bg-green-700 hover:!shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:!bg-green-500 dark:hover:!bg-green-400"
+                        >
+                            {t("contacts_ysend")}
                         </button>
                     </div>
                 </form>
@@ -178,10 +231,15 @@ export default function ContactsPage() {
                 {/* Карта и кнопка маршрута */}
                 <MapEmbed query="Chișinău, strada Pădurii 21/1" zoom={16}/>
                 <div className="mt-4 text-sm">
-                    <a href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent("Chișinău, strada Pădurii 21/1")}`}
-                       target="_blank" rel="noopener noreferrer"
-                       className="inline-flex items-center rounded-xl px-4 py-2 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
-                        Открыть маршрут в Google Maps
+                    <a
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                            "Chișinău, strada Pădurii 21/1"
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center rounded-xl px-4 py-2 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    >
+                        {t("contacts_route")}
                     </a>
                 </div>
             </Container>

@@ -172,9 +172,6 @@ export default function Navbar() {
     const scrollTop = () =>
         requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    const linkClass = ({isActive}: { isActive: boolean }) =>
-        [BTN, isActive ? "bg-neutral-900 text-white" : ""].join(" ");
-
     const linkClassYlw = ({isActive}: { isActive: boolean }) =>
         [BTN_YLW, isActive ? "bg-neutral-900 !text-white" : ""].join(" ");
 
