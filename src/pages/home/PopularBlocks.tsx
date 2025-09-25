@@ -161,7 +161,7 @@ function Block({
                     ? Array.from({length: 8}).map((_, i) => (
                         <div
                             key={i}
-                            className="h-40 animate-pulse rounded-2xl border bg-gray-100 dark:border-white/10 dark:bg-white/5"
+                            className="h-48 animate-pulse rounded-2xl border bg-gray-100 dark:border-white/10 dark:bg-white/5"
                         />
                     ))
                     : state.items.map((p) => <ProductCard key={p.id} p={p}/>)}
@@ -221,7 +221,7 @@ function ImageCarousel({
     if (images.length === 0) {
         return (
             <div
-                className="mb-3 flex h-28 w-full items-center justify-center rounded-xl bg-gray-100 text-xs text-gray-400 dark:bg-white/5">
+                className="mb-3 flex h-48 w-full items-center justify-center rounded-xl bg-gray-100 text-xs text-gray-400 dark:bg-white/5">
                 no image
             </div>
         );
@@ -229,7 +229,7 @@ function ImageCarousel({
 
     if (images.length === 1) {
         return (
-            <div className="mb-3 h-28 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5">
+            <div className="mb-3 h-48 w-full overflow-hidden rounded-xl bg-gray-100 dark:bg-white/5">
                 <ImageWithFallback
                     src={images[0]}
                     alt={alt}

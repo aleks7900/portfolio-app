@@ -132,14 +132,6 @@ export const CATS: Cat[] = [
                 labelKey:  "sub_water"
             },
             {
-                key:  "cauldrons",
-                labelKey:  "sub_cauldrons"
-            },
-            {
-                key:  "decor",
-                labelKey:  "sub_decor"
-            },
-            {
                 key:  "stock",
                 labelKey:  "sub_stock"
             },

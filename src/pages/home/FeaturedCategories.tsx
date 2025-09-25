@@ -60,16 +60,15 @@ function SubcatCard({
 }) {
 
     console.log(`${category}/${subKey}`);
-    const subcatimage = SUBCAT_IMAGES[`${category}/${subKey}`];
-    console.log(subcatimage);
-    const img = subcatimage ?? "/src/assets/img/elementor-placeholder-image.png";
+    const subCatImage = SUBCAT_IMAGES[`${category}/${subKey}`];
+    const img = subCatImage ?? "/src/assets/img/elementor-placeholder-image.png";
     return (
         <button
             onClick={onClick}
             className="w-[260px] shrink-0 rounded-xl border bg-white p-4 text-left shadow-sm transition
                  hover:shadow-md dark:border-white/10 dark:bg-black"
         >
-            <div className="h-40 overflow-hidden rounded-lg bg-gray-50 dark:bg-white/10">
+            <div className="h-48 overflow-hidden rounded-lg bg-gray-50 dark:bg-white/10">
                 <ImageWithFallback src={img} alt="" className="h-full w-full object-contain" fallback="/src/assets/img/elementor-placeholder-image.png"/>
             </div>
             <div className="mt-3 text-sm font-semibold tracking-tight">
