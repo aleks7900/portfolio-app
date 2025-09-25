@@ -190,7 +190,7 @@ export const seoDict: SEOTranslations = {
             "description": "Купить Тележка 1 из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Тележка 1, изделия из нержавейки, тележка 1 купить, RVSteel"
         },
-        "carucior_cuva,_aisi_304": {
+        "carucior_cuva_aisi_304": {
             "title": "Тележка с ёмкостью, AISI 304 | RVSteel",
             "description": "Купить Тележка с ёмкостью, AISI 304 из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Тележка с ёмкостью, AISI 304, изделия из нержавейки, тележка с ёмкостью, aisi 304 купить, RVSteel"
@@ -835,15 +835,15 @@ export const seoDict: SEOTranslations = {
             "description": "Купить Производственный стол 9 из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Производственный стол 9, изделия из нержавейки, производственный стол 9 купить, RVSteel"
         },
-        "rvp_10_poruchen_dlya_sanuzla_(_rakavina,_nitaz,_pisuar_)": {
+        "rvp_10_poruchen_dlya_sanuzla_(_rakavina_nitaz_pisuar_)": {
             "title": "Поручень для санузла (раковина, унитаз, писсуар) | RVSteel",
             "description": "Купить Поручень для санузла (раковина, унитаз, писсуар) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для санузла (раковина, унитаз, писсуар), изделия из нержавейки, поручень для санузла (раковина, унитаз, писсуар) купить, RVSteel"
         },
-        "rvp_10_poruchen_dlya_sanuzla_(rakavina,_nitaz,_pisuar)": {
-            "title": "rvp_10_poruchen_dlya_sanuzla_(rakavina,_nitaz,_pisuar) | RVSteel",
-            "description": "Купить rvp_10_poruchen_dlya_sanuzla_(rakavina,_nitaz,_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
-            "keywords": "rvp_10_poruchen_dlya_sanuzla_(rakavina,_nitaz,_pisuar), изделия из нержавейки, rvp_10_poruchen_dlya_sanuzla_(rakavina,_nitaz,_pisuar) купить, RVSteel"
+        "rvp_10_poruchen_dlya_sanuzla_(rakavina_nitaz_pisuar)": {
+            "title": "rvp_10_poruchen_dlya_sanuzla_(rakavina_nitaz_pisuar) | RVSteel",
+            "description": "Купить rvp_10_poruchen_dlya_sanuzla_(rakavina_nitaz_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
+            "keywords": "rvp_10_poruchen_dlya_sanuzla_(rakavina_nitaz_pisuar), изделия из нержавейки, rvp_10_poruchen_dlya_sanuzla_(rakavina_nitaz_pisuar) купить, RVSteel"
         },
         "rvp_11_poruchen_dlya_unitaza_(_statsionarnyy)": {
             "title": "Поручень для унитаза (стационарный) | RVSteel",
@@ -875,45 +875,45 @@ export const seoDict: SEOTranslations = {
             "description": "Купить rvp_13_poruchen_opornyy_napolnyy_(otkidnoy_s_fiksatarom) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "rvp_13_poruchen_opornyy_napolnyy_(otkidnoy_s_fiksatarom), изделия из нержавейки, rvp_13_poruchen_opornyy_napolnyy_(otkidnoy_s_fiksatarom) купить, RVSteel"
         },
-        "rvp_14_poruchen_dlya_sanuzla_(_vanna,_unitaz,_pisuar)": {
+        "rvp_14_poruchen_dlya_sanuzla_(_vanna_unitaz_pisuar)": {
             "title": "Поручень для санузла (ванна, унитаз, писсуар) | RVSteel",
             "description": "Купить Поручень для санузла (ванна, унитаз, писсуар) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для санузла (ванна, унитаз, писсуар), изделия из нержавейки, поручень для санузла (ванна, унитаз, писсуар) купить, RVSteel"
         },
-        "rvp_14_poruchen_dlya_sanuzla_(vanna,_unitaz,_pisuar)": {
-            "title": "rvp_14_poruchen_dlya_sanuzla_(vanna,_unitaz,_pisuar) | RVSteel",
-            "description": "Купить rvp_14_poruchen_dlya_sanuzla_(vanna,_unitaz,_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
-            "keywords": "rvp_14_poruchen_dlya_sanuzla_(vanna,_unitaz,_pisuar), изделия из нержавейки, rvp_14_poruchen_dlya_sanuzla_(vanna,_unitaz,_pisuar) купить, RVSteel"
+        "rvp_14_poruchen_dlya_sanuzla_(vanna_unitaz_pisuar)": {
+            "title": "rvp_14_poruchen_dlya_sanuzla_(vanna_unitaz_pisuar) | RVSteel",
+            "description": "Купить rvp_14_poruchen_dlya_sanuzla_(vanna_unitaz_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
+            "keywords": "rvp_14_poruchen_dlya_sanuzla_(vanna_unitaz_pisuar), изделия из нержавейки, rvp_14_poruchen_dlya_sanuzla_(vanna_unitaz_pisuar) купить, RVSteel"
         },
-        "rvp_15_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)": {
+        "rvp_15_poruchen_dlya_sanuzela_(_vanna_unitaz_pisuar)": {
             "title": "Поручень для санузла (ванна, унитаз, писсуар) | RVSteel",
             "description": "Купить Поручень для санузла (ванна, унитаз, писсуар) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для санузла (ванна, унитаз, писсуар), изделия из нержавейки, поручень для санузла (ванна, унитаз, писсуар) купить, RVSteel"
         },
-        "rvp_15_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar)": {
-            "title": "rvp_15_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) | RVSteel",
-            "description": "Купить rvp_15_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
-            "keywords": "rvp_15_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar), изделия из нержавейки, rvp_15_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) купить, RVSteel"
+        "rvp_15_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar)": {
+            "title": "rvp_15_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) | RVSteel",
+            "description": "Купить rvp_15_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
+            "keywords": "rvp_15_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar), изделия из нержавейки, rvp_15_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) купить, RVSteel"
         },
-        "rvp_16_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)": {
+        "rvp_16_poruchen_dlya_sanuzela_(_vanna_unitaz_pisuar)": {
             "title": "Поручень для санузла (ванна, унитаз, писсуар) | RVSteel",
             "description": "Купить Поручень для санузла (ванна, унитаз, писсуар) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для санузла (ванна, унитаз, писсуар), изделия из нержавейки, поручень для санузла (ванна, унитаз, писсуар) купить, RVSteel"
         },
-        "rvp_16_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar)": {
-            "title": "rvp_16_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) | RVSteel",
-            "description": "Купить rvp_16_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
-            "keywords": "rvp_16_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar), изделия из нержавейки, rvp_16_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) купить, RVSteel"
+        "rvp_16_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar)": {
+            "title": "rvp_16_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) | RVSteel",
+            "description": "Купить rvp_16_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
+            "keywords": "rvp_16_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar), изделия из нержавейки, rvp_16_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) купить, RVSteel"
         },
-        "rvp_17_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)": {
+        "rvp_17_poruchen_dlya_sanuzela_(_vanna_unitaz_pisuar)": {
             "title": "Поручень для санузла (ванна, унитаз, писсуар) | RVSteel",
             "description": "Купить Поручень для санузла (ванна, унитаз, писсуар) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для санузла (ванна, унитаз, писсуар), изделия из нержавейки, поручень для санузла (ванна, унитаз, писсуар) купить, RVSteel"
         },
-        "rvp_17_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar)": {
-            "title": "rvp_17_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) | RVSteel",
-            "description": "Купить rvp_17_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
-            "keywords": "rvp_17_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar), изделия из нержавейки, rvp_17_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar) купить, RVSteel"
+        "rvp_17_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar)": {
+            "title": "rvp_17_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) | RVSteel",
+            "description": "Купить rvp_17_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
+            "keywords": "rvp_17_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar), изделия из нержавейки, rvp_17_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar) купить, RVSteel"
         },
         "rvp_18_poruchen_dlya_pisuara": {
             "title": "Поручень для писсуара | RVSteel",
@@ -925,7 +925,7 @@ export const seoDict: SEOTranslations = {
             "description": "Купить Настенный напольный поручень из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Настенный напольный поручень, изделия из нержавейки, настенный напольный поручень купить, RVSteel"
         },
-        "rvp_1_poruchen_opornyy_dlya_vanny,_tualeta": {
+        "rvp_1_poruchen_opornyy_dlya_vanny_tualeta": {
             "title": "Опорный поручень для ванны, туалета | RVSteel",
             "description": "Купить Опорный поручень для ванны, туалета из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Опорный поручень для ванны, туалета, изделия из нержавейки, опорный поручень для ванны, туалета купить, RVSteel"
@@ -950,7 +950,7 @@ export const seoDict: SEOTranslations = {
             "description": "Купить Поручень для санитарно-гигиенических комнат из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для санитарно-гигиенических комнат, изделия из нержавейки, поручень для санитарно-гигиенических комнат купить, RVSteel"
         },
-        "rvp_24_poruchen_opornyy_dlya_rakoviny,_3_tochki_opory": {
+        "rvp_24_poruchen_opornyy_dlya_rakoviny_3_tochki_opory": {
             "title": "Опорный поручень для раковины (3 точки опоры) | RVSteel",
             "description": "Купить Опорный поручень для раковины (3 точки опоры) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Опорный поручень для раковины (3 точки опоры), изделия из нержавейки, опорный поручень для раковины (3 точки опоры) купить, RVSteel"
@@ -980,7 +980,7 @@ export const seoDict: SEOTranslations = {
             "description": "Купить rvp_29_opornoe_ustroystva_s_poddnrzhkoy_spiny_s_otkidnymi_poruchnyami из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "rvp_29_opornoe_ustroystva_s_poddnrzhkoy_spiny_s_otkidnymi_poruchnyami, изделия из нержавейки, rvp_29_opornoe_ustroystva_s_poddnrzhkoy_spiny_s_otkidnymi_poruchnyami купить, RVSteel"
         },
-        "rvp_2_poruchen_opornyy_dlya_vanny,_tualeta": {
+        "rvp_2_poruchen_opornyy_dlya_vanny_tualeta": {
             "title": "Опорный поручень для ванны, туалета | RVSteel",
             "description": "Купить Опорный поручень для ванны, туалета из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Опорный поручень для ванны, туалета, изделия из нержавейки, опорный поручень для ванны, туалета купить, RVSteel"
@@ -1000,22 +1000,22 @@ export const seoDict: SEOTranslations = {
             "description": "Купить rvp_32_informatsiya из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "rvp_32_informatsiya, изделия из нержавейки, rvp_32_informatsiya купить, RVSteel"
         },
-        "rvp_3_poruchen_dlya_vanny,_tualeta_uglovoy_g-obraznyy": {
+        "rvp_3_poruchen_dlya_vanny_tualeta_uglovoy_g-obraznyy": {
             "title": "Поручень для ванны, туалета (угловой Г-образный) | RVSteel",
             "description": "Купить Поручень для ванны, туалета (угловой Г-образный) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для ванны, туалета (угловой Г-образный), изделия из нержавейки, поручень для ванны, туалета (угловой г-образный) купить, RVSteel"
         },
-        "rvp_4_poruchen_dlya_vanny,_tualeta_uglovoy_g-obraznyy": {
+        "rvp_4_poruchen_dlya_vanny_tualeta_uglovoy_g-obraznyy": {
             "title": "Поручень для ванны, туалета (угловой Г-образный) | RVSteel",
             "description": "Купить Поручень для ванны, туалета (угловой Г-образный) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для ванны, туалета (угловой Г-образный), изделия из нержавейки, поручень для ванны, туалета (угловой г-образный) купить, RVSteel"
         },
-        "rvp_5_poruchen_dlya_vanny,_tualeta_vnutreniy_ugol": {
+        "rvp_5_poruchen_dlya_vanny_tualeta_vnutreniy_ugol": {
             "title": "Поручень для ванны, туалета (внутренний угол) | RVSteel",
             "description": "Купить Поручень для ванны, туалета (внутренний угол) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для ванны, туалета (внутренний угол), изделия из нержавейки, поручень для ванны, туалета (внутренний угол) купить, RVSteel"
         },
-        "rvp_6_poruchen_dlya_vanny,_tualeta_vneshniy_ugol": {
+        "rvp_6_poruchen_dlya_vanny_tualeta_vneshniy_ugol": {
             "title": "Поручень для ванны, туалета (внешний угол) | RVSteel",
             "description": "Купить Поручень для ванны, туалета (внешний угол) из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове. Гарантия качества RVSteel.",
             "keywords": "Поручень для ванны, туалета (внешний угол), изделия из нержавейки, поручень для ванны, туалета (внешний угол) купить, RVSteel"
@@ -2313,7 +2313,7 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără Cărucior 1 din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Cărucior 1, produse inox, cărucior 1 cumpără, RVSteel"
         },
-        "carucior_cuva,_aisi_304": {
+        "carucior_cuva_aisi_304": {
             "title": "Cărucior cuva, AISI 304 | RVSteel",
             "description": "Cumpără Cărucior cuva, AISI 304 din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Cărucior cuva, AISI 304, produse inox, cărucior cuva, aisi 304 cumpără, RVSteel"
@@ -2958,12 +2958,12 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără Masă de producție 9 din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Masă de producție 9, produse inox, masă de producție 9 cumpără, RVSteel"
         },
-        "rvp_10_poruchen_dlya_sanuzla_(_rakavina,_nitaz,_pisuar_)": {
+        "rvp_10_poruchen_dlya_sanuzla_(_rakavina_nitaz_pisuar_)": {
             "title": "Mână curentă pentru grup sanitar (chiuvetă, vas WC, pisoar) | RVSteel",
             "description": "Cumpără Mână curentă pentru grup sanitar (chiuvetă, vas WC, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Mână curentă pentru grup sanitar (chiuvetă, vas WC, pisoar), produse inox, mână curentă pentru grup sanitar (chiuvetă, vas wc, pisoar) cumpără, RVSteel"
         },
-        "rvp_10_poruchen_dlya_sanuzla_(rakavina,_nitaz,_pisuar)": {
+        "rvp_10_poruchen_dlya_sanuzla_(rakavina_nitaz_pisuar)": {
             "title": "R.V.P. 10 Mâner pentru grup sanitar (chiuvetă, closet, pisoar) | RVSteel",
             "description": "Cumpără R.V.P. 10 Mâner pentru grup sanitar (chiuvetă, closet, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 10 Mâner pentru grup sanitar (chiuvetă, closet, pisoar), produse inox, r.v.p. 10 mâner pentru grup sanitar (chiuvetă, closet, pisoar) cumpără, RVSteel"
@@ -2998,42 +2998,42 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără R.V.P. 13 Mâner de sprijin pe podea (rabatal cu fixare) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 13 Mâner de sprijin pe podea (rabatal cu fixare), produse inox, r.v.p. 13 mâner de sprijin pe podea (rabatal cu fixare) cumpără, RVSteel"
         },
-        "rvp_14_poruchen_dlya_sanuzla_(_vanna,_unitaz,_pisuar)": {
+        "rvp_14_poruchen_dlya_sanuzla_(_vanna_unitaz_pisuar)": {
             "title": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) | RVSteel",
             "description": "Cumpără Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar), produse inox, mână curentă pentru grup sanitar (cadă, vas wc, pisoar) cumpără, RVSteel"
         },
-        "rvp_14_poruchen_dlya_sanuzla_(vanna,_unitaz,_pisuar)": {
+        "rvp_14_poruchen_dlya_sanuzla_(vanna_unitaz_pisuar)": {
             "title": "R.V.P. 14 Mâner pentru grup sanitar (cadă, toaletă, pisoar) | RVSteel",
             "description": "Cumpără R.V.P. 14 Mâner pentru grup sanitar (cadă, toaletă, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 14 Mâner pentru grup sanitar (cadă, toaletă, pisoar), produse inox, r.v.p. 14 mâner pentru grup sanitar (cadă, toaletă, pisoar) cumpără, RVSteel"
         },
-        "rvp_15_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)": {
+        "rvp_15_poruchen_dlya_sanuzela_(_vanna_unitaz_pisuar)": {
             "title": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) | RVSteel",
             "description": "Cumpără Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar), produse inox, mână curentă pentru grup sanitar (cadă, vas wc, pisoar) cumpără, RVSteel"
         },
-        "rvp_15_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar)": {
+        "rvp_15_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar)": {
             "title": "R.V.P. 15 Mâner pentru grup sanitar (cadă, toaletă, pisoar) | RVSteel",
             "description": "Cumpără R.V.P. 15 Mâner pentru grup sanitar (cadă, toaletă, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 15 Mâner pentru grup sanitar (cadă, toaletă, pisoar), produse inox, r.v.p. 15 mâner pentru grup sanitar (cadă, toaletă, pisoar) cumpără, RVSteel"
         },
-        "rvp_16_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)": {
+        "rvp_16_poruchen_dlya_sanuzela_(_vanna_unitaz_pisuar)": {
             "title": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) | RVSteel",
             "description": "Cumpără Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar), produse inox, mână curentă pentru grup sanitar (cadă, vas wc, pisoar) cumpără, RVSteel"
         },
-        "rvp_16_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar)": {
+        "rvp_16_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar)": {
             "title": "R.V.P. 16 Mâner pentru grup sanitar (cadă, toaletă, pisoar) | RVSteel",
             "description": "Cumpără R.V.P. 16 Mâner pentru grup sanitar (cadă, toaletă, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 16 Mâner pentru grup sanitar (cadă, toaletă, pisoar), produse inox, r.v.p. 16 mâner pentru grup sanitar (cadă, toaletă, pisoar) cumpără, RVSteel"
         },
-        "rvp_17_poruchen_dlya_sanuzela_(_vanna,_unitaz,_pisuar)": {
+        "rvp_17_poruchen_dlya_sanuzela_(_vanna_unitaz_pisuar)": {
             "title": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) | RVSteel",
             "description": "Cumpără Mână curentă pentru grup sanitar (cadă, vas WC, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "Mână curentă pentru grup sanitar (cadă, vas WC, pisoar), produse inox, mână curentă pentru grup sanitar (cadă, vas wc, pisoar) cumpără, RVSteel"
         },
-        "rvp_17_poruchen_dlya_sanuzela_(vanna,_unitaz,_pisuar)": {
+        "rvp_17_poruchen_dlya_sanuzela_(vanna_unitaz_pisuar)": {
             "title": "R.V.P. 17 Mâner pentru grup sanitar (cadă, toaletă, pisoar) | RVSteel",
             "description": "Cumpără R.V.P. 17 Mâner pentru grup sanitar (cadă, toaletă, pisoar) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 17 Mâner pentru grup sanitar (cadă, toaletă, pisoar), produse inox, r.v.p. 17 mâner pentru grup sanitar (cadă, toaletă, pisoar) cumpără, RVSteel"
@@ -3048,7 +3048,7 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără R.V.P. 19 Mâner de perete și podea din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 19 Mâner de perete și podea, produse inox, r.v.p. 19 mâner de perete și podea cumpără, RVSteel"
         },
-        "rvp_1_poruchen_opornyy_dlya_vanny,_tualeta": {
+        "rvp_1_poruchen_opornyy_dlya_vanny_tualeta": {
             "title": "R.V.P. 1 Mâner de sprijin pentru cadă, toaletă | RVSteel",
             "description": "Cumpără R.V.P. 1 Mâner de sprijin pentru cadă, toaletă din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 1 Mâner de sprijin pentru cadă, toaletă, produse inox, r.v.p. 1 mâner de sprijin pentru cadă, toaletă cumpără, RVSteel"
@@ -3073,7 +3073,7 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără R.V.P. 23 Mâner pentru camere igienico-sanitare din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 23 Mâner pentru camere igienico-sanitare, produse inox, r.v.p. 23 mâner pentru camere igienico-sanitare cumpără, RVSteel"
         },
-        "rvp_24_poruchen_opornyy_dlya_rakoviny,_3_tochki_opory": {
+        "rvp_24_poruchen_opornyy_dlya_rakoviny_3_tochki_opory": {
             "title": "R.V.P. 24 Mâner de sprijin pentru chiuvetă, 3 puncte de sprijin | RVSteel",
             "description": "Cumpără R.V.P. 24 Mâner de sprijin pentru chiuvetă, 3 puncte de sprijin din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 24 Mâner de sprijin pentru chiuvetă, 3 puncte de sprijin, produse inox, r.v.p. 24 mâner de sprijin pentru chiuvetă, 3 puncte de sprijin cumpără, RVSteel"
@@ -3103,7 +3103,7 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără R.V.P. 29 Dispozitiv de sprijin cu suport pentru spate și mânere rabatabile din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 29 Dispozitiv de sprijin cu suport pentru spate și mânere rabatabile, produse inox, r.v.p. 29 dispozitiv de sprijin cu suport pentru spate și mânere rabatabile cumpără, RVSteel"
         },
-        "rvp_2_poruchen_opornyy_dlya_vanny,_tualeta": {
+        "rvp_2_poruchen_opornyy_dlya_vanny_tualeta": {
             "title": "R.V.P. 2 Mâner de sprijin pentru cadă, toaletă | RVSteel",
             "description": "Cumpără R.V.P. 2 Mâner de sprijin pentru cadă, toaletă din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 2 Mâner de sprijin pentru cadă, toaletă, produse inox, r.v.p. 2 mâner de sprijin pentru cadă, toaletă cumpără, RVSteel"
@@ -3123,22 +3123,22 @@ export const seoDict: SEOTranslations = {
             "description": "Cumpără R.V.P. 32 Informație din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 32 Informație, produse inox, r.v.p. 32 informație cumpără, RVSteel"
         },
-        "rvp_3_poruchen_dlya_vanny,_tualeta_uglovoy_g-obraznyy": {
+        "rvp_3_poruchen_dlya_vanny_tualeta_uglovoy_g-obraznyy": {
             "title": "R.V.P. 3 Mâner pentru cadă, toaletă (unghiular G-formă) | RVSteel",
             "description": "Cumpără R.V.P. 3 Mâner pentru cadă, toaletă (unghiular G-formă) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 3 Mâner pentru cadă, toaletă (unghiular G-formă), produse inox, r.v.p. 3 mâner pentru cadă, toaletă (unghiular g-formă) cumpără, RVSteel"
         },
-        "rvp_4_poruchen_dlya_vanny,_tualeta_uglovoy_g-obraznyy": {
+        "rvp_4_poruchen_dlya_vanny_tualeta_uglovoy_g-obraznyy": {
             "title": "R.V.P. 4 Mâner pentru cadă, toaletă (unghiular G-formă) | RVSteel",
             "description": "Cumpără R.V.P. 4 Mâner pentru cadă, toaletă (unghiular G-formă) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 4 Mâner pentru cadă, toaletă (unghiular G-formă), produse inox, r.v.p. 4 mâner pentru cadă, toaletă (unghiular g-formă) cumpără, RVSteel"
         },
-        "rvp_5_poruchen_dlya_vanny,_tualeta_vnutreniy_ugol": {
+        "rvp_5_poruchen_dlya_vanny_tualeta_vnutreniy_ugol": {
             "title": "R.V.P. 5 Mâner pentru cadă, toaletă (colț interior) | RVSteel",
             "description": "Cumpără R.V.P. 5 Mâner pentru cadă, toaletă (colț interior) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 5 Mâner pentru cadă, toaletă (colț interior), produse inox, r.v.p. 5 mâner pentru cadă, toaletă (colț interior) cumpără, RVSteel"
         },
-        "rvp_6_poruchen_dlya_vanny,_tualeta_vneshniy_ugol": {
+        "rvp_6_poruchen_dlya_vanny_tualeta_vneshniy_ugol": {
             "title": "R.V.P. 6 Mâner pentru cadă, toaletă (colț exterior) | RVSteel",
             "description": "Cumpără R.V.P. 6 Mâner pentru cadă, toaletă (colț exterior) din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova. Garanție de calitate RVSteel.",
             "keywords": "R.V.P. 6 Mâner pentru cadă, toaletă (colț exterior), produse inox, r.v.p. 6 mâner pentru cadă, toaletă (colț exterior) cumpără, RVSteel"
