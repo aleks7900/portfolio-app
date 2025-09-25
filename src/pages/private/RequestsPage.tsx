@@ -26,9 +26,6 @@ export default function RequestsPage() {
         setErr(null);
         try {
             const res = await listRequests({q, status, page, size});
-
-            console.log(res.content);
-
             setItems(res.content);
             setTotalPages(res.totalPages);
             setPage(res.number);

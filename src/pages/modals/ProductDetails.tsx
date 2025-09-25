@@ -80,11 +80,8 @@ export default function ProductDetails({
     // нормализация ключа для seoDict
     const normalizeKey = (s: string) => s.toLowerCase().trim().replace(/\s+/g, " ");
     const seoKeyBase = normalizeKey(product.title);
-    console.log(seoKeyBase);
-
     // доступ к словарю — ошибок нет
     const element = seoDict[lang]?.[seoKeyBase];
-    console.log(element);
     const seoEntry: SEOEntry | undefined =
         element ?? seoDict.ru?.[seoKeyBase];
 

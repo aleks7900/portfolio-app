@@ -6,6 +6,7 @@ import {listProducts, type ProductQuery} from "../../shared/api/repo.ts";
 import Container from "../../shared/Container.tsx";
 import {CatalogGrid} from "./Grid.tsx";
 import ProductDetails from "../modals/ProductDetails.tsx";
+import {track} from "../../lib/analytics.ts";
 
 // --- type guards ---
 type PageLike = { content: Product[]; totalPages?: number; number?: number; size?: number };
@@ -162,6 +163,9 @@ export default function CatalogPage() {
 
     const [selected, setSelected] = useState<Product | null>(null);
     const [detailsOpen, setDetailsOpen] = useState(false);
+
+    // + время открытия для подсчёта длительности
+    const [openedAt, setOpenedAt] = useState<number | null>(null);
 
     return (
         <section className="scroll-mt-24 py-16 sm:py-20">
@@ -634,6 +638,17 @@ export default function CatalogPage() {
                             onOpen={(p) => {
                                 setSelected(p);
                                 setDetailsOpen(true);
+                                setOpenedAt(Date.now());
+
+                                // 🔹 событие "открыли детали товара"
+                                track("product_details_open", {
+                                    productId: p.id,
+                                    title: p.title,
+                                    category: p.category,
+                                    subcategory: p.subcategory,
+                                    // можно добавить текущий список фильтров для контекста
+                                    filters,
+                                });
                             }}
                         />
 
@@ -689,7 +704,24 @@ export default function CatalogPage() {
             <ProductDetails
                 product={selected}
                 open={detailsOpen}
-                onClose={() => setDetailsOpen(false)}
+                onClose={
+                    () => {
+                        setDetailsOpen(false);
+
+                        // 🔹 событие "закрыли детали товара" + длительность
+                        if (selected) {
+                            const durationMs =
+                                openedAt != null ? Math.max(0, Date.now() - openedAt) : undefined;
+
+                            track("product_details_close", {
+                                productId: selected.id,
+                                title: selected.title,
+                                durationMs,
+                            });
+                        }
+                        setSelected(null);
+                        setOpenedAt(null);
+                    }}
             />
         </section>
     );

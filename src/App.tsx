@@ -16,12 +16,14 @@ import Footer from "./pages/components/Footer.tsx";
 import RequestsPage from "./pages/private/RequestsPage.tsx";
 import UsersPage from "./pages/private/UsersPage.tsx";
 import Navbar from "./shared/Navbar.tsx";
+import {usePageView} from "./hooks/usePageView.ts";
 
 function ScrollToTop() {
     return null;
 }
 
 export default function App() {
+    usePageView();
     return (
         <I18nProvider>
             <ThemeProvider>

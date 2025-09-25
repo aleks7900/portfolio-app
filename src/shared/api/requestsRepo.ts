@@ -62,8 +62,6 @@ export async function listRequests(params: {
 
     // 2) стандартная страница Spring Data { content, totalPages, number, size }
     if (isPageResponse<RequestItem>(data)) {
-
-        console.log(data.content);
         return {
             content: data.content,
             totalPages: typeof data.totalPages === "number" ? data.totalPages : null,
