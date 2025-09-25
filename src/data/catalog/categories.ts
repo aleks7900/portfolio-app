@@ -109,6 +109,80 @@ export const CATS: Cat[] = [
         labelKey:  "cat_custom_orders"
     },
     {
+        key:  "non-standard_products",
+        children:  [
+            {
+                key:  "street_mobil",
+                labelKey:  "sub_street_mobil"
+            },
+            {
+                key:  "signs",
+                labelKey:  "sub_signs"
+            },
+            {
+                key:  "tanks",
+                labelKey:  "sub_tanks"
+            },
+            {
+                key:  "air",
+                labelKey:  "sub_air"
+            },
+            {
+                key:  "water",
+                labelKey:  "sub_water"
+            },
+            {
+                key:  "cauldrons",
+                labelKey:  "sub_cauldrons"
+            },
+            {
+                key:  "decor",
+                labelKey:  "sub_decor"
+            },
+            {
+                key:  "stock",
+                labelKey:  "sub_stock"
+            },
+            {
+                key:  "containers",
+                labelKey:  "sub_containers"
+            },
+            {
+                key:  "pools",
+                labelKey:  "sub_pools"
+            },
+            {
+                key:  "fountains",
+                labelKey:  "sub_fountains"
+            },
+            {
+                key:  "food_industry",
+                labelKey:  "sub_food_industry"
+            },
+            {
+                key:  "pharmaceutical_industry",
+                labelKey:  "sub_pharmaceutical_industry"
+            },
+            {
+                key:  "medical_industry",
+                labelKey:  "sub_medical_industry"
+            },
+            {
+                key:  "store",
+                labelKey:  "sub_store"
+            },
+            {
+                key:  "wine",
+                labelKey:  "sub_wine"
+            },
+            {
+                key:  "sport",
+                labelKey:  "sub_sport"
+            },
+        ],
+        labelKey:  "cat_non_standard_products"
+    },
+    {
         key:  "standard_products",
         children:  [
             {
@@ -150,10 +224,10 @@ export const CATS: Cat[] = [
         ],
         labelKey:  "cat_standard_products"
     },
-    {
-        key: "accessories", labelKey: "cat_accessories", children: [
-            {key: "headphones", labelKey: "sub_headphones"},
-            {key: "chargers", labelKey: "sub_chargers"},
-        ]
-    },
+    // {
+    //     key: "accessories", labelKey: "cat_accessories", children: [
+    //         {key: "headphones", labelKey: "sub_headphones"},
+    //         {key: "chargers", labelKey: "sub_chargers"},
+    //     ]
+    // },
 ];
