@@ -16,14 +16,13 @@ import Footer from "./pages/components/Footer.tsx";
 import RequestsPage from "./pages/private/RequestsPage.tsx";
 import UsersPage from "./pages/private/UsersPage.tsx";
 import Navbar from "./shared/Navbar.tsx";
-import {usePageView} from "./hooks/usePageView.ts";
+import PageEvents from "./hooks/pageEvents.ts";
 
 function ScrollToTop() {
     return null;
 }
 
 export default function App() {
-    usePageView();
     return (
         <I18nProvider>
             <ThemeProvider>
@@ -33,6 +32,7 @@ export default function App() {
                         // style={{ backgroundImage: "url('/src/assets/img/bg/bg_dark.png')" }}
                     >
                         <BrowserRouter>
+                            <PageEvents />
                             {/* Глобальный слушатель изменения маршрута */}
                             <ScrollToTop />
                             <Navbar/>
