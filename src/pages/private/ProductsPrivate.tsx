@@ -12,7 +12,7 @@ import {
 import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 import {AnimatePresence, motion} from "framer-motion";
-import {useTranslation} from "react-i18next";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 type EditState =
     | { mode: "none" }
@@ -33,6 +33,13 @@ const emptyProduct = (): Product => ({
     inStock: true,
     category: "",
     subcategory: "",
+    description: "",   // <-- обязательное поле
+    availability: "",  // <-- обязательное поле
+    // опциональные можно не трогать:
+    // imgLinks: [],
+    // specs: {},
+    // rating: 0,
+    // reviews: [],
 });
 
 function toNum(v: unknown, def = 0) {
@@ -42,7 +49,7 @@ function toNum(v: unknown, def = 0) {
 export default function ProductsPrivate() {
     const {user} = useAuth();
     const isAdmin = !!user?.isAdmin;
-    const {t} = useTranslation();
+    const {t} = useI18n();
 
     const [items, setItems] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -668,7 +675,7 @@ function PaginationControls({
     const hasPrev = page > 0;
     const hasNext = totalPages != null ? page < totalPages - 1 : false;
 
-    const {t} = useTranslation();
+    const {t} = useI18n();
 
     return (
         <div className={`mt-5 flex flex-wrap items-center justify-end gap-3 ${className}`}>
