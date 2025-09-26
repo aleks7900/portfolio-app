@@ -286,20 +286,20 @@ export default function Navbar() {
                             <button onClick={() => setShowLogin(true)}
                                     className="rounded-xl p-2 hover:bg-black/5 dark:hover:bg-white/10"
                                     aria-label="Login">
-                                <LogIn className="h-5 w-5"/>
+                                <LogIn className="h-5 w-5 !text-black hover:text-black"/>
                             </button>
                         )}
                         <LangToggle/>
                         <ThemeToggleBtn/>
                         <button className={BTN}
-                                onClick={() => setOpen(v => !v)} aria-label="Menu">{open ? <X className="h-5 w-5"/> :
-                            <Menu className="h-5 w-5"/>}</button>
+                                onClick={() => setOpen(v => !v)} aria-label="Menu">{open ? <X className="h-5 w-5 !text-black hover:text-black"/> :
+                            <Menu className="h-5 w-5 !text-black hover:text-black"/>}</button>
                     </div>
                 </div>
                 {open && (
                     <div
                         className="md:hidden pb-4 relative z-20
-                                   !bg-white/90 dark:!bg-black/90
+                                   !bg-white/90 dark:!bg-zinc-700
                                    !shadow-xl !rounded-b-2xl
                                    supports-[backdrop-filter]:backdrop-blur-md">
                         <div className="grid gap-2">

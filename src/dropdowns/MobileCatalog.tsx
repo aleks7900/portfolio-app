@@ -37,11 +37,11 @@ export default function MobileCatalog() {
                 {CATS.map((cat) => {
                     const isOpen = !!open[cat.key];
                     return (
-                        <li key={cat.key} className="rounded-2xl bg-white dark:bg-gray-800">
+                        <li key={cat.key} className="rounded-2xl bg-white dark:bg-gray-500">
                             {/* Кнопка секции (категория) */}
                             <button
                                 className="w-full flex items-center justify-between rounded-2xl px-4 py-3 text-base font-medium
-                           bg-white text-black dark:bg-gray-800 dark:text-white
+                           bg-white !text-black dark:text-white
                            border border-black/10 dark:border-white/15 shadow-sm
                            focus:outline-none focus-visible:ring-0 outline-none
                            active:scale-[0.99]"
