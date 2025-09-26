@@ -13,13 +13,17 @@ const SUB_BTN = [
     "bg-white text-black no-underline shadow-lg transition",
     "hover:!bg-black hover:!text-white hover:!shadow-2xl hover:!shadow-black/40",
     "focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]",
-    "w-full", // важно: не растягиваем на всю ширину
+    "w-full",
     "text-left whitespace-normal break-words leading-snug overflow-visible",
 ].join(" ");
 
 type OpenMap = Record<string, boolean>;
 
-export default function MobileCatalog() {
+interface MobileCatalogProps {
+    onDone?: () => void; // колбэк для закрытия меню
+}
+
+export default function MobileCatalog({onDone}: MobileCatalogProps) {
     const {t} = useI18n();
     const navigate = useNavigate();
     const [open, setOpen] = React.useState<OpenMap>({});
@@ -83,12 +87,14 @@ export default function MobileCatalog() {
                                                             className={SUB_BTN}
                                                             onClick={() => {
                                                                 navigate(`/catalog/${cat.key}/${sub.key}`);
+                                                                if (onDone) onDone(); // закрыть меню
                                                             }}
                                                             title={t(sub.labelKey)}
                                                         >
-                              <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
-                                {t(sub.labelKey)}
-                              </span>
+                                                            <span
+                                                                className="block max-w-full whitespace-normal break-words leading-snug pr-2">
+                                                                {t(sub.labelKey)}
+                                                            </span>
                                                             <ChevronRight className="h-4 w-4 shrink-0"/>
                                                         </button>
                                                     </motion.li>
