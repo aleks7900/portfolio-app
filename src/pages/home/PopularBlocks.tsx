@@ -7,6 +7,7 @@ import type {Product} from "../../data/types.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {ChevronLeft, ChevronRight} from "lucide-react";
 import ImageWithFallback from "../../data/ImageWithFallback.tsx";
+import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 
 /* ---------- helpers ---------- */
 // ---------- types & guards ----------
@@ -237,7 +238,7 @@ function ImageCarousel({
                     loading="lazy"
                     decoding="async"
                     draggable={false}
-                    fallback="/src/assets/img/elementor-placeholder-image.png"
+                    fallback={placeholderImg}
                 />
             </div>
         );
@@ -268,7 +269,7 @@ function ImageCarousel({
                             loading="lazy"
                             decoding="async"
                             draggable={false}
-                            fallback="/src/assets/img/elementor-placeholder-image.png"
+                            fallback={placeholderImg}
                         />
                     </div>
                 ))}

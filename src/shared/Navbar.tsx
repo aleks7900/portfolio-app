@@ -25,6 +25,8 @@ import LoginDialog from "../pages/modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
 import {useTranslation} from "react-i18next";
+import logoImg from '@/assets/logo.png';
+import logoDImg from '@/assets/logo_dark.png';
 
 
 function LangToggle() {
@@ -208,12 +210,12 @@ export default function Navbar() {
                         }}
                     >
                         <img
-                            src="/src/assets/logo.png"     // путь к твоей картинке
+                            src={logoImg}    // путь к твоей картинке
                             alt="Logo"
                             className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo block dark:!hidden"
                         />
                         <img
-                            src="/src/assets/logo_dark.png"     // путь к твоей картинке
+                            src={logoDImg}     // путь к твоей картинке
                             alt="Logo"
                             className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo hidden dark:!block"
                         />

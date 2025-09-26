@@ -11,6 +11,7 @@ import ImageWithFallback from "../../data/ImageWithFallback.tsx";
 import SEO from "../../shared/SEO.tsx";
 import i18n from "i18next";
 import {seoDict, type SEOEntry} from "../../shared/i18n/seo.tsx";
+import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 
 export default function ProductDetails({
                                            product,
@@ -234,7 +235,7 @@ export default function ProductDetails({
                                                     referrerPolicy="no-referrer"
                                                     draggable={false}
                                                     onClick={() => setLightbox({open: true, index: i})}
-                                                    fallback="/src/assets/img/elementor-placeholder-image.png"
+                                                    fallback={placeholderImg}
                                                 />
                                             </div>
                                         ))}
@@ -275,7 +276,7 @@ export default function ProductDetails({
                                                 alt={`thumb ${i + 1}`}
                                                 className="h-20 w-full object-cover"
                                                 draggable={false}
-                                                fallback="/src/assets/img/elementor-placeholder-image.png"
+                                                fallback={placeholderImg}
                                             />
                                         </div>
                                     ))}
@@ -455,7 +456,7 @@ export default function ProductDetails({
                                             draggable={false}
                                             loading="lazy"
                                             decoding="async"
-                                            fallback="/src/assets/img/elementor-placeholder-image.png"
+                                            fallback={placeholderImg}
                                         />
                                     </motion.div>
                                 </motion.div>

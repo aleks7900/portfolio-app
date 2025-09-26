@@ -6,6 +6,7 @@ import {SUBCAT_IMAGES} from "../../data/catalog/catImages.ts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {CATS} from "../../data/catalog/categories.ts";
 import ImageWithFallback from "../../data/ImageWithFallback.tsx";
+import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 
 function RowScroller({
                          children,
@@ -60,7 +61,7 @@ function SubcatCard({
 }) {
 
     const subCatImage = SUBCAT_IMAGES[`${category}/${subKey}`];
-    const img = subCatImage ?? "/src/assets/img/elementor-placeholder-image.png";
+    const img = subCatImage ?? placeholderImg;
     return (
         <button
             onClick={onClick}
@@ -68,7 +69,7 @@ function SubcatCard({
                  hover:shadow-md dark:border-white/10 dark:!bg-gray-500"
         >
             <div className="h-48 overflow-hidden rounded-lg bg-gray-50 dark:bg-white/10">
-                <ImageWithFallback src={img} alt="" className="h-full w-full object-contain" fallback="/src/assets/img/elementor-placeholder-image.png"/>
+                <ImageWithFallback src={img} alt="" className="h-full w-full object-contain" fallback={placeholderImg}/>
             </div>
             <div className="mt-3 text-lg font-semibold tracking-tight">
                 {label}
