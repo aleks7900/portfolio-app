@@ -48,10 +48,12 @@ export default function RequestsPage() {
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
             <Container>
+                {/* Top bar */}
                 <div className="mb-4 flex flex-wrap items-center gap-2">
                     <h2 className="text-2xl font-semibold tracking-tight">
                         {t("requests_title")}
                     </h2>
+
                     <div className="ml-auto flex gap-2">
                         <input
                             value={q}
@@ -60,15 +62,16 @@ export default function RequestsPage() {
                                 setQ(e.currentTarget.value);
                             }}
                             placeholder={t("requests_searchPlaceholder")}
-                            className="w-64 rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                            className="w-72 rounded-2xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
                         />
+
                         <select
                             value={status}
                             onChange={(e) => {
                                 setPage(0);
                                 setStatus(e.currentTarget.value as RequestStatus);
                             }}
-                            className="rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                            className="rounded-2xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
                         >
                             <option value="">{t("requests_statusAll")}</option>
                             <option value="NEW">{t("requests_statusNew")}</option>
@@ -78,6 +81,7 @@ export default function RequestsPage() {
                     </div>
                 </div>
 
+                {/* Error */}
                 {err && (
                     <div
                         className="mb-4 rounded-xl bg-rose-50 p-3 text-rose-700 dark:bg-rose-500/10 dark:text-rose-200">
@@ -85,9 +89,9 @@ export default function RequestsPage() {
                     </div>
                 )}
 
+                {/* Table */}
                 {!isMobile ? (
                     <Container>
-                        {/* ——— Desktop (таблица) ——— */}
                         <div className="overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
                             <table className="min-w-full text-sm">
                                 <thead className="bg-gray-50 dark:bg-white/5">
@@ -98,7 +102,7 @@ export default function RequestsPage() {
                                     <Th>{t("requests_contacts")}</Th>
                                     <Th>{t("requests_subject")}</Th>
                                     <Th>{t("requests_message")}</Th>
-                                    <Th>{t("requests_statusAll").split(" ")[0]}</Th>
+                                    <Th>{t("requests_status")}</Th>
                                     <Th className="text-right">{t("requests_actions")}</Th>
                                 </tr>
                                 </thead>
@@ -117,7 +121,7 @@ export default function RequestsPage() {
                                     </tr>
                                 ) : (
                                     items.map((r) => (
-                                        <tr key={r.id} className="align-top">
+                                        <tr key={r.id} className="align-top hover:bg-gray-50 dark:hover:bg-white/5">
                                             <Td className="whitespace-nowrap">#{r.id}</Td>
                                             <Td className="whitespace-nowrap">
                                                 {new Date(r.createdAt).toLocaleString()}
@@ -144,9 +148,8 @@ export default function RequestsPage() {
                                                     className="rounded-lg border px-2 py-1 text-xs dark:border-white/20 dark:bg-black"
                                                 >
                                                     <option value="NEW">{t("requests_statusNew")}</option>
-                                                    <option value="IN_PROGRESS">
-                                                        {t("requests_statusInProgress")}
-                                                    </option>
+                                                    <option
+                                                        value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
                                                     <option value="DONE">{t("requests_statusDone")}</option>
                                                 </select>
                                             </Td>
@@ -170,7 +173,7 @@ export default function RequestsPage() {
                     </Container>
                 ) : (
                     <Container>
-                        {/* ——— Mobile (карточки) ——— */}
+                        {/* Mobile cards */}
                         <div className="grid gap-4 sm:hidden">
                             {loading ? (
                                 <div className="py-10 text-center">{t("requests_loading")}</div>
@@ -207,9 +210,7 @@ export default function RequestsPage() {
                                                 className="rounded-lg border px-2 py-1 text-xs dark:border-white/20 dark:bg-black"
                                             >
                                                 <option value="NEW">{t("requests_statusNew")}</option>
-                                                <option value="IN_PROGRESS">
-                                                    {t("requests_statusInProgress")}
-                                                </option>
+                                                <option value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
                                                 <option value="DONE">{t("requests_statusDone")}</option>
                                             </select>
                                             <button
@@ -229,6 +230,7 @@ export default function RequestsPage() {
                     </Container>
                 )}
 
+                {/* Pagination */}
                 <div className="mt-4 flex items-center justify-end gap-3">
                     <label className="flex items-center gap-2 text-sm">
                         {t("requests_perPage")}
@@ -247,7 +249,6 @@ export default function RequestsPage() {
                             ))}
                         </select>
                     </label>
-
                     {totalPages != null && totalPages > 1 && (
                         <>
                             <button
@@ -279,13 +280,7 @@ export default function RequestsPage() {
     );
 }
 
-function Th({
-                children,
-                className = "",
-            }: {
-    children: React.ReactNode;
-    className?: string;
-}) {
+function Th({children, className = ""}: { children: React.ReactNode; className?: string }) {
     return (
         <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>
             {children}
