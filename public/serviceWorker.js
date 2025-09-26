@@ -30,14 +30,34 @@ self.addEventListener('fetch', (event) => {
     }
 });
 
+function isHttpLike(requestOrUrl) {
+    const url = typeof requestOrUrl === 'string' ? requestOrUrl : requestOrUrl.url;
+    const protocol = new URL(url, self.location.origin).protocol;
+    return protocol === 'http:' || protocol === 'https:';
+}
+
 // Установка: прогреваем статический кеш
-self.addEventListener("install", (event) => {
-    event.waitUntil(
-        caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS))
-    );
-    // сразу активируем новый SW
-    // @ts-ignore
-    self.skipWaiting?.();
+self.addEventListener('install', (event) => {
+    event.waitUntil((async () => {
+        const cache = await caches.open(STATIC_CACHE);
+        const assets = [
+            '/index.html',
+            '/favicon.ico',
+            '/manifest.json',
+            '/icons/icon-192.png',
+            '/icons/icon-512.png',
+            // ...
+        ];
+        for (const url of assets) {
+            if (!isHttpLike(url)) continue;        // <-- защита
+            try {
+                await cache.add(new Request(url, { cache: 'reload' }));
+            } catch (e) {
+                console.warn('[SW] skip caching', url, e);
+            }
+        }
+    })());
+    self.skipWaiting && self.skipWaiting();
 });
 
 // Активация: чистим старые кеши
@@ -98,6 +118,10 @@ async function networkFirstHTML(req) {
 
 self.addEventListener("fetch", (event) => {
     const req = event.request;
+
+    // Пропускаем все нестандартные схемы: chrome-extension://, moz-extension://, chrome:// и т.п.
+    if (!isHttpLike(req)) return;  // просто не перехватываем такие запросы
+
     const url = new URL(req.url);
 
     // Не кешируем POST/PUT/DELETE и запросы к API (настрой по желанию)
