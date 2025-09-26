@@ -1,4 +1,4 @@
-import {apiFetch} from "./api.ts";
+import {API_BASE, apiFetch} from "./api.ts";
 
 export type RequestStatus = "NEW" | "IN_PROGRESS" | "DONE";
 
@@ -52,7 +52,7 @@ export async function listRequests(params: {
     if (params.q) usp.set("q", params.q);
     if (params.status) usp.set("status", params.status);
 
-    const data = await apiFetch<unknown>(`/requests?${usp.toString()}`);
+    const data = await apiFetch<unknown>(API_BASE + `/requests?${usp.toString()}`);
 
     // 1) массив элементов
     if (Array.isArray(data)) {
@@ -98,13 +98,13 @@ export async function createRequest(body: {
     subject?: string;
     message: string;
 }): Promise<RequestItem> {
-    return apiFetch<RequestItem>("/requests", {method: "POST", body, auth: false});
+    return apiFetch<RequestItem>(API_BASE + "/requests", {method: "POST", body, auth: false});
 }
 
 export async function updateRequestStatus(id: number, status: RequestStatus): Promise<RequestItem> {
-    return apiFetch<RequestItem>(`/requests/${id}/status`, {method: "PATCH", body: {status}});
+    return apiFetch<RequestItem>(API_BASE + `/requests/${id}/status`, {method: "PATCH", body: {status}});
 }
 
 export async function deleteRequest(id: number): Promise<void> {
-    await apiFetch<void>(`/requests/${id}`, {method: "DELETE"});
+    await apiFetch<void>(API_BASE + `/requests/${id}`, {method: "DELETE"});
 }

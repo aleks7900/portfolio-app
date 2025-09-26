@@ -3,6 +3,7 @@ import Container from "../shared/Container";
 import {createRequest} from "../shared/api/requestsRepo.ts";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 import MapEmbed from "../shared/widgets/MapEmbed.tsx";
+import {API_BASE} from "../shared/api/api.ts";
 
 // Простейшие SVG-иконки (без внешних зависимостей)
 const Icon = {
@@ -101,7 +102,7 @@ export default function ContactsPage() {
         fd.set("message", payload.message);
         photos.forEach(f => fd.append("photos", f));
 
-        const res = await fetch("/requests", {method: "POST", body: fd});
+        const res = await fetch(API_BASE+"/requests", {method: "POST", body: fd});
         if (!res.ok) {
             const txt = await res.text().catch(() => "");
             throw new Error(`Request failed: ${res.status} ${txt}`);
