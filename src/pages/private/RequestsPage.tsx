@@ -23,6 +23,8 @@ export default function RequestsPage() {
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState<string | null>(null);
 
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [pendingDelete, setPendingDelete] = useState<{ id: number; label?: string } | null>(null);
     const isMobile = useMediaQuery("(max-width: 1024px)");
 
     async function load() {
@@ -44,6 +46,19 @@ export default function RequestsPage() {
     useEffect(() => {
         load();
     }, [q, status, page, size]);
+
+    function askDelete(r: RequestItem) {
+        setPendingDelete({id: r.id!, label: r.name || r.email || r.phone || `#${r.id}`});
+        setConfirmOpen(true);
+    }
+
+    async function confirmDelete() {
+        if (!pendingDelete) return;
+        await deleteRequest(pendingDelete.id);
+        setConfirmOpen(false);
+        setPendingDelete(null);
+        load();
+    }
 
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
@@ -195,11 +210,8 @@ export default function RequestsPage() {
 
                                             <Td className="text-right">
                                                 <button
-                                                    onClick={async () => {
-                                                        await deleteRequest(r.id);
-                                                        load();
-                                                    }}
-                                                    className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
+                                                    onClick={() => askDelete(r)}
+                                                    className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:!bg-red-500 hover:!text-white dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
                                                 >
                                                     {t("requests_delete")}
                                                 </button>
@@ -290,10 +302,7 @@ export default function RequestsPage() {
                                             </select>
 
                                             <button
-                                                onClick={async () => {
-                                                    await deleteRequest(r.id);
-                                                    load();
-                                                }}
+                                                onClick={() => askDelete(r)}
                                                 className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
                                             >
                                                 {t("requests_delete")}
@@ -351,6 +360,57 @@ export default function RequestsPage() {
                     )}
                 </div>
             </Container>
+
+            {/* Confirmation Dialog */}
+            {confirmOpen && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="confirm-title"
+                >
+                    <div
+                        className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 shadow-xl dark:border-white/10 dark:bg-zinc-900">
+                        <div className="mb-3 flex items-start gap-3">
+                            <div
+                                className="mt-0.5 h-6 w-6 shrink-0 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300 grid place-items-center">
+                                !
+                            </div>
+                            <div>
+                                <h3 id="confirm-title" className="text-base font-semibold">
+                                    {t("requests_confirmDelete_title")}
+                                </h3>
+                                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                                    {t("requests_confirmDelete_desc")}
+                                    {` `}
+                                    <span className="font-medium text-gray-900 dark:text-gray-100">
+                    {pendingDelete?.label ? `(${pendingDelete.label})` : ""}
+                  </span>
+                                    ?
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-5 flex justify-end gap-2">
+                            <button
+                                onClick={() => {
+                                    setConfirmOpen(false);
+                                    setPendingDelete(null);
+                                }}
+                                className="rounded-xl border border-gray-300 bg-white text-black px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:border-white/15 dark:bg-transparent dark:hover:bg-white/10"
+                            >
+                                {t("requests_confirmDelete_secondary")}
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="rounded-xl border border-rose-300 !bg-rose-600 px-4 py-2 text-sm font-semibold !text-white shadow-sm hover:bg-rose-700 dark:border-rose-500/30"
+                            >
+                                {t("requests_confirmDelete_primary")}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

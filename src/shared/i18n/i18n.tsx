@@ -585,6 +585,72 @@ export const dict: Dictionary = {
         requests_message: "Сообщение",
         requests_perPage: "по:",
 
+        requests_confirmDelete_title: "Удалить заявку?",
+        requests_confirmDelete_desc: "Вы уверены, что хотите удалить эту заявку",
+        requests_confirmDelete_primary: "Удалить",
+        requests_confirmDelete_secondary: "Отмена",
+
+        pp_title_admin: "Мои продукты (админ)",
+        pp_title_user: "Мои продукты",
+        pp_search_placeholder: "Поиск (id, название, бренд, категория)",
+        pp_newProduct_btn: "Новый продукт",
+
+        pp_th_id: "ID",
+        pp_th_title: "Название",
+        pp_th_brand: "Бренд",
+        pp_th_price: "Цена",
+        pp_th_inStock: "Наличие",
+        pp_th_category: "Категория",
+        pp_th_subcategory: "Подкатегория",
+        pp_th_actions: "Действия",
+
+        pp_loading: "Загрузка…",
+        pp_nothing: "Ничего не найдено",
+
+        pp_action_edit: "Редактировать",
+        pp_action_delete: "Удалить",
+        pp_view_only: "Только просмотр",
+
+        pp_inStock_yes: "в наличии",
+        pp_inStock_no: "нет",
+
+        pp_lbl_brand: "Бренд",
+        pp_lbl_price: "Цена",
+        pp_lbl_category: "Категория",
+        pp_lbl_subcategory: "Подкатегория",
+
+        pp_modal_edit_title: "Редактировать товар",
+        pp_modal_create_title: "Новый товар",
+
+        pp_field_id: "ID",
+        pp_field_title: "Название",
+        pp_field_brand: "Бренд",
+        pp_field_price: "Цена",
+        pp_field_inStock: "Наличие",
+        pp_field_inStock_checkbox: "есть на складе",
+        pp_field_category: "Категория",
+        pp_field_subcategory: "Подкатегория",
+
+        pp_btn_save: "Сохранить",
+        pp_btn_cancel: "Отмена",
+
+        pp_confirm_delete_title: "Удалить продукт?",
+        pp_confirm_delete_desc: "Вы действительно хотите удалить «{{title}}»?",
+        pp_confirm_saveEdit_title: "Сохранить изменения?",
+        pp_confirm_saveEdit_desc: "Сохранить изменения для «{{title}}»?",
+        pp_confirm_saveCreate_title: "Добавить продукт?",
+        pp_confirm_saveCreate_desc: "Добавить новый продукт «{{title}}»?",
+        pp_confirm_btn_cancel: "Отмена",
+        pp_confirm_btn_delete: "Удалить",
+        pp_confirm_btn_save: "Сохранить",
+
+        pp_pager_perPageLabel: "Показывать по:",
+        pp_pager_prev: "◀ Пред",
+        pp_pager_next: "След ▶",
+
+        pp_error_loading: "Ошибка загрузки",
+        pp_error_saving: "Ошибка сохранения",
+
         about_intro1: "Мы — команда специалистов по обработке металла, которая превращает ваши идеи в готовые изделия. Наш опыт и <b>современное оборудование</b> позволяют выполнять широкий спектр работ — от простой резки до сложных сварных конструкций.",
         about_intro2: "Наша компания специализируется на профессиональной обработке нержавеющей стали и металлоконструкций, предлагая полный цикл услуг — от раскроя листового металла до сборки готовых изделий. Мы помогаем клиентам реализовать как простые проекты, так и сложные конструкции, требующие высокой точности и надежности.",
 
@@ -1305,6 +1371,72 @@ export const dict: Dictionary = {
         requests_message: "Mesaj",
         requests_perPage: "pe:",
 
+        requests_confirmDelete_title: "Șterge cererea?",
+        requests_confirmDelete_desc: "Sigur vrei să ștergi această cerere",
+        requests_confirmDelete_primary: "Șterge",
+        requests_confirmDelete_secondary: "Anulează",
+
+        pp_title_admin: "Produsele mele (admin)",
+        pp_title_user: "Produsele mele",
+        pp_search_placeholder: "Căutare (id, denumire, brand, categorie)",
+        pp_newProduct_btn: "Produs nou",
+
+        pp_th_id: "ID",
+        pp_th_title: "Denumire",
+        pp_th_brand: "Brand",
+        pp_th_price: "Preț",
+        pp_th_inStock: "Stoc",
+        pp_th_category: "Categorie",
+        pp_th_subcategory: "Subcategorie",
+        pp_th_actions: "Acțiuni",
+
+        pp_loading: "Se încarcă…",
+        pp_nothing: "Nimic găsit",
+
+        pp_action_edit: "Editează",
+        pp_action_delete: "Șterge",
+        pp_view_only: "Doar vizualizare",
+
+        pp_inStock_yes: "în stoc",
+        pp_inStock_no: "nu este",
+
+        pp_lbl_brand: "Brand",
+        pp_lbl_price: "Preț",
+        pp_lbl_category: "Categorie",
+        pp_lbl_subcategory: "Subcategorie",
+
+        pp_modal_edit_title: "Editează produsul",
+        pp_modal_create_title: "Produs nou",
+
+        pp_field_id: "ID",
+        pp_field_title: "Denumire",
+        pp_field_brand: "Brand",
+        pp_field_price: "Preț",
+        pp_field_inStock: "Stoc",
+        pp_field_inStock_checkbox: "este pe stoc",
+        pp_field_category: "Categorie",
+        pp_field_subcategory: "Subcategorie",
+
+        pp_btn_save: "Salvează",
+        pp_btn_cancel: "Anulează",
+
+        pp_confirm_delete_title: "Ștergi produsul?",
+        pp_confirm_delete_desc: "Sigur vrei să ștergi „{{title}}”?",
+        pp_confirm_saveEdit_title: "Salvezi modificările?",
+        pp_confirm_saveEdit_desc: "Salvezi modificările pentru „{{title}}”?",
+        pp_confirm_saveCreate_title: "Adaugi produsul?",
+        pp_confirm_saveCreate_desc: "Adaugi produsul „{{title}}”?",
+        pp_confirm_btn_cancel: "Anulează",
+        pp_confirm_btn_delete: "Șterge",
+        pp_confirm_btn_save: "Salvează",
+
+        pp_pager_perPageLabel: "Afișează câte:",
+        pp_pager_prev: "◀ Înapoi",
+        pp_pager_next: "Înainte ▶",
+
+        pp_error_loading: "Eroare la încărcare",
+        pp_error_saving: "Eroare la salvare",
+        
         // Despre noi (detaliat)
         about_intro1: "Suntem o echipă de specialiști în prelucrarea metalului, care transformă ideile dvs. în produse finite. Experiența și <b>echipamentele moderne</b> ne permit să executăm o gamă largă de lucrări — de la tăiere simplă până la construcții sudate complexe.",
         about_intro2: "Compania noastră este specializată în prelucrarea profesională a oțelului inoxidabil și a construcțiilor metalice, oferind un ciclu complet de servicii — de la debitare până la asamblare.",
