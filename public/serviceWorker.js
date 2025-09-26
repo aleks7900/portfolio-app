@@ -14,6 +14,22 @@ const STATIC_ASSETS = [
     "/icons/maskable-512.png"
 ];
 
+// navigation fallback — только Network First:
+self.addEventListener('fetch', (event) => {
+    if (event.request.mode === 'navigate') {
+        event.respondWith((async () => {
+            try {
+                const fresh = await fetch(event.request);
+                // можно фоном обновить кеш, но главное — вернуть сеть
+                return fresh;
+            } catch {
+                const cache = await caches.open('app-shell');
+                return cache.match('/index.html'); // оффлайн-фолбэк
+            }
+        })());
+    }
+});
+
 // Установка: прогреваем статический кеш
 self.addEventListener("install", (event) => {
     event.waitUntil(

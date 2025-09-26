@@ -19,10 +19,8 @@ import Navbar from "./shared/Navbar.tsx";
 import PageEvents from "./hooks/pageEvents.ts";
 import AttendancePage from "./pages/private/AttendancePage.tsx";
 import VisitsPage from "./pages/private/VisitsPage.tsx";
+import ScrollToTop from "./ScrollToTop.tsx";
 
-function ScrollToTop() {
-    return null;
-}
 
 export default function App() {
     return (
