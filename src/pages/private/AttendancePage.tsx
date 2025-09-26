@@ -2,7 +2,7 @@ import {useEffect, useMemo, useState} from "react";
 import {useSearchParams} from "react-router-dom";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {format} from "date-fns";
-import {apiFetch, BASE_URL} from "../../shared/api/api.ts"; // если используете RRv6
+import {apiFetch, API_BASE} from "../../shared/api/api.ts"; // если используете RRv6
 
 
 type MetaJson = {
@@ -79,7 +79,7 @@ export default function AttendancePage() {
 
     useEffect(() => {
         const controller = new AbortController();
-        const url = new URL(BASE_URL + "/api/analytics/events", window.location.origin);
+        const url = new URL(API_BASE + "/api/analytics/events", window.location.origin);
         url.searchParams.set("page", String(page));
         url.searchParams.set("size", String(size));
         url.searchParams.set("sort", sortParam);

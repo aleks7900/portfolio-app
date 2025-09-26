@@ -2,7 +2,7 @@
 
 // 1) Описываем конкретные payload’ы для частых событий.
 // Можешь расширять EventMap своими типами.
-import {BASE_URL} from "../shared/api/api.ts";
+import {API_BASE} from "../shared/api/api.ts";
 
 type PageViewMeta = {
     path: string;
@@ -38,7 +38,7 @@ type AnalyticsPayload<K extends keyof EventMap = keyof EventMap> = {
     meta?: EventMap[K];
 };
 
-const API = BASE_URL + "/api/analytics/events";
+const API = API_BASE + "/api/analytics/events";
 
 // 2) Безопасное получение sessionId (SSR-safe)
 function getSessionId(): string | undefined {

@@ -8,7 +8,7 @@ import {Download, RefreshCw} from "lucide-react";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {Skeleton} from "../../components/ui/skeleton.tsx";
-import {apiFetch, BASE_URL} from "../../shared/api/api.ts";
+import {apiFetch, API_BASE} from "../../shared/api/api.ts";
 
 type Period = "day" | "month" | "year";
 
@@ -79,7 +79,7 @@ export default function VisitsPage() {
         if (from.trim()) params.set("from", from.trim());
         if (to.trim()) params.set("to", to.trim());
         params.set("tz", tz);
-        return `${BASE_URL}/api/analytics/visits?${params.toString()}`;
+        return `${API_BASE}/api/analytics/visits?${params.toString()}`;
     }
 
     function buildTopUrl(): string {
@@ -89,7 +89,7 @@ export default function VisitsPage() {
         if (to.trim()) params.set("to", to.trim());
         params.set("tz", tz);
         params.set("limit", "20");
-        return `${BASE_URL}/api/analytics/top-paths?${params.toString()}`;
+        return `${API_BASE}/api/analytics/top-paths?${params.toString()}`;
     }
 
     // --- Fetchers

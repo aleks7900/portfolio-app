@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 import {ChevronDown, Eraser} from "lucide-react";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
-import {BASE_URL} from "../../shared/api/api.ts";
+import {API_BASE} from "../../shared/api/api.ts";
 
 export type FiltersValue = {
     q: string;
@@ -65,7 +65,7 @@ export default function CatalogFilters({
         value.sort !== "title,asc";
 
     // ===== Справочники: загрузка =====
-    const API = BASE_URL;
+    const API = API_BASE;
 
     // Загружаем категории при монтировании
     useEffect(() => {
