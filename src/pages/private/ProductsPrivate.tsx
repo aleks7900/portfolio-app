@@ -620,18 +620,21 @@ export default function ProductsPrivate() {
 
                                 <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">
                                     {confirm.kind === "delete" && (
-                                        <>
-                                            {t("pp_confirm_delete_desc")} «{confirm.product.title}»
-                                        </>
+                                        <>{t("pp_confirm_delete_desc", { title: confirm.product.title })}</>
                                     )}
                                     {confirm.kind === "save-edit" && (
                                         <>
-                                            {t("pp_confirm_saveEdit_desc")} «{confirm.draft.title || `#${confirm.draft.id}`}»
+                                            {t("pp_confirm_saveEdit_desc", {
+                                                title: confirm.draft.title || t("pp_field_title"),
+                                                id: confirm.draft.id,
+                                            })}
                                         </>
                                     )}
                                     {confirm.kind === "save-create" && (
                                         <>
-                                            {t("pp_confirm_saveCreate_desc")} «{confirm.draft.title || t("pp_field_title")}»
+                                            {t("pp_confirm_saveCreate_desc", {
+                                                title: confirm.draft.title || t("pp_field_title"),
+                                            })}
                                         </>
                                     )}
                                 </div>

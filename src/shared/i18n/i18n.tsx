@@ -565,7 +565,8 @@ export const dict: Dictionary = {
         admin_menu_produse: "Мои продукты",
         admin_menu_userii: "Пользователи",
         admin_menu_aplic: "Заявки",
-        admin_menu_analytics: "Посещаемость",
+        admin_menu_analytics: "Аналитика",
+        admin_menu_visits: "Посещаемость",
 
         requests_title: "Заявки",
         requests_searchPlaceholder: "Поиск (имя, email, телефон, текст)",
@@ -775,6 +776,29 @@ export const dict: Dictionary = {
         attendance_col_userAgent: "User-Agent",
         attendance_col_event: "Событие",
         attendance_col_path: "Путь/URL",
+
+        visits_title: "Посещаемость",
+        visits_selectPeriod: "Выберите период",
+        visits_day: "По дням",
+        visits_month: "По месяцам",
+        visits_year: "По годам",
+        visits_subtitle_day: "Сумма по дням",
+        visits_subtitle_month: "Сумма по месяцам",
+        visits_subtitle_year: "Сумма по годам",
+        visits_pathPlaceholder: "Фильтр по пути, напр. /catalog",
+        visits_apply: "Применить",
+        visits_exportCsv: "Экспорт CSV",
+        visits_total: "Всего запросов",
+        visits_points: "Точек на графике",
+        visits_currentPeriod: "Текущий период",
+        visits_period_day: "День",
+        visits_period_month: "Месяц",
+        visits_period_year: "Год",
+        visits_chartTitle: "График посещаемости",
+        visits_error: "Ошибка загрузки",
+        visits_empty: "Нет данных за выбранный период",
+        visits_hint: "Подсказка: вы можете сузить данные по пути (например, /catalog, /product), если бэкенд поддерживает параметр path."
+
     },
     ro: {
         brandLogo: "",
@@ -1372,6 +1396,7 @@ export const dict: Dictionary = {
         admin_menu_userii: "Userii",
         admin_menu_aplic: "Aplicații",
         admin_menu_analytics: "Analytica",
+        admin_menu_visits: "Visite",
 
         requests_title: "Cereri",
         requests_searchPlaceholder: "Căutare (nume, email, telefon, text)",
@@ -1582,6 +1607,29 @@ export const dict: Dictionary = {
         attendance_col_userAgent: "User-Agent",
         attendance_col_event: "Eveniment",
         attendance_col_path: "Cale/URL",
+
+        visits_title: "Посещаемость",
+        visits_selectPeriod: "Выберите период",
+        visits_day: "По дням",
+        visits_month: "По месяцам",
+        visits_year: "По годам",
+        visits_subtitle_day: "Сумма по дням",
+        visits_subtitle_month: "Сумма по месяцам",
+        visits_subtitle_year: "Сумма по годам",
+        visits_pathPlaceholder: "Фильтр по пути, напр. /catalog",
+        visits_apply: "Применить",
+        visits_exportCsv: "Экспорт CSV",
+        visits_total: "Всего запросов",
+        visits_points: "Точек на графике",
+        visits_currentPeriod: "Текущий период",
+        visits_period_day: "День",
+        visits_period_month: "Месяц",
+        visits_period_year: "Год",
+        visits_chartTitle: "График посещаемости",
+        visits_error: "Ошибка загрузки",
+        visits_empty: "Нет данных за выбранный период",
+        visits_hint: "Подсказка: вы можете сузить данные по пути (например, /catalog, /product), если бэкенд поддерживает параметр path."
+
     }
 };
 

@@ -34,6 +34,7 @@ export default function AdminMenu() {
                     <MenuItem to="/admin/users" label="admin_menu_userii" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/requests" label="admin_menu_aplic" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/analytics" label="admin_menu_analytics" onClick={() => setOpen(false)}/>
+                    <MenuItem to="/admin/visits" label="admin_menu_visits" onClick={() => setOpen(false)}/>
                 </div>
             )}
         </div>

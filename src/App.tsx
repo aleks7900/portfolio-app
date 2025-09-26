@@ -18,6 +18,7 @@ import UsersPage from "./pages/private/UsersPage.tsx";
 import Navbar from "./shared/Navbar.tsx";
 import PageEvents from "./hooks/pageEvents.ts";
 import AttendancePage from "./pages/admin/AttendancePage.tsx";
+import VisitsPage from "./pages/private/VisitsPage.tsx";
 
 function ScrollToTop() {
     return null;
@@ -86,6 +87,14 @@ export default function App() {
                                         element={
                                             <AdminRoute>
                                                 <AttendancePage/>
+                                            </AdminRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/visits"
+                                        element={
+                                            <AdminRoute>
+                                                <VisitsPage/>
                                             </AdminRoute>
                                         }
                                     />
