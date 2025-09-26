@@ -45,6 +45,14 @@ const Icon = {
     )
 };
 
+
+/**
+ * ContactsPage
+ * — форма связи с поддержкой загрузки до 3 изображений (image/*, ≤10MB каждое)
+ * — если есть фото: отправляет multipart/form-data на /api/requests (ключ файлов — "photos")
+ * — если фото нет: остаётся ваш прежний JSON-вызов createRequest(...)
+ * — после успешной отправки очищает форму и выбранные файлы
+ */
 export default function ContactsPage() {
     const {t} = useI18n();
 
@@ -52,6 +60,53 @@ export default function ContactsPage() {
         const v = t(key);
         return v === key || !v ? fallback : v;
     };
+
+    // --- Добавлено: выбор/валидация фото (до 3 шт., image/*, ≤10MB) ---
+    const [photos, setPhotos] = React.useState<File[]>([]);
+    const fileRef = React.useRef<HTMLInputElement | null>(null);
+
+    function onFilesChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const picked = Array.from(e.target.files || []);
+        const onlyImages = picked.filter(f => f.type.startsWith("image/"));
+        if (picked.length !== onlyImages.length) {
+            alert(tf("contacts_alert_images_only", "Допустимы только изображения (image/*)."));
+        }
+
+        let limited = onlyImages.slice(0, 3);
+        if (onlyImages.length > 3) {
+            alert(tf("contacts_alert_max3", "Вы можете прикрепить не более 3 изображений."));
+        }
+        const tooBig = limited.find(f => f.size > 10 * 1024 * 1024);
+        if (tooBig) {
+            alert(tf("contacts_alert_size", "Каждое изображение должно быть не более 10 МБ."));
+            limited = limited.filter(f => f.size <= 10 * 1024 * 1024);
+        }
+        setPhotos(limited);
+    }
+
+    function removePhoto(idx: number) {
+        setPhotos(prev => prev.filter((_, i) => i !== idx));
+        if (fileRef.current) fileRef.current.value = "";
+    }
+
+    // --- Добавлено: отправка multipart, если прикреплены фото ---
+    async function submitMultipart(payload: {
+        name: string; email: string; phone: string; subject: string; message: string;
+    }) {
+        const fd = new FormData();
+        fd.set("name", payload.name);
+        if (payload.email) fd.set("email", payload.email);
+        if (payload.phone) fd.set("phone", payload.phone);
+        if (payload.subject) fd.set("subject", payload.subject);
+        fd.set("message", payload.message);
+        photos.forEach(f => fd.append("photos", f));
+
+        const res = await fetch("/api/requests", {method: "POST", body: fd});
+        if (!res.ok) {
+            const txt = await res.text().catch(() => "");
+            throw new Error(`Request failed: ${res.status} ${txt}`);
+        }
+    }
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -69,9 +124,17 @@ export default function ContactsPage() {
         }
 
         try {
-            await createRequest({name, email, phone, subject, message});
+            if (photos.length > 0) {
+                // с фото — multipart
+                await submitMultipart({name, email, phone, subject, message});
+            } else {
+                // без фото — ваш прежний JSON-эндпоинт
+                await createRequest({name, email, phone, subject, message});
+            }
             alert(tf("contacts_alert_sent", "Заявка отправлена!"));
             form.reset();
+            setPhotos([]);
+            if (fileRef.current) fileRef.current.value = "";
         } catch (err) {
             console.error(err);
             alert(tf("contacts_alert_failed", "Не удалось отправить заявку"));
@@ -217,6 +280,60 @@ export default function ContactsPage() {
                             className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
                         />
                     </label>
+
+                    {/* --- Новое поле: загрузка фото до 3 шт. с превью и удалением --- */}
+                    <label className="block">
+                        <div className="mb-1 text-sm font-medium">
+                            {tf("contacts_photos_label", "Фото (до 3 изображений)")}
+                        </div>
+                        <input
+                            ref={fileRef}
+                            name="photos"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={onFilesChange}
+                            className="w-full cursor-pointer rounded-xl border px-3 py-2 !bg-white !text-black file:mr-4 file:rounded-lg file:border file:bg-gray-50 file:px-3 file:py-1.5 file:text-sm hover:file:bg-gray-100 dark:!bg-gray-300 dark:!text-black"
+                        />
+                        <div className="mt-2 text-xs text-gray-600 dark:text-gray-300">
+                            {tf("contacts_photos_hint", "Поддерживаются изображения (image/*) до 10 МБ. Не более 3 файлов.")}
+                        </div>
+
+                        {photos.length > 0 && (
+                            <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                                {photos.map((f, i) => {
+                                    const url = URL.createObjectURL(f);
+                                    return (
+                                        <li key={`${f.name}-${i}`}
+                                            className="group relative flex items-center gap-3 rounded-xl border p-2 pr-10 dark:border-gray-800">
+                                            <img
+                                                src={url}
+                                                alt={f.name}
+                                                className="h-14 w-14 rounded-lg object-cover"
+                                                onLoad={() => URL.revokeObjectURL(url)}
+                                            />
+                                            <div className="min-w-0">
+                                                <div className="truncate text-sm font-medium">{f.name}</div>
+                                                <div className="text-xs text-gray-500">
+                                                    {(f.size / 1024 / 1024).toFixed(2)} MB
+                                                </div>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => removePhoto(i)}
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg border px-2 py-1 text-xs hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                                                aria-label={tf("contacts_remove_file", "Удалить файл")}
+                                                title={tf("contacts_remove_file", "Удалить файл")}
+                                            >
+                                                {tf("contacts_remove", "Удалить")}
+                                            </button>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
+                    </label>
+                    {/* --- конец нового блока --- */}
 
                     <div className="pt-2 mb-12">
                         <button

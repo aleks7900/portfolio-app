@@ -7,11 +7,11 @@ import {Search} from "lucide-react";
 
 import Container from "../../shared/Container";
 import {dict, useI18n} from "../../shared/i18n/i18n.tsx";
+import type {Product as ApiProduct} from "../../shared/api/repo";
 import {suggestProducts} from "../../shared/api/repo";
-import type {Product} from "../../data/types";
 import {useDebounced} from "../../data/hooks/useDebounced.ts";
 import {useAnchorRect} from "../../shared/useAnchorRect.ts";
-import i18n from "i18next";
+
 
 // ---------- i18n helpers ----------
 // Ищем по всем namespace текущего языка лучшую строку и возвращаем её КЛЮЧ
@@ -59,7 +59,7 @@ export default function HomeSearch() {
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [suggestions, setSuggestions] = useState<Product[]>([]);
+    const [suggestions, setSuggestions] = useState<ApiProduct[]>([]);
     const [activeIdx, setActiveIdx] = useState<number>(-1);
 
     const {ref: inputRef, rect} = useAnchorRect<HTMLInputElement>();
@@ -199,7 +199,7 @@ export default function HomeSearch() {
         return () => {
             cancelled = true;
         };
-    }, [qDebounced, i18n]); // было: запрос сразу с query; теперь — с i18n-ключом, если найден :contentReference[oaicite:4]{index=4}
+    }, [qDebounced, lang]); // было: запрос сразу с query; теперь — с i18n-ключом, если найден :contentReference[oaicite:4]{index=4}
 
     // Закрытие по клику вне
     const menuRef = useRef<HTMLDivElement | null>(null);
