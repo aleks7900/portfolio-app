@@ -236,7 +236,7 @@ export default function ProductsPrivate() {
                                 setQuery(e.currentTarget.value);
                             }}
                             placeholder={t("pp_search_placeholder")}
-                            className="w-full sm:w-72 rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border:white/20 dark:border-white/20"
+                            className="w-full sm:w-72 rounded-xl border px-3 py-2 text-sm dark:bg-zinc-800 dark:border:white/20 dark:border-white/20"
                         />
                         {isAdmin && (
                             <button
@@ -393,7 +393,7 @@ export default function ProductsPrivate() {
                     </Container>
                 ) : (
                     <Container>
-                        <div className="mt-6 space-y-3 sm:hidden">
+                        <div className="mt-6 space-y-3">
                             {loading ? (
                                 <div
                                     className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
@@ -471,7 +471,7 @@ export default function ProductsPrivate() {
                                 animate={{opacity: 1, y: 0, scale: 1}}
                                 exit={{opacity: 0, y: 8, scale: 0.98}}
                                 transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                                className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:bg-gray-800"
+                                className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:bg-gray-700"
                             >
                                 <div className="mb-4 text-lg font-semibold">
                                     {edit.mode === "edit" ? t("pp_modal_edit_title") : t("pp_modal_create_title")}
@@ -484,7 +484,7 @@ export default function ProductsPrivate() {
                                                 type="number"
                                                 value={edit.draft.id}
                                                 disabled
-                                                className="w-full cursor-not-allowed rounded-xl border px-3 py-2 opacity-70 dark:border-white/20 dark:bg-black"
+                                                className="w-full cursor-not-allowed rounded-xl border px-3 py-2 opacity-70 dark:border-white/20 dark:bg-gray-700"
                                             />
                                         </Field>
                                     )}
@@ -493,7 +493,7 @@ export default function ProductsPrivate() {
                                         <input
                                             value={edit.draft.title}
                                             onChange={(e) => setDraft("title", e.currentTarget.value)}
-                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-gray-400"
                                         />
                                     </Field>
 
@@ -502,7 +502,7 @@ export default function ProductsPrivate() {
                                             list="brands"
                                             value={edit.draft.brand}
                                             onChange={(e) => setDraft("brand", e.currentTarget.value)}
-                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-gray-400"
                                         />
                                         <datalist id="brands">
                                             {brands.map((b) => (
@@ -516,7 +516,7 @@ export default function ProductsPrivate() {
                                             type="number"
                                             value={edit.draft.price}
                                             onChange={(e) => setDraft("price", Number(e.currentTarget.value))}
-                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-gray-400"
                                         />
                                     </Field>
 
@@ -536,7 +536,7 @@ export default function ProductsPrivate() {
                                             list="cats"
                                             value={edit.draft.category}
                                             onChange={(e) => setDraft("category", e.currentTarget.value)}
-                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-gray-400"
                                         />
                                         <datalist id="cats">
                                             {categories.map((c) => (
@@ -550,7 +550,7 @@ export default function ProductsPrivate() {
                                             list="subs"
                                             value={edit.draft.subcategory}
                                             onChange={(e) => setDraft("subcategory", e.currentTarget.value)}
-                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-gray-400"
                                         />
                                         <datalist id="subs">
                                             {subcategories.map((s) => (
@@ -565,9 +565,9 @@ export default function ProductsPrivate() {
                                     <button
                                         onClick={askSaveFromForm}
                                         className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white
-                       hover:!bg-green-700 hover:shadow-lg
-                       focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
-                       dark:bg-green-500 dark:hover:bg-green-400"
+                                               hover:!bg-green-700 hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
+                                               dark:bg-green-500 dark:hover:bg-green-400"
                                     >
                                         {t("pp_btn_save")}
                                     </button>
@@ -576,10 +576,10 @@ export default function ProductsPrivate() {
                                     <button
                                         onClick={() => setEdit({mode: "none"})}
                                         className="rounded-xl border px-4 py-2 text-sm font-medium
-                       bg-white text-black shadow
-                       hover:bg-black hover:text-white hover:shadow-lg
-                       focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                       dark:bg-neutral-900 dark:text-white/90 dark:hover:bg-black/70"
+                                               bg-white text-black shadow dark:hover:text-black dark:text-black
+                                               hover:bg-black hover:text-white hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                               dark:bg-neutral-900 dark:hover:bg-black/70"
                                     >
                                         {t("pp_btn_cancel")}
                                     </button>
@@ -640,10 +640,10 @@ export default function ProductsPrivate() {
                                     <button
                                         onClick={() => setConfirm({open: false})}
                                         className="rounded-xl border px-4 py-2 text-sm font-medium
-                       bg-white text-black shadow
-                       hover:bg-black hover:text-white hover:shadow-lg
-                       focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                       dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text:white dark:hover:text-white"
+                                               bg-white text-black shadow
+                                               hover:bg-black hover:text-black hover:shadow-lg
+                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                                               dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text:white dark:hover:text-black"
                                     >
                                         {t("pp_confirm_btn_cancel")}
                                     </button>
@@ -651,8 +651,8 @@ export default function ProductsPrivate() {
                                     <button
                                         onClick={handleConfirm}
                                         className="rounded-xl px-4 py-2 text-sm font-medium text-white shadow-sm
-                       focus:outline-none focus:ring-2 active:scale-[0.99]
-                       bg-rose-600 hover:bg-rose-700 focus:ring-rose-400"
+                                                   focus:outline-none focus:ring-2 active:scale-[0.99]
+                                                   !bg-rose-600 hover:!bg-rose-700 focus:ring-rose-400"
                                     >
                                         {confirm.kind === "delete"
                                             ? t("pp_confirm_btn_delete")
@@ -779,7 +779,7 @@ function ActionBtn({
         ${
                 danger
                     ? "!bg-rose-600 !text-white hover:!bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400"
-                    : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                    : "border text-black border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
             }
         ${className}`}
         >
@@ -832,7 +832,7 @@ function PaginationControls({
                     <button
                         onClick={onPrev}
                         disabled={!hasPrev}
-                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20 dark:text-black"
                     >
                         {t("pp_pager_prev")}
                     </button>
@@ -842,7 +842,7 @@ function PaginationControls({
                     <button
                         onClick={onNext}
                         disabled={!hasNext}
-                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20 dark:text-black"
                     >
                         {t("pp_pager_next")}
                     </button>

@@ -2961,9 +2961,19 @@
       }
     }
   }
+  .dark\:bg-gray-400 {
+    &:where(.dark, .dark *) {
+      background-color: var(--color-gray-400);
+    }
+  }
   .dark\:bg-gray-500 {
     &:where(.dark, .dark *) {
       background-color: var(--color-gray-500);
+    }
+  }
+  .dark\:bg-gray-700 {
+    &:where(.dark, .dark *) {
+      background-color: var(--color-gray-700);
     }
   }
   .dark\:bg-gray-800 {

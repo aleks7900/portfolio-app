@@ -226,7 +226,7 @@ export default function RequestsPage() {
                 ) : (
                     <Container>
                         {/* Mobile cards */}
-                        <div className="grid gap-4 sm:hidden">
+                        <div className="grid gap-4">
                             {loading ? (
                                 <div
                                     className="rounded-2xl border border-gray-200 bg-white/60 px-4 py-10 text-center text-gray-500 shadow-sm dark:border-white/10 dark:bg-black/30">
