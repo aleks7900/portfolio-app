@@ -350,15 +350,15 @@ export default function ProductsPrivate() {
                                     sortedItems.map((p) => (
                                         <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
                                             <Td>{p.id}</Td>
-                                            <Td className="font-medium">{p.title}</Td>
+                                            <Td className="font-medium">{t(p.title)}</Td>
                                             <Td>{p.brand}</Td>
                                             <Td>${p.price}</Td>
                                             <Td>
                                                 {p.inStock ? <Badge ok>{t("pp_inStock_yes")}</Badge> :
                                                     <Badge>{t("pp_inStock_no")}</Badge>}
                                             </Td>
-                                            <Td>{p.category}</Td>
-                                            <Td>{p.subcategory}</Td>
+                                            <Td>{t(p.category)}</Td>
+                                            <Td>{t(p.subcategory)}</Td>
                                             <Td className="text-right">
                                                 {isAdmin ? (
                                                     <>

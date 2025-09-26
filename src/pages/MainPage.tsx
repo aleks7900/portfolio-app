@@ -674,7 +674,7 @@ export default function MainPage() {
                 cat_custom_orders: "Изделия на заказ",
                 sub_balustrade_perila: "Балюстрады, перила",
                 sub_boxes: "Боксы",
-                sub_cafe: "Кафе",
+                sub_cafe: "Кафе и рестораны",
                 sub_carcase: "Каркасы",
                 sub_caruciors: "Тележки",
                 sub_cauldrons: "Котлы",
