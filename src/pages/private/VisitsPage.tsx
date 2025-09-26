@@ -1,4 +1,4 @@
-import {type SetStateAction, useEffect, useMemo, useRef, useState} from "react";
+import {type SetStateAction, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "../../components/ui/card";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../../components/ui/select";
 import {Button} from "../../components/ui/button";
@@ -18,7 +18,6 @@ type VisitPoint = {
 };
 type VisitsResponse = VisitPoint[];
 
-// CSV export
 function exportToCSV(filename: string, rows: VisitPoint[]) {
     const headers = ["label", "count"];
     const csv = [headers.join(","), ...rows.map((r) => `${JSON.stringify(r.label)},${r.count}`)].join("\n");
@@ -36,16 +35,15 @@ function exportToCSV(filename: string, rows: VisitPoint[]) {
 export default function VisitsPage() {
     const {t} = useI18n();
 
-    const tf = (key: string, fallback: string) => {
+    const tf = useCallback((key: string, fallback: string) => {
         const v = t(key);
         return v === key || !v ? fallback : v;
-    };
+    });
 
     const [period, setPeriod] = useState<Period>("day");
     const [pathFilter, setPathFilter] = useState<string>("");
-    // Новые поля под /visits: from, to (ISO YYYY-MM-DD) и tz
-    const [from, setFrom] = useState<string>(""); // пример: "2025-09-01"
-    const [to, setTo] = useState<string>("");     // пример: "2025-09-26"
+    const [from, setFrom] = useState<string>("");
+    const [to, setTo] = useState<string>("");
     const tz = useMemo(
         () => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC",
         []
@@ -71,13 +69,12 @@ export default function VisitsPage() {
         return map[period];
     }, [period, tf]);
 
-    // Собираем URL с поддержкой period, path, from, to, tz
     function buildUrl(): string {
         const params = new URLSearchParams();
         params.set("period", period);
         if (pathFilter.trim()) params.set("path", pathFilter.trim());
-        if (from.trim()) params.set("from", from.trim()); // формат ISO: YYYY-MM-DD
-        if (to.trim()) params.set("to", to.trim());       // формат ISO: YYYY-MM-DD
+        if (from.trim()) params.set("from", from.trim());
+        if (to.trim()) params.set("to", to.trim());
         params.set("tz", tz);
         return `${BASE_URL}/api/analytics/visits?${params.toString()}`;
     }
@@ -106,8 +103,7 @@ export default function VisitsPage() {
 
     useEffect(() => {
         fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [period, tz]); // path/from/to применяем вручную кнопкой
+    }, [period, tz]);
 
     const applyFilters = () => fetchData();
 
@@ -117,6 +113,15 @@ export default function VisitsPage() {
         if (from.trim() || to.trim()) filenameParts.push(`${from || "from"}_${to || "to"}`);
         exportToCSV(`${filenameParts.join("_")}.csv`, data);
     };
+
+    // Топ 20 url
+    const topUrls = useMemo(
+        () =>
+            [...data]
+                .sort((a, b) => b.count - a.count)
+                .slice(0, 20),
+        [data]
+    );
 
     return (
         <div className="mx-auto w-full max-w-7xl p-4 mt-20 md:p-6 space-y-6 ">
@@ -135,7 +140,7 @@ export default function VisitsPage() {
                         <SelectTrigger className="w-44 dark:text-black">
                             <SelectValue placeholder={tf("visits_selectPeriod", "Выберите период")}/>
                         </SelectTrigger>
-                        <SelectContent className=" dark:bg-gray-600" >
+                        <SelectContent className=" dark:bg-gray-600">
                             <SelectItem value="day">{tf("visits_day", "По дням")}</SelectItem>
                             <SelectItem value="month">{tf("visits_month", "По месяцам")}</SelectItem>
                             <SelectItem value="year">{tf("visits_year", "По годам")}</SelectItem>
@@ -152,7 +157,6 @@ export default function VisitsPage() {
                             className="w-48"
                             spellCheck={false}
                         />
-                        {/* Диапазон дат (опционально) */}
                         <Input
                             type="date"
                             value={from}
@@ -259,6 +263,39 @@ export default function VisitsPage() {
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
+                    )}
+                </CardContent>
+            </Card>
+
+            {/* Top 20 URLs */}
+            <Card className="dark:bg-zinc-800">
+                <CardHeader className="pb-2">
+                    <CardTitle className="text-base text-muted-foreground">
+                        {tf("visits_top20", "Топ-20 посещаемых страниц")}
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    {topUrls.length === 0 ? (
+                        <div className="text-muted-foreground text-sm">
+                            {tf("visits_noTopUrls", "Нет данных")}
+                        </div>
+                    ) : (
+                        <table className="w-full text-sm">
+                            <thead>
+                            <tr className="text-left text-muted-foreground border-b">
+                                <th className="py-1 px-2">{tf("visits_url", "URL")}</th>
+                                <th className="py-1 px-2 text-right">{tf("visits_visits", "Посещения")}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {topUrls.map((u, i) => (
+                                <tr key={i} className="border-b last:border-0 hover:bg-muted/30">
+                                    <td className="py-1 px-2 font-mono text-xs">{u.label}</td>
+                                    <td className="py-1 px-2 text-right">{numberFmt.format(u.count)}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
                     )}
                 </CardContent>
             </Card>
