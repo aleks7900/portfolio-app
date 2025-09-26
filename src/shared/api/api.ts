@@ -1,5 +1,5 @@
 // Общий HTTP клиент под Spring Boot + JWT
-export const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+export const API_BASE = (import.meta.env.VITE_API_BASE || '/api').replace(/\/+$/, '');
 
 function getToken() {
     // если у вас есть свой AuthProvider — возьмите токен из него
@@ -13,11 +13,18 @@ type FetchOptions = Omit<RequestInit, "headers" | "body"> & {
     auth?: boolean; // по умолчанию true — добавлять Authorization
 };
 
+function join(base: string, path: string) {
+    if (/^https?:\/\//i.test(path)) return path;           // абсолютный URL — не трогаем
+    const p = path.startsWith('/') ? path : `/${path}`;
+    // убираем двойные /api
+    return `${base}${p}`.replace(/\/api\/api(\/|$)/, '/api$1');
+}
+
 export async function apiFetch<T = unknown>(
     path: string,
     opts: FetchOptions = {}
 ): Promise<T> {
-    const url: string = path.startsWith("http") ? path : `${API_BASE}${path}`;
+    const url = join(API_BASE, path);
     const headers: Record<string, string> = {
         "Accept": "application/json",
         ...(opts.body instanceof FormData ? {} : {"Content-Type": "application/json"}),

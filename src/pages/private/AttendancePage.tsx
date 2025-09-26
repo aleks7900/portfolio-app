@@ -79,7 +79,7 @@ export default function AttendancePage() {
 
     useEffect(() => {
         const controller = new AbortController();
-        const url = new URL(API_BASE + "/api/analytics/events", window.location.origin);
+        const url = new URL(API_BASE + "/analytics/events", window.location.origin);
         url.searchParams.set("page", String(page));
         url.searchParams.set("size", String(size));
         url.searchParams.set("sort", sortParam);
