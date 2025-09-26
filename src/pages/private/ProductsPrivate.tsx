@@ -12,11 +12,7 @@ import {
 import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 import {AnimatePresence, motion} from "framer-motion";
-
-
-/* =========================
-   ВСПОМОГАТЕЛЬНЫЕ ТИПЫ/ХЕЛПЕРЫ
-   ========================= */
+import {useTranslation} from "react-i18next";
 
 type EditState =
     | { mode: "none" }
@@ -30,7 +26,7 @@ type ConfirmState =
     | { open: true; kind: "save-create"; draft: Product };
 
 const emptyProduct = (): Product => ({
-    id: 0, // сервер создаст
+    id: 0,
     title: "",
     brand: "",
     price: 0,
@@ -43,32 +39,24 @@ function toNum(v: unknown, def = 0) {
     return typeof v === "number" ? v : def;
 }
 
-/* =========================
-   ОСНОВНОЙ КОМПОНЕНТ
-   ========================= */
-
 export default function ProductsPrivate() {
     const {user} = useAuth();
     const isAdmin = !!user?.isAdmin;
+    const {t} = useTranslation();
 
-    // список
     const [items, setItems] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [err, setErr] = useState<string | null>(null);
 
-    // фильтр по строке (серверный q)
     const [query, setQuery] = useState<string>("");
 
-    // пагинация (0-based)
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(20);
     const [totalPages, setTotalPages] = useState<number | null>(null);
 
-    // редактирование / подтверждение
     const [edit, setEdit] = useState<EditState>({mode: "none"});
     const [confirm, setConfirm] = useState<ConfirmState>({open: false});
 
-    // подсказочные списки
     const brands = useMemo(
         () => Array.from(new Set(items.map((p) => p.brand).filter(Boolean))).sort(),
         [items]
@@ -84,7 +72,6 @@ export default function ProductsPrivate() {
 
     const isMobile = useMediaQuery("(max-width: 1024px)");
 
-    // загрузка с бэка
     const fetchProducts = useCallback(async () => {
         setLoading(true);
         setErr(null);
@@ -96,11 +83,11 @@ export default function ProductsPrivate() {
             setPage(toNum(data.number, page));
             setSize(toNum(data.size, size));
         } catch (e: unknown) {
-            setErr(e instanceof Error ? e.message : "Ошибка загрузки");
+            setErr(e instanceof Error ? e.message : t("pp_error_loading"));
         } finally {
             setLoading(false);
         }
-    }, [query, page, size]);
+    }, [query, page, size, t]);
 
     useEffect(() => {
         fetchProducts();
@@ -128,7 +115,6 @@ export default function ProductsPrivate() {
         };
     }, [isAdmin, edit.mode, confirm.open]);
 
-    // действия
     const startCreate = () => {
         if (!isAdmin) return;
         setEdit({mode: "create", draft: emptyProduct()});
@@ -163,7 +149,7 @@ export default function ProductsPrivate() {
         if (mode === "edit") {
             await updateProduct(draft);
         } else {
-            const {id: _omit, ...withoutId} = draft; // сервер сгенерирует id
+            const {id: _omit, ...withoutId} = draft;
             await createProduct(withoutId);
         }
         window.dispatchEvent(new CustomEvent("products:updated"));
@@ -178,7 +164,7 @@ export default function ProductsPrivate() {
             setConfirm({open: false});
             setEdit({mode: "none"});
         } catch (e: unknown) {
-            alert(e instanceof Error ? e.message : "Ошибка сохранения");
+            alert(e instanceof Error ? e.message : t("pp_error_saving"));
         }
     };
 
@@ -188,7 +174,7 @@ export default function ProductsPrivate() {
                 {/* Заголовок + поиск + новая запись */}
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-                        {isAdmin ? "Мои продукты (админ)" : "Мои продукты"}
+                        {isAdmin ? t("pp_title_admin") : t("pp_title_user")}
                     </h2>
 
                     <div className="flex w-full items-center gap-2 sm:w-auto">
@@ -198,7 +184,7 @@ export default function ProductsPrivate() {
                                 setPage(0);
                                 setQuery(e.currentTarget.value);
                             }}
-                            placeholder="Поиск (id, название, бренд, категория)"
+                            placeholder={t("pp_search_placeholder")}
                             className="w-full sm:w-72 rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border-white/20"
                         />
                         {isAdmin && (
@@ -209,14 +195,13 @@ export default function ProductsPrivate() {
                                          focus:outline-none focus:ring-2 focus:ring-yellow-400 active:scale-[0.99]
                                          dark:bg-white dark:text-black dark:hover:bg-yellow-400"
                             >
-                                Новый продукт
+                                {t("pp_newProduct_btn")}
                             </button>
-
                         )}
                     </div>
                 </div>
 
-                {/* Статус */}
+                {/* Ошибки */}
                 {err && (
                     <div
                         className="mt-4 rounded-xl bg-rose-50 p-3 text-sm text-rose-700 dark:bg-rose-500/10 dark:text-rose-200">
@@ -224,34 +209,34 @@ export default function ProductsPrivate() {
                     </div>
                 )}
 
+                {/* --- Таблица (desktop) и карточки (mobile) --- */}
                 {!isMobile ? (
                     <Container>
-                        {/* ——— Desktop: таблица (>= sm) ——— */}
                         <div className="mt-6 overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
                             <table className="min-w-full text-sm">
                                 <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
                                 <tr>
-                                    <Th>ID</Th>
-                                    <Th>Название</Th>
-                                    <Th>Бренд</Th>
-                                    <Th>Цена</Th>
-                                    <Th>Наличие</Th>
-                                    <Th>Категория</Th>
-                                    <Th>Подкатегория</Th>
-                                    <Th className="text-right">Действия</Th>
+                                    <Th>{t("pp_th_id")}</Th>
+                                    <Th>{t("pp_th_title")}</Th>
+                                    <Th>{t("pp_th_brand")}</Th>
+                                    <Th>{t("pp_th_price")}</Th>
+                                    <Th>{t("pp_th_inStock")}</Th>
+                                    <Th>{t("pp_th_category")}</Th>
+                                    <Th>{t("pp_th_subcategory")}</Th>
+                                    <Th className="text-right">{t("pp_th_actions")}</Th>
                                 </tr>
                                 </thead>
                                 <tbody className="divide-y dark:divide-white/10">
                                 {loading ? (
                                     <tr>
                                         <Td colSpan={8} className="py-10 text-center text-gray-500">
-                                            Загрузка…
+                                            {t("pp_loading")}
                                         </Td>
                                     </tr>
                                 ) : items.length === 0 ? (
                                     <tr>
                                         <Td colSpan={8} className="py-10 text-center text-gray-500">
-                                            Ничего не найдено
+                                            {t("pp_nothing")}
                                         </Td>
                                     </tr>
                                 ) : (
@@ -261,20 +246,23 @@ export default function ProductsPrivate() {
                                             <Td className="font-medium">{p.title}</Td>
                                             <Td>{p.brand}</Td>
                                             <Td>${p.price}</Td>
-                                            <Td>{p.inStock ? <Badge ok>да</Badge> : <Badge>нет</Badge>}</Td>
+                                            <Td>
+                                                {p.inStock ? <Badge ok>{t("pp_inStock_yes")}</Badge> :
+                                                    <Badge>{t("pp_inStock_no")}</Badge>}
+                                            </Td>
                                             <Td>{p.category}</Td>
                                             <Td>{p.subcategory}</Td>
                                             <Td className="text-right">
                                                 {isAdmin ? (
                                                     <>
                                                         <ActionBtn
-                                                            onClick={() => startEdit(p)}>Редактировать</ActionBtn>
+                                                            onClick={() => startEdit(p)}>{t("pp_action_edit")}</ActionBtn>
                                                         <ActionBtn danger className="ml-2" onClick={() => askRemove(p)}>
-                                                            Удалить
+                                                            {t("pp_action_delete")}
                                                         </ActionBtn>
                                                     </>
                                                 ) : (
-                                                    <span className="text-gray-400">Только просмотр</span>
+                                                    <span className="text-gray-400">{t("pp_view_only")}</span>
                                                 )}
                                             </Td>
                                         </tr>
@@ -298,17 +286,16 @@ export default function ProductsPrivate() {
                     </Container>
                 ) : (
                     <Container>
-                        {/* ——— Mobile: карточки ( < sm ) ——— */}
                         <div className="mt-6 space-y-3 sm:hidden">
                             {loading ? (
                                 <div
                                     className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
-                                    Загрузка…
+                                    {t("pp_loading")}
                                 </div>
                             ) : items.length === 0 ? (
                                 <div
                                     className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
-                                    Ничего не найдено
+                                    {t("pp_nothing")}
                                 </div>
                             ) : (
                                 items.map((p) => (
@@ -320,19 +307,23 @@ export default function ProductsPrivate() {
                                                 <div
                                                     className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">ID: {p.id}</div>
                                             </div>
-                                            <div className="shrink-0">{p.inStock ? <Badge ok>в наличии</Badge> :
-                                                <Badge>нет</Badge>}</div>
+                                            <div className="shrink-0">
+                                                {p.inStock ? <Badge ok>{t("pp_inStock_yes")}</Badge> :
+                                                    <Badge>{t("pp_inStock_no")}</Badge>}
+                                            </div>
                                         </div>
                                         <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                                            <LabelValue label="Бренд" value={p.brand || "—"}/>
-                                            <LabelValue label="Цена" value={`$${p.price}`}/>
-                                            <LabelValue label="Категория" value={p.category || "—"}/>
-                                            <LabelValue label="Подкатегория" value={p.subcategory || "—"}/>
+                                            <LabelValue label={t("pp_lbl_brand")} value={p.brand || "—"}/>
+                                            <LabelValue label={t("pp_lbl_price")} value={`$${p.price}`}/>
+                                            <LabelValue label={t("pp_lbl_category")} value={p.category || "—"}/>
+                                            <LabelValue label={t("pp_lbl_subcategory")} value={p.subcategory || "—"}/>
                                         </div>
                                         {isAdmin && (
                                             <div className="mt-3 flex flex-wrap justify-end gap-2">
-                                                <ActionBtn onClick={() => startEdit(p)}>Редактировать</ActionBtn>
-                                                <ActionBtn danger onClick={() => askRemove(p)}>Удалить</ActionBtn>
+                                                <ActionBtn
+                                                    onClick={() => startEdit(p)}>{t("pp_action_edit")}</ActionBtn>
+                                                <ActionBtn danger
+                                                           onClick={() => askRemove(p)}>{t("pp_action_delete")}</ActionBtn>
                                             </div>
                                         )}
                                     </div>
@@ -354,7 +345,7 @@ export default function ProductsPrivate() {
                     </Container>
                 )}
 
-                {/* Модалка редактирования/создания (с анимацией) */}
+                {/* ===== Модалка редактирования/создания (с анимацией) ===== */}
                 <AnimatePresence>
                     {isAdmin && edit.mode !== "none" && (
                         <motion.div
@@ -373,38 +364,38 @@ export default function ProductsPrivate() {
                                 animate={{opacity: 1, y: 0, scale: 1}}
                                 exit={{opacity: 0, y: 8, scale: 0.98}}
                                 transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                                className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:!bg-gray-800"
+                                className="w-full max-w-2xl rounded-2xl border bg-white p-6 shadow-xl dark:border-white/10 dark:bg-gray-800"
                             >
                                 <div className="mb-4 text-lg font-semibold">
-                                    {edit.mode === "edit" ? "Редактировать товар" : "Новый товар"}
+                                    {edit.mode === "edit" ? t("pp_modal_edit_title") : t("pp_modal_create_title")}
                                 </div>
 
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     {edit.mode === "edit" && (
-                                        <Field label="ID">
+                                        <Field label={t("pp_field_id")}>
                                             <input
                                                 type="number"
                                                 value={edit.draft.id}
                                                 disabled
-                                                className="w-full cursor-not-allowed rounded-xl border px-3 py-2 opacity-70 dark:border_WHITE/20 dark:bg-black"
+                                                className="w-full cursor-not-allowed rounded-xl border px-3 py-2 opacity-70 dark:border-white/20 dark:bg-black"
                                             />
                                         </Field>
                                     )}
 
-                                    <Field label="Название">
+                                    <Field label={t("pp_field_title")}>
                                         <input
                                             value={edit.draft.title}
                                             onChange={(e) => setDraft("title", e.currentTarget.value)}
-                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                         />
                                     </Field>
 
-                                    <Field label="Бренд">
+                                    <Field label={t("pp_field_brand")}>
                                         <input
                                             list="brands"
                                             value={edit.draft.brand}
                                             onChange={(e) => setDraft("brand", e.currentTarget.value)}
-                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                         />
                                         <datalist id="brands">
                                             {brands.map((b) => (
@@ -413,32 +404,32 @@ export default function ProductsPrivate() {
                                         </datalist>
                                     </Field>
 
-                                    <Field label="Цена">
+                                    <Field label={t("pp_field_price")}>
                                         <input
                                             type="number"
                                             value={edit.draft.price}
                                             onChange={(e) => setDraft("price", Number(e.currentTarget.value))}
-                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                         />
                                     </Field>
 
-                                    <Field label="Наличие">
+                                    <Field label={t("pp_field_inStock")}>
                                         <label className="inline-flex items-center gap-2">
                                             <input
                                                 type="checkbox"
                                                 checked={edit.draft.inStock}
                                                 onChange={(e) => setDraft("inStock", e.currentTarget.checked)}
                                             />
-                                            есть на складе
+                                            {t("pp_field_inStock_checkbox")}
                                         </label>
                                     </Field>
 
-                                    <Field label="Категория">
+                                    <Field label={t("pp_field_category")}>
                                         <input
                                             list="cats"
                                             value={edit.draft.category}
                                             onChange={(e) => setDraft("category", e.currentTarget.value)}
-                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                         />
                                         <datalist id="cats">
                                             {categories.map((c) => (
@@ -447,12 +438,12 @@ export default function ProductsPrivate() {
                                         </datalist>
                                     </Field>
 
-                                    <Field label="Подкатегория">
+                                    <Field label={t("pp_field_subcategory")}>
                                         <input
                                             list="subs"
                                             value={edit.draft.subcategory}
                                             onChange={(e) => setDraft("subcategory", e.currentTarget.value)}
-                                            className="w_full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg_black"
+                                            className="w-full rounded-xl border px-3 py-2 dark:border-white/20 dark:bg-black"
                                         />
                                         <datalist id="subs">
                                             {subcategories.map((s) => (
@@ -467,23 +458,23 @@ export default function ProductsPrivate() {
                                     <button
                                         onClick={askSaveFromForm}
                                         className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white
-                                               hover:!bg-green-700 hover:shadow-lg
-                                               focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
-                                               dark:bg-green-500 dark:hover:bg-green-400"
+                       hover:!bg-green-700 hover:shadow-lg
+                       focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99]
+                       dark:bg-green-500 dark:hover:bg-green-400"
                                     >
-                                        Сохранить
+                                        {t("pp_btn_save")}
                                     </button>
 
                                     {/* Отмена */}
                                     <button
                                         onClick={() => setEdit({mode: "none"})}
-                                        className="rounded-xl border px-4 py-2 text-sm font_medium
-                                               !bg-white !text-black shadow
-                                               hover:!bg-black hover:!text-white hover:shadow-lg
-                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                                               dark:bg-neutral-900 dark:text_white dark:hover:bg_black"
+                                        className="rounded-xl border px-4 py-2 text-sm font-medium
+                       bg-white text-black shadow
+                       hover:bg-black hover:text-white hover:shadow-lg
+                       focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                       dark:bg-neutral-900 dark:text-white/90 dark:hover:bg-black/70"
                                     >
-                                        Отмена
+                                        {t("pp_btn_cancel")}
                                     </button>
                                 </div>
                             </motion.div>
@@ -491,7 +482,7 @@ export default function ProductsPrivate() {
                     )}
                 </AnimatePresence>
 
-                {/* Модалка подтверждения (с анимацией) */}
+                {/* ===== Модалка подтверждения (с анимацией) ===== */}
                 <AnimatePresence>
                     {confirm.open && (
                         <motion.div
@@ -500,57 +491,67 @@ export default function ProductsPrivate() {
                             aria-modal="true"
                             className="fixed inset-0 z-[120] flex items-center justify-center p-4"
                             onMouseDown={(e) => {
-                                if (e.target === e.currentTarget) setConfirm({ open: false });
+                                if (e.target === e.currentTarget) setConfirm({open: false});
                             }}
-                            initial={{ backgroundColor: "rgba(0,0,0,0)" }}
-                            animate={{ backgroundColor: "rgba(0,0,0,0.40)" }}
-                            exit={{ backgroundColor: "rgba(0,0,0,0)" }}
-                            transition={{ duration: 0.18 }}
+                            initial={{backgroundColor: "rgba(0,0,0,0)"}}
+                            animate={{backgroundColor: "rgba(0,0,0,0.40)"}}
+                            exit={{backgroundColor: "rgba(0,0,0,0)"}}
+                            transition={{duration: 0.18}}
                         >
                             <motion.div
-                                initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
-                                exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                                transition={{ type: "spring", stiffness: 420, damping: 32, mass: 0.6 }}
+                                initial={{opacity: 0, y: 12, scale: 0.98}}
+                                animate={{opacity: 1, y: 0, scale: 1}}
+                                exit={{opacity: 0, y: 8, scale: 0.98}}
+                                transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
                                 className="w-3/5 max-w-md rounded-2xl border bg-white p-5 shadow-xl dark:border-white/10 dark:bg-neutral-900"
                             >
                                 <div className="text-lg font-semibold">
-                                    {confirm.kind === "delete" && "Удалить продукт?"}
-                                    {confirm.kind === "save-edit" && "Сохранить изменения?"}
-                                    {confirm.kind === "save-create" && "Добавить продукт?"}
+                                    {confirm.kind === "delete" && t("pp_confirm_delete_title")}
+                                    {confirm.kind === "save-edit" && t("pp_confirm_saveEdit_title")}
+                                    {confirm.kind === "save-create" && t("pp_confirm_saveCreate_title")}
                                 </div>
 
                                 <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">
                                     {confirm.kind === "delete" && (
-                                        <>Вы действительно хотите удалить <b>{confirm.product.title}</b>?</>
+                                        <>{t("pp_confirm_delete_desc", {title: confirm.product.title})}</>
                                     )}
                                     {confirm.kind === "save-edit" && (
-                                        <>Сохранить изменения для <b>{confirm.draft.title || `#${confirm.draft.id}`}</b>?</>
+                                        <>
+                                            {t("pp_confirm_saveEdit_desc", {
+                                                title: confirm.draft.title || `#${confirm.draft.id}`,
+                                            })}
+                                        </>
                                     )}
                                     {confirm.kind === "save-create" && (
-                                        <>Добавить новый продукт <b>{confirm.draft.title || "без названия"}</b>?</>
+                                        <>
+                                            {t("pp_confirm_saveCreate_desc", {
+                                                title: confirm.draft.title || t("pp_field_title"),
+                                            })}
+                                        </>
                                     )}
                                 </div>
 
                                 <div className="mt-6 flex justify-end gap-2">
                                     <button
-                                        onClick={() => setConfirm({ open: false })}
+                                        onClick={() => setConfirm({open: false})}
                                         className="rounded-xl border px-4 py-2 text-sm font-medium
-                                               !bg-white !text-black shadow
-                                               hover:!bg-black hover:!text-white hover:shadow-lg
-                                               focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                                               dark:bg-white dark:!text-black dark:hover:!bg-black dark:hover:!text-white"
+                       bg-white text-black shadow
+                       hover:bg-black hover:text-white hover:shadow-lg
+                       focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
+                       dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
                                     >
-                                        Отмена
+                                        {t("pp_confirm_btn_cancel")}
                                     </button>
 
                                     <button
                                         onClick={handleConfirm}
-                                        className="rounded-xl !bg-rose-600 px-4 py-2 text-sm font-medium !text-white
-                                               hover:!bg-rose-700 hover:shadow-lg
-                                               focus:outline-none focus:ring-2 focus:ring-rose-400 active:scale-[0.99]"
+                                        className="rounded-xl px-4 py-2 text-sm font-medium text-white shadow-sm
+                       focus:outline-none focus:ring-2 active:scale-[0.99]
+                       bg-rose-600 hover:bg-rose-700 focus:ring-rose-400"
                                     >
-                                        Удалить
+                                        {confirm.kind === "delete"
+                                            ? t("pp_confirm_btn_delete")
+                                            : t("pp_confirm_btn_save")}
                                     </button>
                                 </div>
                             </motion.div>
@@ -562,12 +563,15 @@ export default function ProductsPrivate() {
     );
 }
 
-/* =========================
-   МИНИ-КОМПОНЕНТЫ
-   ========================= */
+{/* ========= Мини-компоненты ========= */
+}
 
 function Th({children, className = ""}: { children: React.ReactNode; className?: string }) {
-    return <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>{children}</th>;
+    return (
+        <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>
+            {children}
+        </th>
+    );
 }
 
 function Td({
@@ -635,7 +639,7 @@ function ActionBtn({
         ${
                 danger
                     ? "!bg-rose-600 !text-white hover:!bg-rose-700 dark:bg-rose-500 dark:hover:bg-rose-400"
-                    : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10 dark:!text-black"
+                    : "border border-gray-300 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
             }
         ${className}`}
         >
@@ -664,10 +668,12 @@ function PaginationControls({
     const hasPrev = page > 0;
     const hasNext = totalPages != null ? page < totalPages - 1 : false;
 
+    const {t} = useTranslation();
+
     return (
         <div className={`mt-5 flex flex-wrap items-center justify-end gap-3 ${className}`}>
             <label className="flex items-center gap-2 text-sm">
-                <span className="text-gray-600 dark:text-gray-300">Показывать по:</span>
+                <span className="text-gray-600 dark:text-gray-300">{t("pp_pager_perPageLabel")}</span>
                 <select
                     className="rounded-lg border px-2 py-1 text-sm dark:border-white/20 dark:bg-black"
                     value={size}
@@ -686,9 +692,9 @@ function PaginationControls({
                     <button
                         onClick={onPrev}
                         disabled={!hasPrev}
-                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20 dark:!text-black"
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
                     >
-                        ◀ Пред
+                        {t("pp_pager_prev")}
                     </button>
                     <span className="text-sm tabular-nums text-gray-600 dark:text-gray-300">
             {page + 1} / {totalPages}
@@ -696,9 +702,9 @@ function PaginationControls({
                     <button
                         onClick={onNext}
                         disabled={!hasNext}
-                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20 dark:!text-black"
+                        className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
                     >
-                        След ▶
+                        {t("pp_pager_next")}
                     </button>
                 </div>
             )}
