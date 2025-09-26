@@ -50,20 +50,22 @@ export default function RequestsPage() {
             <Container>
                 {/* Top bar */}
                 <div className="mb-4 flex flex-wrap items-center gap-2">
-                    <h2 className="text-2xl font-semibold tracking-tight">
-                        {t("requests_title")}
-                    </h2>
+                    <h2 className="text-2xl font-semibold tracking-tight">{t("requests_title")}</h2>
 
                     <div className="ml-auto flex gap-2">
-                        <input
-                            value={q}
-                            onChange={(e) => {
-                                setPage(0);
-                                setQ(e.currentTarget.value);
-                            }}
-                            placeholder={t("requests_searchPlaceholder")}
-                            className="w-72 rounded-2xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
-                        />
+                        <div className="relative">
+                            <input
+                                value={q}
+                                onChange={(e) => {
+                                    setPage(0);
+                                    setQ(e.currentTarget.value);
+                                }}
+                                placeholder={t("requests_searchPlaceholder")}
+                                className="w-72 rounded-2xl border border-gray-200 bg-white/70 px-4 py-2 text-sm outline-none ring-0 transition focus:border-gray-300 focus:shadow-sm dark:border-white/15 dark:bg-black/40 dark:focus:border-white/25"
+                            />
+                            <span
+                                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">⌕</span>
+                        </div>
 
                         <select
                             value={status}
@@ -71,7 +73,7 @@ export default function RequestsPage() {
                                 setPage(0);
                                 setStatus(e.currentTarget.value as RequestStatus);
                             }}
-                            className="rounded-2xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
+                            className="rounded-2xl border border-gray-200 bg-white/70 px-3 py-2 text-sm transition hover:bg-white focus:border-gray-300 focus:shadow-sm dark:border-white/15 dark:bg-black/40 dark:hover:bg-black/50"
                         >
                             <option value="">{t("requests_statusAll")}</option>
                             <option value="NEW">{t("requests_statusNew")}</option>
@@ -84,82 +86,120 @@ export default function RequestsPage() {
                 {/* Error */}
                 {err && (
                     <div
-                        className="mb-4 rounded-xl bg-rose-50 p-3 text-rose-700 dark:bg-rose-500/10 dark:text-rose-200">
+                        className="mb-4 rounded-2xl border border-rose-200 bg-rose-50/80 px-4 py-3 text-rose-700 shadow-sm dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-200">
                         {err}
                     </div>
                 )}
 
-                {/* Table */}
+                {/* Table / Cards */}
                 {!isMobile ? (
                     <Container>
-                        <div className="overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
+                        <div
+                            className="overflow-x-auto rounded-2xl border border-gray-200 bg-white/60 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-black/30">
                             <table className="min-w-full text-sm">
-                                <thead className="bg-gray-50 dark:bg-white/5">
-                                <tr>
-                                    <Th>{t("requests_id")}</Th>
+                                <thead>
+                                <tr className="bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 dark:from-white/5 dark:to-white/10 dark:text-gray-200">
+                                    <Th className="rounded-tl-2xl">{t("requests_id")}</Th>
                                     <Th>{t("requests_date")}</Th>
                                     <Th>{t("requests_name")}</Th>
                                     <Th>{t("requests_contacts")}</Th>
                                     <Th>{t("requests_subject")}</Th>
                                     <Th>{t("requests_message")}</Th>
                                     <Th>{t("requests_status")}</Th>
-                                    <Th className="text-right">{t("requests_actions")}</Th>
+                                    <Th className="text-right rounded-tr-2xl">{t("requests_actions")}</Th>
                                 </tr>
                                 </thead>
-                                <tbody className="divide-y dark:divide-white/10">
+
+                                <tbody className="divide-y divide-gray-100 dark:divide-white/10">
                                 {loading ? (
                                     <tr>
-                                        <Td colSpan={8} className="py-10 text-center">
+                                        <Td colSpan={8} className="py-12 text-center text-gray-500 dark:text-gray-400">
                                             {t("requests_loading")}
                                         </Td>
                                     </tr>
                                 ) : items.length === 0 ? (
                                     <tr>
-                                        <Td colSpan={8} className="py-10 text-center">
+                                        <Td colSpan={8} className="py-12 text-center text-gray-500 dark:text-gray-400">
                                             {t("requests_empty")}
                                         </Td>
                                     </tr>
                                 ) : (
-                                    items.map((r) => (
-                                        <tr key={r.id} className="align-top hover:bg-gray-50 dark:hover:bg-white/5">
-                                            <Td className="whitespace-nowrap">#{r.id}</Td>
-                                            <Td className="whitespace-nowrap">
+                                    items.map((r, i) => (
+                                        <tr
+                                            key={r.id}
+                                            className={[
+                                                "align-top transition-colors",
+                                                i % 2 === 0
+                                                    ? "bg-white/80 dark:bg-black/20"
+                                                    : "bg-gray-50/80 dark:bg-black/10",
+                                                "hover:bg-gray-100/80 dark:hover:bg-white/10",
+                                            ].join(" ")}
+                                        >
+                                            <Td className="whitespace-nowrap font-mono text-xs text-gray-600 dark:text-gray-300">
+                                                #{r.id}
+                                            </Td>
+
+                                            <Td className="whitespace-nowrap text-gray-600 dark:text-gray-400">
                                                 {new Date(r.createdAt).toLocaleString()}
                                             </Td>
-                                            <Td>{r.name}</Td>
+
+                                            <Td className="font-medium text-gray-900 dark:text-gray-100">{r.name}</Td>
+
                                             <Td>
-                                                {r.email && <div className="text-xs">{r.email}</div>}
-                                                {r.phone && <div className="text-xs">{r.phone}</div>}
+                                                {r.email && (
+                                                    <div
+                                                        className="text-xs text-blue-600 underline decoration-blue-200 underline-offset-2 dark:text-blue-400">
+                                                        {r.email}
+                                                    </div>
+                                                )}
+                                                {r.phone && <div
+                                                    className="text-xs text-emerald-600 dark:text-emerald-400">{r.phone}</div>}
                                             </Td>
-                                            <Td className="max-w-[220px] truncate">
+
+                                            <Td className="max-w-[240px] truncate text-gray-700 dark:text-gray-200">
                                                 {r.subject || "—"}
                                             </Td>
-                                            <Td className="max-w-[360px]">
-                                                <div className="line-clamp-3">{r.message}</div>
+
+                                            <Td className="max-w-[420px] text-gray-700 dark:text-gray-300">
+                                                <div className="line-clamp-3 leading-relaxed">{r.message}</div>
                                             </Td>
+
                                             <Td>
-                                                <select
-                                                    value={r.status}
-                                                    onChange={async (e) => {
-                                                        const s = e.currentTarget.value as RequestStatus;
-                                                        await updateRequestStatus(r.id, s);
-                                                        load();
-                                                    }}
-                                                    className="rounded-lg border px-2 py-1 text-xs dark:border-white/20 dark:bg-black"
-                                                >
-                                                    <option value="NEW">{t("requests_statusNew")}</option>
-                                                    <option
-                                                        value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
-                                                    <option value="DONE">{t("requests_statusDone")}</option>
-                                                </select>
+                                                <div className="flex items-center gap-2">
+                            <span
+                                className={[
+                                    "inline-block h-2 w-2 rounded-full",
+                                    r.status === "DONE"
+                                        ? "bg-emerald-500"
+                                        : r.status === "IN_PROGRESS"
+                                            ? "bg-amber-500"
+                                            : "bg-sky-500",
+                                ].join(" ")}
+                            />
+                                                    <select
+                                                        value={r.status}
+                                                        onChange={async (e) => {
+                                                            const s = e.currentTarget.value as RequestStatus;
+                                                            await updateRequestStatus(r.id, s);
+                                                            load();
+                                                        }}
+                                                        className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm transition focus:border-gray-300 dark:border-white/15 dark:bg-black/40"
+                                                    >
+                                                        <option value="NEW">{t("requests_statusNew")}</option>
+                                                        <option
+                                                            value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
+                                                        <option value="DONE">{t("requests_statusDone")}</option>
+                                                    </select>
+                                                </div>
                                             </Td>
+
                                             <Td className="text-right">
                                                 <button
                                                     onClick={async () => {
                                                         await deleteRequest(r.id);
                                                         load();
                                                     }}
-                                                    className="rounded-lg border px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                                                    className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
                                                 >
                                                     {t("requests_delete")}
                                                 </button>
@@ -176,29 +216,64 @@ export default function RequestsPage() {
                         {/* Mobile cards */}
                         <div className="grid gap-4 sm:hidden">
                             {loading ? (
-                                <div className="py-10 text-center">{t("requests_loading")}</div>
+                                <div
+                                    className="rounded-2xl border border-gray-200 bg-white/60 px-4 py-10 text-center text-gray-500 shadow-sm dark:border-white/10 dark:bg-black/30">
+                                    {t("requests_loading")}
+                                </div>
                             ) : items.length === 0 ? (
-                                <div className="py-10 text-center">{t("requests_empty")}</div>
+                                <div
+                                    className="rounded-2xl border border-gray-200 bg-white/60 px-4 py-10 text-center text-gray-500 shadow-sm dark:border-white/10 dark:bg-black/30">
+                                    {t("requests_empty")}
+                                </div>
                             ) : (
                                 items.map((r) => (
                                     <div
                                         key={r.id}
-                                        className="rounded-2xl border p-4 text-sm dark:border-white/10 dark:bg-black/30"
+                                        className="rounded-2xl border border-gray-200 bg-white/70 p-4 text-sm shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-black/30"
                                     >
                                         <div
-                                            className="mb-2 flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                                            <span>#{r.id}</span>
+                                            className="mb-2 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                            <span className="font-mono">#{r.id}</span>
                                             <span>{new Date(r.createdAt).toLocaleString()}</span>
                                         </div>
-                                        <div className="font-medium">{r.name}</div>
-                                        {r.email && <div className="text-xs">{r.email}</div>}
-                                        {r.phone && <div className="text-xs">{r.phone}</div>}
-                                        {r.subject && (
-                                            <div className="mt-2 text-xs text-gray-600 dark:text-gray-300">
-                                                {r.subject}
+
+                                        <div className="flex items-center justify-between gap-3">
+                                            <div className="font-medium text-gray-900 dark:text-gray-100">{r.name}</div>
+                                            <span
+                                                className={[
+                                                    "rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                                                    r.status === "DONE"
+                                                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300"
+                                                        : r.status === "IN_PROGRESS"
+                                                            ? "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300"
+                                                            : "bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300",
+                                                ].join(" ")}
+                                            >
+                        {r.status === "DONE"
+                            ? t("requests_statusDone")
+                            : r.status === "IN_PROGRESS"
+                                ? t("requests_statusInProgress")
+                                : t("requests_statusNew")}
+                      </span>
+                                        </div>
+
+                                        {r.email && (
+                                            <div
+                                                className="mt-1 text-xs text-blue-600 underline decoration-blue-200 underline-offset-2 dark:text-blue-400">
+                                                {r.email}
                                             </div>
                                         )}
-                                        <div className="mt-1">{r.message}</div>
+                                        {r.phone && <div
+                                            className="text-xs text-emerald-600 dark:text-emerald-400">{r.phone}</div>}
+
+                                        {r.subject && (
+                                            <div
+                                                className="mt-2 text-xs text-gray-600 dark:text-gray-300">{r.subject}</div>
+                                        )}
+
+                                        <div
+                                            className="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{r.message}</div>
+
                                         <div className="mt-3 flex items-center justify-between">
                                             <select
                                                 value={r.status}
@@ -207,18 +282,19 @@ export default function RequestsPage() {
                                                     await updateRequestStatus(r.id, s);
                                                     load();
                                                 }}
-                                                className="rounded-lg border px-2 py-1 text-xs dark:border-white/20 dark:bg-black"
+                                                className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm dark:border-white/15 dark:bg-black/40"
                                             >
                                                 <option value="NEW">{t("requests_statusNew")}</option>
                                                 <option value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
                                                 <option value="DONE">{t("requests_statusDone")}</option>
                                             </select>
+
                                             <button
                                                 onClick={async () => {
                                                     await deleteRequest(r.id);
                                                     load();
                                                 }}
-                                                className="rounded-lg border px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+                                                className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
                                             >
                                                 {t("requests_delete")}
                                             </button>
@@ -230,9 +306,9 @@ export default function RequestsPage() {
                     </Container>
                 )}
 
-                {/* Pagination */}
+                {/* Footer controls */}
                 <div className="mt-4 flex items-center justify-end gap-3">
-                    <label className="flex items-center gap-2 text-sm">
+                    <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
                         {t("requests_perPage")}
                         <select
                             value={size}
@@ -240,7 +316,7 @@ export default function RequestsPage() {
                                 setPage(0);
                                 setSize(Number(e.currentTarget.value));
                             }}
-                            className="rounded-lg border px-2 py-1 text-sm dark:border-white/20 dark:bg-black"
+                            className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-sm shadow-sm dark:border-white/15 dark:bg-black/40"
                         >
                             {[10, 20, 50].map((n) => (
                                 <option key={n} value={n}>
@@ -249,26 +325,25 @@ export default function RequestsPage() {
                             ))}
                         </select>
                     </label>
+
                     {totalPages != null && totalPages > 1 && (
                         <>
                             <button
                                 onClick={() => setPage((p) => Math.max(0, p - 1))}
                                 disabled={page <= 0}
-                                className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                                className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-sm shadow-sm transition hover:bg-white disabled:opacity-50 dark:border-white/15 dark:bg-black/40"
                             >
                                 ◀
                             </button>
-                            <span className="tabular-nums text-sm">
+                            <span className="tabular-nums text-sm text-gray-700 dark:text-gray-200">
                 {page + 1} / {totalPages}
               </span>
                             <button
                                 onClick={() =>
-                                    setPage((p) =>
-                                        totalPages != null ? Math.min(totalPages - 1, p + 1) : p
-                                    )
+                                    setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))
                                 }
                                 disabled={totalPages != null ? page >= totalPages - 1 : true}
-                                className="rounded-lg border px-3 py-1.5 text-sm disabled:opacity-50 dark:border-white/20"
+                                className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-sm shadow-sm transition hover:bg-white disabled:opacity-50 dark:border-white/15 dark:bg-black/40"
                             >
                                 ▶
                             </button>
@@ -280,9 +355,21 @@ export default function RequestsPage() {
     );
 }
 
-function Th({children, className = ""}: { children: React.ReactNode; className?: string }) {
+function Th({
+                children,
+                className = "",
+            }: {
+    children: React.ReactNode;
+    className?: string;
+}) {
     return (
-        <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>
+        <th
+            className={[
+                "px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide",
+                "first:rounded-l-2xl last:rounded-r-2xl",
+                className,
+            ].join(" ")}
+        >
             {children}
         </th>
     );
@@ -298,7 +385,7 @@ function Td({
     colSpan?: number;
 }) {
     return (
-        <td colSpan={colSpan} className={`px-4 py-3 ${className}`}>
+        <td colSpan={colSpan} className={["px-4 py-3 align-top", className].join(" ")}>
             {children}
         </td>
     );
