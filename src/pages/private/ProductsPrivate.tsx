@@ -64,6 +64,50 @@ export default function ProductsPrivate() {
     const [edit, setEdit] = useState<EditState>({mode: "none"});
     const [confirm, setConfirm] = useState<ConfirmState>({open: false});
 
+    // ---- Сортировка ----
+    const [sortKey, setSortKey] = useState<keyof Product | null>(null);
+    const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+    const handleSort = (key: keyof Product) => {
+        if (sortKey === key) {
+            setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+        } else {
+            setSortKey(key);
+            setSortDir("asc");
+        }
+    };
+
+    const sortedItems = useMemo(() => {
+        if (!sortKey) return items;
+        return [...items].sort((a, b) => {
+            const v1 = a[sortKey] as unknown;
+            const v2 = b[sortKey] as unknown;
+
+            // null/undefined в конец
+            if (v1 == null && v2 == null) return 0;
+            if (v1 == null) return 1;
+            if (v2 == null) return -1;
+
+            // Булево как 1/0
+            const coerce = (v: unknown) =>
+                typeof v === "number" ? v
+                    : typeof v === "boolean" ? (v ? 1 : 0)
+                        : typeof v === "string" ? v
+                            : String(v);
+
+            const aC = coerce(v1);
+            const bC = coerce(v2);
+
+            if (typeof aC === "number" && typeof bC === "number") {
+                return sortDir === "asc" ? aC - bC : bC - aC;
+            }
+            // строковое сравнение с localeCompare
+            const cmp = String(aC).localeCompare(String(bC), undefined, {numeric: true, sensitivity: "base"});
+            return sortDir === "asc" ? cmp : -cmp;
+        });
+    }, [items, sortKey, sortDir]);
+
+    // ---- Подсказочные списки ----
     const brands = useMemo(
         () => Array.from(new Set(items.map((p) => p.brand).filter(Boolean))).sort(),
         [items]
@@ -192,7 +236,7 @@ export default function ProductsPrivate() {
                                 setQuery(e.currentTarget.value);
                             }}
                             placeholder={t("pp_search_placeholder")}
-                            className="w-full sm:w-72 rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border-white/20"
+                            className="w-full sm:w-72 rounded-xl border px-3 py-2 text-sm dark:bg-black dark:border:white/20 dark:border-white/20"
                         />
                         {isAdmin && (
                             <button
@@ -223,13 +267,69 @@ export default function ProductsPrivate() {
                             <table className="min-w-full text-sm">
                                 <thead className="bg-gray-50 text-gray-600 dark:bg-white/5 dark:text-gray-300">
                                 <tr>
-                                    <Th>{t("pp_th_id")}</Th>
-                                    <Th>{t("pp_th_title")}</Th>
-                                    <Th>{t("pp_th_brand")}</Th>
-                                    <Th>{t("pp_th_price")}</Th>
-                                    <Th>{t("pp_th_inStock")}</Th>
-                                    <Th>{t("pp_th_category")}</Th>
-                                    <Th>{t("pp_th_subcategory")}</Th>
+                                    <Th
+                                        sortable
+                                        sortKey="id"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_id")}
+                                    </Th>
+                                    <Th
+                                        sortable
+                                        sortKey="title"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_title")}
+                                    </Th>
+                                    <Th
+                                        sortable
+                                        sortKey="brand"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_brand")}
+                                    </Th>
+                                    <Th
+                                        sortable
+                                        sortKey="price"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_price")}
+                                    </Th>
+                                    <Th
+                                        sortable
+                                        sortKey="inStock"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_inStock")}
+                                    </Th>
+                                    <Th
+                                        sortable
+                                        sortKey="category"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_category")}
+                                    </Th>
+                                    <Th
+                                        sortable
+                                        sortKey="subcategory"
+                                        currentKey={sortKey}
+                                        sortDir={sortDir}
+                                        onSort={handleSort}
+                                    >
+                                        {t("pp_th_subcategory")}
+                                    </Th>
                                     <Th className="text-right">{t("pp_th_actions")}</Th>
                                 </tr>
                                 </thead>
@@ -240,14 +340,14 @@ export default function ProductsPrivate() {
                                             {t("pp_loading")}
                                         </Td>
                                     </tr>
-                                ) : items.length === 0 ? (
+                                ) : sortedItems.length === 0 ? (
                                     <tr>
                                         <Td colSpan={8} className="py-10 text-center text-gray-500">
                                             {t("pp_nothing")}
                                         </Td>
                                     </tr>
                                 ) : (
-                                    items.map((p) => (
+                                    sortedItems.map((p) => (
                                         <tr key={p.id} className="hover:bg-black/5 dark:hover:bg-white/5">
                                             <Td>{p.id}</Td>
                                             <Td className="font-medium">{p.title}</Td>
@@ -299,13 +399,13 @@ export default function ProductsPrivate() {
                                     className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
                                     {t("pp_loading")}
                                 </div>
-                            ) : items.length === 0 ? (
+                            ) : sortedItems.length === 0 ? (
                                 <div
                                     className="rounded-2xl border p-6 text-center text-sm text-gray-500 dark:border-white/10">
                                     {t("pp_nothing")}
                                 </div>
                             ) : (
-                                items.map((p) => (
+                                sortedItems.map((p) => (
                                     <div key={p.id}
                                          className="rounded-2xl border p-4 shadow-sm dark:border-white/10 dark:bg-black/40">
                                         <div className="flex items-start justify-between gap-3">
@@ -520,20 +620,18 @@ export default function ProductsPrivate() {
 
                                 <div className="mt-3 text-sm text-gray-700 dark:text-gray-200">
                                     {confirm.kind === "delete" && (
-                                        <>{t("pp_confirm_delete_desc", {title: confirm.product.title})}</>
+                                        <>
+                                            {t("pp_confirm_delete_desc")} «{confirm.product.title}»
+                                        </>
                                     )}
                                     {confirm.kind === "save-edit" && (
                                         <>
-                                            {t("pp_confirm_saveEdit_desc", {
-                                                title: confirm.draft.title || `#${confirm.draft.id}`,
-                                            })}
+                                            {t("pp_confirm_saveEdit_desc")} «{confirm.draft.title || `#${confirm.draft.id}`}»
                                         </>
                                     )}
                                     {confirm.kind === "save-create" && (
                                         <>
-                                            {t("pp_confirm_saveCreate_desc", {
-                                                title: confirm.draft.title || t("pp_field_title"),
-                                            })}
+                                            {t("pp_confirm_saveCreate_desc")} «{confirm.draft.title || t("pp_field_title")}»
                                         </>
                                     )}
                                 </div>
@@ -545,7 +643,7 @@ export default function ProductsPrivate() {
                        bg-white text-black shadow
                        hover:bg-black hover:text-white hover:shadow-lg
                        focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                       dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white"
+                       dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text:white dark:hover:text-white"
                                     >
                                         {t("pp_confirm_btn_cancel")}
                                     </button>
@@ -570,13 +668,48 @@ export default function ProductsPrivate() {
     );
 }
 
-{/* ========= Мини-компоненты ========= */
-}
+/* ========= Мини-компоненты ========= */
 
-function Th({children, className = ""}: { children: React.ReactNode; className?: string }) {
+function Th({
+                children,
+                className = "",
+                sortable,
+                sortKey,
+                currentKey,
+                sortDir,
+                onSort,
+            }: {
+    children: React.ReactNode;
+    className?: string;
+    sortable?: boolean;
+    sortKey?: keyof Product;
+    currentKey?: keyof Product | null;
+    sortDir?: "asc" | "desc";
+    onSort?: (key: keyof Product) => void;
+}) {
+    const isClickable = !!(sortable && sortKey && onSort);
+    const active = currentKey === sortKey;
+
     return (
-        <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>
-            {children}
+        <th
+            className={`px-4 py-3 text-left text-xs font-semibold uppercase ${isClickable ? "cursor-pointer select-none" : ""} ${className}`}
+            onClick={isClickable ? () => onSort!(sortKey!) : undefined}
+            role={isClickable ? "button" : undefined}
+            tabIndex={isClickable ? 0 : undefined}
+            onKeyDown={isClickable ? (e) => {
+                if (e.key === "Enter" || e.key === " ") onSort!(sortKey!);
+            } : undefined}
+            aria-sort={active ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
+            title={isClickable ? (active ? (sortDir === "asc" ? "▲" : "▼") : "↕") : undefined}
+        >
+            <div className="flex items-center gap-1">
+                {children}
+                {isClickable && (
+                    <span className="text-[10px] opacity-70">
+            {active ? (sortDir === "asc" ? "▲" : "▼") : "↕"}
+          </span>
+                )}
+            </div>
         </th>
     );
 }

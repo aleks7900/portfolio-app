@@ -755,6 +755,26 @@ export const dict: Dictionary = {
 
         contacts_md_iban_label: "IBAN:",
         contacts_md_iban_value: "MD65AG000000022513991091 (MDL)",
+
+        attendance_nav: "Посещаемость",
+        attendance_title: "Посещаемость сайта",
+        attendance_search_placeholder: "Поиск по сессии, IP или User-Agent…",
+        attendance_pageSize: "На странице: {{count}}",
+        attendance_loading: "Загрузка…",
+        attendance_empty: "Событий не найдено",
+        attendance_pagination_info: "{{from}}–{{to}} из {{total}}",
+        attendance_first: "В начало",
+        attendance_prev: "Назад",
+        attendance_next: "Вперед",
+        attendance_last: "В конец",
+        attendance_page_of: "Стр. {{page}} из {{total}}",
+
+        attendance_col_createdAt: "Время",
+        attendance_col_sessionId: "Сессия",
+        attendance_col_ip: "IP",
+        attendance_col_userAgent: "User-Agent",
+        attendance_col_event: "Событие",
+        attendance_col_path: "Путь/URL",
     },
     ro: {
         brandLogo: "",
@@ -1542,11 +1562,49 @@ export const dict: Dictionary = {
 
         contacts_md_iban_label: "IBAN:",
         contacts_md_iban_value: "MD65AG000000022513991091 (MDL)",
+
+        attendance_nav: "Vizite",
+        attendance_title: "Vizitarea site-ului",
+        attendance_search_placeholder: "Căutare după sesiune, IP sau User-Agent…",
+        attendance_pageSize: "Pe pagină: {{count}}",
+        attendance_loading: "Se încarcă…",
+        attendance_empty: "Nu au fost găsite evenimente",
+        attendance_pagination_info: "{{from}}–{{to}} din {{total}}",
+        attendance_first: "La început",
+        attendance_prev: "Înapoi",
+        attendance_next: "Înainte",
+        attendance_last: "La sfârșit",
+        attendance_page_of: "Pag. {{page}} din {{total}}",
+
+        attendance_col_createdAt: "Ora",
+        attendance_col_sessionId: "Sesiune",
+        attendance_col_ip: "IP",
+        attendance_col_userAgent: "User-Agent",
+        attendance_col_event: "Eveniment",
+        attendance_col_path: "Cale/URL",
     }
 };
 
 
-const I18nCtx = createContext<{ lang: Lang; t: (k: string) => string; setLang: (l: Lang) => void } | null>(null);
+type Vars = Record<string, string | number>;
+
+// простая интерполяция {{var}} → значение
+function interpolate(template: string, vars?: Vars): string {
+    if (!vars) return template;
+    let out = template;
+    for (const [k, v] of Object.entries(vars)) {
+        // {{ var }} с пробелами/без
+        const re = new RegExp(`{{\\s*${k}\\s*}}`, "g");
+        out = out.replace(re, String(v));
+    }
+    return out;
+}
+
+const I18nCtx = createContext<{
+    lang: Lang;
+    t: (k: string, vars?: Vars) => string;
+    setLang: (l: Lang) => void;
+} | null>(null);
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useI18n() {
@@ -1555,18 +1613,29 @@ export function useI18n() {
     return ctx;
 }
 
-export function I18nProvider({children}: { children: React.ReactNode }) {
+export function I18nProvider({ children }: { children: React.ReactNode }) {
     const [lang, setLang] = useState<Lang>(() => (localStorage.getItem("lang") as Lang) || "ru");
+
     useEffect(() => {
         localStorage.setItem("lang", lang);
     }, [lang]);
-    const t = useCallback((k: string) => dict[lang][k] ?? k, [lang]);
-    const value = useMemo(() => ({lang, t, setLang}), [lang, t]);
+
+    const t = useCallback(
+        (k: string, vars?: Vars) => {
+            const template = dict[lang][k] ?? k; // если ключа нет — вернём сам ключ
+            return interpolate(template, vars);
+        },
+        [lang]
+    );
+
+    const value = useMemo(() => ({ lang, t, setLang }), [lang, t]);
     return <I18nCtx.Provider value={value}>{children}</I18nCtx.Provider>;
 }
 
-// Утилита для безопасного вывода форматированного перевода:
-export function TransHTML({k}: { k: string }) {
-    const {t} = useI18n();
-    return <span dangerouslySetInnerHTML={{__html: t(k)}}/>;
+/** Отрисовка HTML-переводов с подстановкой переменных.
+ *  ВНИМАНИЕ: сюда передавайте только безопасные значения!
+ */
+export function TransHTML({ k, vars }: { k: string; vars?: Vars }) {
+    const { t } = useI18n();
+    return <span dangerouslySetInnerHTML={{ __html: t(k, vars) }} />;
 }
