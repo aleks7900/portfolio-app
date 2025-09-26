@@ -12,15 +12,16 @@ import {BASE_URL} from "../../shared/api/api.ts";
 
 type Period = "day" | "month" | "year";
 
-type VisitPoint = {
-    label: string;
-    count: number;
-};
+type VisitPoint = { label: string; count: number };
 type VisitsResponse = VisitPoint[];
 
-function exportToCSV(filename: string, rows: VisitPoint[]) {
-    const headers = ["label", "count"];
-    const csv = [headers.join(","), ...rows.map((r) => `${JSON.stringify(r.label)},${r.count}`)].join("\n");
+// NEW: Top paths DTO
+type TopPath = { path: string; count: number };
+type TopPathsResponse = TopPath[];
+
+function exportToCSV(filename: string, rows: { [k: string]: unknown }[], headers?: string[]) {
+    const keys = headers ?? Object.keys(rows[0] ?? {});
+    const csv = [keys.join(","), ...rows.map((r) => keys.map((k) => JSON.stringify(r[k] ?? "")).join(","))].join("\n");
     const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -38,27 +39,28 @@ export default function VisitsPage() {
     const tf = useCallback((key: string, fallback: string) => {
         const v = t(key);
         return v === key || !v ? fallback : v;
-    });
+    }, [t]);
 
     const [period, setPeriod] = useState<Period>("day");
     const [pathFilter, setPathFilter] = useState<string>("");
     const [from, setFrom] = useState<string>("");
     const [to, setTo] = useState<string>("");
-    const tz = useMemo(
-        () => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC",
-        []
-    );
+    const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC", []);
 
+    // Chart data
     const [data, setData] = useState<VisitPoint[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const abortRef = useRef<AbortController | null>(null);
 
+    // Top paths data
+    const [topData, setTopData] = useState<TopPath[]>([]);
+    const [topLoading, setTopLoading] = useState<boolean>(false);
+    const [topError, setTopError] = useState<string | null>(null);
+    const topAbortRef = useRef<AbortController | null>(null);
+
     const numberFmt = useMemo(() => new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}), []);
-    const total = useMemo(
-        () => data.reduce((acc, d) => acc + (Number.isFinite(d.count) ? d.count : 0), 0),
-        [data]
-    );
+    const total = useMemo(() => data.reduce((acc, d) => acc + (Number.isFinite(d.count) ? d.count : 0), 0), [data]);
 
     const subtitle = useMemo(() => {
         const map: Record<Period, string> = {
@@ -69,7 +71,8 @@ export default function VisitsPage() {
         return map[period];
     }, [period, tf]);
 
-    function buildUrl(): string {
+    // --- URLs builders
+    function buildChartUrl(): string {
         const params = new URLSearchParams();
         params.set("period", period);
         if (pathFilter.trim()) params.set("path", pathFilter.trim());
@@ -79,16 +82,26 @@ export default function VisitsPage() {
         return `${BASE_URL}/api/analytics/visits?${params.toString()}`;
     }
 
-    async function fetchData() {
+    function buildTopUrl(): string {
+        const params = new URLSearchParams();
+        if (pathFilter.trim()) params.set("path", pathFilter.trim()); // префикс-фильтр
+        if (from.trim()) params.set("from", from.trim());
+        if (to.trim()) params.set("to", to.trim());
+        params.set("tz", tz);
+        params.set("limit", "20");
+        return `${BASE_URL}/api/analytics/top-paths?${params.toString()}`;
+    }
+
+    // --- Fetchers
+    async function fetchChart() {
         setLoading(true);
         setError(null);
-
         if (abortRef.current) abortRef.current.abort();
         const controller = new AbortController();
         abortRef.current = controller;
 
         try {
-            const res = await fetch(buildUrl(), {signal: controller.signal});
+            const res = await fetch(buildChartUrl(), {signal: controller.signal});
             if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
             const json: VisitsResponse = await res.json();
             setData(Array.isArray(json) ? json : []);
@@ -101,27 +114,59 @@ export default function VisitsPage() {
         }
     }
 
+    async function fetchTop() {
+        setTopLoading(true);
+        setTopError(null);
+        if (topAbortRef.current) topAbortRef.current.abort();
+        const controller = new AbortController();
+        topAbortRef.current = controller;
+
+        try {
+            const res = await fetch(buildTopUrl(), {signal: controller.signal});
+            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+            const json: TopPathsResponse = await res.json();
+            // ожидаем [{path, count}]
+            setTopData(Array.isArray(json) ? json : []);
+        } catch (e: unknown) {
+            if ((e as any)?.name === "AbortError") return;
+            setTopError(e instanceof Error ? e.message : String(e));
+            setTopData([]);
+        } finally {
+            setTopLoading(false);
+        }
+    }
+
+    // Загружаем график при смене периода/таймзоны
     useEffect(() => {
-        fetchData();
+        fetchChart();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [period, tz]);
 
-    const applyFilters = () => fetchData();
-
-    const onExport = () => {
-        const filenameParts = ["visits", period];
-        if (pathFilter.trim()) filenameParts.push(pathFilter.replaceAll("/", "_"));
-        if (from.trim() || to.trim()) filenameParts.push(`${from || "from"}_${to || "to"}`);
-        exportToCSV(`${filenameParts.join("_")}.csv`, data);
+    // Применение фильтров вручную — одновременно грузим график и топ
+    const applyFilters = () => {
+        fetchChart();
+        fetchTop();
     };
 
-    // Топ 20 url
-    const topUrls = useMemo(
-        () =>
-            [...data]
-                .sort((a, b) => b.count - a.count)
-                .slice(0, 20),
-        [data]
-    );
+    // Стартовая подгрузка топа (без необходимости менять период)
+    useEffect(() => {
+        fetchTop();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tz]);
+
+    const onExportChart = () => {
+        const filenameParts = ["visits_chart", period];
+        if (pathFilter.trim()) filenameParts.push(pathFilter.replaceAll("/", "_"));
+        if (from.trim() || to.trim()) filenameParts.push(`${from || "from"}_${to || "to"}`);
+        exportToCSV(`${filenameParts.join("_")}.csv`, data, ["label", "count"]);
+    };
+
+    const onExportTop = () => {
+        const filenameParts = ["visits_top20"];
+        if (pathFilter.trim()) filenameParts.push(pathFilter.replaceAll("/", "_"));
+        if (from.trim() || to.trim()) filenameParts.push(`${from || "from"}_${to || "to"}`);
+        exportToCSV(`${filenameParts.join("_")}.csv`, topData, ["path", "count"]);
+    };
 
     return (
         <div className="mx-auto w-full max-w-7xl p-4 mt-20 md:p-6 space-y-6 ">
@@ -178,7 +223,7 @@ export default function VisitsPage() {
                             <RefreshCw className="h-4 w-4"/>
                             {tf("visits_apply", "Применить")}
                         </Button>
-                        <Button onClick={onExport} variant="outline" className="gap-2 dark:text-black">
+                        <Button onClick={onExportChart} variant="outline" className="gap-2 dark:text-black">
                             <Download className="h-4 w-4"/>
                             {tf("visits_exportCsv", "Экспорт CSV")}
                         </Button>
@@ -267,15 +312,30 @@ export default function VisitsPage() {
                 </CardContent>
             </Card>
 
-            {/* Top 20 URLs */}
+            {/* Top 20 URL paths */}
             <Card className="dark:bg-zinc-800">
-                <CardHeader className="pb-2">
+                <CardHeader className="pb-2 flex items-center justify-between">
                     <CardTitle className="text-base text-muted-foreground">
-                        {tf("visits_top20", "Топ-20 посещаемых страниц")}
+                        {tf("visits_top20", "Топ-20 посещаемых URL")}
                     </CardTitle>
+                    <Button onClick={onExportTop} variant="outline" className="gap-2 dark:text-black">
+                        <Download className="h-4 w-4"/>
+                        {tf("visits_exportCsv", "Экспорт CSV")}
+                    </Button>
                 </CardHeader>
                 <CardContent>
-                    {topUrls.length === 0 ? (
+                    {topLoading ? (
+                        <div className="space-y-2">
+                            <Skeleton className="h-5 w-64"/>
+                            <Skeleton className="h-32 w-full"/>
+                        </div>
+                    ) : topError ? (
+                        <Alert variant="destructive">
+                            <AlertDescription>
+                                {tf("visits_error", "Ошибка загрузки")}: {topError}
+                            </AlertDescription>
+                        </Alert>
+                    ) : topData.length === 0 ? (
                         <div className="text-muted-foreground text-sm">
                             {tf("visits_noTopUrls", "Нет данных")}
                         </div>
@@ -283,14 +343,19 @@ export default function VisitsPage() {
                         <table className="w-full text-sm">
                             <thead>
                             <tr className="text-left text-muted-foreground border-b">
+                                <th className="py-1 px-2 w-12">#</th>
                                 <th className="py-1 px-2">{tf("visits_url", "URL")}</th>
                                 <th className="py-1 px-2 text-right">{tf("visits_visits", "Посещения")}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {topUrls.map((u, i) => (
-                                <tr key={i} className="border-b last:border-0 hover:bg-muted/30">
-                                    <td className="py-1 px-2 font-mono text-xs">{u.label}</td>
+                            {topData.map((u, i) => (
+                                <tr key={u.path} className="border-b last:border-0 hover:bg-muted/30">
+                                    <td className="py-1 px-2">{i + 1}</td>
+                                    <td className="py-1 px-2 font-mono text-xs whitespace-nowrap overflow-hidden text-ellipsis max-w-[0] sm:max-w-none"
+                                        title={u.path}>
+                                        {u.path}
+                                    </td>
                                     <td className="py-1 px-2 text-right">{numberFmt.format(u.count)}</td>
                                 </tr>
                             ))}
