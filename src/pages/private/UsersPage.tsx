@@ -6,7 +6,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../
 import {Alert, AlertDescription} from "../../components/ui/alert";
 import {Skeleton} from "../../components/ui/skeleton";
 import {Download, RefreshCw, ChevronLeft, ChevronRight, ArrowUpDown} from "lucide-react";
-import {BASE_URL} from "../../shared/api/api";
+import {apiFetch, BASE_URL} from "../../shared/api/api";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 type UsersSummary = {
@@ -45,9 +45,16 @@ function qs(obj: Record<string, any>) {
 }
 
 async function getJSON<T>(url: string, signal?: AbortSignal): Promise<T> {
-    const res = await fetch(url, {signal});
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-    return res.json();
+    const r = await apiFetch(url, { signal });
+
+    // Если это Response — проверим статус и распарсим JSON
+    if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
+        const res = r as Response;
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
+        return (await res.json()) as T;
+    }
+    // Иначе apiFetch уже вернул JSON
+    return r as T;
 }
 
 export default function UsersPage() {

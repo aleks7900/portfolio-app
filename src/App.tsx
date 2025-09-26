@@ -17,7 +17,7 @@ import RequestsPage from "./pages/private/RequestsPage.tsx";
 import UsersPage from "./pages/private/UsersPage.tsx";
 import Navbar from "./shared/Navbar.tsx";
 import PageEvents from "./hooks/pageEvents.ts";
-import AttendancePage from "./pages/admin/AttendancePage.tsx";
+import AttendancePage from "./pages/private/AttendancePage.tsx";
 import VisitsPage from "./pages/private/VisitsPage.tsx";
 
 function ScrollToTop() {

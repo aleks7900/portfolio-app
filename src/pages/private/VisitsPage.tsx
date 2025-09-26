@@ -8,7 +8,7 @@ import {Download, RefreshCw} from "lucide-react";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {Skeleton} from "../../components/ui/skeleton.tsx";
-import {BASE_URL} from "../../shared/api/api.ts";
+import {apiFetch, BASE_URL} from "../../shared/api/api.ts";
 
 type Period = "day" | "month" | "year";
 
@@ -101,13 +101,22 @@ export default function VisitsPage() {
         abortRef.current = controller;
 
         try {
-            const res = await fetch(buildChartUrl(), {signal: controller.signal});
-            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-            const json: VisitsResponse = await res.json();
+            const r = await apiFetch(buildChartUrl(), { signal: controller.signal });
+
+            let json: VisitsResponse;
+            if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
+                const res = r as Response;
+                if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
+                json = (await res.json()) as VisitsResponse;
+            } else {
+                json = r as VisitsResponse; // apiFetch уже вернул JSON
+            }
+
             setData(Array.isArray(json) ? json : []);
         } catch (e: unknown) {
             if ((e as any)?.name === "AbortError") return;
-            setError(e instanceof Error ? e.message : String(e));
+            const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
+            setError(msg);
             setData([]);
         } finally {
             setLoading(false);
@@ -122,14 +131,22 @@ export default function VisitsPage() {
         topAbortRef.current = controller;
 
         try {
-            const res = await fetch(buildTopUrl(), {signal: controller.signal});
-            if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-            const json: TopPathsResponse = await res.json();
-            // ожидаем [{path, count}]
+            const r = await apiFetch(buildTopUrl(), { signal: controller.signal });
+
+            let json: TopPathsResponse;
+            if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
+                const res = r as Response;
+                if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
+                json = (await res.json()) as TopPathsResponse;
+            } else {
+                json = r as TopPathsResponse;
+            }
+
             setTopData(Array.isArray(json) ? json : []);
         } catch (e: unknown) {
             if ((e as any)?.name === "AbortError") return;
-            setTopError(e instanceof Error ? e.message : String(e));
+            const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
+            setTopError(msg);
             setTopData([]);
         } finally {
             setTopLoading(false);
