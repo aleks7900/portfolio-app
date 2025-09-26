@@ -49,7 +49,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     const login = async (email: string, password: string) => {
         const body = JSON.stringify({email, password});
 
-        const data: Record<string, unknown> = await apiFetch<Record<string, unknown>>("/api/auth/login", {
+        const data: Record<string, unknown> = await apiFetch<Record<string, unknown>>("/auth/login", {
             method: "POST",
             body,
             auth: false,

@@ -97,8 +97,8 @@ export default function UsersPage() {
         const controller = new AbortController(); abortRef.current = controller;
         try {
             const [sum, lst] = await Promise.all([
-                getJSON<UsersSummary>(`${API_BASE}/api/users/summary?${qs({from,to,tz})}`, controller.signal),
-                getJSON<UsersListResponse>(`${API_BASE}/api/users/list?${qs(params)}`, controller.signal),
+                getJSON<UsersSummary>(`${API_BASE}/users/summary?${qs({from,to,tz})}`, controller.signal),
+                getJSON<UsersListResponse>(`${API_BASE}/users/list?${qs(params)}`, controller.signal),
             ]);
             setSummary(sum); setList(lst);
         } catch (e:any) {
@@ -113,7 +113,7 @@ export default function UsersPage() {
 
     const onExportCSV = async () => {
         try {
-            const all = await getJSON<UsersListResponse>(`${API_BASE}/api/users/list?${qs({...params, page:0, size:10000})}`);
+            const all = await getJSON<UsersListResponse>(`${API_BASE}/users/list?${qs({...params, page:0, size:10000})}`);
             const headers = ["userId","firstSeen","lastSeen","sessions","views","avgSessionDurationSec","bounceRate"];
             const rows = all.items.map(x => ({
                 userId: x.userId,

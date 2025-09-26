@@ -69,7 +69,7 @@ export default function CatalogFilters({
 
     // Загружаем категории при монтировании
     useEffect(() => {
-        fetch(`${API}/api/categories`, {credentials: "omit"})
+        fetch(`${API}/categories`, {credentials: "omit"})
             .then(r => r.json())
             .then(setCategories)
             .catch(console.error);
@@ -83,7 +83,7 @@ export default function CatalogFilters({
                 setSubcategories([]);
                 return;
             }
-            const url = `${API}/api/subcategories?category=${encodeURIComponent(cat)}`;
+            const url = `${API}/subcategories?category=${encodeURIComponent(cat)}`;
             const resp = await fetch(url, {credentials: "omit"});
             const data: string[] = await resp.json();
             setSubcategories(Array.isArray(data) ? data : []);

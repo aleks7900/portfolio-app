@@ -101,7 +101,7 @@ export default function ContactsPage() {
         fd.set("message", payload.message);
         photos.forEach(f => fd.append("photos", f));
 
-        const res = await fetch("/api/requests", {method: "POST", body: fd});
+        const res = await fetch("/requests", {method: "POST", body: fd});
         if (!res.ok) {
             const txt = await res.text().catch(() => "");
             throw new Error(`Request failed: ${res.status} ${txt}`);

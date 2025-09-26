@@ -77,7 +77,7 @@ export default function FeaturedRow({
         if (limit) params.set("limit", String(limit));
 
         // Если ваш бэк ожидает другие имена параметров (page/size и т.д.), скорректируйте здесь
-        const url = `/api/products${params.toString() ? `?${params.toString()}` : ""}`;
+        const url = `/products${params.toString() ? `?${params.toString()}` : ""}`;
 
         async function run() {
             setLoading(true);

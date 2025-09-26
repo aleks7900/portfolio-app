@@ -95,7 +95,7 @@ export async function listProducts(params: ProductQuery = {}): Promise<ProductsP
     const query = usp.toString();
 
     // Получаем «как есть» (массив, Spring Page, HAL и т.д.)
-    const data: unknown = await apiFetch<unknown>(`/api/products${query ? `?${query}` : ""}`);
+    const data: unknown = await apiFetch<unknown>(`/products${query ? `?${query}` : ""}`);
 
     // Нормализуем
     let content: Product[] = [];
@@ -148,13 +148,13 @@ export async function suggestProducts(q: string, size = 8): Promise<Product[]> {
 }
 
 export async function getProduct(id: number | string): Promise<Product> {
-    const data = await apiFetch<ApiProduct>(`/api/products/${id}`);
+    const data = await apiFetch<ApiProduct>(`/products/${id}`);
     return toDomain(data);
 }
 
 export async function createProduct(p: Omit<Product, "id">): Promise<Product> {
     // сервер генерирует id
-    const created = await apiFetch<ApiProduct>("/api/products", {
+    const created = await apiFetch<ApiProduct>("/products", {
         method: "POST",
         body: toApi({...p, id: 0} as Product)
     });
@@ -162,10 +162,10 @@ export async function createProduct(p: Omit<Product, "id">): Promise<Product> {
 }
 
 export async function updateProduct(p: Product): Promise<Product> {
-    const updated = await apiFetch<ApiProduct>(`/api/products/${p.id}`, {method: "PUT", body: toApi(p)});
+    const updated = await apiFetch<ApiProduct>(`/products/${p.id}`, {method: "PUT", body: toApi(p)});
     return toDomain(updated);
 }
 
 export async function deleteProductById(id: number | string): Promise<void> {
-    await apiFetch<void>(`/api/products/${id}`, {method: "DELETE"});
+    await apiFetch<void>(`/products/${id}`, {method: "DELETE"});
 }
