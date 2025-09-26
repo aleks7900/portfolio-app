@@ -8,8 +8,12 @@ import {
 } from "../../shared/api/requestsRepo";
 import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
+
 
 export default function RequestsPage() {
+    const {t} = useI18n();
+
     const [q, setQ] = useState("");
     const [status, setStatus] = useState<RequestStatus | "">("");
     const [page, setPage] = useState(0);
@@ -45,7 +49,9 @@ export default function RequestsPage() {
         <section className="scroll-mt-24 py-20 sm:py-28">
             <Container>
                 <div className="mb-4 flex flex-wrap items-center gap-2">
-                    <h2 className="text-2xl font-semibold tracking-tight">Заявки</h2>
+                    <h2 className="text-2xl font-semibold tracking-tight">
+                        {t("requests_title")}
+                    </h2>
                     <div className="ml-auto flex gap-2">
                         <input
                             value={q}
@@ -53,7 +59,7 @@ export default function RequestsPage() {
                                 setPage(0);
                                 setQ(e.currentTarget.value);
                             }}
-                            placeholder="Поиск (имя, email, телефон, текст)"
+                            placeholder={t("requests_searchPlaceholder")}
                             className="w-64 rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
                         />
                         <select
@@ -64,10 +70,10 @@ export default function RequestsPage() {
                             }}
                             className="rounded-xl border px-3 py-2 text-sm dark:border-white/20 dark:bg-black"
                         >
-                            <option value="">Все статусы</option>
-                            <option value="NEW">NEW</option>
-                            <option value="IN_PROGRESS">IN_PROGRESS</option>
-                            <option value="DONE">DONE</option>
+                            <option value="">{t("requests_statusAll")}</option>
+                            <option value="NEW">{t("requests_statusNew")}</option>
+                            <option value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
+                            <option value="DONE">{t("requests_statusDone")}</option>
                         </select>
                     </div>
                 </div>
@@ -81,38 +87,38 @@ export default function RequestsPage() {
 
                 {!isMobile ? (
                     <Container>
-                        {/* ——— Desktop: таблица (>= sm) ——— */}
+                        {/* ——— Desktop (таблица) ——— */}
                         <div className="overflow-x-auto rounded-2xl border dark:border-white/10 sm:block">
                             <table className="min-w-full text-sm">
                                 <thead className="bg-gray-50 dark:bg-white/5">
                                 <tr>
-                                    <Th>ID</Th>
-                                    <Th>Дата</Th>
-                                    <Th>Имя</Th>
-                                    <Th>Контакты</Th>
-                                    <Th>Тема</Th>
-                                    <Th>Сообщение</Th>
-                                    <Th>Статус</Th>
-                                    <Th className="text-right">Действия</Th>
+                                    <Th>{t("requests_id")}</Th>
+                                    <Th>{t("requests_date")}</Th>
+                                    <Th>{t("requests_name")}</Th>
+                                    <Th>{t("requests_contacts")}</Th>
+                                    <Th>{t("requests_subject")}</Th>
+                                    <Th>{t("requests_message")}</Th>
+                                    <Th>{t("requests_statusAll").split(" ")[0]}</Th>
+                                    <Th className="text-right">{t("requests_actions")}</Th>
                                 </tr>
                                 </thead>
                                 <tbody className="divide-y dark:divide-white/10">
                                 {loading ? (
                                     <tr>
                                         <Td colSpan={8} className="py-10 text-center">
-                                            Загрузка…
+                                            {t("requests_loading")}
                                         </Td>
                                     </tr>
                                 ) : items.length === 0 ? (
                                     <tr>
                                         <Td colSpan={8} className="py-10 text-center">
-                                            Пусто
+                                            {t("requests_empty")}
                                         </Td>
                                     </tr>
                                 ) : (
                                     items.map((r) => (
                                         <tr key={r.id} className="align-top">
-                                            <Td className="whitespace-nowrap">{r.id}</Td>
+                                            <Td className="whitespace-nowrap">#{r.id}</Td>
                                             <Td className="whitespace-nowrap">
                                                 {new Date(r.createdAt).toLocaleString()}
                                             </Td>
@@ -137,9 +143,11 @@ export default function RequestsPage() {
                                                     }}
                                                     className="rounded-lg border px-2 py-1 text-xs dark:border-white/20 dark:bg-black"
                                                 >
-                                                    <option>NEW</option>
-                                                    <option>IN_PROGRESS</option>
-                                                    <option>DONE</option>
+                                                    <option value="NEW">{t("requests_statusNew")}</option>
+                                                    <option value="IN_PROGRESS">
+                                                        {t("requests_statusInProgress")}
+                                                    </option>
+                                                    <option value="DONE">{t("requests_statusDone")}</option>
                                                 </select>
                                             </Td>
                                             <Td className="text-right">
@@ -150,7 +158,7 @@ export default function RequestsPage() {
                                                     }}
                                                     className="rounded-lg border px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
                                                 >
-                                                    Удалить
+                                                    {t("requests_delete")}
                                                 </button>
                                             </Td>
                                         </tr>
@@ -159,16 +167,15 @@ export default function RequestsPage() {
                                 </tbody>
                             </table>
                         </div>
-
                     </Container>
                 ) : (
                     <Container>
-                        {/* ——— Mobile: карточки ( < sm ) ——— */}
+                        {/* ——— Mobile (карточки) ——— */}
                         <div className="grid gap-4 sm:hidden">
                             {loading ? (
-                                <div className="py-10 text-center">Загрузка…</div>
+                                <div className="py-10 text-center">{t("requests_loading")}</div>
                             ) : items.length === 0 ? (
-                                <div className="py-10 text-center">Пусто</div>
+                                <div className="py-10 text-center">{t("requests_empty")}</div>
                             ) : (
                                 items.map((r) => (
                                     <div
@@ -199,9 +206,11 @@ export default function RequestsPage() {
                                                 }}
                                                 className="rounded-lg border px-2 py-1 text-xs dark:border-white/20 dark:bg-black"
                                             >
-                                                <option>NEW</option>
-                                                <option>IN_PROGRESS</option>
-                                                <option>DONE</option>
+                                                <option value="NEW">{t("requests_statusNew")}</option>
+                                                <option value="IN_PROGRESS">
+                                                    {t("requests_statusInProgress")}
+                                                </option>
+                                                <option value="DONE">{t("requests_statusDone")}</option>
                                             </select>
                                             <button
                                                 onClick={async () => {
@@ -210,7 +219,7 @@ export default function RequestsPage() {
                                                 }}
                                                 className="rounded-lg border px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
                                             >
-                                                Удалить
+                                                {t("requests_delete")}
                                             </button>
                                         </div>
                                     </div>
@@ -219,9 +228,10 @@ export default function RequestsPage() {
                         </div>
                     </Container>
                 )}
+
                 <div className="mt-4 flex items-center justify-end gap-3">
                     <label className="flex items-center gap-2 text-sm">
-                        по:
+                        {t("requests_perPage")}
                         <select
                             value={size}
                             onChange={(e) => {
@@ -237,6 +247,7 @@ export default function RequestsPage() {
                             ))}
                         </select>
                     </label>
+
                     {totalPages != null && totalPages > 1 && (
                         <>
                             <button
@@ -276,9 +287,7 @@ function Th({
     className?: string;
 }) {
     return (
-        <th
-            className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}
-        >
+        <th className={`px-4 py-3 text-left text-xs font-semibold uppercase ${className}`}>
             {children}
         </th>
     );

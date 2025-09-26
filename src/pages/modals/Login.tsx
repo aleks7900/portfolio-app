@@ -59,7 +59,7 @@ export default function LoginDialog({
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: 8, scale: 0.98}}
                         transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                        className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl dark:!bg-gray-800 dark:border-white/10"
+                        className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl dark:!bg-gray-700 dark:border-white/10"
                     >
                         <div className="mb-4 text-lg font-semibold">{t("login")}</div>
 
@@ -88,7 +88,7 @@ export default function LoginDialog({
                                 value={email}
                                 onChange={(e) => setEmail(e.currentTarget.value)}
                                 type="email"
-                                className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-zinc-800 dark:border-white/20"
                                 placeholder="you@example.com"
                             />
 
@@ -97,7 +97,7 @@ export default function LoginDialog({
                                 value={password}
                                 onChange={(e) => setPassword(e.currentTarget.value)}
                                 type="password"
-                                className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-black dark:border-white/20"
+                                className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-zinc-800 dark:border-white/20"
                                 placeholder="••••••••"
                             />
 
