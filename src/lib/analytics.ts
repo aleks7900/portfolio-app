@@ -38,7 +38,7 @@ type AnalyticsPayload<K extends keyof EventMap = keyof EventMap> = {
     meta?: EventMap[K];
 };
 
-const API = API_BASE + "/api/analytics/events";
+const API = API_BASE + "/analytics/events";
 
 // 2) Безопасное получение sessionId (SSR-safe)
 function getSessionId(): string | undefined {

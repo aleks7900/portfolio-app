@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
-const SW_VERSION = 'v1.0.1';
+const SW_VERSION = 'v1.0.2';
 
 const STATIC_CACHE = `rvsteel-static-${SW_VERSION}`;
 
@@ -89,6 +89,13 @@ self.addEventListener('fetch', (event) => {
     if (!isHttp(req) || req.method !== 'GET') return;
 
     const url = new URL(req.url);
+
+    // НЕ трогаем API и медиа-статику (пусть их обслуживает nginx)
+    if (url.pathname.startsWith('/api/') ||
+        url.pathname.startsWith('/images/') ||
+        url.pathname.startsWith('/uploads/')) {
+        return; // не вызываем respondWith => обычный сетевой запрос
+    }
 
     // НЕ трогаем backend API, чтобы не мешать /api/ запросам
     if (url.pathname.startsWith('/api/')) return;
