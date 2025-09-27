@@ -233,7 +233,7 @@ export default function ContactsPage() {
 
                 {/* Форма */}
                 <h2 className="mb-6 text-2xl font-semibold">{t("contacts_form_title")}</h2>
-                <form onSubmit={onSubmit} className="grid max-w-2xl gap-4">
+                <form onSubmit={onSubmit} className="grid w-auto gap-4">
                     <label className="block">
                         <div className="mb-1 text-sm font-medium">{t("contacts_yname")}</div>
                         <input
