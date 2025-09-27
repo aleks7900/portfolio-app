@@ -142,32 +142,39 @@ export default function CallbackWidget({
 
     return (
         <>
-            {/* FAB */}
-            <button
-                aria-label="Перезвоните мне"
-                onClick={() => { setOpen(true); setOk(null); setErr(null); }}
-                className="fixed bottom-5 right-5 z-50 rounded-full shadow-xl bg-emerald-600 hover:bg-emerald-700 text-white w-14 h-14 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
+            {/* Смещаем сам FAB контейнером */}
+            <div
+                className="fixed"
+                style={{
+                    right: typeof offsetRight === 'number' ? `${offsetRight}px` : offsetRight,
+                    bottom: typeof bottom === 'number' ? `${bottom}px` : bottom,
+                    zIndex,
+                }}
             >
-                <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                    <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V21a1 1 0 01-1 1C10.07 22 2 13.93 2 3a1 1 0 011-1h4.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.24 1.02l-2.21 2.2z"/>
-                </svg>
-            </button>
+                <button
+                    aria-label="Перезвоните мне"
+                    onClick={() => { setOpen(true); setOk(null); setErr(null); }}
+                    className="rounded-full shadow-xl !bg-emerald-600 !hover:bg-emerald-700 !text-white w-auto h-14 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
+                >
+                    Перезвонить
+                </button>
+            </div>
 
             {/* Modal */}
             {open && (
-                <div aria-modal className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+                <div aria-modal className="fixed inset-0 z-50 flex items-end sm:items-center justify-center ">
                     <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
-                    <div className="relative w-full sm:max-w-md bg-white rounded-2xl shadow-2xl p-5 m-3">
+                    <div className="relative dark:bg-zinc-800 w-full sm:max-w-md bg-white rounded-2xl shadow-2xl p-5 m-3">
                         <div className="flex items-center justify-between mb-3">
                             <h3 className="text-lg font-semibold">Перезвоните мне</h3>
                             <button onClick={() => setOpen(false)} className="p-1 rounded hover:bg-zinc-100" aria-label="Закрыть">✕</button>
                         </div>
 
-                        <form onSubmit={submit} className="space-y-3">
+                        <form onSubmit={submit} className="space-y-3 dark:bg-zinc-800">
                             <div>
                                 <label className="block text-sm mb-1">Имя *</label>
                                 <input
-                                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300"
+                                    className="w-full rounded-xl !border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
                                     value={name} onChange={e => setName(e.target.value)} placeholder="Как к вам обращаться"
                                 />
                             </div>
@@ -175,7 +182,7 @@ export default function CallbackWidget({
                             <div>
                                 <label className="block text-sm mb-1">Телефон *</label>
                                 <input
-                                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300"
+                                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
                                     value={phone} onChange={e => setPhone(e.target.value)}
                                     placeholder="+373 60 000 000"
                                     inputMode="tel"
@@ -188,14 +195,14 @@ export default function CallbackWidget({
                                     <label className="block text-sm mb-1">Дата звонка</label>
                                     <input
                                         type="date" min={today}
-                                        className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300"
+                                        className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
                                         value={date} onChange={e => setDate(e.target.value)}
                                     />
                                 </div>
                                 <div>
                                     <label className="block text-sm mb-1">Время</label>
                                     <select
-                                        className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300"
+                                        className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
                                         value={time} onChange={e => setTime(e.target.value)}
                                     >
                                         <option value="">Любое время</option>
@@ -208,7 +215,7 @@ export default function CallbackWidget({
                                 <label className="block text-sm mb-1">Комментарий</label>
                                 <textarea
                                     rows={3}
-                                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 resize-none"
+                                    className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 resize-none dark:bg-zinc-900 dark:text-white"
                                     value={comment} onChange={e => setComment(e.target.value)} placeholder="Удобный способ связи или вопрос"
                                 />
                             </div>
@@ -222,10 +229,10 @@ export default function CallbackWidget({
                             {ok && <div className="text-sm text-emerald-700">{ok}</div>}
 
                             <div className="flex gap-2 justify-end pt-1">
-                                <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 rounded-xl border hover:bg-zinc-50">Отмена</button>
+                                <button type="button" onClick={() => setOpen(false)} className="text-black px-4 py-2 rounded-xl border hover:bg-zinc-50">Отмена</button>
                                 <button
                                     type="submit" disabled={submitting}
-                                    className="px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-60"
+                                    className="px-4 py-2 rounded-xl !bg-emerald-600 !text-white hover:bg-emerald-700 disabled:opacity-60"
                                 >
                                     {submitting ? 'Отправка…' : 'Жду звонка'}
                                 </button>
