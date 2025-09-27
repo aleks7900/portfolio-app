@@ -1,5 +1,5 @@
 // src/pages/home/HomeSearch.tsx
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
 import {createPortal} from "react-dom";
@@ -49,10 +49,9 @@ export default function HomeSearch() {
     const {t, lang} = useI18n();  // было только t — расширили до i18n (см. твой оригинал) :contentReference[oaicite:2]{index=2}
 
     // локализатор с фоллбеком
-    const tf = (key: string, fallback: string) => {
-        const v = t(key);
-        return v === key || !v ? fallback : v;
-    };
+    const tf = useCallback((key: string, fallback: string) => {
+        try { return t(key) as string; } catch { return fallback; }
+    }, [lang]);
 
     const [q, setQ] = useState("");
     const qDebounced = useDebounced(q, 250);
@@ -67,9 +66,10 @@ export default function HomeSearch() {
     // === Слежение за фокусом ===
     const [focused, setFocused] = useState(false);
 
+    const phrasesRef = useRef<string[]>([]);
     // === Демо-набор поверх пустого инпута ===
-    const demoPhrases = useMemo(
-        () => [
+    useEffect(() => {
+        phrasesRef.current = [
             tf("search_demo_1", "производственный стол из нержавейки"),
             tf("search_demo_2", "мойка для кухни horeca"),
             tf("search_demo_3", "барная станция из металла"),
@@ -94,59 +94,48 @@ export default function HomeSearch() {
             tf("search_demo_22", "производственная вытяжка из нержавейки"),
             tf("search_demo_23", "подиум под оборудование"),
             tf("search_demo_24", "решётка водоотводная из нержавейки"),
-        ],
-        [t, lang]
-    );
+        ];
+    }, [lang]);
 
     const [demoText, setDemoText] = useState("");
     const [phraseIdx, setPhraseIdx] = useState(0);
     const [charIdx, setCharIdx] = useState(0);
-    const [demoMode, setDemoMode] = useState<"typing" | "pausing" | "deleting">("typing");
+    const [demoMode] = useState<"typing" | "pausing" | "deleting">("typing");
 
     // Обновляем демо-текст по индексу символа/фразы
     useEffect(() => {
-        const phrase = demoPhrases[phraseIdx % demoPhrases.length] || "";
-        setDemoText(phrase.slice(0, charIdx));
-    }, [charIdx, phraseIdx, demoPhrases]);
+        const list = phrasesRef.current;
+        if (!list.length) return;
+        const phrase = list[phraseIdx % list.length] || "";
+        const next = phrase.slice(0, charIdx);
+
+        setDemoText(prev => (prev === next ? prev : next));
+    }, [charIdx, phraseIdx, lang]);
 
     // Строго один тик за раз (без setInterval)
     useEffect(() => {
-        const active = !focused && !open && q.trim() === "";
-        if (!active) {
-            // обновляем ТОЛЬКО если реально меняется состояние
-            if (demoText !== "") setDemoText("");
-            if (charIdx !== 0) setCharIdx(0);
-            if (demoMode !== "typing") setDemoMode("typing");
-            return;
-        }
+        // Печатаем только когда ничего не введено и не открыт оверлей
+        if (open) return;
+        if (q.trim().length > 0) return;
+        if (!demoMode) return;
 
-        const phrase = demoPhrases[phraseIdx % demoPhrases.length] || "";
-        const typingSpeed = 110;
-        const deletingSpeed = 55;
-        const pauseDelay = 1200;
+        const list = phrasesRef.current;
+        if (!list.length) return;
 
-        let timeout: number;
+        const full = list[phraseIdx % list.length];
+        const typing = charIdx < full.length;
 
-        if (demoMode === "typing") {
-            if (charIdx < phrase.length) {
-                timeout = window.setTimeout(() => setCharIdx(i => i + 1), typingSpeed);
+        const id = window.setTimeout(() => {
+            if (typing) {
+                setCharIdx(c => c + 1);                 // печатаем
             } else {
-                timeout = window.setTimeout(() => setDemoMode("pausing"), pauseDelay);
+                setCharIdx(0);                           // сброс
+                setPhraseIdx(i => (i + 1) % list.length);// следующая фраза
             }
-        } else if (demoMode === "pausing") {
-            timeout = window.setTimeout(() => setDemoMode("deleting"), pauseDelay);
-        } else { // deleting
-            if (charIdx > 0) {
-                timeout = window.setTimeout(() => setCharIdx(i => i - 1), deletingSpeed);
-            } else {
-                // Переключаемся на следующую фразу однократно и начинаем снова печатать
-                setPhraseIdx(p => (p + 1) % demoPhrases.length);
-                timeout = window.setTimeout(() => setDemoMode("typing"), typingSpeed);
-            }
-        }
+        }, typing ? 40 : 900);
 
-        return () => window.clearTimeout(timeout);
-    }, [focused, open, q, demoMode, phraseIdx, charIdx, demoPhrases, demoText]);
+        return () => clearTimeout(id);
+    }, [open, q, demoMode, phraseIdx, charIdx, lang]);
 
     // Слушатель внешнего открытия поиска
     useEffect(() => {
