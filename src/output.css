@@ -11,6 +11,7 @@
     --color-red-300: oklch(80.8% 0.114 19.571);
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-red-600: oklch(57.7% 0.245 27.325);
     --color-amber-100: oklch(96.2% 0.059 95.617);
     --color-amber-300: oklch(87.9% 0.169 91.605);
     --color-amber-400: oklch(82.8% 0.189 84.429);
@@ -68,6 +69,9 @@
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-gray-800: oklch(27.8% 0.033 256.848);
     --color-gray-900: oklch(21% 0.034 264.665);
+    --color-zinc-50: oklch(98.5% 0 0);
+    --color-zinc-100: oklch(96.7% 0.001 286.375);
+    --color-zinc-500: oklch(55.2% 0.016 285.938);
     --color-zinc-700: oklch(37% 0.013 285.805);
     --color-zinc-800: oklch(27.4% 0.006 286.033);
     --color-zinc-900: oklch(21% 0.006 285.885);
@@ -324,6 +328,9 @@
   .right-4 {
     right: calc(var(--spacing) * 4);
   }
+  .right-5 {
+    right: calc(var(--spacing) * 5);
+  }
   .right-6 {
     right: calc(var(--spacing) * 6);
   }
@@ -338,6 +345,9 @@
   }
   .bottom-4 {
     bottom: calc(var(--spacing) * 4);
+  }
+  .bottom-5 {
+    bottom: calc(var(--spacing) * 5);
   }
   .bottom-6 {
     bottom: calc(var(--spacing) * 6);
@@ -431,6 +441,9 @@
     @media (width >= 96rem) {
       max-width: 96rem;
     }
+  }
+  .m-3 {
+    margin: calc(var(--spacing) * 3);
   }
   .m-auto {
     margin: auto;
@@ -957,6 +970,9 @@
   .resize {
     resize: both;
   }
+  .resize-none {
+    resize: none;
+  }
   .snap-x {
     scroll-snap-type: x var(--tw-scroll-snap-strictness);
   }
@@ -1377,6 +1393,9 @@
   }
   .bg-emerald-500 {
     background-color: var(--color-emerald-500);
+  }
+  .bg-emerald-600 {
+    background-color: var(--color-emerald-600);
   }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
@@ -1876,6 +1895,9 @@
   .text-primary-foreground {
     color: var(--primary-foreground);
   }
+  .text-red-600 {
+    color: var(--color-red-600);
+  }
   .text-rose-700 {
     color: var(--color-rose-700);
   }
@@ -1893,6 +1915,9 @@
   }
   .text-yellow-400 {
     color: var(--color-yellow-400);
+  }
+  .text-zinc-500 {
+    color: var(--color-zinc-500);
   }
   .uppercase {
     text-transform: uppercase;
@@ -1982,6 +2007,9 @@
   }
   .\!ring-white {
     --tw-ring-color: var(--color-white) !important;
+  }
+  .ring-emerald-300 {
+    --tw-ring-color: var(--color-emerald-300);
   }
   .ring-offset-2 {
     --tw-ring-offset-width: 2px;
@@ -2523,6 +2551,13 @@
       }
     }
   }
+  .hover\:bg-emerald-700 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-emerald-700);
+      }
+    }
+  }
   .hover\:bg-gray-50 {
     &:hover {
       @media (hover: hover) {
@@ -2654,6 +2689,20 @@
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
         }
+      }
+    }
+  }
+  .hover\:bg-zinc-50 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-zinc-50);
+      }
+    }
+  }
+  .hover\:bg-zinc-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-zinc-100);
       }
     }
   }
@@ -2861,6 +2910,12 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
+  .focus\:ring-4 {
+    &:focus {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
   .focus\:\!ring-rose-400 {
     &:focus {
       --tw-ring-color: var(--color-rose-400) !important;
@@ -2888,6 +2943,11 @@
       @supports (color: color-mix(in lab, red, red)) {
         --tw-ring-color: color-mix(in oklab, var(--color-black) 40%, transparent);
       }
+    }
+  }
+  .focus\:ring-emerald-300 {
+    &:focus {
+      --tw-ring-color: var(--color-emerald-300);
     }
   }
   .focus\:ring-green-400 {
@@ -3219,6 +3279,11 @@
       width: auto;
     }
   }
+  .sm\:max-w-md {
+    @media (width >= 40rem) {
+      max-width: var(--container-md);
+    }
+  }
   .sm\:max-w-none {
     @media (width >= 40rem) {
       max-width: none;
@@ -3242,6 +3307,11 @@
   .sm\:flex-row {
     @media (width >= 40rem) {
       flex-direction: row;
+    }
+  }
+  .sm\:items-center {
+    @media (width >= 40rem) {
+      align-items: center;
     }
   }
   .sm\:items-end {
