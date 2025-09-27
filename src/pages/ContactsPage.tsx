@@ -322,7 +322,7 @@ export default function ContactsPage() {
                                             <button
                                                 type="button"
                                                 onClick={() => removePhoto(i)}
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg border px-2 py-1 text-xs dark:hover:!bg-white dark:hover:!text-black hover:!bg-black hover:!text-white"
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg border px-2 py-1 text-xs dark:text-black dark:hover:!bg-white dark:hover:!text-black hover:!bg-black hover:!text-white"
                                                 aria-label={tf("contacts_remove_file", "Удалить файл")}
                                                 title={tf("contacts_remove_file", "Удалить файл")}
                                             >

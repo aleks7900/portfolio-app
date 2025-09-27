@@ -290,7 +290,7 @@ export default function RequestsPage() {
                                                 <div className="flex items-center justify-end gap-2">
                                                     <button
                                                         onClick={() => setSelected(r)}
-                                                        className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-xs font-medium shadow-sm transition hover:bg-white dark:border-white/15 dark:bg-black/40"
+                                                        className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-xs font-medium shadow-sm transition hover:bg-white dark:border-white/15 dark:bg-black/40 dark:text-black"
                                                     >
                                                         {t("requests_open", {fallback: "Открыть"} as unknown as Record<string, string>)}
                                                     </button>
@@ -590,7 +590,7 @@ function RequestDetailsDialog({
                     <button
                         onClick={onClose}
                         aria-label="Close"
-                        className="rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm hover:bg-gray-50 dark:border-white/15 dark:bg-transparent dark:hover:bg-white/10"
+                        className="rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm dark:text-black hover:bg-gray-50 dark:border-white/15 dark:bg-transparent dark:hover:bg-white/10"
                     >
                         ✕
                     </button>
