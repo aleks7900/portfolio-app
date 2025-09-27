@@ -393,6 +393,12 @@
   .z-\[10001\] {
     z-index: 10001;
   }
+  .z-\[20000\] {
+    z-index: 20000;
+  }
+  .z-\[20001\] {
+    z-index: 20001;
+  }
   .order-1 {
     order: 1;
   }
@@ -632,6 +638,9 @@
   }
   .h-72 {
     height: calc(var(--spacing) * 72);
+  }
+  .h-80 {
+    height: calc(var(--spacing) * 80);
   }
   .h-\[1\.25rem\] {
     height: 1.25rem;
@@ -2468,16 +2477,6 @@
         background-color: color-mix(in srgb, #000 5%, transparent);
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--color-black) 5%, transparent);
-        }
-      }
-    }
-  }
-  .hover\:bg-black\/60 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: color-mix(in srgb, #000 60%, transparent);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
         }
       }
     }

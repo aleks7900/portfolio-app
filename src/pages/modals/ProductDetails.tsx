@@ -186,8 +186,6 @@ export default function ProductDetails({
                         ogImage={product.imgLinks?.[0]}
                         structuredData={structuredData}
                     />
-
-
                     <motion.div
                         className="fixed inset-0 z-[9999] flex items-center justify-center px-4 py-12"
                         role="dialog"

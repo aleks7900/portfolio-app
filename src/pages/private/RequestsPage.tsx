@@ -11,6 +11,9 @@ import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import ImageWithFallback from "../../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
+import resolveImg from "../../data/resolveImg.ts";
+import {ChevronLeft, ChevronRight, X} from "lucide-react";
+import {AnimatePresence, motion } from "framer-motion";
 
 // ===== Types & helpers (strict, no any) =====
 type RequestVM = Omit<
@@ -611,7 +614,16 @@ function RequestDetailsDialog({
     onUpdateStatus: (s: RequestStatus) => Promise<void> | void;
 }) {
     const {t} = useI18n();
-    const images = useMemo(() => extractImages(request), [request]);
+
+    const images = useMemo(
+        () => extractImages(request).map((u) => {
+            const s = resolveImg(u);
+            console.log(s);
+            return s;
+        }),
+        [request]
+    );
+
     const [statusLocal, setStatusLocal] = useState<RequestStatus>(request.status);
 
     useEffect(() => {
@@ -730,53 +742,182 @@ function Slideshow({images}: { images: string[] }) {
     const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
     const next = () => setIndex((i) => (i + 1) % images.length);
 
+    // LIGHTBOX state (как в ProductDetails)
+    const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
+        open: false,
+        index: 0,
+    });
+
+    // Esc — закрыть лайтбокс
+    useEffect(() => {
+        if (!lightbox.open) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setLightbox({open: false, index: 0});
+            if (e.key === "ArrowLeft") setLightbox((s) => ({
+                open: true,
+                index: (s.index - 1 + images.length) % images.length
+            }));
+            if (e.key === "ArrowRight") setLightbox((s) => ({open: true, index: (s.index + 1) % images.length}));
+        };
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+    }, [lightbox.open, images.length]);
+
     return (
         <div className="relative">
+            {/* Основной кадр */}
             <div
-                className="relative aspect-video w-full overflow-hidden rounded-xl border border-gray-100 bg-black/5 dark:border-white/10">
-                <ImageWithFallback src={images[index]} alt={`Фото ${index + 1}`} className="h-full w-full object-contain" fallback={placeholderImg}/>
+                className="relative h-80 w-full overflow-hidden rounded-xl border border-gray-100 bg-black/5 dark:border-white/10">
+                <ImageWithFallback
+                    src={images[index]}
+                    alt={`Фото ${index + 1}`}
+                    className="h-full w-full cursor-zoom-in object-contain"
+                    onClick={() => setLightbox({open: true, index})}
+                    fallback={placeholderImg}
+                />
 
                 {images.length > 1 && (
                     <>
                         <button
-                            onClick={prev}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full text-black bg-black/40 px-3 py-2 backdrop-blur hover:bg-black/60"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                prev();
+                            }}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 p-2 text-black shadow hover:bg-white dark:border-white/10 dark:!bg-gray-500 dark:hover:!bg-black/80"
                             aria-label="Previous"
+                            type="button"
                         >
-                            {"<"}
+                            <ChevronLeft className="h-5 w-5"/>
                         </button>
                         <button
-                            onClick={next}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full text-black bg-black/40 px-3 py-2 backdrop-blur hover:bg-black/60"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                next();
+                            }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 p-2 text-black shadow hover:bg-white dark:border-white/10 dark:!bg-gray-500 dark:hover:!bg-black/80"
                             aria-label="Next"
+                            type="button"
                         >
-                            {">"}
+                            <ChevronRight className="h-5 w-5"/>
                         </button>
 
                         <div className="pointer-events-none absolute bottom-2 left-0 right-0 flex justify-center gap-1">
                             {images.map((_, i) => (
-                                <span key={i}
-                                      className={["h-1.5 w-1.5 rounded-full", i === index ? "bg-white" : "bg-white/50"].join(" ")}/>
+                                <span
+                                    key={i}
+                                    className={["h-1.5 w-1.5 rounded-full", i === index ? "bg-white" : "bg-white/50"].join(" ")}
+                                />
                             ))}
                         </div>
                     </>
                 )}
             </div>
 
+            {/* Превьюшки */}
             {images.length > 1 && (
                 <div className="mt-3 grid grid-cols-6 gap-2">
                     {images.map((u, i) => (
                         <button
                             key={`${u}-${i}`}
                             onClick={() => setIndex(i)}
-                            className={["overflow-hidden rounded-lg border", i === index ? "border-blue-500" : "border-gray-200 dark:border-white/10"].join(" ")}
+                            className={[
+                                "overflow-hidden rounded-lg border",
+                                i === index ? "border-blue-500" : "border-gray-200 dark:border-white/10",
+                            ].join(" ")}
                             aria-label={`Go to ${i + 1}`}
+                            type="button"
                         >
-                            <img src={u} alt={`Миниатюра ${i + 1}`} className="aspect-[4/3] w-full object-cover"/>
+                            <ImageWithFallback
+                                src={u}
+                                alt={`Миниатюра ${i + 1}`}
+                                className="aspect-[4/3] w-full object-cover"
+                                fallback={placeholderImg}
+                            />
                         </button>
                     ))}
                 </div>
             )}
+
+            {/* LIGHTBOX: полноэкранное изображение (поведение копирует ProductDetails) */}
+            <AnimatePresence>
+                {lightbox.open && (
+                    <motion.div
+                        key="lightbox"
+                        className="fixed inset-0 z-[20000]"
+                        initial={{backgroundColor: "rgba(0,0,0,0)"}}
+                        animate={{backgroundColor: "rgba(0,0,0,0.9)"}}
+                        exit={{backgroundColor: "rgba(0,0,0,0)"}}
+                        transition={{duration: 0.18}}
+                        onMouseDown={(e) => {
+                            if (e.target === e.currentTarget) setLightbox({open: false, index: 0});
+                        }}
+                        role="dialog"
+                        aria-modal="true"
+                    >
+                        {/* Закрыть */}
+                        <button
+                            type="button"
+                            aria-label="Close"
+                            onClick={() => setLightbox({open: false, index: 0})}
+                            className="absolute right-4 top-4 z-[20001] rounded-full border bg-white/90 p-2 shadow hover:bg-white dark:border-white/10 dark:!bg-zinc-700 dark:hover:!bg-black/80"
+                        >
+                            <X className="h-5 w-5"/>
+                        </button>
+
+                        {/* Стрелки */}
+                        {images.length > 1 && (
+                            <>
+                                <button
+                                    type="button"
+                                    aria-label="Previous image"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setLightbox((s) => ({
+                                            open: true,
+                                            index: (s.index - 1 + images.length) % images.length
+                                        }));
+                                    }}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow hover:bg-white dark:border-white/10 dark:!bg-zinc-700 dark:hover:!bg-black/80"
+                                >
+                                    <ChevronLeft className="h-6 w-6"/>
+                                </button>
+                                <button
+                                    type="button"
+                                    aria-label="Next image"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setLightbox((s) => ({open: true, index: (s.index + 1) % images.length}));
+                                    }}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 z-[10001] rounded-xl border bg-white/90 p-2 shadow
+                                            hover:bg-white dark:border-white/10 dark:!bg-zinc-700 dark:hover:!bg-black/80"
+                                >
+                                    <ChevronRight className="h-6 w-6"/>
+                                </button>
+                            </>
+                        )}
+
+                        {/* Само изображение */}
+                        <motion.div
+                            key={lightbox.index}
+                            initial={{opacity: 0, scale: 0.98}}
+                            animate={{opacity: 1, scale: 1}}
+                            exit={{opacity: 0, scale: 0.98}}
+                            transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
+                            className="absolute inset-0 m-auto flex max-h-[95vh] max-w-[95vw] items-center justify-center"
+                        >
+                            <ImageWithFallback
+                                src={images[lightbox.index]}
+                                alt={`image ${lightbox.index + 1}`}
+                                className="h-auto w-auto max-h-[95vh] max-w-[95vw] select-none object-contain"
+                                draggable={false}
+                                loading="lazy"
+                                decoding="async"
+                                fallback={placeholderImg}
+                            />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

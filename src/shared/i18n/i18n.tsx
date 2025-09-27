@@ -10,6 +10,10 @@ export const dict: Dictionary = {
             nav_contacts: "Контакты",
             nav_about: "О нас",
             nav_catalog: "Каталог",
+
+            requests_open: "Открыть",
+            requests_card_title: "Заявка",
+
             // Каталог меню
             cat_custom_orders: "Изделия на заказ",
             sub_balustrade_perila: "Балюстрады, перила",
@@ -828,6 +832,9 @@ export const dict: Dictionary = {
             nav_contacts: "Contacte",
             nav_about: "Despre noi",
             nav_catalog: "Catalog",
+
+            requests_open: "Deschide",
+            requests_card_title: "Aplicatia",
 
             // Catalog meniu
             cat_custom_orders: "Produse la comandă",
