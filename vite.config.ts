@@ -23,6 +23,7 @@ export default defineConfig({
         target: "http://localhost", // где у тебя nginx с /images
         changeOrigin: true,
       },
+      "/uploads": { target: "http://localhost", changeOrigin: true },
     },
   },
   resolve: {

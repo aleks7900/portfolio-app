@@ -33,6 +33,25 @@ export const ORIGIN: string = String(
     env("VITE_PUBLIC_ORIGIN") ?? (hasWindow ? window.location.origin : "")
 ).replace(/\/+$/, "");
 
+export const UPLOADS_BASE: string = String(
+    env("VITE_UPLOADS_BASE") ?? "/uploads"
+).replace(/\/+$/, "");
+
+function isUploadsPath(p: string): boolean {
+    return /^\/?uploads\//i.test(p) || p.includes("/uploads/");
+}
+
+function extractUploadsSubpath(p: string): string {
+    // UNIX
+    const ix = p.indexOf("/uploads/");
+    if (ix >= 0) return p.slice(ix + "/uploads/".length);
+    // Windows
+    const iwx = p.toLowerCase().indexOf("\\uploads\\");
+    if (iwx >= 0) return p.slice(iwx + "\\uploads\\".length).replace(/\\/g, "/");
+    // если передали уже нормальный относительный
+    return p.replace(/^\/?uploads\//i, "");
+}
+
 /**
  * База для каталожных изображений, которые раздаёт nginx (volume /images) или CDN.
  * Можно переопределить через VITE_IMAGES_BASE (например, https://cdn.example.com/images).
@@ -127,6 +146,13 @@ export function resolveImg(
     if (isImagesPath(p)) {
         const noPrefix: string = p.replace(/^\/?images\//i, "images/");
         return joinUrl(IMAGES_BASE || "/images", noPrefix.replace(/^images\//i, ""));
+    }
+
+    // Аплоады (из заявок): могут приходить как URL, как /uploads/...,
+    // или как файловый путь /var/www/app/uploads/... → приводим к UPLOADS_BASE.
+    if (isUploadsPath(p)) {
+        const sub = extractUploadsSubpath(p);
+        return joinUrl(UPLOADS_BASE || "/uploads", sub);
     }
 
     // Если это другой абсолютный путь от корня ("/...") — считаем статикой текущего origin.

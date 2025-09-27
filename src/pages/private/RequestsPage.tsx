@@ -9,6 +9,8 @@ import {
 import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
+import ImageWithFallback from "../../data/ImageWithFallback.tsx";
+import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 
 // ===== Types & helpers (strict, no any) =====
 type RequestVM = Omit<
@@ -31,9 +33,9 @@ type RequestVM = Omit<
     phone?: string | null;
     subject?: string | null;
     message?: string | null;
-    images?: readonly string[] | null;
-    imageUrls?: readonly string[] | null;
-    attachments?: readonly (string | { url?: string | null | undefined })[] | null;
+    images?: UrlLike | UrlLike[];
+    imageUrls?: UrlLike | UrlLike[];
+    attachments?: UrlLike | UrlLike[];
 };
 
 function toVM(r: RequestItem): RequestVM {
@@ -75,18 +77,66 @@ function toVM(r: RequestItem): RequestVM {
     };
 }
 
-function extractImages(r: RequestVM): string[] {
+// ---- types ----
+type UrlLike = string | { url?: string | null } | null | undefined;
+
+// ---- helpers ----
+const IMAGE_EXT_RE = /\.(png|jpe?g|webp|gif|bmp|svg)(?:$|[?#,])/i;
+
+function isString(x: unknown): x is string {
+    return typeof x === "string";
+}
+
+function isUrlObject(x: unknown): x is { url?: string | null } {
+    return typeof x === "object" && x !== null && "url" in (x as Record<string, unknown>);
+}
+
+/** Превращаем что угодно в массив строк-URL, разбивая "a.jpg, b.png" на элементы */
+function toStrings(x: UrlLike | UrlLike[] | undefined): string[] {
+    if (x == null) return [];
+    if (Array.isArray(x)) {
+        const acc: string[] = [];
+        for (const item of x) acc.push(...toStrings(item));
+        return acc;
+    }
+    if (isString(x)) {
+        return x
+            .split(";") // поддержка "a.jpg, b.png"
+            .map(s => s.trim())
+            .filter(Boolean);
+    }
+    if (isUrlObject(x)) {
+        return isString(x.url) ? toStrings(x.url) : [];
+    }
+    return [];
+}
+
+function normalizeAndFilter(urls: string[]): string[] {
+    const seen = new Set<string>();
     const out: string[] = [];
-    if (Array.isArray(r.images)) out.push(...r.images.filter((u): u is string => !!u));
-    if (Array.isArray(r.imageUrls)) out.push(...r.imageUrls.filter((u): u is string => !!u));
-    if (Array.isArray(r.attachments)) {
-        for (const a of r.attachments) {
-            if (typeof a === "string") out.push(a);
-            else if (a?.url) out.push(a.url);
+    for (const raw of urls) {
+        const u = raw.trim();
+        if (!u || seen.has(u)) continue;
+        if (IMAGE_EXT_RE.test(u)) {
+            seen.add(u);
+            out.push(u);
         }
     }
-    return out.filter((u) => /\.(png|jpe?g|webp|gif|bmp|svg)(\?|$)/i.test(u));
+
+    console.log(out.join("\n"));
+
+    return out;
 }
+
+// ---- main ----
+function extractImages(r: RequestVM): string[] {
+    const out: string[] = [];
+    if (r.images) out.push(...toStrings(r.images));
+    if (r.imageUrls) out.push(...toStrings(r.imageUrls));
+    if (r.attachments) out.push(...toStrings(r.attachments));
+    return normalizeAndFilter(out);
+}
+
 
 // ===== Page =====
 export default function RequestsPage() {
@@ -539,7 +589,7 @@ type TdProps = {
     onClick?: React.MouseEventHandler<HTMLTableCellElement>;
 };
 
-function Td({ children, className = "", colSpan, onClick }: TdProps) {
+function Td({children, className = "", colSpan, onClick}: TdProps) {
     return (
         <td
             colSpan={colSpan}
@@ -550,6 +600,7 @@ function Td({ children, className = "", colSpan, onClick }: TdProps) {
         </td>
     );
 }
+
 function RequestDetailsDialog({
                                   request,
                                   onClose,
@@ -683,23 +734,23 @@ function Slideshow({images}: { images: string[] }) {
         <div className="relative">
             <div
                 className="relative aspect-video w-full overflow-hidden rounded-xl border border-gray-100 bg-black/5 dark:border-white/10">
-                <img src={images[index]} alt={`Фото ${index + 1}`} className="h-full w-full object-contain"/>
+                <ImageWithFallback src={images[index]} alt={`Фото ${index + 1}`} className="h-full w-full object-contain" fallback={placeholderImg}/>
 
                 {images.length > 1 && (
                     <>
                         <button
                             onClick={prev}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 px-3 py-2 text-white backdrop-blur hover:bg-black/60"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full text-black bg-black/40 px-3 py-2 backdrop-blur hover:bg-black/60"
                             aria-label="Previous"
                         >
-                            ◀
+                            {"<"}
                         </button>
                         <button
                             onClick={next}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 px-3 py-2 text-white backdrop-blur hover:bg-black/60"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full text-black bg-black/40 px-3 py-2 backdrop-blur hover:bg-black/60"
                             aria-label="Next"
                         >
-                            ▶
+                            {">"}
                         </button>
 
                         <div className="pointer-events-none absolute bottom-2 left-0 right-0 flex justify-center gap-1">
