@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {
     deleteRequest,
     listRequests,
@@ -10,7 +10,85 @@ import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 
+// ===== Types & helpers (strict, no any) =====
+type RequestVM = Omit<
+    RequestItem,
+    | "id"
+    | "createdAt"
+    | "name"
+    | "email"
+    | "phone"
+    | "subject"
+    | "message"
+    | "images"
+    | "imageUrls"
+    | "attachments"
+> & {
+    id: number;                         // нормализуем в число
+    createdAt: Date;                    // нормализуем в Date
+    name?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    subject?: string | null;
+    message?: string | null;
+    images?: readonly string[] | null;
+    imageUrls?: readonly string[] | null;
+    attachments?: readonly (string | { url?: string | null | undefined })[] | null;
+};
 
+function toVM(r: RequestItem): RequestVM {
+    // читаем из «неизвестного» рекорда, но без any
+    const rec = r as Record<string, unknown>;
+
+    const rawId = rec["id"];
+    const id =
+        typeof rawId === "number"
+            ? rawId
+            : typeof rawId === "string"
+                ? Number(rawId)
+                : 0;
+
+    const rawCreated = rec["createdAt"];
+    const createdAt =
+        rawCreated instanceof Date
+            ? rawCreated
+            : typeof rawCreated === "number"
+                ? new Date(rawCreated)
+                : typeof rawCreated === "string"
+                    ? new Date(rawCreated)
+                    : new Date();
+
+    return {
+        ...(r as RequestItem), // сохраняем прочие поля RequestItem
+        id,
+        createdAt,
+        name: (rec["name"] as string | null | undefined) ?? null,
+        email: (rec["email"] as string | null | undefined) ?? null,
+        phone: (rec["phone"] as string | null | undefined) ?? null,
+        subject: (rec["subject"] as string | null | undefined) ?? null,
+        message: (rec["message"] as string | null | undefined) ?? null,
+        images: (rec["images"] as string[] | null | undefined) ?? null,
+        imageUrls: (rec["imageUrls"] as string[] | null | undefined) ?? null,
+        attachments:
+            (rec["attachments"] as (string | { url?: string | null | undefined })[] | null | undefined) ??
+            null,
+    };
+}
+
+function extractImages(r: RequestVM): string[] {
+    const out: string[] = [];
+    if (Array.isArray(r.images)) out.push(...r.images.filter((u): u is string => !!u));
+    if (Array.isArray(r.imageUrls)) out.push(...r.imageUrls.filter((u): u is string => !!u));
+    if (Array.isArray(r.attachments)) {
+        for (const a of r.attachments) {
+            if (typeof a === "string") out.push(a);
+            else if (a?.url) out.push(a.url);
+        }
+    }
+    return out.filter((u) => /\.(png|jpe?g|webp|gif|bmp|svg)(\?|$)/i.test(u));
+}
+
+// ===== Page =====
 export default function RequestsPage() {
     const {t} = useI18n();
 
@@ -19,12 +97,14 @@ export default function RequestsPage() {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
     const [totalPages, setTotalPages] = useState<number | null>(null);
-    const [items, setItems] = useState<RequestItem[]>([]);
+    const [items, setItems] = useState<RequestVM[]>([]);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState<string | null>(null);
 
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [pendingDelete, setPendingDelete] = useState<{ id: number; label?: string } | null>(null);
+
+    const [selected, setSelected] = useState<RequestVM | null>(null);
     const isMobile = useMediaQuery("(max-width: 1024px)");
 
     async function load() {
@@ -32,11 +112,11 @@ export default function RequestsPage() {
         setErr(null);
         try {
             const res = await listRequests({q, status, page, size});
-            setItems(res.content);
+            setItems(res.content.map(toVM));
             setTotalPages(res.totalPages);
             setPage(res.number);
             setSize(res.size);
-        } catch (e: unknown) {
+        } catch (e) {
             setErr(e instanceof Error ? e.message : "Ошибка загрузки");
         } finally {
             setLoading(false);
@@ -44,11 +124,12 @@ export default function RequestsPage() {
     }
 
     useEffect(() => {
-        load();
+        void load();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [q, status, page, size]);
 
-    function askDelete(r: RequestItem) {
-        setPendingDelete({id: r.id!, label: r.name || r.email || r.phone || `#${r.id}`});
+    function askDelete(r: RequestVM) {
+        setPendingDelete({id: r.id, label: r.name || r.email || r.phone || `#${r.id}`});
         setConfirmOpen(true);
     }
 
@@ -57,7 +138,7 @@ export default function RequestsPage() {
         await deleteRequest(pendingDelete.id);
         setConfirmOpen(false);
         setPendingDelete(null);
-        load();
+        void load();
     }
 
     return (
@@ -142,17 +223,14 @@ export default function RequestsPage() {
                                     items.map((r, i) => (
                                         <tr
                                             key={r.id}
+                                            onClick={() => setSelected(r)}
                                             className={[
-                                                "align-top transition-colors",
-                                                i % 2 === 0
-                                                    ? "bg-white/80 dark:bg-black/20"
-                                                    : "bg-gray-50/80 dark:bg-black/10",
+                                                "align-top cursor-pointer transition-colors",
+                                                i % 2 === 0 ? "bg-white/80 dark:bg-black/20" : "bg-gray-50/80 dark:bg-black/10",
                                                 "hover:bg-gray-100/80 dark:hover:bg-white/10",
                                             ].join(" ")}
                                         >
-                                            <Td className="whitespace-nowrap font-mono text-xs text-gray-600 dark:text-gray-300">
-                                                #{r.id}
-                                            </Td>
+                                            <Td className="whitespace-nowrap font-mono text-xs text-gray-600 dark:text-gray-300">#{r.id}</Td>
 
                                             <Td className="whitespace-nowrap text-gray-600 dark:text-gray-400">
                                                 {new Date(r.createdAt).toLocaleString()}
@@ -167,28 +245,25 @@ export default function RequestsPage() {
                                                         {r.email}
                                                     </div>
                                                 )}
-                                                {r.phone && <div
-                                                    className="text-xs text-emerald-600 dark:text-emerald-400">{r.phone}</div>}
+                                                {r.phone && (
+                                                    <div
+                                                        className="text-xs text-emerald-600 dark:text-emerald-400">{r.phone}</div>
+                                                )}
                                             </Td>
 
-                                            <Td className="max-w-[240px] truncate text-gray-700 dark:text-gray-200">
-                                                {r.subject || "—"}
-                                            </Td>
+                                            <Td className="max-w-[240px] truncate text-gray-700 dark:text-gray-200">{r.subject || "—"}</Td>
 
                                             <Td className="max-w-[420px] text-gray-700 dark:text-gray-300">
                                                 <div className="line-clamp-3 leading-relaxed">{r.message}</div>
                                             </Td>
 
                                             <Td>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-2"
+                                                     onClick={(e) => e.stopPropagation()}>
                             <span
                                 className={[
                                     "inline-block h-2 w-2 rounded-full",
-                                    r.status === "DONE"
-                                        ? "bg-emerald-500"
-                                        : r.status === "IN_PROGRESS"
-                                            ? "bg-amber-500"
-                                            : "bg-sky-500",
+                                    r.status === "DONE" ? "bg-emerald-500" : r.status === "IN_PROGRESS" ? "bg-amber-500" : "bg-sky-500",
                                 ].join(" ")}
                             />
                                                     <select
@@ -196,7 +271,7 @@ export default function RequestsPage() {
                                                         onChange={async (e) => {
                                                             const s = e.currentTarget.value as RequestStatus;
                                                             await updateRequestStatus(r.id, s);
-                                                            load();
+                                                            void load();
                                                         }}
                                                         className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm transition focus:border-gray-300 dark:border-white/15 dark:bg-black/40"
                                                     >
@@ -208,13 +283,24 @@ export default function RequestsPage() {
                                                 </div>
                                             </Td>
 
-                                            <Td className="text-right">
-                                                <button
-                                                    onClick={() => askDelete(r)}
-                                                    className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:!bg-red-500 hover:!text-white dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
-                                                >
-                                                    {t("requests_delete")}
-                                                </button>
+                                            <Td className="text-right"
+                                                onClick={(e: React.MouseEvent<HTMLTableCellElement>) => {
+                                                    e.stopPropagation();
+                                                }}>
+                                                <div className="flex items-center justify-end gap-2">
+                                                    <button
+                                                        onClick={() => setSelected(r)}
+                                                        className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-xs font-medium shadow-sm transition hover:bg-white dark:border-white/15 dark:bg-black/40"
+                                                    >
+                                                        {t("requests_open", {fallback: "Открыть"} as unknown as Record<string, string>)}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => askDelete(r)}
+                                                        className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:!bg-red-500 hover:!text-white dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
+                                                    >
+                                                        {t("requests_delete")}
+                                                    </button>
+                                                </div>
                                             </Td>
                                         </tr>
                                     ))
@@ -286,13 +372,13 @@ export default function RequestsPage() {
                                         <div
                                             className="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{r.message}</div>
 
-                                        <div className="mt-3 flex items-center justify-between">
+                                        <div className="mt-3 flex items-center justify-between gap-2">
                                             <select
                                                 value={r.status}
                                                 onChange={async (e) => {
                                                     const s = e.currentTarget.value as RequestStatus;
                                                     await updateRequestStatus(r.id, s);
-                                                    load();
+                                                    void load();
                                                 }}
                                                 className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm dark:border-white/15 dark:bg-black/40"
                                             >
@@ -301,12 +387,20 @@ export default function RequestsPage() {
                                                 <option value="DONE">{t("requests_statusDone")}</option>
                                             </select>
 
-                                            <button
-                                                onClick={() => askDelete(r)}
-                                                className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
-                                            >
-                                                {t("requests_delete")}
-                                            </button>
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={() => setSelected(r)}
+                                                    className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-xs font-medium shadow-sm transition hover:bg-white dark:border-white/15 dark:bg-black/40"
+                                                >
+                                                    {t("requests_open", {fallback: "Открыть"} as unknown as Record<string, string>)}
+                                                </button>
+                                                <button
+                                                    onClick={() => askDelete(r)}
+                                                    className="rounded-xl border border-rose-200/60 bg-rose-50/60 px-3 py-1.5 text-xs font-medium text-rose-700 shadow-sm transition hover:bg-rose-100 dark:border-rose-500/20 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/15"
+                                                >
+                                                    {t("requests_delete")}
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 ))
@@ -348,9 +442,7 @@ export default function RequestsPage() {
                 {page + 1} / {totalPages}
               </span>
                             <button
-                                onClick={() =>
-                                    setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))
-                                }
+                                onClick={() => setPage((p) => (totalPages != null ? Math.min(totalPages - 1, p + 1) : p))}
                                 disabled={totalPages != null ? page >= totalPages - 1 : true}
                                 className="rounded-xl border border-gray-200 bg-white/70 px-3 py-1.5 text-sm shadow-sm transition hover:bg-white disabled:opacity-50 dark:border-white/15 dark:bg-black/40"
                             >
@@ -361,10 +453,22 @@ export default function RequestsPage() {
                 </div>
             </Container>
 
+            {/* Details Dialog */}
+            {selected && (
+                <RequestDetailsDialog
+                    request={selected}
+                    onClose={() => setSelected(null)}
+                    onUpdateStatus={async (s) => {
+                        await updateRequestStatus(selected.id, s);
+                        void load();
+                    }}
+                />
+            )}
+
             {/* Confirmation Dialog */}
             {confirmOpen && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+                    className="fixed inset-0 z-[300] flex items-center justify-center bg-black/50 p-4"
                     role="dialog"
                     aria-modal="true"
                     aria-labelledby="confirm-title"
@@ -373,7 +477,7 @@ export default function RequestsPage() {
                         className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-5 shadow-xl dark:border-white/10 dark:bg-zinc-900">
                         <div className="mb-3 flex items-start gap-3">
                             <div
-                                className="mt-0.5 h-6 w-6 shrink-0 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300 grid place-items-center">
+                                className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">
                                 !
                             </div>
                             <div>
@@ -381,8 +485,7 @@ export default function RequestsPage() {
                                     {t("requests_confirmDelete_title")}
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-                                    {t("requests_confirmDelete_desc")}
-                                    {` `}
+                                    {t("requests_confirmDelete_desc")} {" "}
                                     <span className="font-medium text-gray-900 dark:text-gray-100">
                     {pendingDelete?.label ? `(${pendingDelete.label})` : ""}
                   </span>
@@ -397,7 +500,7 @@ export default function RequestsPage() {
                                     setConfirmOpen(false);
                                     setPendingDelete(null);
                                 }}
-                                className="rounded-xl border border-gray-300 bg-white text-black px-4 py-2 text-sm font-medium hover:bg-gray-50 dark:border-white/15 dark:bg-transparent dark:hover:bg-white/10"
+                                className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 dark:border-white/15 dark:bg-transparent dark:hover:bg-white/10"
                             >
                                 {t("requests_confirmDelete_secondary")}
                             </button>
@@ -415,13 +518,7 @@ export default function RequestsPage() {
     );
 }
 
-function Th({
-                children,
-                className = "",
-            }: {
-    children: React.ReactNode;
-    className?: string;
-}) {
+function Th({children, className = ""}: { children: React.ReactNode; className?: string }) {
     return (
         <th
             className={[
@@ -435,18 +532,200 @@ function Th({
     );
 }
 
-function Td({
-                children,
-                className = "",
-                colSpan,
-            }: {
+type TdProps = {
     children: React.ReactNode;
     className?: string;
     colSpan?: number;
-}) {
+    onClick?: React.MouseEventHandler<HTMLTableCellElement>;
+};
+
+function Td({ children, className = "", colSpan, onClick }: TdProps) {
     return (
-        <td colSpan={colSpan} className={["px-4 py-3 align-top", className].join(" ")}>
+        <td
+            colSpan={colSpan}
+            className={["px-4 py-3 align-top", className].join(" ")}
+            onClick={onClick}
+        >
             {children}
         </td>
+    );
+}
+function RequestDetailsDialog({
+                                  request,
+                                  onClose,
+                                  onUpdateStatus,
+                              }: {
+    request: RequestVM;
+    onClose: () => void;
+    onUpdateStatus: (s: RequestStatus) => Promise<void> | void;
+}) {
+    const {t} = useI18n();
+    const images = useMemo(() => extractImages(request), [request]);
+    const [statusLocal, setStatusLocal] = useState<RequestStatus>(request.status);
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") onClose();
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+    }, [onClose]);
+
+    const title = `${t("requests_card_title") || "Заявка"} #${request.id}`;
+
+    return (
+        <div className="fixed inset-0 z-[350] flex items-center justify-center bg-black/60 p-4" role="dialog"
+             aria-modal>
+            <div
+                className="w-full max-w-3xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl dark:border-white/10 dark:bg-zinc-900">
+                <div
+                    className="flex items-start justify-between gap-4 border-b border-gray-100 p-5 dark:border-white/10">
+                    <div>
+                        <h3 className="text-xl font-semibold">{title}</h3>
+                        <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                            {new Date(request.createdAt).toLocaleString()}
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={onClose}
+                        aria-label="Close"
+                        className="rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm hover:bg-gray-50 dark:border-white/15 dark:bg-transparent dark:hover:bg-white/10"
+                    >
+                        ✕
+                    </button>
+                </div>
+
+                <div className="grid gap-6 p-5 md:grid-cols-2">
+                    {/* Left: details */}
+                    <div className="space-y-2 text-sm">
+                        <Detail label={t("requests_date")} value={new Date(request.createdAt).toLocaleString()}/>
+                        <Detail label={t("requests_name")} value={request.name}/>
+                        <Detail label={t("requests_contacts")} value={request.email || request.phone} multiline/>
+                        <Detail label={t("requests_subject")} value={request.subject || "—"}/>
+                        <Detail label={t("requests_message")} value={request.message} multiline/>
+
+                        <div className="pt-2">
+                            <div
+                                className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                                {t("requests_status")}
+                            </div>
+                            <div className="flex items-center gap-2">
+                <span
+                    className={[
+                        "inline-block h-2 w-2 rounded-full",
+                        statusLocal === "DONE" ? "bg-emerald-500" : statusLocal === "IN_PROGRESS" ? "bg-amber-500" : "bg-sky-500",
+                    ].join(" ")}
+                />
+                                <select
+                                    value={statusLocal}
+                                    onChange={async (e) => {
+                                        const s = e.currentTarget.value as RequestStatus;
+                                        setStatusLocal(s);
+                                        await onUpdateStatus(s);
+                                    }}
+                                    className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm transition focus:border-gray-300 dark:border-white/15 dark:bg-black/40"
+                                >
+                                    <option value="NEW">{t("requests_statusNew")}</option>
+                                    <option value="IN_PROGRESS">{t("requests_statusInProgress")}</option>
+                                    <option value="DONE">{t("requests_statusDone")}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right: slideshow */}
+                    <div>{images.length > 0 ? <Slideshow images={images}/> : <NoImages/>}</div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function Detail({label, value, multiline = false}: { label: string; value?: React.ReactNode; multiline?: boolean }) {
+    return (
+        <div>
+            <div
+                className="mb-0.5 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{label}</div>
+            <div
+                className={[
+                    "rounded-xl border border-gray-100 bg-white/70 px-3 py-2 text-sm text-gray-800 shadow-sm dark:border-white/10 dark:bg-black/30 dark:text-gray-100",
+                    multiline ? "whitespace-pre-wrap" : "truncate",
+                ].join(" ")}
+            >
+                {value ?? "—"}
+            </div>
+        </div>
+    );
+}
+
+function NoImages() {
+    const {t} = useI18n();
+    return (
+        <div
+            className="grid h-full place-items-center rounded-xl border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500 dark:border-white/10 dark:text-gray-400">
+            {t("requests_noImages") || "Нет приложенных изображений"}
+        </div>
+    );
+}
+
+function Slideshow({images}: { images: string[] }) {
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        if (index >= images.length) setIndex(0);
+    }, [images, index]);
+
+    const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
+    const next = () => setIndex((i) => (i + 1) % images.length);
+
+    return (
+        <div className="relative">
+            <div
+                className="relative aspect-video w-full overflow-hidden rounded-xl border border-gray-100 bg-black/5 dark:border-white/10">
+                <img src={images[index]} alt={`Фото ${index + 1}`} className="h-full w-full object-contain"/>
+
+                {images.length > 1 && (
+                    <>
+                        <button
+                            onClick={prev}
+                            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 px-3 py-2 text-white backdrop-blur hover:bg-black/60"
+                            aria-label="Previous"
+                        >
+                            ◀
+                        </button>
+                        <button
+                            onClick={next}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/40 px-3 py-2 text-white backdrop-blur hover:bg-black/60"
+                            aria-label="Next"
+                        >
+                            ▶
+                        </button>
+
+                        <div className="pointer-events-none absolute bottom-2 left-0 right-0 flex justify-center gap-1">
+                            {images.map((_, i) => (
+                                <span key={i}
+                                      className={["h-1.5 w-1.5 rounded-full", i === index ? "bg-white" : "bg-white/50"].join(" ")}/>
+                            ))}
+                        </div>
+                    </>
+                )}
+            </div>
+
+            {images.length > 1 && (
+                <div className="mt-3 grid grid-cols-6 gap-2">
+                    {images.map((u, i) => (
+                        <button
+                            key={`${u}-${i}`}
+                            onClick={() => setIndex(i)}
+                            className={["overflow-hidden rounded-lg border", i === index ? "border-blue-500" : "border-gray-200 dark:border-white/10"].join(" ")}
+                            aria-label={`Go to ${i + 1}`}
+                        >
+                            <img src={u} alt={`Миниатюра ${i + 1}`} className="aspect-[4/3] w-full object-cover"/>
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
     );
 }
