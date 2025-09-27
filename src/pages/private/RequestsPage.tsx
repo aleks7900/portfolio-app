@@ -188,7 +188,7 @@ export default function RequestsPage() {
 
     async function confirmDelete() {
         if (!pendingDelete) return;
-        await deleteRequest(pendingDelete.id);
+        await deleteRequest(pendingDelete.id, { purgeFiles: true });
         setConfirmOpen(false);
         setPendingDelete(null);
         void load();

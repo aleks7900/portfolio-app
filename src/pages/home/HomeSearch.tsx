@@ -95,7 +95,7 @@ export default function HomeSearch() {
             tf("search_demo_23", "подиум под оборудование"),
             tf("search_demo_24", "решётка водоотводная из нержавейки"),
         ],
-        [tf]
+        [t, lang]
     );
 
     const [demoText, setDemoText] = useState("");
@@ -113,9 +113,10 @@ export default function HomeSearch() {
     useEffect(() => {
         const active = !focused && !open && q.trim() === "";
         if (!active) {
-            setDemoText("");
-            setCharIdx(0);
-            setDemoMode("typing");
+            // обновляем ТОЛЬКО если реально меняется состояние
+            if (demoText !== "") setDemoText("");
+            if (charIdx !== 0) setCharIdx(0);
+            if (demoMode !== "typing") setDemoMode("typing");
             return;
         }
 
@@ -145,7 +146,7 @@ export default function HomeSearch() {
         }
 
         return () => window.clearTimeout(timeout);
-    }, [focused, open, q, demoMode, phraseIdx, charIdx, demoPhrases]);
+    }, [focused, open, q, demoMode, phraseIdx, charIdx, demoPhrases, demoText]);
 
     // Слушатель внешнего открытия поиска
     useEffect(() => {
@@ -323,7 +324,7 @@ export default function HomeSearch() {
                                 onClick={() => submit(q)}
                                 whileTap={{scale: 0.97}}
                                 whileHover={{y: -1}}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 h-8 px-5 rounded-2xl bg-white text-black font-medium shadow-lg hover:!bg-black hover:!text-white active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg白 dark:text-black dark:hover:bg-black dark:hover:text-white"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center gap-2 h-8 px-5 rounded-2xl bg-white text-black font-medium shadow-lg hover:!bg-black hover:!text-white active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-black/30 dark:text-black dark:hover:bg-black dark:hover:text-white"
                                 aria-label={tf("search_action", "Искать")}
                             >
                                 <Search className="h-5 w-5 transition-transform duration-200 group-hover:rotate-12"/>

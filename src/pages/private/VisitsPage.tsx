@@ -357,11 +357,11 @@ export default function VisitsPage() {
                             {tf("visits_noTopUrls", "Нет данных")}
                         </div>
                     ) : (
-                        <table className="w-full text-sm">
+                        <table className="w-full text-sm table-fixed">
                             <thead>
                             <tr className="text-left text-muted-foreground border-b">
                                 <th className="py-1 px-2 w-12">#</th>
-                                <th className="py-1 px-2">{tf("visits_url", "URL")}</th>
+                                <th className="py-1 px-2 w-[80%]">{tf("visits_url", "URL")}</th>
                                 <th className="py-1 px-2 text-right">{tf("visits_visits", "Посещения")}</th>
                             </tr>
                             </thead>
@@ -369,7 +369,7 @@ export default function VisitsPage() {
                             {topData.map((u, i) => (
                                 <tr key={u.path} className="border-b last:border-0 hover:bg-muted/30">
                                     <td className="py-1 px-2">{i + 1}</td>
-                                    <td className="py-1 px-2 font-mono text-xs whitespace-nowrap overflow-hidden text-ellipsis max-w-[0] sm:max-w-none"
+                                    <td className="py-1 px-2 font-mono text-xs whitespace-pre-wrap break-words [overflow-wrap:anywhere]"
                                         title={u.path}>
                                         {u.path}
                                     </td>

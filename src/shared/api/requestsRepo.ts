@@ -105,6 +105,7 @@ export async function updateRequestStatus(id: number, status: RequestStatus): Pr
     return apiFetch<RequestItem>(API_BASE + `/requests/${id}/status`, {method: "PATCH", body: {status}});
 }
 
-export async function deleteRequest(id: number): Promise<void> {
-    await apiFetch<void>(API_BASE + `/requests/${id}`, {method: "DELETE"});
+export async function deleteRequest(id: number, opts?: { purgeFiles?: boolean }): Promise<void> {
+    const purge = opts?.purgeFiles ? "1" : "0";
+    await apiFetch<void>(API_BASE + `/requests/${id}?purgeFiles=${purge}`, {method: "DELETE"});
 }
