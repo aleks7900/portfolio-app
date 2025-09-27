@@ -37,21 +37,6 @@ export const UPLOADS_BASE: string = String(
     env("VITE_UPLOADS_BASE") ?? "/uploads"
 ).replace(/\/+$/, "");
 
-function isUploadsPath(p: string): boolean {
-    return /^\/?uploads\//i.test(p) || p.includes("/uploads/");
-}
-
-function extractUploadsSubpath(p: string): string {
-    // UNIX
-    const ix = p.indexOf("/uploads/");
-    if (ix >= 0) return p.slice(ix + "/uploads/".length);
-    // Windows
-    const iwx = p.toLowerCase().indexOf("\\uploads\\");
-    if (iwx >= 0) return p.slice(iwx + "\\uploads\\".length).replace(/\\/g, "/");
-    // если передали уже нормальный относительный
-    return p.replace(/^\/?uploads\//i, "");
-}
-
 /**
  * База для каталожных изображений, которые раздаёт nginx (volume /images) или CDN.
  * Можно переопределить через VITE_IMAGES_BASE (например, https://cdn.example.com/images).
@@ -76,6 +61,13 @@ function isPublicImgPath(p: string): boolean {
     return /^\/?img\//i.test(p);
 }
 
+function isUploadsPathRaw(p: string): boolean {
+    // uploads/... | /uploads/... | .../uploads/...
+    return /^uploads[/\\]/i.test(p)          // ← НОВОЕ
+        || /^\/?uploads\//i.test(p)
+        || /[/\\]uploads[/\\]/i.test(p);
+}
+
 /** Абсолютный URL к текущему ORIGIN */
 function absolutize(p: string): string {
     if (!p) return "";
@@ -91,34 +83,13 @@ function joinUrl(base: string, path: string): string {
     return b ? `${b}/${p}` : `/${p}`;
 }
 
-/** Нормализация относительного пути под нужный bucket (`images` | `uploads`). */
-function normalizePath(p: string, bucket: "images" | "uploads"): string {
-    const clean = (p || "").replace(/^\/+/, ""); // убираем ведущие /
-    // убираем дублирующий префикс bucket, если он уже в пути
-    const stripped = clean.replace(new RegExp(`^(?:${bucket}\\/)+`, "i"), "");
-    return joinUrl(IMAGES_BASE, `${bucket}/${stripped}`);
-}
-
-/**
- * URL для картинки из каталога статики (/images/...)
- * Примеры:
- *   imageUrl('catalog/custom_orders/perila.png') -> {ORIGIN}/images/catalog/custom_orders/perila.png
- *   imageUrl('/images/catalog/..')               -> {ORIGIN}/images/catalog/..
- *   imageUrl('http://cdn/..')                    -> вернётся как есть
- */
-export function imageUrl(p: string): string {
-    if (!p) return placeholderUrl();
-    if (isAbsolute(p)) return p;
-    return normalizePath(p, "images");
-}
-
-/**
- * URL для загруженных файлов (/uploads/...)
- */
-export function uploadUrl(p: string): string {
-    if (!p) return placeholderUrl();
-    if (isAbsolute(p)) return p;
-    return normalizePath(p, "uploads");
+function extractUploadsSubpath(p: string): string {
+    // сначала нормализуем на всякий случай
+    const s = p.replace(/\\/g, "/");
+    const ix = s.indexOf("/uploads/");
+    if (ix >= 0) return s.slice(ix + "/uploads/".length);
+    if (s.startsWith("uploads/")) return s.slice("uploads/".length);  // ← НОВОЕ
+    return s.replace(/^\/?uploads\//i, "");
 }
 
 /**
@@ -126,41 +97,37 @@ export function uploadUrl(p: string): string {
  * @param input путь к картинке (абсолютный или относительный)
  * @param opts.placeholderFallback если true — вернуть плейсхолдер при пустом input
  */
-export function resolveImg(
-    input: Nullable<string>,
-    opts?: { placeholderFallback?: boolean }
-): string {
-    const p: string = (input ?? "").trim();
-    if (!p) return opts?.placeholderFallback ? placeholderUrl() : "";
+export function resolveImg(input: Nullable<string>, opts?: { placeholderFallback?: boolean }): string {
+    const raw = (input ?? "").trim();
+    if (!raw) return opts?.placeholderFallback ? placeholderUrl() : "";
 
-    // Абсолютные URL — как есть.
+    const p = raw.replace(/\\/g, "/");
+
+    // 1) абсолютные адреса
     if (isAbsolute(p)) return p;
 
-    // Публичные ассеты (public/img) — через текущий origin.
+    // 2) public assets (/img/...) → текущий origin
     if (isPublicImgPath(p)) {
-        const normalized: string = p.startsWith("/") ? p : `/${p}`;
+        const normalized = p.startsWith("/") ? p : `/${p}`;
         return absolutize(normalized);
     }
 
-    // Каталожные изображения (/images/...) — через IMAGES_BASE.
-    if (isImagesPath(p)) {
-        const noPrefix: string = p.replace(/^\/?images\//i, "images/");
-        return joinUrl(IMAGES_BASE || "/images", noPrefix.replace(/^images\//i, ""));
-    }
-
-    // Аплоады (из заявок): могут приходить как URL, как /uploads/...,
-    // или как файловый путь /var/www/app/uploads/... → приводим к UPLOADS_BASE.
-    if (isUploadsPath(p)) {
+    // 3) uploads: ОБЯЗАТЕЛЬНО раньше, чем images!
+    if (isUploadsPathRaw(p)) {
         const sub = extractUploadsSubpath(p);
         return joinUrl(UPLOADS_BASE || "/uploads", sub);
     }
 
-    // Если это другой абсолютный путь от корня ("/...") — считаем статикой текущего origin.
-    if (p.startsWith("/")) {
-        return absolutize(p);
+    // 4) catalog images (/images/...)
+    if (isImagesPath(p)) {
+        const noPrefix = p.replace(/^\/?images\//i, "");
+        return joinUrl(IMAGES_BASE || "/images", noPrefix);
     }
 
-    // Иначе относительный путь ("catalog/...") — считаем каталожным и вешаем на IMAGES_BASE.
+    // 5) любые другие абсолютные от корня → origin
+    if (p.startsWith("/")) return absolutize(p);
+
+    // 6) относительные пути считаем каталожными
     return joinUrl(IMAGES_BASE || "/images", p);
 }
 
