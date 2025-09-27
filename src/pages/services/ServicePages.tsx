@@ -2,7 +2,7 @@ import {Suspense, useMemo} from "react";
 import {Link, Navigate, useParams} from "react-router-dom";
 import Container from "../../shared/Container.tsx";
 import {SERVICES} from "../../data/data.ts";
-import {SERVICE_PAGE_MAP} from "../ServiceRegistry";
+import {SERVICE_PAGE_MAP} from "./ServiceRegistry.ts";
 
 // Базовый фолбэк, когда для slug нет отдельной страницы
 function GenericServiceBlock({title, lead}: { title: string; lead?: string }) {

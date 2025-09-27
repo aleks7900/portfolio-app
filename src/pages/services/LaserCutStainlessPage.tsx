@@ -1,4 +1,4 @@
-import {useI18n} from "../shared/i18n/i18n.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 /**
  * Страница: Лазерная резка нержавейки
