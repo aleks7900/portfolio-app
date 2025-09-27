@@ -1,5 +1,6 @@
 // src/widgets/CallbackWidget.tsx
 import React, { useMemo, useState, useEffect } from 'react';
+import {useI18n} from "../i18n/i18n.tsx";
 
 // Если у тебя общий клиент уже есть — замени на свой:
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
@@ -62,6 +63,8 @@ export default function CallbackWidget({
                                        }: WidgetPosProps = {}) {
     const [open, setOpen] = useState(false);
 
+    const { t } = useI18n();
+
     // form
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -105,9 +108,9 @@ export default function CallbackWidget({
         setErr(null);
         setOk(null);
 
-        if (!name.trim()) return setErr('Укажите имя');
-        if (!validPhone(phone)) return setErr('Неверный номер телефона');
-        if (!consent) return setErr('Нужно согласие на обработку данных');
+        if (!name.trim()) return setErr(t('callback_messages_err_name'));
+        if (!validPhone(phone)) return setErr(t('callback_messages_err_phone'));
+        if (!consent) return setErr(t('callback_messages_err_consent'));
 
         setSubmitting(true);
         try {
@@ -129,12 +132,12 @@ export default function CallbackWidget({
                 body: JSON.stringify(payload),
             });
 
-            setOk('Спасибо! Мы перезвоним в выбранное время.');
+            setOk(t('callback_messages_success'));
             resetForm();
             // авто-закрытие
             setTimeout(() => setOpen(false), 1400);
         } catch (e: any) {
-            setErr(e?.message || 'Ошибка отправки. Попробуйте ещё раз.');
+            setErr(e?.message || t('callback_messages_err_submit'));
         } finally {
             setSubmitting(false);
         }
@@ -152,11 +155,12 @@ export default function CallbackWidget({
                 }}
             >
                 <button
-                    aria-label="Перезвоните мне"
+                    aria-label={t('callback_a11y_open')}
+                    title={t('callback_fab_label')}
                     onClick={() => { setOpen(true); setOk(null); setErr(null); }}
-                    className="rounded-full shadow-xl !bg-emerald-600 !hover:bg-emerald-700 !text-white w-auto h-14 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
+                    className="rounded-full shadow-2xl !bg-emerald-600 !hover:bg-emerald-700 !text-white w-auto h-14 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
                 >
-                    Перезвонить
+                    {t('callback_fab_label')}
                 </button>
             </div>
 
@@ -166,33 +170,33 @@ export default function CallbackWidget({
                     <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
                     <div className="relative dark:bg-zinc-800 w-full sm:max-w-md bg-white rounded-2xl shadow-2xl p-5 m-3">
                         <div className="flex items-center justify-between mb-3">
-                            <h3 className="text-lg font-semibold">Перезвоните мне</h3>
-                            <button onClick={() => setOpen(false)} className="p-1 rounded hover:bg-zinc-100" aria-label="Закрыть">✕</button>
+                            <h3 className="text-lg font-semibold">{t('callback_title')}</h3>
+                            <button onClick={() => setOpen(false)} className="text-black p-1 rounded hover:bg-zinc-100" aria-label={t('callback_a11y_close')}>✕</button>
                         </div>
 
                         <form onSubmit={submit} className="space-y-3 dark:bg-zinc-800">
                             <div>
-                                <label className="block text-sm mb-1">Имя *</label>
+                                <label className="block text-sm mb-1">{t('callback_form_name_label')}</label>
                                 <input
                                     className="w-full rounded-xl !border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
-                                    value={name} onChange={e => setName(e.target.value)} placeholder="Как к вам обращаться"
+                                    value={name} onChange={e => setName(e.target.value)} placeholder={t('callback_form_name_placeholder')}
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm mb-1">Телефон *</label>
+                                <label className="block text-sm mb-1">{t('callback_form_phone_label')}</label>
                                 <input
                                     className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
                                     value={phone} onChange={e => setPhone(e.target.value)}
-                                    placeholder="+373 60 000 000"
+                                    placeholder={t('callback_form_phone_placeholder')}
                                     inputMode="tel"
                                 />
-                                <p className="text-xs text-zinc-500 mt-1">Мы позвоним по вашему локальному времени ({tz})</p>
+                                <p className="text-xs text-zinc-500 mt-1">{t('callback_form_tz_hint', { tz })}</p>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-sm mb-1">Дата звонка</label>
+                                    <label className="block text-sm mb-1">{t('callback_form_date_label')}</label>
                                     <input
                                         type="date" min={today}
                                         className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
@@ -200,41 +204,41 @@ export default function CallbackWidget({
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm mb-1">Время</label>
+                                    <label className="block text-sm mb-1">{t('callback_form_time_label')}</label>
                                     <select
                                         className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 dark:bg-zinc-900 dark:text-white"
                                         value={time} onChange={e => setTime(e.target.value)}
                                     >
-                                        <option value="">Любое время</option>
+                                        <option value="">{t('callback_form_time_any')}</option>
                                         {slots.map(s => (<option key={s} value={s}>{s}</option>))}
                                     </select>
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm mb-1">Комментарий</label>
+                                <label className="block text-sm mb-1">{t('callback_form_comment_label')}</label>
                                 <textarea
                                     rows={3}
                                     className="w-full rounded-xl border px-3 py-2 outline-none focus:ring-2 ring-emerald-300 resize-none dark:bg-zinc-900 dark:text-white"
-                                    value={comment} onChange={e => setComment(e.target.value)} placeholder="Удобный способ связи или вопрос"
+                                    value={comment} onChange={e => setComment(e.target.value)} placeholder={t('callback_form_comment_placeholder')}
                                 />
                             </div>
 
                             <label className="flex items-start gap-2 text-sm">
                                 <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} className="mt-1"/>
-                                <span>Согласен(а) на обработку персональных данных для обратного звонка</span>
+                                <span>{t('callback_form_consent_label')}</span>
                             </label>
 
                             {err && <div className="text-sm text-red-600">{err}</div>}
                             {ok && <div className="text-sm text-emerald-700">{ok}</div>}
 
                             <div className="flex gap-2 justify-end pt-1">
-                                <button type="button" onClick={() => setOpen(false)} className="text-black px-4 py-2 rounded-xl border hover:bg-zinc-50">Отмена</button>
+                                <button type="button" onClick={() => setOpen(false)} className="text-black px-4 py-2 rounded-xl border hover:bg-zinc-50">{t('callback_actions_cancel')}</button>
                                 <button
                                     type="submit" disabled={submitting}
                                     className="px-4 py-2 rounded-xl !bg-emerald-600 !text-white hover:bg-emerald-700 disabled:opacity-60"
                                 >
-                                    {submitting ? 'Отправка…' : 'Жду звонка'}
+                                    {submitting ? t('callback_actions_submitting') : t('callback_actions_submit')}
                                 </button>
                             </div>
                         </form>

@@ -59,7 +59,7 @@ export default function CallWidget({
         },
         {
             key: "instagram",
-            href: "https://instagram.com/yourusername",
+            href: "https://www.instagram.com/rvsteelengineering_20/",
             bg: "bg-pink-500 hover:bg-pink-600",
             label: "Instagram",
             icon: (
@@ -71,7 +71,7 @@ export default function CallWidget({
         },
         {
             key: "facebook",
-            href: "https://facebook.com/yourusername",
+            href: "https://www.facebook.com/p/RV-Steel-Engineering-SRL-100063268326722/",
             bg: "bg-blue-600 hover:bg-blue-700",
             label: "Facebook",
             icon: (

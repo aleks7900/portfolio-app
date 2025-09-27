@@ -14,6 +14,36 @@ export const dict: Dictionary = {
             requests_open: "Открыть",
             requests_card_title: "Заявка",
 
+            callback_fab_label: "Перезвонить",
+            callback_a11y_open: "Перезвоните мне",
+            callback_a11y_close: "Закрыть",
+            callback_title: "Перезвоните мне",
+
+            callback_form_name_label: "Имя *",
+            callback_form_name_placeholder: "Как к вам обращаться",
+            callback_form_phone_label: "Телефон *",
+            callback_form_phone_placeholder: "+373 60 000 000",
+            callback_form_tz_hint: "Мы позвоним по вашему локальному времени ({{tz}})",
+            callback_form_date_label: "Дата звонка",
+            callback_form_time_label: "Время",
+            callback_form_time_any: "Любое время",
+            callback_form_comment_label: "Комментарий",
+            callback_form_comment_placeholder: "Удобный способ связи или вопрос",
+            callback_form_consent_label: "Согласен(а) на обработку персональных данных для обратного звонка",
+
+            callback_actions_cancel: "Отмена",
+            callback_actions_submit: "Жду звонка",
+            callback_actions_submitting: "Отправка…",
+
+            callback_messages_success: "Спасибо! Мы перезвоним в выбранное время.",
+            callback_messages_err_name: "Укажите имя",
+            callback_messages_err_phone: "Неверный номер телефона",
+            callback_messages_err_consent: "Нужно согласие на обработку данных",
+            callback_messages_err_submit: "Ошибка отправки. Попробуйте ещё раз.",
+
+            techchat_default_message: "Здравствуйте! Нужна консультация технолога. Страница: {{page}} ({{origin}}), время: {{when}}, TZ: {{tz}}",
+            techchat_button_label: "Напишите технологу",
+
             // Каталог меню
             cat_custom_orders: "Изделия на заказ",
             sub_balustrade_perila: "Балюстрады, перила",
@@ -835,6 +865,36 @@ export const dict: Dictionary = {
 
             requests_open: "Deschide",
             requests_card_title: "Aplicatia",
+
+            callback_fab_label: "Apel înapoi",
+            callback_a11y_open: "Sunați-mă înapoi",
+            callback_a11y_close: "Închide",
+            callback_title: "Sunați-mă înapoi",
+
+            callback_form_name_label: "Nume *",
+            callback_form_name_placeholder: "Cum să vă apelăm",
+            callback_form_phone_label: "Telefon *",
+            callback_form_phone_placeholder: "+373 60 000 000",
+            callback_form_tz_hint: "Vom suna în funcție de fusul dvs. orar ({{tz}})",
+            callback_form_date_label: "Data apelului",
+            callback_form_time_label: "Ora",
+            callback_form_time_any: "Orice oră",
+            callback_form_comment_label: "Comentariu",
+            callback_form_comment_placeholder: "Mod preferat de contact sau întrebare",
+            callback_form_consent_label: "Sunt de acord cu prelucrarea datelor personale pentru apelul de retur",
+
+            callback_actions_cancel: "Anulează",
+            callback_actions_submit: "Aștept apelul",
+            callback_actions_submitting: "Se trimite…",
+
+            callback_messages_success: "Mulțumim! Vă sunăm la ora aleasă.",
+            callback_messages_err_name: "Indicați numele",
+            callback_messages_err_phone: "Număr de telefon invalid",
+            callback_messages_err_consent: "Este necesar consimțământul pentru prelucrarea datelor",
+            callback_messages_err_submit: "Eroare la trimitere. Încercați din nou.",
+
+            techchat_default_message: "Bună ziua! Am nevoie de o consultație tehnologică. Pagina: {{page}} ({{origin}}), ora: {{when}}, TZ: {{tz}}",
+            techchat_button_label: "Scrieți tehnologului",
 
             // Catalog meniu
             cat_custom_orders: "Produse la comandă",

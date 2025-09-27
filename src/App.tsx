@@ -21,6 +21,7 @@ import AttendancePage from "./pages/private/AttendancePage.tsx";
 import VisitsPage from "./pages/private/VisitsPage.tsx";
 import ScrollToTop from "./ScrollToTop.tsx";
 import CallbackWidget from "./shared/widgets/CallbackWidget.tsx";
+import TechChatWidget from "./shared/widgets/TechChatWidget.tsx";
 
 
 export default function App() {
@@ -103,8 +104,9 @@ export default function App() {
 
                             {/* Кнопки */}
                             <ScrollTopButton threshold={300} side="left"/>
-                            <CallWidget viber="37360000000" whatsapp="37360000000" telegram="@yourusername"/>
+                            <CallWidget viber="37360174654" whatsapp="37360174654" telegram="@rvsteel"/>
                             <CallbackWidget />
+                            <TechChatWidget />
                         </BrowserRouter>
                     </div>
                 </AuthProvider>
