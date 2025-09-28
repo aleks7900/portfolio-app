@@ -10,6 +10,7 @@ export default function Footer() {
                 <div className="flex items-center gap-4">
                     <a href="/about" className="hover:underline">{t("footer_about")}</a>
                     <a href="/contacts" className="hover:underline">{t("footer_contacts")}</a>
+                    <a href="/metal/calc" className="hover:underline">Metal calc</a>
                     <a href="/guide" className="hover:underline">{t("footer_guide")}</a>
                 </div>
             </div>

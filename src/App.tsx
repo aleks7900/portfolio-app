@@ -23,6 +23,7 @@ import ScrollToTop from "./ScrollToTop.tsx";
 import CallbackWidget from "./shared/widgets/CallbackWidget.tsx";
 import TechChatWidget from "./shared/widgets/TechChatWidget.tsx";
 import StainlessGuidePage from "./pages/StainlessGuidePage.tsx";
+import MetalCalcPage from "./pages/MetalCalcPage.tsx";
 
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
                                     <Route path="/contacts" element={<ContactsPage/>}/>
                                     <Route path="/about" element={<AboutPage/>}/>
                                     <Route path="/guide" element={<StainlessGuidePage/>}/>
+                                    <Route path="/metal/calc" element={<MetalCalcPage/>}/>
                                     <Route path="/catalog" element={<CatalogPage/>}/>
                                     <Route path="/catalog/:category" element={<CatalogPage/>}/>
                                     <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
