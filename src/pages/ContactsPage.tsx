@@ -239,6 +239,7 @@ export default function ContactsPage() {
                         <input
                             name="name"
                             required
+                            placeholder={t('callback_form_name_placeholder')}
                             autoComplete="name"
                             className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
                         />
@@ -250,6 +251,7 @@ export default function ContactsPage() {
                             <input
                                 name="email"
                                 type="email"
+                                placeholder={t('callback_form_email_placeholder')}
                                 autoComplete="email"
                                 className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
                             />
@@ -259,6 +261,7 @@ export default function ContactsPage() {
                             <input
                                 name="phone"
                                 autoComplete="tel"
+                                placeholder={t('callback_form_phone_placeholder')}
                                 className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
                             />
                         </label>
@@ -278,6 +281,7 @@ export default function ContactsPage() {
                             name="message"
                             required
                             rows={5}
+                            placeholder={t('callback_form_comment_placeholder')}
                             className="w-full rounded-xl border px-3 py-2 !bg-white !text-black dark:!bg-gray-300 dark:!text-black"
                         />
                     </label>
