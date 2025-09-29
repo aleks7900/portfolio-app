@@ -1358,7 +1358,7 @@ export const dict: Dictionary = {
             search_placehold: "Поиск по товарам, брендам, категориям…",
             search: "Искать",
 
-            admin_menu: "Админка",
+            admin_menu: "Админ",
             admin_menu_produse: "Мои продукты",
             admin_menu_userii: "Пользователи",
             admin_menu_aplic: "Заявки",
@@ -2993,7 +2993,7 @@ export const dict: Dictionary = {
 
             // Auth
             login: "Login",
-            logout: "Deconectare",
+            logout: "Logout",
             email: "Email",
             password: "Parolă",
             sign_in: "Conectare",
