@@ -1405,7 +1405,7 @@ export const dict: Dictionary = {
             pp_loading: "Загрузка…",
             pp_nothing: "Ничего не найдено",
 
-            pp_action_edit: "Редактировать",
+            pp_action_edit: "Изменить",
             pp_action_delete: "Удалить",
             pp_view_only: "Только просмотр",
 
