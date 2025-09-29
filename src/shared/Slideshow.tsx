@@ -127,7 +127,7 @@ export default function Slideshow() {
                     return (
                         <div
                             key={s.id}
-                            className="keen-slider__slide relative h-[40rem] flex items-center justify-center bg-gray-200 dark:bg-black"
+                            className="keen-slider__slide relative h-[40rem] max-h-[55vh] md:max-h-[55dvh] flex items-center justify-center bg-gray-200 dark:bg-black"
                         >
                             <img
                                 src={s.img}

@@ -201,7 +201,7 @@ export default function ProductDetails({
                             animate={{opacity: 1, y: 0, scale: 1}}
                             exit={{opacity: 0, y: 8, scale: 0.98}}
                             transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                            className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl h-[58rem] rounded-2xl border bg-white p-8 shadow-xl dark:bg-zinc-800 dark:border-white/10"
+                            className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl h-[58rem] max-h-[98vh] md:max-h-[98dvh] rounded-2xl border bg-white p-8 shadow-xl dark:bg-zinc-800 dark:border-white/10 grid grid-rows-[auto_1fr_auto]"
                         >
                             {/* Заголовок */}
                             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -214,73 +214,76 @@ export default function ProductDetails({
                                 <div className="text-lg font-semibold whitespace-nowrap">${product.price}</div>
                             </div>
 
-                            {/* Галерея */}
-                            <div className="mt-6">
-                                <div className="relative">
-                                    <div
-                                        ref={sliderRef}
-                                        className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3] h-[28rem]"
-                                    >
+
+                            {/* Прокручиваемый контент */}
+                            <div className="mt-6 overflow-y-auto min-h-0">
+                                {/* Галерея */}
+                                <div>
+                                    <div className="relative">
+                                        <div
+                                            ref={sliderRef}
+                                            className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3] h-[28rem] max-h-[38.5vh] md:max-h-[38.5dvh] "
+                                        >
+                                            {images.map((src, i) => (
+                                                <div key={i}
+                                                     className="keen-slider__slide flex items-center justify-center">
+                                                    <ImageWithFallback
+                                                        src={src}
+                                                        alt={`${product.title} ${i + 1}`}
+                                                        className="h-full w-full cursor-zoom-in object-cover"
+                                                        loading="lazy"
+                                                        decoding="async"
+                                                        referrerPolicy="no-referrer"
+                                                        draggable={false}
+                                                        onClick={() => setLightbox({open: true, index: i})}
+                                                        fallback={placeholderImg}
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Кнопки навигации по слайдам */}
+                                        {images.length > 1 && (
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    aria-label="Previous slide"
+                                                    onClick={() => inst.current?.prev()}
+                                                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 text-black p-2 shadow hover:bg-white dark:!bg-gray-500 dark:hover:bg-black/80 dark:border-white/10"
+                                                >
+                                                    <ChevronLeft className="h-5 w-5"/>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    aria-label="Next slide"
+                                                    onClick={() => inst.current?.next()}
+                                                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 text-black p-2 shadow hover:bg-white dark:!bg-gray-500 dark:hover:bg-black/80 dark:border-white/10"
+                                                >
+                                                    <ChevronRight className="h-5 w-5"/>
+                                                </button>
+                                            </>
+                                        )}
+                                    </div>
+
+                                    {/* Превьюшки */}
+                                    <div ref={thumbsRef} className="keen-slider mt-3">
                                         {images.map((src, i) => (
-                                            <div key={i}
-                                                 className="keen-slider__slide flex items-center justify-center">
+                                            <div
+                                                key={i}
+                                                className="keen-slider__slide !w-20 cursor-pointer overflow-hidden rounded-lg border bg-white dark:bg-black dark:border-white/10"
+                                            >
                                                 <ImageWithFallback
                                                     src={src}
-                                                    alt={`${product.title} ${i + 1}`}
-                                                    className="h-full w-full cursor-zoom-in object-cover"
-                                                    loading="lazy"
-                                                    decoding="async"
-                                                    referrerPolicy="no-referrer"
+                                                    alt={`thumb ${i + 1}`}
+                                                    className="h-20 w-full object-cover"
                                                     draggable={false}
-                                                    onClick={() => setLightbox({open: true, index: i})}
                                                     fallback={placeholderImg}
                                                 />
                                             </div>
                                         ))}
                                     </div>
-
-                                    {/* Кнопки навигации по слайдам */}
-                                    {images.length > 1 && (
-                                        <>
-                                            <button
-                                                type="button"
-                                                aria-label="Previous slide"
-                                                onClick={() => inst.current?.prev()}
-                                                className="absolute left-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 text-black p-2 shadow hover:bg-white dark:!bg-gray-500 dark:hover:bg-black/80 dark:border-white/10"
-                                            >
-                                                <ChevronLeft className="h-5 w-5"/>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                aria-label="Next slide"
-                                                onClick={() => inst.current?.next()}
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl border bg-white/90 text-black p-2 shadow hover:bg-white dark:!bg-gray-500 dark:hover:bg-black/80 dark:border-white/10"
-                                            >
-                                                <ChevronRight className="h-5 w-5"/>
-                                            </button>
-                                        </>
-                                    )}
-                                </div>
-
-                                {/* Превьюшки */}
-                                <div ref={thumbsRef} className="keen-slider mt-3">
-                                    {images.map((src, i) => (
-                                        <div
-                                            key={i}
-                                            className="keen-slider__slide !w-20 cursor-pointer overflow-hidden rounded-lg border bg-white dark:bg-black dark:border-white/10"
-                                        >
-                                            <ImageWithFallback
-                                                src={src}
-                                                alt={`thumb ${i + 1}`}
-                                                className="h-20 w-full object-cover"
-                                                draggable={false}
-                                                fallback={placeholderImg}
-                                            />
-                                        </div>
-                                    ))}
                                 </div>
                             </div>
-
                             {/* Статусы */}
                             <div className="mt-4 flex flex-wrap items-center gap-3">
                                 {badge}
@@ -363,8 +366,8 @@ export default function ProductDetails({
                                 </div>
                             </div>
 
-                            {/* Кнопки */}
-                            <div className="mt-6 flex flex-wrap items-center gap-2">
+                            {/* Подвал с кнопкой — всегда у низа контейнера */}
+                            <div className="mt-6 flex items-center gap-2">
                                 <button
                                     type="button"
                                     onClick={onClose}
