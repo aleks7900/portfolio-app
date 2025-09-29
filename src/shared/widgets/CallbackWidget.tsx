@@ -158,7 +158,7 @@ export default function CallbackWidget({
                     aria-label={t('callback_a11y_open')}
                     title={t('callback_fab_label')}
                     onClick={() => { setOpen(true); setOk(null); setErr(null); }}
-                    className="rounded-full shadow-2xl !bg-emerald-600 !hover:bg-emerald-700 !text-white w-auto h-14 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
+                    className="rounded-full shadow-2xl !bg-emerald-600 !hover:bg-emerald-700 !text-white w-[8.7rem] h-14 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
                 >
                     {t('callback_fab_label')}
                 </button>
@@ -166,7 +166,7 @@ export default function CallbackWidget({
 
             {/* Modal */}
             {open && (
-                <div aria-modal className="fixed inset-0 z-50 flex items-end sm:items-center justify-center ">
+                <div aria-modal className="fixed inset-0 z-50000 flex items-end sm:items-center justify-center ">
                     <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
                     <div className="relative dark:bg-zinc-800 w-full sm:max-w-md bg-white rounded-2xl shadow-2xl p-5 m-3">
                         <div className="flex items-center justify-between mb-3">

@@ -1,15 +1,15 @@
-import Slideshow from "../shared/Slideshow.tsx";
 import {ADV} from "../data/data.ts";
 import HeroUpServices from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import HeroServicesMirrored from "./components/HeroMirrored.tsx";
 import HeroDownServices from "./components/HeroDown.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
+import SlideshowServices from "../shared/SlideshowServices.tsx";
 
 export default function ServicePage() {
     return (
         <>
-            <Slideshow/>
+            <SlideshowServices/>
             <HeroUpServices/>
             <HeroServicesMirrored/>
             <HeroDownServices/>

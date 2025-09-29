@@ -96,7 +96,7 @@ const AutoPlay: KeenSliderPlugin = (slider) => {
     slider.on("updated", nextWithDelay);
 };
 
-export default function Slideshow() {
+export default function SlideshowServices() {
     const [current, setCurrent] = useState(0);
 
     const { i18n } = useTranslation();
@@ -127,7 +127,7 @@ export default function Slideshow() {
                     return (
                         <div
                             key={s.id}
-                            className="keen-slider__slide relative h-[40rem] flex items-center justify-center bg-gray-200 dark:bg-black"
+                            className="keen-slider__slide relative h-[700px] flex items-center justify-center bg-gray-200 dark:bg-black"
                         >
                             <img
                                 src={s.img}

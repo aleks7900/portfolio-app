@@ -187,7 +187,7 @@ export default function ProductDetails({
                         structuredData={structuredData}
                     />
                     <motion.div
-                        className="fixed inset-0 z-[9999] flex items-center justify-center px-4 py-12"
+                        className="fixed inset-0 z-[50000] flex items-center justify-center px-4 py-12"
                         role="dialog"
                         aria-modal="true"
                         onMouseDown={(e) => e.target === e.currentTarget && onClose()}
@@ -201,7 +201,7 @@ export default function ProductDetails({
                             animate={{opacity: 1, y: 0, scale: 1}}
                             exit={{opacity: 0, y: 8, scale: 0.98}}
                             transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                            className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl rounded-2xl border bg-white p-8 shadow-xl dark:bg-zinc-800 dark:border-white/10"
+                            className="w-11/12 sm:w-4/5 md:w-2/3 lg:w-3/5 xl:w-1/2 max-w-2xl h-[58rem] rounded-2xl border bg-white p-8 shadow-xl dark:bg-zinc-800 dark:border-white/10"
                         >
                             {/* Заголовок */}
                             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -219,7 +219,7 @@ export default function ProductDetails({
                                 <div className="relative">
                                     <div
                                         ref={sliderRef}
-                                        className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3]"
+                                        className="keen-slider overflow-hidden rounded-xl bg-gray-100 dark:bg-white/10 aspect-video md:aspect-[4/3] h-[28rem]"
                                     >
                                         {images.map((src, i) => (
                                             <div key={i}

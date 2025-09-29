@@ -2992,7 +2992,7 @@ export const dict: Dictionary = {
             services_acid_desc: "Curățarea și protecția metalului prin tratament chimic.",
 
             // Auth
-            login: "Autentificare",
+            login: "Login",
             logout: "Deconectare",
             email: "Email",
             password: "Parolă",

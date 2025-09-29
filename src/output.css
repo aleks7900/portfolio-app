@@ -385,6 +385,9 @@
   .z-50 {
     z-index: 50;
   }
+  .z-50000 {
+    z-index: 50000;
+  }
   .z-\[100\] {
     z-index: 100;
   }
@@ -411,6 +414,9 @@
   }
   .z-\[20001\] {
     z-index: 20001;
+  }
+  .z-\[50000\] {
+    z-index: 50000;
   }
   .order-last {
     order: 9999;
@@ -676,6 +682,15 @@
   .h-\[1\.25rem\] {
     height: 1.25rem;
   }
+  .h-\[28rem\] {
+    height: 28rem;
+  }
+  .h-\[40rem\] {
+    height: 40rem;
+  }
+  .h-\[58rem\] {
+    height: 58rem;
+  }
   .h-\[420px\] {
     height: 420px;
   }
@@ -819,6 +834,9 @@
   }
   .w-\[2px\] {
     width: 2px;
+  }
+  .w-\[8\.7rem\] {
+    width: 8.7rem;
   }
   .w-\[80\%\] {
     width: 80%;

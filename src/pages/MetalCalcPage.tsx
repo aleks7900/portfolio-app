@@ -1,5 +1,4 @@
 import {useEffect, useMemo, useState} from "react";
-import {useTranslation} from "react-i18next";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 
 /**
@@ -24,8 +23,7 @@ const rad = (deg: number) => (deg * Math.PI) / 180;
 const saveLS = (k: string, v: any) => {
     try {
         localStorage.setItem(k, JSON.stringify(v));
-    } catch {
-    }
+    } catch { /* empty */ }
 };
 const loadLS = <T, >(k: string, fallback: T): T => {
     try {
