@@ -30,8 +30,9 @@ import logoDImg from '@/assets/logo_dark.png';
 
 
 function LangToggle() {
-    const { setLang } = useI18n();
-    const { i18n } = useTranslation();
+    const {setLang} = useI18n();
+
+    const {i18n} = useTranslation();
     const next = (i18n.resolvedLanguage || i18n.language || "ru").startsWith("ro") ? "ru" : "ro";
 
 
@@ -44,11 +45,14 @@ function LangToggle() {
             onClick={() => {
                 setLang(next);                          // твой контекст
                 i18n.changeLanguage(next);
-                try { localStorage.setItem("lang", next); } catch { /* empty */ }
+                try {
+                    localStorage.setItem("lang", next);
+                } catch { /* empty */
+                }
                 document.documentElement.lang = next;
             }}
         >
-            <Languages className="h-4 w-4" /> {next.toUpperCase()}
+            <Languages className="h-4 w-4"/> {next.toUpperCase()}
         </button>
     );
 }
@@ -172,7 +176,7 @@ export default function Navbar() {
     }, []);
 
     const scrollTop = () =>
-        requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+        requestAnimationFrame(() => window.scrollTo({top: 0, behavior: "smooth"}));
 
     const linkClassYlw = ({isActive}: { isActive: boolean }) =>
         [BTN_YLW, isActive ? "bg-neutral-900 !text-white" : ""].join(" ");
@@ -246,11 +250,13 @@ export default function Navbar() {
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
                             <NavLink to="/contacts" className={linkClassGray} end onClick={scrollTop}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" className={linkClassBlue} end onClick={scrollTop}><Info className="h-4 w-4"/> {t("nav_about")}
+                            <NavLink to="/about" className={linkClassBlue} end onClick={scrollTop}><Info
+                                className="h-4 w-4"/> {t("nav_about")}
                             </NavLink>
-                            <NavLink to="/contacts"
-                                     className={() => BTN_CTA} onClick={scrollTop}>{t("cta_contact")}<ArrowUpRight
-                                className="ml-1 h-4 w-4"/></NavLink>
+                            {!isAuth ? (<NavLink to="/contacts"
+                                                 className={() => BTN_CTA}
+                                                 onClick={scrollTop}>{t("cta_contact")}<ArrowUpRight
+                                className="ml-1 h-4 w-4"/></NavLink>) : (<></>)}
                             {isAuth ? (
                                 <>
                                     <AdminMenu/>
@@ -294,7 +300,8 @@ export default function Navbar() {
                         <LangToggle/>
                         <ThemeToggleBtn/>
                         <button className={BTN}
-                                onClick={() => setOpen(v => !v)} aria-label="Menu">{open ? <X className="h-5 w-5 !text-black hover:text-black"/> :
+                                onClick={() => setOpen(v => !v)} aria-label="Menu">{open ?
+                            <X className="h-5 w-5 !text-black hover:text-black"/> :
                             <Menu className="h-5 w-5 !text-black hover:text-black"/>}</button>
                     </div>
                 </div>
@@ -306,13 +313,22 @@ export default function Navbar() {
                                    supports-[backdrop-filter]:backdrop-blur-md">
                         <div className="grid gap-2">
                             <MobileCatalog onDone={() => setOpen(false)}/>
-                            <NavLink to="/service" onClick={() => { setOpen(false); scrollTop(); }}
+                            <NavLink to="/service" onClick={() => {
+                                setOpen(false);
+                                scrollTop();
+                            }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
-                            <NavLink to="/contacts" onClick={() => { setOpen(false); scrollTop(); }}
+                            <NavLink to="/contacts" onClick={() => {
+                                setOpen(false);
+                                scrollTop();
+                            }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" onClick={() => { setOpen(false); scrollTop(); }}
+                            <NavLink to="/about" onClick={() => {
+                                setOpen(false);
+                                scrollTop();
+                            }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Info
                                 className="h-4 w-4"/> {t("nav_about")}</NavLink>
                         </div>
