@@ -5,7 +5,6 @@ import ImageWithFallback from "../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 import img from '@/assets/img/14.jpg';
 import Container from "../shared/Container.tsx";
-import React from "react";
 
 export default function AboutPage() {
     const {t} = useI18n();
