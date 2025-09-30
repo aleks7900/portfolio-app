@@ -7,13 +7,181 @@ import FeaturedCategories from "./home/FeaturedCategories.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import {ProductsBlock} from "./home/PopularBlocks.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
+import {useEffect} from "react";
 
 export default function MainPage() {
 
-    const {t} = useI18n();
+    const { t } = useI18n();
+
+    // --- мета-теги без Helmet ---
+    useEffect(() => {
+        const title = "RVSteel — Изделия из нержавеющей стали | Производство и услуги";
+        const description =
+            "RVSteel: производство и услуги по изготовлению изделий из нержавеющей стали — мойки, столы, стеллажи, поручни, балюстрады, мангалы. Индивидуальные проекты, доставка и монтаж.";
+
+        document.title = title;
+
+        // meta description
+        let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+        if (!metaDesc) {
+            metaDesc = document.createElement("meta");
+            metaDesc.setAttribute("name", "description");
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.setAttribute("content", description);
+    }, []);
+
+    // --- JSON-LD объекты ---
+    const jsonLdService = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "Изготовление изделий из нержавеющей стали",
+        serviceType: "Metal Fabrication",
+        provider: {
+            "@type": "LocalBusiness",
+            name: "RVSteel",
+            image: "https://rvsteel.md/images/og-main.jpg",
+            address: {
+                "@type": "PostalAddress",
+                addressCountry: "MD",
+                addressLocality: "Chișinău",
+                streetAddress: "Str. Padurii 21/1"
+            },
+            telephone: "+373 60 174 654",
+            email: "info@rvsteel.md",
+            areaServed: [
+                { "@type": "Country", name: "Moldova" },
+                { "@type": "Country", name: "Romania" }
+            ],
+            openingHoursSpecification: [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    opens: "09:00",
+                    closes: "18:00"
+                }
+            ],
+            url: "https://rvsteel.md",
+            sameAs: ["https://facebook.com/rvsteel", "https://instagram.com/rvsteel"]
+        },
+        areaServed: ["Moldova", "Romania"],
+        hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Каталог услуг и стандартных решений",
+            itemListElement: [
+                {
+                    "@type": "OfferCatalog",
+                    name: "Стандартные изделия",
+                    itemListElement: [
+                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Производственные мойки" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Столы и тумбы" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Стеллажи и полки" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Поручни опорные" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Подтоварники и корзины" } }
+                    ]
+                },
+                {
+                    "@type": "OfferCatalog",
+                    name: "Изделия на заказ",
+                    itemListElement: [
+                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Балюстрады и перила" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Мангалы, гриль и тандыры" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Каркасы, подставки, тележки" } },
+                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Декор и мебель из металла" } }
+                    ]
+                }
+            ]
+        },
+        termsOfService: "https://rvsteel.md/terms",
+        url: "https://rvsteel.md"
+    };
+
+    const jsonLdOrganization = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "RVSteel",
+        url: "https://rvsteel.md",
+        logo: "https://rvsteel.md/logo.png",
+        contactPoint: [
+            {
+                "@type": "ContactPoint",
+                telephone: "+373 60 174 654",
+                contactType: "customer service",
+                areaServed: "MD",
+                availableLanguage: ["ru", "ro"]
+            }
+        ],
+        sameAs: ["https://facebook.com/rvsteel", "https://instagram.com/rvsteel"]
+    };
+
+    const jsonLdWebsite = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "RVSteel",
+        url: "https://rvsteel.md",
+        potentialAction: {
+            "@type": "SearchAction",
+            target: "https://rvsteel.md/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    };
+
+    const jsonLdWebPage = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Услуги RVSteel — Изделия из нержавеющей стали",
+        url: "https://rvsteel.md/",
+        isPartOf: { "@type": "WebSite", url: "https://rvsteel.md" },
+        about: [
+            { "@type": "Thing", name: "нержавеющая сталь" },
+            { "@type": "Thing", name: "изготовление на заказ" },
+            { "@type": "Thing", name: "производственные мойки" },
+            { "@type": "Thing", name: "поручни опорные" }
+        ],
+        primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: "https://rvsteel.md/images/og-main.jpg"
+        },
+        speakable: {
+            "@type": "SpeakableSpecification",
+            xpath: ["/html/head/title", "/html/body//h1", "/html/body//h2"]
+        }
+    };
+
+    const jsonLdBreadcrumbs = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Главная", item: "https://rvsteel.md/" },
+            { "@type": "ListItem", position: 2, name: "Услуги", item: "https://rvsteel.md/#services" }
+        ]
+    };
 
     return (
         <>
+            {/* JSON-LD скрипты без Helmet */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumbs) }}
+            />
+
+
             <div className="mt-12 min-h-[1rem]"></div>
             {/* 🔎 Строка поиска над слайд-шоу */}
             <HomeSearch/>
@@ -798,6 +966,42 @@ export default function MainPage() {
                 query={{ page: 0, size: 8, sort: "title,asc", category: "standard_products", subcategory: "6_stoli_tumba_na_zakaz" }}
                 seeAllLink="/catalog?category=standard_products&subcategory=6_stoli_tumba_na_zakaz&sort=title,asc&page=0&size=12"
             />
+
+            {/* 🔽 SEO-текстовый блок */}
+            <Section id="services">
+                <h2 className="text-2xl font-bold mb-4">{t("seo_main_title")}</h2>
+                <p className="mb-4">{t("seo_main_intro")}</p>
+
+                <h3 className="text-xl font-semibold mt-6 mb-2">{t("seo_standard_title")}</h3>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                    <li>{t("seo_standard_item1")}</li>
+                    <li>{t("seo_standard_item2")}</li>
+                    <li>{t("seo_standard_item3")}</li>
+                    <li>{t("seo_standard_item4")}</li>
+                    <li>{t("seo_standard_item5")}</li>
+                </ul>
+                <p className="mb-4">{t("seo_standard_note")}</p>
+
+                <h3 className="text-xl font-semibold mt-6 mb-2">{t("seo_custom_title")}</h3>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                    <li>{t("seo_custom_item1")}</li>
+                    <li>{t("seo_custom_item2")}</li>
+                    <li>{t("seo_custom_item3")}</li>
+                    <li>{t("seo_custom_item4")}</li>
+                </ul>
+                <p className="mb-4">{t("seo_custom_note")}</p>
+
+                <h3 className="text-xl font-semibold mt-6 mb-2">{t("seo_advantages_title")}</h3>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                    <li>{t("seo_advantages_item1")}</li>
+                    <li>{t("seo_advantages_item2")}</li>
+                    <li>{t("seo_advantages_item3")}</li>
+                    <li>{t("seo_advantages_item4")}</li>
+                </ul>
+
+                <p>{t("seo_closing")}</p>
+            </Section>
+
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>

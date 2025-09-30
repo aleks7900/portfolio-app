@@ -10,10 +10,10 @@ export const SERVICE_PAGE_MAP: Record<
     "bending": lazy(() => import("./BendStainlessPage.tsx")),
     "rolling": lazy(() => import("./RollStainlessPage.tsx")),
 
-    // "drilling-cutting": lazy(() => import("./BendStainlessPage.tsx")),
-    // "bandsaw-cutting": lazy(() => import("./BendStainlessPage.tsx")),
-    // "pipe-connection": lazy(() => import("./BendStainlessPage.tsx")),
-    // "grinder-cutting": lazy(() => import("./BendStainlessPage.tsx")),
+    "drilling-cutting": lazy(() => import("./FitStainlessPage.tsx")),
+    "bandsaw-cutting": lazy(() => import("./FitStainlessPage.tsx")),
+    "pipe-connection": lazy(() => import("./FitStainlessPage.tsx")),
+    "grinder-cutting": lazy(() => import("./FitStainlessPage.tsx")),
 
     "welding": lazy(() => import("./WeldStainlessPage.tsx")),
     "acid-treatment": lazy(() => import("./AcidTreatmentStainlessPage.tsx")),
