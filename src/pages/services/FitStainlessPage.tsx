@@ -261,21 +261,21 @@ export default function FitStainlessPage() {
                                         {t("fit_faq_q1")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("fit_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:text-white">{t("fit_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("fit_faq_q2")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("fit_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:text-white">{t("fit_faq_a2")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("fit_faq_q3")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("fit_faq_a3")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:text-white">{t("fit_faq_a3")}</p>
                                 </details>
                             </div>
                         </div>

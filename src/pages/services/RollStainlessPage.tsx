@@ -201,14 +201,14 @@ export default function RollStainlessPage() {
                                         {t("roll_faq_q1")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("roll_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:text-white">{t("roll_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("roll_faq_q2")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("roll_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:text-white">{t("roll_faq_a2")}</p>
                                 </details>
                             </div>
                         </div>
