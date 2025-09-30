@@ -968,7 +968,7 @@ export default function MainPage() {
             />
 
             {/* 🔽 SEO-текстовый блок */}
-            <Section id="services">
+            <Section>
                 <h2 className="text-2xl font-bold mb-4">{t("seo_main_title")}</h2>
                 <p className="mb-4">{t("seo_main_intro")}</p>
 
