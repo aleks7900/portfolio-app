@@ -44,13 +44,46 @@ export default function HeroDownServices() {
             <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
                 <motion.div initial="hidden" animate="visible" variants={containerVariants}
                             className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center">
+
+                    {/* Правая часть — карточки услуг с анимациями как в Hero.tsx */}
+                    <motion.div variants={cardVariants}
+                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10">
+                        <motion.div
+                            initial="hidden"
+                            animate="visible"
+                            variants={{hidden: {}, visible: {transition: {staggerChildren: 0.05}}}}
+                            className="grid grid-cols-2 gap-4"
+                        >
+                            {[0, 1, 2, 3].map((i) => (
+                                <motion.div
+                                    key={i}
+                                    variants={cardVariants}
+                                    whileHover={{y: -2}}
+                                    whileTap={{scale: 0.995}}
+                                    className="card-appear rounded-xl"
+                                >
+                                    {i === 0 && <ServiceCardOdd titleKey="services_welding_title"
+                                                                descKey="services_welding_desc" s={SERVICES[8]}/>}
+                                    {i === 1 && <ServiceCard titleKey="services_stiffener_title"
+                                                             descKey="services_stiffener_desc" s={SERVICES[9]}/>}
+                                    {i === 2 &&
+                                        <ServiceCard titleKey="services_bandsaw_title" descKey="services_bandsaw_desc"
+                                                     s={SERVICES[5]}/>}
+                                    {i === 3 &&
+                                        <ServiceCardOdd titleKey="services_acid_title" descKey="services_acid_desc"
+                                                        s={SERVICES[11]}/>}
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </motion.div>
+
                     {/* Левая часть с кнопками */}
                     <motion.div variants={cardVariants}>
                         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
                             <span
                                 className="underline decoration-gray-300 dark:decoration-white/20">{t("hero_title_2")}</span>
                         </h1>
-                        <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub_2")}</p>
+                        <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub_1")}</p>
                         <div className="mt-6 flex flex-wrap gap-4">
                             <motion.button
                                 whileHover={{y: -1}}
@@ -75,38 +108,6 @@ export default function HeroDownServices() {
                                 {t("hero_to_contacts")}
                             </motion.button>
                         </div>
-                    </motion.div>
-
-                    {/* Правая часть — карточки услуг с анимациями как в Hero.tsx */}
-                    <motion.div variants={cardVariants}
-                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10">
-                        <motion.div
-                            initial="hidden"
-                            animate="visible"
-                            variants={{hidden: {}, visible: {transition: {staggerChildren: 0.05}}}}
-                            className="grid grid-cols-2 gap-4"
-                        >
-                            {[0, 1, 2, 3].map((i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={cardVariants}
-                                    whileHover={{y: -2}}
-                                    whileTap={{scale: 0.995}}
-                                    className="card-appear rounded-xl"
-                                >
-                                    {i === 0 && <ServiceCardOdd titleKey="services_welding_title"
-                                                                descKey="services_welding_desc" s={SERVICES[8]}/>}
-                                    {i === 1 && <ServiceCard titleKey="services_stiffener_title"
-                                                             descKey="services_stiffener_desc" s={SERVICES[9]}/>}
-                                    {i === 2 &&
-                                        <ServiceCard titleKey="services_leg_title" descKey="services_leg_desc"
-                                                     s={SERVICES[10]}/>}
-                                    {i === 3 &&
-                                        <ServiceCardOdd titleKey="services_acid_title" descKey="services_acid_desc"
-                                                        s={SERVICES[11]}/>}
-                                </motion.div>
-                            ))}
-                        </motion.div>
                     </motion.div>
                 </motion.div>
             </div>
