@@ -1669,7 +1669,8 @@ export const dict: Dictionary = {
             contacts_address: "MD 2002, Кишинёв, ул. Пэду́рий 21/1",
             contacts_hours: "ПН – ПТ: 9:00 – 18:00",
             contacts_route: "Открыть маршрут в Google Maps",
-
+            contacts_map: "Как к нам добраться",
+            contacts_maps: "Мы на картах Google Maps",
             contacts_alert_fill: "Введите имя и сообщение.",
             contacts_alert_sent: "Заявка отправлена!",
             contacts_alert_failed: "Не удалось отправить заявку",
@@ -3456,7 +3457,8 @@ export const dict: Dictionary = {
             contacts_address: "MD 2002, Chișinău, str. Pădurii 21/1",
             contacts_hours: "LU – VI: 9:00 – 18:00",
             contacts_route: "Deschide ruta în Google Maps",
-
+            contacts_map: "Cum să ajungeți la noi",
+            contacts_maps: "Ne găsiți pe Google Maps",
             contacts_alert_fill: "Introduceți numele și mesajul.",
             contacts_alert_sent: "Cererea a fost trimisă!",
             contacts_alert_failed: "Nu s-a putut trimite cererea",

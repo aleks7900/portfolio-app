@@ -9,7 +9,7 @@ export default function MapEmbed({
 }) {
     const src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=${zoom}&output=embed`;
     return (
-        <div className="rounded-2xl border overflow-hidden dark:border-white/10">
+        <div className="rounded-2xl mt-10 border overflow-hidden dark:border-white/10">
             <iframe
                 src={src}
                 width="100%"

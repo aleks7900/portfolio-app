@@ -1,6 +1,9 @@
 import {TransHTML, useI18n} from "../shared/i18n/i18n.tsx";
 import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 import Section from "./components/Section.tsx";
+import ImageWithFallback from "../data/ImageWithFallback.tsx";
+import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
+import img from '@/assets/img/14.jpg';
 
 export default function AboutPage() {
     const {t} = useI18n();
@@ -363,11 +366,15 @@ export default function AboutPage() {
                 </ul>
             </div>
 
+            <p className="text-2xl font-semibold mt-18">{t("contacts_map")}:</p>
+            <ImageWithFallback src={img} alt="" className="mt-10 h-full w-full object-contain"
+                               fallback={placeholderImg}></ImageWithFallback>
+
             {/* Раздел с картой */}
+            <p className="text-2xl font-semibold mt-24">{t("contacts_maps")}:</p>
             <div className="mt-8">
                 <MapEmbed query="Chișinău, strada Pădurii 21/1" zoom={16}/>
             </div>
-
             <div className="mt-4 text-sm">
                 <a
                     href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
