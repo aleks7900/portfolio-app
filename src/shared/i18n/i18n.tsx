@@ -1653,6 +1653,8 @@ export const dict: Dictionary = {
             filterssubcategoryPlaceholder: "---",
             filterssubcategoryPickCategoryFirst: "— выберите категорию —",
 
+            street_address:"ул. Лесная 21/1",
+
             search_button: "Найти",
 
             contacts_ytitle: "Контакты",
@@ -3440,6 +3442,8 @@ export const dict: Dictionary = {
             filterscategoryPlaceholder: "---",
             filterssubcategoryPlaceholder: "---",
             filterssubcategoryPickCategoryFirst: "— selectați categoria —",
+
+            street_address:"str. Pădurii 21/1",
 
             search_button: "Caută",
 

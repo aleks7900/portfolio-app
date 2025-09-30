@@ -8,10 +8,11 @@ import AdvantageCard from "./components/AdvantageCard.tsx";
 import {ProductsBlock} from "./home/PopularBlocks.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 import {useEffect} from "react";
+import Container from "../shared/Container.tsx";
 
 export default function MainPage() {
 
-    const { t } = useI18n();
+    const {t} = useI18n();
 
     // --- мета-теги без Helmet ---
     useEffect(() => {
@@ -50,8 +51,8 @@ export default function MainPage() {
             telephone: "+373 60 174 654",
             email: "info@rvsteel.md",
             areaServed: [
-                { "@type": "Country", name: "Moldova" },
-                { "@type": "Country", name: "Romania" }
+                {"@type": "Country", name: "Moldova"},
+                {"@type": "Country", name: "Romania"}
             ],
             openingHoursSpecification: [
                 {
@@ -73,21 +74,21 @@ export default function MainPage() {
                     "@type": "OfferCatalog",
                     name: "Стандартные изделия",
                     itemListElement: [
-                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Производственные мойки" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Столы и тумбы" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Стеллажи и полки" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Поручни опорные" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Подтоварники и корзины" } }
+                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Производственные мойки"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Столы и тумбы"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Стеллажи и полки"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Поручни опорные"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Подтоварники и корзины"}}
                     ]
                 },
                 {
                     "@type": "OfferCatalog",
                     name: "Изделия на заказ",
                     itemListElement: [
-                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Балюстрады и перила" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Мангалы, гриль и тандыры" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Каркасы, подставки, тележки" } },
-                        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Декор и мебель из металла" } }
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Балюстрады и перила"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Мангалы, гриль и тандыры"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Каркасы, подставки, тележки"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Декор и мебель из металла"}}
                     ]
                 }
             ]
@@ -131,12 +132,12 @@ export default function MainPage() {
         "@type": "WebPage",
         name: "Услуги RVSteel — Изделия из нержавеющей стали",
         url: "https://rvsteel.md/",
-        isPartOf: { "@type": "WebSite", url: "https://rvsteel.md" },
+        isPartOf: {"@type": "WebSite", url: "https://rvsteel.md"},
         about: [
-            { "@type": "Thing", name: "нержавеющая сталь" },
-            { "@type": "Thing", name: "изготовление на заказ" },
-            { "@type": "Thing", name: "производственные мойки" },
-            { "@type": "Thing", name: "поручни опорные" }
+            {"@type": "Thing", name: "нержавеющая сталь"},
+            {"@type": "Thing", name: "изготовление на заказ"},
+            {"@type": "Thing", name: "производственные мойки"},
+            {"@type": "Thing", name: "поручни опорные"}
         ],
         primaryImageOfPage: {
             "@type": "ImageObject",
@@ -152,8 +153,8 @@ export default function MainPage() {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Главная", item: "https://rvsteel.md/" },
-            { "@type": "ListItem", position: 2, name: "Услуги", item: "https://rvsteel.md/#services" }
+            {"@type": "ListItem", position: 1, name: "Главная", item: "https://rvsteel.md/"},
+            {"@type": "ListItem", position: 2, name: "Услуги", item: "https://rvsteel.md/#services"}
         ]
     };
 
@@ -162,23 +163,23 @@ export default function MainPage() {
             {/* JSON-LD скрипты без Helmet */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdService)}}
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdOrganization)}}
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdWebsite)}}
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebPage) }}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdWebPage)}}
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumbs) }}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdBreadcrumbs)}}
             />
 
 
@@ -291,36 +292,54 @@ export default function MainPage() {
                 "Производственные столы" = "Proizvodstvennye stoly"
                 "Производственые полки" = "Proizvodstvenye polki"
                 "R.V.P. 1 Поручень опорный для ванны, туалета" = "R.V.P. 1 Poruchen opornyy dlya vanny, tualeta"
-                "R.V.P. 10 Поручень для санузла ( ракавина, нитаз, писуар )" = "R.V.P. 10 Poruchen dlya sanuzla ( rakavina, nitaz, pisuar )"
+                "R.V.P. 10 Поручень для санузла ( ракавина, нитаз, писуар )" = "R.V.P. 10 Poruchen dlya sanuzla (
+                rakavina, nitaz, pisuar )"
                 "R.V.P. 11 Поручень для унитаза ( стационарный)" = "R.V.P. 11 Poruchen dlya unitaza ( statsionarnyy)"
-                "R.V.P. 12 Поручень для унитаза ( откидной с фиксатаром )" = "R.V.P. 12 Poruchen dlya unitaza ( otkidnoy s fiksatarom )"
-                "R.V.P. 13 Поручень опорный наполный ( откидной с фиксатаром )" = "R.V.P. 13 Poruchen opornyy napolnyy ( otkidnoy s fiksatarom )"
-                "R.V.P. 14 Поручень для санузла ( Ванна, унитаз, писуар)" = "R.V.P. 14 Poruchen dlya sanuzla ( Vanna, unitaz, pisuar)"
-                "R.V.P. 15 Поручень для санузела ( ванна, унитаз, писуар)" = "R.V.P. 15 Poruchen dlya sanuzela ( vanna, unitaz, pisuar)"
-                "R.V.P. 16 Поручень для санузела ( ванна, унитаз, писуар)" = "R.V.P. 16 Poruchen dlya sanuzela ( vanna, unitaz, pisuar)"
-                "R.V.P. 17 Поручень для санузела ( ванна, унитаз, писуар)" = "R.V.P. 17 Poruchen dlya sanuzela ( vanna, unitaz, pisuar)"
+                "R.V.P. 12 Поручень для унитаза ( откидной с фиксатаром )" = "R.V.P. 12 Poruchen dlya unitaza ( otkidnoy
+                s fiksatarom )"
+                "R.V.P. 13 Поручень опорный наполный ( откидной с фиксатаром )" = "R.V.P. 13 Poruchen opornyy napolnyy (
+                otkidnoy s fiksatarom )"
+                "R.V.P. 14 Поручень для санузла ( Ванна, унитаз, писуар)" = "R.V.P. 14 Poruchen dlya sanuzla ( Vanna,
+                unitaz, pisuar)"
+                "R.V.P. 15 Поручень для санузела ( ванна, унитаз, писуар)" = "R.V.P. 15 Poruchen dlya sanuzela ( vanna,
+                unitaz, pisuar)"
+                "R.V.P. 16 Поручень для санузела ( ванна, унитаз, писуар)" = "R.V.P. 16 Poruchen dlya sanuzela ( vanna,
+                unitaz, pisuar)"
+                "R.V.P. 17 Поручень для санузела ( ванна, унитаз, писуар)" = "R.V.P. 17 Poruchen dlya sanuzela ( vanna,
+                unitaz, pisuar)"
                 "R.V.P. 18 Поручень для писуара" = "R.V.P. 18 Poruchen dlya pisuara"
                 "R.V.P. 19 Поручень настенный наполный" = "R.V.P. 19 Poruchen nastennyy napolnyy"
                 "R.V.P. 2 Поручень опорный для ванны, туалета" = "R.V.P. 2 Poruchen opornyy dlya vanny, tualeta"
                 "R.V.P. 20 Поручень для раковины троиной" = "R.V.P. 20 Poruchen dlya rakoviny troinoy"
                 "R.V.P. 21 Поручень опорный для унитаза" = "R.V.P. 21 Poruchen opornyy dlya unitaza"
                 "R.V.P. 22 Поручень стационарный П-образный" = "R.V.P. 22 Poruchen statsionarnyy P-obraznyy"
-                "R.V.P. 23 Поручень для санитарно-гигиенических комнот" = "R.V.P. 23 Poruchen dlya sanitarno-gigienicheskikh komnot"
-                "R.V.P. 24 Поручень опорный для раковины, 3 точки опоры" = "R.V.P. 24 Poruchen opornyy dlya rakoviny, 3 tochki opory"
-                "R.V.P. 25 Углавой поручень для раковины 750х700х550" = "R.V.P. 25 Uglavoy poruchen dlya rakoviny 750kh700kh550"
-                "R.V.P. 26 Поручень для углавой раковины с 4-мя точками опоры" = "R.V.P. 26 Poruchen dlya uglavoy rakoviny s 4-mya tochkami opory"
-                "R.V.P. 27 Поручень для мини-раковины с 4-мя точками опоры" = "R.V.P. 27 Poruchen dlya mini-rakoviny s 4-mya tochkami opory"
-                "R.V.P. 28 Поручень  для ванны 3-х опорный" = "R.V.P. 28 Poruchen  dlya vanny 3-kh opornyy"
-                "R.V.P. 29 Опорное устройства с подднржкой спины с откидными поручнями" = "R.V.P. 29 Opornoe ustroystva s poddnrzhkoy spiny s otkidnymi poruchnyami"
-                "R.V.P. 3 Поручень для ванны, туалета. Угловой Г-образный" = "R.V.P. 3 Poruchen dlya vanny, tualeta. Uglovoy G-obraznyy"
+                "R.V.P. 23 Поручень для санитарно-гигиенических комнот" = "R.V.P. 23 Poruchen dlya
+                sanitarno-gigienicheskikh komnot"
+                "R.V.P. 24 Поручень опорный для раковины, 3 точки опоры" = "R.V.P. 24 Poruchen opornyy dlya rakoviny, 3
+                tochki opory"
+                "R.V.P. 25 Углавой поручень для раковины 750х700х550" = "R.V.P. 25 Uglavoy poruchen dlya rakoviny
+                750kh700kh550"
+                "R.V.P. 26 Поручень для углавой раковины с 4-мя точками опоры" = "R.V.P. 26 Poruchen dlya uglavoy
+                rakoviny s 4-mya tochkami opory"
+                "R.V.P. 27 Поручень для мини-раковины с 4-мя точками опоры" = "R.V.P. 27 Poruchen dlya mini-rakoviny s
+                4-mya tochkami opory"
+                "R.V.P. 28 Поручень для ванны 3-х опорный" = "R.V.P. 28 Poruchen dlya vanny 3-kh opornyy"
+                "R.V.P. 29 Опорное устройства с подднржкой спины с откидными поручнями" = "R.V.P. 29 Opornoe ustroystva
+                s poddnrzhkoy spiny s otkidnymi poruchnyami"
+                "R.V.P. 3 Поручень для ванны, туалета. Угловой Г-образный" = "R.V.P. 3 Poruchen dlya vanny, tualeta.
+                Uglovoy G-obraznyy"
                 "R.V.P. 30 Сидение откидное для инвалидов" = "R.V.P. 30 Sidenie otkidnoe dlya invalidov"
                 "R.V.P. 31Пятаки для поручней" = "R.V.P. 31Pyataki dlya poruchney"
                 "R.V.P. 32 Информация" = "R.V.P. 32 Informatsiya"
-                "R.V.P. 4 Поручень для ванны, туалета. Угловой Г-образный" = "R.V.P. 4 Poruchen dlya vanny, tualeta. Uglovoy G-obraznyy"
-                "R.V.P. 5 Поручень для ванны, туалета. Внутрений угол" = "R.V.P. 5 Poruchen dlya vanny, tualeta. Vnutreniy ugol"
-                "R.V.P. 6 Поручень для ванны, туалета. Внешний угол" = "R.V.P. 6 Poruchen dlya vanny, tualeta. Vneshniy ugol"
+                "R.V.P. 4 Поручень для ванны, туалета. Угловой Г-образный" = "R.V.P. 4 Poruchen dlya vanny, tualeta.
+                Uglovoy G-obraznyy"
+                "R.V.P. 5 Поручень для ванны, туалета. Внутрений угол" = "R.V.P. 5 Poruchen dlya vanny, tualeta.
+                Vnutreniy ugol"
+                "R.V.P. 6 Поручень для ванны, туалета. Внешний угол" = "R.V.P. 6 Poruchen dlya vanny, tualeta. Vneshniy
+                ugol"
                 "R.V.P. 7 Поручень для мини-раковины" = "R.V.P. 7 Poruchen dlya mini-rakoviny"
-                "R.V.P. 8 Поручень для раковины с креплением к стене и к полу" = "R.V.P. 8 Poruchen dlya rakoviny s krepleniem k stene i k polu"
+                "R.V.P. 8 Поручень для раковины с креплением к стене и к полу" = "R.V.P. 8 Poruchen dlya rakoviny s
+                krepleniem k stene i k polu"
                 "R.V.P. 9 Поручень для раковины с опорой к стене" = "R.V.P. 9 Poruchen dlya rakoviny s oporoy k stene"
                 "Подтоварники" = "Podtovarniki"
                 "Визуализация R.V.P. 1" = "Vizualizatsiya R.V.P. 1"
@@ -454,7 +473,7 @@ export default function MainPage() {
                 "Чертеж R.V.S. 19" = "Chertezh R.V.S. 19"
                 "Визуализация R.V.S. 2" = "Vizualizatsiya R.V.S. 2"
                 "Чертеж R.V.S. 2" = "Chertezh R.V.S. 2"
-                "R.V.S 2 (с  сварными углами)" = "R.V.S 2 (s  svarnymi uglami)"
+                "R.V.S 2 (с сварными углами)" = "R.V.S 2 (s svarnymi uglami)"
                 "Визуализация R.V.S. 20" = "Vizualizatsiya R.V.S. 20"
                 "Чертеж R.V.S. 20" = "Chertezh R.V.S. 20"
                 "Визуализация R.V.S. 21" = "Vizualizatsiya R.V.S. 21"
@@ -492,7 +511,7 @@ export default function MainPage() {
                 "R.V.ST. 1" = "R.V.ST. 1"
                 "R.V.ST. 10 ( Усиленный )" = "R.V.ST. 10 ( Usilennyy )"
                 "R.V.ST. 11 ( Усиленный )" = "R.V.ST. 11 ( Usilennyy )"
-                "R.V.ST. 12  ( Усиленный )" = "R.V.ST. 12  ( Usilennyy )"
+                "R.V.ST. 12 ( Усиленный )" = "R.V.ST. 12 ( Usilennyy )"
                 "R.V.ST. 13 ( Усиленный )" = "R.V.ST. 13 ( Usilennyy )"
                 "R.V.ST. 14 ( Усиленный )" = "R.V.ST. 14 ( Usilennyy )"
                 "R.V.ST. 15 ( Усиленный )" = "R.V.ST. 15 ( Usilennyy )"
@@ -581,11 +600,13 @@ export default function MainPage() {
                 "R.V.7" = "R.V.7"
                 "R.V.8" = "R.V.8"
                 "R.V.9" = "R.V.9"
-                "Стандартные операцие ( расценки ) для изготовления стола" = "Standartnye operatsie ( rastsenki ) dlya izgotovleniya stola"
+                "Стандартные операцие ( расценки ) для изготовления стола" = "Standartnye operatsie ( rastsenki ) dlya
+                izgotovleniya stola"
                 "Визуализация R.V.1" = "Vizualizatsiya R.V.1"
                 "Визуализация R.V.1 + R.V.31" = "Vizualizatsiya R.V.1 + R.V.31"
                 "Визуализация R.V.1+R.V.32" = "Vizualizatsiya R.V.1+R.V.32"
-                "Праис на операций для изготовления данного типа стола" = "Prais na operatsiy dlya izgotovleniya dannogo tipa stola"
+                "Праис на операций для изготовления данного типа стола" = "Prais na operatsiy dlya izgotovleniya dannogo
+                tipa stola"
                 "Чертеж R.V.1" = "Chertezh R.V.1"
                 "Боковое ребро жесткости" = "Bokovoe rebro zhestkosti"
                 "Передняя + задняя панель" = "Perednyaya + zadnyaya panel"
@@ -601,7 +622,7 @@ export default function MainPage() {
                 "Визуализация R.V.12" = "Vizualizatsiya R.V.12"
                 "Визуализация R.V.12+R.V.31" = "Vizualizatsiya R.V.12+R.V.31"
                 "Визуализация R.V.12+R.V.32" = "Vizualizatsiya R.V.12+R.V.32"
-                "Чертеж  R.V.12" = "Chertezh  R.V.12"
+                "Чертеж R.V.12" = "Chertezh R.V.12"
                 "Визуализация R.V.13" = "Vizualizatsiya R.V.13"
                 "Визуализация R.V.13+R.V.31" = "Vizualizatsiya R.V.13+R.V.31"
                 "Визуализация R.V.13+R.V.32" = "Vizualizatsiya R.V.13+R.V.32"
@@ -637,7 +658,7 @@ export default function MainPage() {
                 "Визуализация R.V.20" = "Vizualizatsiya R.V.20"
                 "Визуализация R.V.20+R.V.31" = "Vizualizatsiya R.V.20+R.V.31"
                 "Визуализация R.V.20+R.V.32" = "Vizualizatsiya R.V.20+R.V.32"
-                "Чертеж  R.V.20" = "Chertezh  R.V.20"
+                "Чертеж R.V.20" = "Chertezh R.V.20"
                 "Визуализация R.V.21" = "Vizualizatsiya R.V.21"
                 "Визуализация R.V.21+R.V.31" = "Vizualizatsiya R.V.21+R.V.31"
                 "Визуализация R.V.21+R.V.32" = "Vizualizatsiya R.V.21+R.V.32"
@@ -682,7 +703,7 @@ export default function MainPage() {
                 "Визуализация R.V.30+R.V.31" = "Vizualizatsiya R.V.30+R.V.31"
                 "Визуализация R.V.30+R.V.32" = "Vizualizatsiya R.V.30+R.V.32"
                 "Визуализвция R.V.30" = "Vizualizvtsiya R.V.30"
-                "Чертеж  R.V.30" = "Chertezh  R.V.30"
+                "Чертеж R.V.30" = "Chertezh R.V.30"
                 "Визуализация R.V.31" = "Vizualizatsiya R.V.31"
                 "Чертеж R.V.31 ( Дополнительная полка сверху)" = "Chertezh R.V.31 ( Dopolnitelnaya polka sverkhu)"
                 "Визуализация R.V.32" = "Vizualizatsiya R.V.32"
@@ -812,7 +833,8 @@ export default function MainPage() {
                 "Чертеж R.V.PL. 1" = "Chertezh R.V.PL. 1"
                 "Без сварке" = "Bez svarke"
                 "Сварной вариант" = "Svarnoy variant"
-                "Estante Mensula Sup_ Upper bracket shelf on Behance_files" = "Estante Mensula Sup_ Upper bracket shelf on Behance_files"
+                "Estante Mensula Sup_ Upper bracket shelf on Behance_files" = "Estante Mensula Sup_ Upper bracket shelf
+                on Behance_files"
                 "Чертеж R.V.PL. 1 ( Без сварке )" = "Chertezh R.V.PL. 1 ( Bez svarke )"
                 "Чертеж R.V.PL. 1 ( Сварной вариант )" = "Chertezh R.V.PL. 1 ( Svarnoy variant )"
                 "Чертеж R.V.PL. 1 ( Ширина 200 мм )" = "Chertezh R.V.PL. 1 ( Shirina 200 mm )"
@@ -929,7 +951,7 @@ export default function MainPage() {
 
             <ProductsBlock
                 title={t("popular_products")}
-                query={{ page: 0, size: 8, sort: "price,desc" }}
+                query={{page: 0, size: 8, sort: "price,desc"}}
                 seeAllLink="/catalog?sort=price,desc&page=0&size=12"
             />
 
@@ -943,27 +965,45 @@ export default function MainPage() {
 
             <ProductsBlock
                 title={t("sub_ladder")}
-                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "ladder" }}
+                query={{page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "ladder"}}
                 seeAllLink="/catalog?category=custom_orders&subcategory=ladder&sort=title,asc&page=0&size=12"
             />
             <ProductsBlock
                 title={t("sub_caruciors")}
-                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "caruciors" }}
+                query={{page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "caruciors"}}
                 seeAllLink="/catalog?category=custom_orders&subcategory=caruciors&sort=title,asc&page=0&size=12"
             />
             <ProductsBlock
                 title={t("sub_mangal_and_grill")}
-                query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "mangal_and_grill" }}
+                query={{
+                    page: 0,
+                    size: 8,
+                    sort: "title,asc",
+                    category: "custom_orders",
+                    subcategory: "mangal_and_grill"
+                }}
                 seeAllLink="/catalog?category=custom_orders&subcategory=mangal_and_grill&sort=title,asc&page=0&size=12"
             />
             <ProductsBlock
                 title={t("sub_2_proizvodstvennye_stellazhy")}
-                query={{ page: 0, size: 8, sort: "title,asc", category: "standard_products", subcategory: "2_proizvodstvennye_stellazhy" }}
+                query={{
+                    page: 0,
+                    size: 8,
+                    sort: "title,asc",
+                    category: "standard_products",
+                    subcategory: "2_proizvodstvennye_stellazhy"
+                }}
                 seeAllLink="/catalog?category=standard_products&subcategory=2_proizvodstvennye_stellazhy&sort=title,asc&page=0&size=12"
             />
             <ProductsBlock
                 title={t("sub_6_stoli_tumba_na_zakaz")}
-                query={{ page: 0, size: 8, sort: "title,asc", category: "standard_products", subcategory: "6_stoli_tumba_na_zakaz" }}
+                query={{
+                    page: 0,
+                    size: 8,
+                    sort: "title,asc",
+                    category: "standard_products",
+                    subcategory: "6_stoli_tumba_na_zakaz"
+                }}
                 seeAllLink="/catalog?category=standard_products&subcategory=6_stoli_tumba_na_zakaz&sort=title,asc&page=0&size=12"
             />
 
@@ -1009,6 +1049,12 @@ export default function MainPage() {
                     <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
                 </div>
             </Section>
+
+            <Container>
+                <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
+                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
+                </div>
+            </Container>
         </>
     );
 }

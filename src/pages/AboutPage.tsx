@@ -4,6 +4,8 @@ import Section from "./components/Section.tsx";
 import ImageWithFallback from "../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 import img from '@/assets/img/14.jpg';
+import Container from "../shared/Container.tsx";
+import React from "react";
 
 export default function AboutPage() {
     const {t} = useI18n();
@@ -387,6 +389,12 @@ export default function AboutPage() {
                     Открыть маршрут в Google Maps
                 </a>
             </div>
+
+            <Container>
+                <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
+                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
+                </div>
+            </Container>
         </Section>
     );
 }

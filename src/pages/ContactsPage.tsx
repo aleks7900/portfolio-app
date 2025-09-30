@@ -164,7 +164,7 @@ export default function ContactsPage() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Phone className="mt-0.5 h-5 w-5"/>
-                                <a className="hover:underline" href="tel:+37360174654">+373 60 174654</a>
+                                <a className="text-3xl font-semibold hover:underline" href="tel:+37360174654">+373 60 174654</a>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Clock className="mt-0.5 h-5 w-5"/>
@@ -371,6 +371,10 @@ export default function ContactsPage() {
                     >
                         {t("contacts_route")}
                     </a>
+                </div>
+
+                <div className="mt-8 w-full flex items-end gap-3 dark:text-white text-right">
+                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
                 </div>
             </Container>
         </section>

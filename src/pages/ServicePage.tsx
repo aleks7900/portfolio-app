@@ -8,8 +8,12 @@ import HeroServicesMirrored from "./components/HeroMirrored.tsx";
 import HeroDownServices from "./components/HeroDown.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import SlideshowServices from "../shared/SlideshowServices.tsx";
+import Container from "../shared/Container.tsx";
+import {useI18n} from "../shared/i18n/i18n.tsx";
 
 export default function ServicePage() {
+
+    const {t} = useI18n();
 
     const saved = (localStorage.getItem("lang") || "").toLowerCase();
     const lang = saved.startsWith("ro") ? "ro" : "ru";
@@ -151,6 +155,12 @@ export default function ServicePage() {
                     <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
                 </div>
             </Section>
+
+            <Container>
+                <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
+                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
+                </div>
+            </Container>
         </>
     );
 }
