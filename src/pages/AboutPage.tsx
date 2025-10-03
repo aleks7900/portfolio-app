@@ -3,7 +3,7 @@ import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 import Section from "./components/Section.tsx";
 import ImageWithFallback from "../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
-import img from '@/assets/img/14.jpg';
+import img from '@/assets/img/24.jpg';
 import Container from "../shared/Container.tsx";
 
 export default function AboutPage() {

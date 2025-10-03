@@ -3558,11 +3558,6 @@
       line-height: var(--tw-leading, var(--text-xl--line-height));
     }
   }
-  .md\:ml-12 {
-    @media (width >= 48rem) {
-      margin-left: calc(var(--spacing) * 12);
-    }
-  }
   .md\:flex {
     @media (width >= 48rem) {
       display: flex;
@@ -4139,12 +4134,6 @@
         --tw-gradient-to: color-mix(in oklab, var(--color-white) 10%, transparent);
       }
       --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-    }
-  }
-  .dark\:text-3xl {
-    &:where(.dark, .dark *) {
-      font-size: var(--text-3xl);
-      line-height: var(--tw-leading, var(--text-3xl--line-height));
     }
   }
   .dark\:\!text-black {

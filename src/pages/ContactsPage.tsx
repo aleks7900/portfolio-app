@@ -6,7 +6,7 @@ import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 import {API_BASE} from "../shared/api/api.ts";
 import ImageWithFallback from "../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
-import img from '@/assets/img/14.jpg';
+import img from '@/assets/img/24.jpg';
 
 // Простейшие SVG-иконки (без внешних зависимостей)
 const Icon = {
