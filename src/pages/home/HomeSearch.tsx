@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
 import {createPortal} from "react-dom";
-import {History, Search, X} from "lucide-react";
+import {History, Search} from "lucide-react";
 
 import Container from "../../shared/Container";
 import {dict, useI18n} from "../../shared/i18n/i18n.tsx";
