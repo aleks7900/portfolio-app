@@ -269,14 +269,6 @@ export default function HomeSearch() {
         });
     };
 
-    const removeFromHistory = (query: string) => {
-        setHistory(prev => {
-            const next = prev.filter(x => x !== query);
-            saveHistory(next);
-            return next;
-        });
-    };
-
     const clearHistory = () => {
         setHistory([]);
         saveHistory([]);
@@ -425,7 +417,7 @@ export default function HomeSearch() {
 
                                                 <ul className="max-h-[40vh] overflow-y-auto py-1">
                                                     {history.map((h) => (
-                                                        <li key={h}>
+                                                        <li key={h} className="relative">
                                                             <button
                                                                 type="button"
                                                                 onMouseDown={(e) => {
@@ -433,7 +425,7 @@ export default function HomeSearch() {
                                                                     setQ(h);
                                                                     submit(h);
                                                                 }}
-                                                                className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left !bg-zinc-800 text-sm hover:bg-black/5 dark:hover:bg-white/10"
+                                                                className="flex w-full items-center justify-between gap-2 px-3 py-2 pr-12 text-left dark:!bg-zinc-800 text-sm hover:bg-black/5 dark:hover:bg-white/10"
                                                             >
                                                                 <span className="truncate">{h}</span>
                                                                 <span
@@ -441,18 +433,18 @@ export default function HomeSearch() {
                                                                   {tf("search_repeat", "Повторить")}
                                                                 </span>
                                                             </button>
-                                                            <button
-                                                                type="button"
-                                                                aria-label={tf("search_remove_entry", "Удалить из истории")}
-                                                                onMouseDown={(e) => {
-                                                                    e.preventDefault();
-                                                                    removeFromHistory(h);
-                                                                }}
-                                                                className="!text-red-600 absolute right-3 mt-[-34px] inline-flex h-6 w-6 items-center justify-center rounded !bg-black/5 hover:!bg-black/5 dark:hover:!bg-white/10"
-                                                                title={tf("search_remove_entry", "Удалить из истории")}
-                                                            >
-                                                                <X className="h-4 w-4 opacity-60"/>
-                                                            </button>
+                                                            {/*<button*/}
+                                                            {/*    type="button"*/}
+                                                            {/*    aria-label={tf("search_remove_entry", "Удалить из истории")}*/}
+                                                            {/*    onMouseDown={(e) => {*/}
+                                                            {/*        e.preventDefault();*/}
+                                                            {/*        removeFromHistory(h);*/}
+                                                            {/*    }}*/}
+                                                            {/*    className="!text-black hover:!text-red-600 absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-6 w-6 items-center justify-center rounded hover:bg-black/5 dark:hover:bg-white/10 "*/}
+                                                            {/*    title={tf("search_remove_entry", "Удалить из истории")}*/}
+                                                            {/*>*/}
+                                                            {/*    <X className="h-4 w-4 !text-black hover:!text-red-600"/>*/}
+                                                            {/*</button>*/}
                                                         </li>
                                                     ))}
                                                 </ul>
