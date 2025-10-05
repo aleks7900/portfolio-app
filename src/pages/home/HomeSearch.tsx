@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
 import {createPortal} from "react-dom";
-import {Search} from "lucide-react";
+import {History, Search, X} from "lucide-react";
 
 import Container from "../../shared/Container";
 import {dict, useI18n} from "../../shared/i18n/i18n.tsx";
@@ -46,11 +46,15 @@ export default function HomeSearch() {
     const navigate = useNavigate();
 
     // i18n: берем и t, и сам i18n
-    const {t, lang} = useI18n();  // было только t — расширили до i18n (см. твой оригинал) :contentReference[oaicite:2]{index=2}
+    const {t, lang} = useI18n();
 
     // локализатор с фоллбеком
     const tf = useCallback((key: string, fallback: string) => {
-        try { return t(key) as string; } catch { return fallback; }
+        try {
+            return t(key) as string;
+        } catch {
+            return fallback;
+        }
     }, [lang]);
 
     const [q, setQ] = useState("");
@@ -189,7 +193,7 @@ export default function HomeSearch() {
         return () => {
             cancelled = true;
         };
-    }, [qDebounced, lang]); // было: запрос сразу с query; теперь — с i18n-ключом, если найден :contentReference[oaicite:4]{index=4}
+    }, [qDebounced, lang]);
 
     // Закрытие по клику вне
     const menuRef = useRef<HTMLDivElement | null>(null);
@@ -227,9 +231,61 @@ export default function HomeSearch() {
         }
     };
 
+    // ---------- История поиска (LocalStorage) ----------
+    const [history, setHistory] = useState<string[]>([]);
+    const HISTORY_KEY = `search_history_${lang}`;
+    const HISTORY_MAX = 12;
+
+    const loadHistory = useCallback(() => {
+        try {
+            const raw = localStorage.getItem(HISTORY_KEY);
+            if (!raw) return setHistory([]);
+            const arr = JSON.parse(raw);
+            if (Array.isArray(arr)) setHistory(arr.filter(x => typeof x === "string"));
+        } catch {
+            setHistory([]);
+        }
+    }, [HISTORY_KEY]);
+
+    const saveHistory = useCallback((arr: string[]) => {
+        try {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
+        } catch {
+            /* ignore quota */
+        }
+    }, [HISTORY_KEY]);
+
+    useEffect(() => {
+        loadHistory();
+    }, [loadHistory]);
+
+    const pushHistory = (query: string) => {
+        const qn = norm(query);
+        if (!qn) return;
+        setHistory(prev => {
+            const next = [query, ...prev.filter(x => norm(x) !== qn)].slice(0, HISTORY_MAX);
+            saveHistory(next);
+            return next;
+        });
+    };
+
+    const removeFromHistory = (query: string) => {
+        setHistory(prev => {
+            const next = prev.filter(x => x !== query);
+            saveHistory(next);
+            return next;
+        });
+    };
+
+    const clearHistory = () => {
+        setHistory([]);
+        saveHistory([]);
+    };
+
     const submit = (query: string) => {
         const key = findBestI18nKeyByDict(lang, query);
         const qForRoute = (key ?? query).trim();
+        if (qForRoute) pushHistory(query);
 
         const usp = new URLSearchParams();
         if (qForRoute) usp.set("q", qForRoute);
@@ -249,7 +305,7 @@ export default function HomeSearch() {
             width: rect.width,
             zIndex: 60,
         };
-    }, [rect]); // твой расчёт позиции портала :contentReference[oaicite:5]{index=5}
+    }, [rect]);
 
     const dropdownVariants = {
         hidden: {opacity: 0, y: -8, scale: 0.98},
@@ -258,6 +314,9 @@ export default function HomeSearch() {
     } as const;
 
     const demoActive = q.trim() === "" && !focused;
+
+    // показываем историю, если фокус в инпуте и поле пустое (или нет подсказок)
+    const showHistory = (focused && open) && history.length > 0 && q.trim() === "";
 
     return (
         <Container>
@@ -277,10 +336,17 @@ export default function HomeSearch() {
                             <motion.input
                                 ref={inputRef}
                                 value={q}
-                                onChange={(e) => setQ(e.currentTarget.value)}
+                                onChange={(e) => {
+                                    setQ(e.currentTarget.value);
+                                    // при очистке поля и наличии истории — открыть дропдаун
+                                    const v = e.currentTarget.value.trim();
+                                    if (v === "" && history.length > 0) setOpen(true);
+                                }}
                                 onFocus={() => {
                                     setFocused(true);
+                                    // открываем историю, если нет подсказок
                                     if (suggestions.length) setOpen(true);
+                                    else if (history.length) setOpen(true);
                                 }}
                                 onBlur={() => setFocused(false)}
                                 onKeyDown={onKeyDown}
@@ -326,7 +392,7 @@ export default function HomeSearch() {
                 {/* Портал с подсказками */}
                 {createPortal(
                     <AnimatePresence>
-                        {open && rect && (
+                        {(open && rect) && (
                             <motion.div style={portalStyle} initial="hidden" animate="visible" exit="exit"
                                         variants={dropdownVariants}>
                                 <motion.div
@@ -335,6 +401,69 @@ export default function HomeSearch() {
                                     className="overflow-hidden rounded-2xl border bg-white/95 shadow-xl backdrop-blur dark:border-white/10 dark:bg-neutral-900/95"
                                 >
                                     <motion.div className="transition-opacity duration-150 ease-out" layout>
+                                        {/* === История поиска === */}
+                                        {showHistory && (
+                                            <div className="py-2">
+                                                <div className="flex items-center justify-between px-3 pb-1">
+                                                    <div
+                                                        className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                                                        <History className="h-4 w-4"/>
+                                                        {tf("search_recent", "Недавние запросы")}
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        onMouseDown={(e) => {
+                                                            e.preventDefault();
+                                                            clearHistory();
+                                                        }}
+                                                        className="text-xs text-gray-500 hover:text-black "
+                                                        aria-label={tf("search_clear_history", "Очистить историю")}
+                                                    >
+                                                        {tf("search_clear_history", "Очистить")}
+                                                    </button>
+                                                </div>
+
+                                                <ul className="max-h-[40vh] overflow-y-auto py-1">
+                                                    {history.map((h) => (
+                                                        <li key={h}>
+                                                            <button
+                                                                type="button"
+                                                                onMouseDown={(e) => {
+                                                                    e.preventDefault();
+                                                                    setQ(h);
+                                                                    submit(h);
+                                                                }}
+                                                                className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left !bg-zinc-800 text-sm hover:bg-black/5 dark:hover:bg-white/10"
+                                                            >
+                                                                <span className="truncate">{h}</span>
+                                                                <span
+                                                                    className="shrink-0 inline-flex items-center gap-1 text-xs text-gray-500">
+                                                                  {tf("search_repeat", "Повторить")}
+                                                                </span>
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                aria-label={tf("search_remove_entry", "Удалить из истории")}
+                                                                onMouseDown={(e) => {
+                                                                    e.preventDefault();
+                                                                    removeFromHistory(h);
+                                                                }}
+                                                                className="!text-red-600 absolute right-3 mt-[-34px] inline-flex h-6 w-6 items-center justify-center rounded !bg-black/5 hover:!bg-black/5 dark:hover:!bg-white/10"
+                                                                title={tf("search_remove_entry", "Удалить из истории")}
+                                                            >
+                                                                <X className="h-4 w-4 opacity-60"/>
+                                                            </button>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+
+                                                {/* Разделитель, если дальше будут подсказки */}
+                                                {(!loading && suggestions.length > 0) && (
+                                                    <div className="mx-3 my-2 h-px bg-black/10 dark:bg-white/10"/>
+                                                )}
+                                            </div>
+                                        )}
+
                                         {loading && (
                                             <div className="p-3">
                                                 <div className="space-y-2">
@@ -378,7 +507,7 @@ export default function HomeSearch() {
                                             </motion.ul>
                                         )}
 
-                                        {!loading && suggestions.length === 0 && (
+                                        {!loading && suggestions.length === 0 && !showHistory && (
                                             <div className="p-3 text-sm text-gray-500 dark:text-gray-400">
                                                 {tf("search_nothing_found", "Ничего не найдено")}
                                             </div>

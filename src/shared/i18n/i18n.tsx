@@ -1544,6 +1544,11 @@ export const dict: Dictionary = {
             aisi430_cta_btn_callback: "Заказать звонок",
             aisi430_seo_headline: "Нержавеющая сталь AISI 430 — состав, свойства, применение и особенности",
 
+            search_recent: "Недавние запросы",
+            search_clear_history: "Очистить историю",
+            search_remove_entry: "Удалить из истории",
+            search_repeat: "Повторить",
+
             // Секции
             service_title: "Сервис",
             service_lead: "Наши принципы в предоставлении услуг",
@@ -2686,6 +2691,11 @@ export const dict: Dictionary = {
             aisi430_cta_btn_contact: "Contactează-ne",
             aisi430_cta_btn_callback: "Solicită apel",
             aisi430_seo_headline: "Oțel inoxidabil AISI 430 — compoziție, proprietăți și aplicații",
+
+            search_recent: "Căutări recente",
+            search_clear_history: "Șterge istoricul",
+            search_remove_entry: "Elimină din istoric",
+            search_repeat: "Repetă",
 
             // Secțiuni
             service_title: "Servicii",
