@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, {lazy} from "react";
 
 // Ключи — это slug из вашего ROUTER/URL
 export const SERVICE_PAGE_MAP: Record<
@@ -19,6 +19,11 @@ export const SERVICE_PAGE_MAP: Record<
     "welding": lazy(() => import("./WeldStainlessPage.tsx")),
     "acid-treatment": lazy(() => import("./AcidTreatmentStainlessPage.tsx")),
     "guide": lazy(() => import("../StainlessGuidePage.tsx")),
+
+    "guide_304": lazy(() => import("./AISI304Page.tsx")),
+    "guide_316": lazy(() => import("./Aisi316StainlessPage.tsx")),
+    "guide_321": lazy(() => import("./AISI321Page.tsx")),
+    "guide_430": lazy(() => import("./AISI430Page.tsx")),
     // добавляйте дальше:
     // "welding-stainless": lazy(() => import("./WeldingStainlessPage")),
 };

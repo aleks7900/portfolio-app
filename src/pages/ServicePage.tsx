@@ -2,13 +2,14 @@
 import {useEffect} from "react";
 import {Meta, Title} from "react-head";
 import {ADV} from "../data/data.ts";
-import HeroUpServices from "./components/Hero.tsx";
+import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import HeroDownServices from "./components/HeroDown.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import SlideshowServices from "../shared/SlideshowServices.tsx";
 import Container from "../shared/Container.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
+import HeroTypes from "./components/HeroTypes.tsx";
 
 export default function ServicePage() {
 
@@ -144,8 +145,9 @@ export default function ServicePage() {
 
             {/* Контент страницы (сохранён как в исходнике) */}
             <SlideshowServices/>
-            <HeroUpServices/>
+            <Hero/>
             <HeroDownServices/>
+            <HeroTypes/>
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>

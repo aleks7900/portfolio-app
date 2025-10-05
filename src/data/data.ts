@@ -260,7 +260,103 @@ export const SERVICES: Service[] = [
         faqs: [
             {q: "Безопасно ли?", a: "Все работы выполняются в соответствии с нормами безопасности."}
         ]
-    }
+    },
+    {
+        id: 13,
+        slug: "guide_304",
+        icon: ScanLine,
+        title: "AISI",
+        titleKey: "aisi_304_title",
+        descKey: "aisi_304_desc",
+        lead: "",
+        hero: "",
+        features: [],
+        sections: [
+            {
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
+        ],
+        faqs: [
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
+    },
+    {
+        id: 14,
+        slug: "guide_316",
+        icon: ScanLine,
+        title: "AISI",
+        titleKey: "aisi_316_title",
+        descKey: "aisi_316_desc",
+        lead: "",
+        hero: "",
+        features: [],
+        sections: [
+            {
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
+        ],
+        faqs: [
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
+    },
+    {
+        id: 15,
+        slug: "guide_321",
+        icon: ScanLine,
+        title: "AISI",
+        titleKey: "aisi_321_title",
+        descKey: "aisi_321_desc",
+        lead: "",
+        hero: "",
+        features: [],
+        sections: [
+            {
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
+        ],
+        faqs: [
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
+    },
+    {
+        id: 16,
+        slug: "guide_430",
+        icon: ScanLine,
+        title: "AISI",
+        titleKey: "aisi_430_title",
+        descKey: "aisi_430_desc",
+        lead: "",
+        hero: "",
+        features: [],
+        sections: [
+            {
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
+        ],
+        faqs: [
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
+    },
 ];
 
 export type Advantage = {

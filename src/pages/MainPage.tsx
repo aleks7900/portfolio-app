@@ -9,6 +9,7 @@ import {ProductsBlock} from "./home/PopularBlocks.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 import {useEffect} from "react";
 import Container from "../shared/Container.tsx";
+import HeroTypes from "./components/HeroTypes.tsx";
 
 export default function MainPage() {
 
@@ -1041,6 +1042,8 @@ export default function MainPage() {
 
                 <p>{t("seo_closing")}</p>
             </Section>
+
+            <HeroTypes/>
 
             <Section titleKey="service_title" leadKey="service_lead">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
