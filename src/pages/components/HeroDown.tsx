@@ -62,16 +62,16 @@ export default function HeroDownServices() {
                                     whileTap={{scale: 0.995}}
                                     className="card-appear rounded-xl"
                                 >
-                                    {i === 0 && <ServiceCardOdd titleKey="services_welding_title"
-                                                                descKey="services_welding_desc" s={SERVICES[8]}/>}
-                                    {i === 1 && <ServiceCard titleKey="services_stiffener_title"
-                                                             descKey="services_stiffener_desc" s={SERVICES[9]}/>}
+                                    {i === 0 && <ServiceCardOdd titleKey="design_in_title"
+                                                                descKey="design_text" s={SERVICES[1]}/>}
+                                    {i === 1 && <ServiceCard titleKey="cut_profile_title"
+                                                             descKey="cut_profile_text" s={SERVICES[7]}/>}
                                     {i === 2 &&
-                                        <ServiceCard titleKey="services_bandsaw_title" descKey="services_bandsaw_desc"
+                                        <ServiceCard titleKey="weld_locksmith_title" descKey="weld_locksmith_text"
                                                      s={SERVICES[5]}/>}
                                     {i === 3 &&
-                                        <ServiceCardOdd titleKey="services_acid_title" descKey="services_acid_desc"
-                                                        s={SERVICES[11]}/>}
+                                        <ServiceCardOdd titleKey="misc_title" descKey="misc_text"
+                                                        s={SERVICES[17]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -81,7 +81,7 @@ export default function HeroDownServices() {
                     <motion.div variants={cardVariants}>
                         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
                             <span
-                                className="underline decoration-gray-300 dark:decoration-white/20">{t("hero_title_2")}</span>
+                                className="underline decoration-gray-300 dark:decoration-white/20">{t("service_title_1")}</span>
                         </h1>
                         <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub_1")}</p>
                         <div className="mt-6 flex flex-wrap gap-4">

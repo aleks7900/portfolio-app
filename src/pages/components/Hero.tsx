@@ -47,7 +47,7 @@ export default function Hero() {
                     <motion.div variants={cardVariants}>
                         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
                             <span
-                                className="underline decoration-gray-300 dark:decoration-white/20">{t("hero_title")}</span>
+                                className="underline decoration-gray-300 dark:decoration-white/20">{t("service_title_2")}</span>
                         </h1>
                         <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
                         <div className="mt-6 flex flex-wrap gap-4">
@@ -97,14 +97,14 @@ export default function Hero() {
                                     className="card-appear rounded-xl"
                                 >
                                     {/* Обёртка добавляет класс для анимации иконок внутри карточки */}
-                                    {i === 0 && <ServiceCardOdd titleKey="services_laser_title"
-                                                                descKey="services_laser_desc" s={SERVICES[0]}/>}
-                                    {i === 1 && <ServiceCard titleKey="services_shearing_title"
-                                                             descKey="services_shearing_desc" s={SERVICES[1]}/>}
-                                    {i === 2 && <ServiceCard titleKey="services_bending_title"
-                                                             descKey="services_bending_desc" s={SERVICES[2]}/>}
-                                    {i === 3 && <ServiceCardOdd titleKey="services_rolling_title"
-                                                                descKey="services_rolling_desc" s={SERVICES[3]}/>}
+                                    {i === 0 && <ServiceCardOdd titleKey="stainless_production_title"
+                                                                descKey="stainless_production_text" s={SERVICES[16]}/>}
+                                    {i === 1 && <ServiceCard titleKey="laser_cut_title"
+                                                             descKey="laser_cut_text" s={SERVICES[0]}/>}
+                                    {i === 2 && <ServiceCard titleKey="weld_metal_title"
+                                                             descKey="weld_metal_text" s={SERVICES[8]}/>}
+                                    {i === 3 && <ServiceCardOdd titleKey="bend_metal_title"
+                                                                descKey="bend_metal_text" s={SERVICES[2]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>

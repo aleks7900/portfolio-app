@@ -20,6 +20,10 @@ export const SERVICE_PAGE_MAP: Record<
     "acid-treatment": lazy(() => import("./AcidTreatmentStainlessPage.tsx")),
     "guide": lazy(() => import("../StainlessGuidePage.tsx")),
 
+    "stainless_production": lazy(() => import("./FabricationStainlessPage.tsx")),
+    "cutting": lazy(() => import("./CutProfilePage.tsx")),
+    "other-services": lazy(() => import("./OtherStainlessPage.tsx")),
+
     "guide_304": lazy(() => import("./AISI304Page.tsx")),
     "guide_316": lazy(() => import("./Aisi316StainlessPage.tsx")),
     "guide_321": lazy(() => import("./AISI321Page.tsx")),

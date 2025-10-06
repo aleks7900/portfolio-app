@@ -23,11 +23,11 @@ export const SERVICES: Service[] = [
         slug: "laser-cutting",
         icon: ScanLine,
         title: "Лазерная резка",
-        titleKey: "services_laser_title",
-        descKey: "services_laser_desc",
+        titleKey: "laser_cut_title",
+        descKey: "laser_cut_text",
         lead: "Высокоточная резка листового металла с минимальными заусенцами.",
         hero: "/images/services/laser.jpg",
-        features: ["Толщина до 20 мм", "Чистый рез без доработки", "Высокая скорость"],
+        features: ["Толщина до 16 мм", "Чистый рез без доработки", "Высокая скорость"],
         sections: [
             {
                 heading: "Применение",
@@ -47,8 +47,8 @@ export const SERVICES: Service[] = [
         slug: "design-engineering",
         icon: Ruler, // можешь заменить на другой символ, например Hammer или PencilRuler
         title: "Конструкторское проектирование",
-        titleKey: "services_design_title",
-        descKey: "services_design_desc",
+        titleKey: "design_in_title",
+        descKey: "design_text",
         lead: "Разработка чертежей и 3D-моделей для металлоконструкций любой сложности.",
         hero: "/images/services/design.jpg",
         features: [
@@ -143,9 +143,9 @@ export const SERVICES: Service[] = [
         id: 6,
         slug: "bandsaw-cutting",
         icon: Hammer,
-        title: "Торцовка на ленточной пиле",
-        titleKey: "services_bandsaw_title",
-        descKey: "services_bandsaw_desc",
+        title: "Слесарные работы",
+        titleKey: "weld_locksmith_title",
+        descKey: "weld_locksmith_text",
         lead: "Резка труб и профилей под прямым или заданным углом.",
         hero: "/images/services/bandsaw.jpg",
         features: ["Чистый срез", "Толстостенные трубы", "Большие партии"],
@@ -175,11 +175,11 @@ export const SERVICES: Service[] = [
     },
     {
         id: 8,
-        slug: "grinder-cutting",
+        slug: "cutting",
         icon: Ruler,
-        title: "Резка болгаркой",
-        titleKey: "services_grinder_title",
-        descKey: "services_grinder_desc",
+        title: "Резка",
+        titleKey: "cut_profile_title",
+        descKey: "cut_profile_text",
         lead: "Резка металла ручной углошлифовальной машинкой.",
         hero: "/images/services/grinder.jpg",
         features: ["Быстро", "Удобно", "Для небольших объемов"],
@@ -193,10 +193,10 @@ export const SERVICES: Service[] = [
     {
         id: 9,
         slug: "welding",
-        icon: Hammer,
+        icon: Sparkles,
         title: "Сварка",
-        titleKey: "services_welding_title",
-        descKey: "services_welding_desc",
+        titleKey: "weld_metal_title",
+        descKey: "weld_metal_text",
         lead: "Соединение металлических деталей сваркой разных типов.",
         hero: "/images/services/welding.jpg",
         features: ["MIG/MAG", "TIG", "Ручная дуговая"],
@@ -340,6 +340,54 @@ export const SERVICES: Service[] = [
         title: "AISI",
         titleKey: "aisi_430_title",
         descKey: "aisi_430_desc",
+        lead: "",
+        hero: "",
+        features: [],
+        sections: [
+            {
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
+        ],
+        faqs: [
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
+    },
+    {
+        id: 17,
+        slug: "stainless_production",
+        icon: Sparkles,
+        title: "Изготовление изделий из нержавейки, в том числе по индивидуальным заказам",
+        titleKey: "stainless_production_title",
+        descKey: "stainless_production_text",
+        lead: "",
+        hero: "",
+        features: [],
+        sections: [
+            {
+                heading: "Применение",
+                html: `<ul class="list-disc pl-5 space-y-1">
+          <li>Листы из нержавеющей стали</li>
+          <li>Алюминий, медь, черный металл</li>
+          <li>Фигурные детали по чертежам</li>
+        </ul>`
+            }
+        ],
+        faqs: [
+            {q: "Какая точность?", a: "До 0,1 мм при правильной настройке оборудования."}
+        ]
+    },
+    {
+        id: 18,
+        slug: "other-services",
+        icon: Hammer,
+        title: "Прочее",
+        titleKey: "misc_title",
+        descKey: "misc_text",
         lead: "",
         hero: "",
         features: [],

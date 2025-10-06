@@ -9,7 +9,6 @@ import slide3 from "../assets/img/slide3.png";
 import slide5 from "../assets/img/slide5.jpg";
 import slide6 from "../assets/img/slide6.jpg";
 import slide7 from "../assets/img/slide7.jpg";
-import slide8 from "../assets/img/map.jpg";
 
 /** Двухъязычный массив слайдов */
 const slides = [
@@ -37,16 +36,16 @@ const slides = [
             ro: {title: "Tăiere cu laser", text: "Pe echipamente moderne"},
         },
     },
+    // {
+    //     id: 4,
+    //     img: slide8,
+    //     translations: {
+    //         ru: {title: "Выезд на замеры по всей Молдове", text: "Монтаж на объектах"},
+    //         ro: {title: "Deplasare pentru măsurători în toată Moldova", text: "Montaj la obiecte"},
+    //     },
+    // },
     {
         id: 4,
-        img: slide8,
-        translations: {
-            ru: {title: "Выезд на замеры по всей Молдове", text: "Монтаж на объектах"},
-            ro: {title: "Deplasare pentru măsurători în toată Moldova", text: "Montaj la obiecte"},
-        },
-    },
-    {
-        id: 5,
         img: slide5,
         translations: {
             ru: {title: "Сварка всех типов соединений", text: "Сварка труб, столешниц, полок"},
@@ -54,7 +53,7 @@ const slides = [
         },
     },
     {
-        id: 6,
+        id: 5,
         img: slide6,
         translations: {
             ru: {title: "Слесарные работы", text: "Любая сложность работ"},
@@ -62,7 +61,7 @@ const slides = [
         },
     },
     {
-        id: 7,
+        id: 6,
         img: slide7,
         translations: {
             ru: {title: "Гибка и вальцовка металла", text: "По требованиям заказчика"},
@@ -108,7 +107,7 @@ const AutoPlay: KeenSliderPlugin = (slider) => {
 export default function Slideshow() {
     const [current, setCurrent] = useState(0);
 
-    const { i18n } = useTranslation();
+    const {i18n} = useTranslation();
     const lang = ((i18n.resolvedLanguage || i18n.language || "ru").toLowerCase().startsWith("ro")) ? "ro" : "ru";
 
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
@@ -124,7 +123,9 @@ export default function Slideshow() {
         [AutoPlay]
     );
 
-    useEffect(() => { instanceRef.current?.update(); }, [instanceRef, lang]);
+    useEffect(() => {
+        instanceRef.current?.update();
+    }, [instanceRef, lang]);
     // реагируем на переключение языка и обновляем текущий слайд
 
     return (
