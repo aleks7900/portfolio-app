@@ -5,9 +5,73 @@ import ImageWithFallback from "../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 import img from '@/assets/img/24.jpg';
 import Container from "../shared/Container.tsx";
+import React from "react";
 
 export default function AboutPage() {
     const {t} = useI18n();
+
+    // ---- JSON-LD helpers (без Helmet) ----
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://example.com";
+    const pageUrl = `${origin}/about`;
+    const siteName = t("seo_site_name") ?? "RVSteel";
+    const orgName = t("seo_org_name") ?? "RVSteel";
+    const phone = t("seo_phone") ?? "+373 60 174654";
+    const sameAs = [
+        t("seo_facebook") || "",
+        t("seo_instagram") || ""
+    ].filter(Boolean);
+
+    const jsonld = React.useMemo(() => ([
+        // Website
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": origin,
+            "name": siteName,
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": `${origin}/search?q={query}`,
+                "query-input": "required name=query"
+            }
+        },
+        // Organization
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": origin,
+            "name": orgName,
+            "telephone": phone,
+            "sameAs": sameAs
+        },
+        // WebPage (About)
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": pageUrl,
+            "name": t("seo_about_title") || "Despre companie",
+            "description": t("seo_about_description") || "Prelucrare profesională a oțelului inoxidabil...",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type":"ListItem","position":1,"name":t("seo_breadcrumb_home")||"Главная","item":origin},
+                    {"@type":"ListItem","position":2,"name":t("seo_breadcrumb_about")||"О компании","item":pageUrl}
+                ]
+            },
+            "about": {
+                "@type": "Organization",
+                "name": orgName
+            }
+        },
+        // BreadcrumbList (отдельно, как рекомендует Google)
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type":"ListItem","position":1,"name":t("seo_breadcrumb_home")||"Главная","item":origin},
+                {"@type":"ListItem","position":2,"name":t("seo_breadcrumb_about")||"О компании","item":pageUrl}
+            ]
+        }
+    ]), [origin, pageUrl, siteName, orgName, phone, sameAs, t]);
 
     return (
         <Section titleKey="about_title" leadKey="about_lead">
@@ -394,6 +458,11 @@ export default function AboutPage() {
                     <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
                 </div>
             </Container>
+
+            {/* JSON-LD без Helmet */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonld)}}/>
         </Section>
     );
 }

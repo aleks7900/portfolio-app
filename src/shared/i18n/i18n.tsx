@@ -2496,6 +2496,40 @@ export const dict: Dictionary = {
             users_empty: "Нет данных",
             users_error: "Ошибка загрузки",
             users_hint: "Подсказка: фильтруй по дате и строке поиска. Сортируй кликом по заголовку.",
+
+            seo_site_name: "RVSteel — Нержавейка и металлоконструкции",
+            seo_org_name: "RVSteel",
+            seo_phone: "+373 60 174654",
+            seo_facebook: "",
+            seo_instagram: "",
+
+            seo_breadcrumb_home: "Главная",
+            seo_breadcrumb_about: "О компании",
+            seo_breadcrumb_contacts: "Контакты",
+
+            seo_about_title: "О компании | Нержавеющая сталь, изготовление и услуги",
+            seo_about_description: "RVSteel — полный цикл работ с нержавеющей сталью: резка, гибка, сварка, вальцовка, шлифовка, изготовление по чертежам и индивидуальные проекты в Кишинёве и по всей Молдове.",
+            seo_about_h1: "О компании RVSteel: точность, ответственность, результат",
+            seo_about_p1: "Мы выполняем полный цикл работ с нержавеющей сталью — от заготовки и раскроя до финальной сборки и полировки. Команда инженеров и мастеров обеспечивает промышленную точность и стабильное качество изделий.",
+            seo_about_p2: "Работаем по стандартам и технологическим картам, согласовываем допуски, подбираем материал и финиш, предоставляем расчёт и гарантии. Принимаем индивидуальные заказы и серийное производство.",
+            seo_about_h2: "Что вы получаете, обращаясь к нам",
+            seo_about_li1: "Профессиональная консультация и помощь с проектированием",
+            seo_about_li2: "Точные сроки и прозрачные сметы без скрытых платежей",
+            seo_about_li3: "Контроль качества на каждом этапе, фототчёты",
+            seo_about_li4: "Доставку и монтаж по Кишинёву и Молдове",
+            seo_about_h3: "Направления работ",
+            seo_about_p3: "Изготавливаем перила, каркасы, столы и тумбы, ёмкости и резервуары, тележки, элементы декора, корпуса, зонты, дымоходы и многое другое.",
+
+            seo_contacts_title: "Контакты | Заявки и расчёт стоимости",
+            seo_contacts_description: "Свяжитесь с RVSteel: консультации, расчёт стоимости, индивидуальные заказы, монтаж и доставка. Ответим быстро по телефону, почте или через форму.",
+            seo_contacts_h1: "Контакты RVSteel: быстро на связи",
+            seo_contacts_p1: "Нужен расчёт или консультация по нержавейке? Напишите нам через форму или позвоните. Присылайте эскизы, фото и размеры — подготовим предложение и сроки.",
+            seo_contacts_h2: "Как мы работаем",
+            seo_contacts_li1: "Разбор задачи и подбор технологии (резка, гибка, сварка, обработка)",
+            seo_contacts_li2: "Расчёт стоимости, согласование сроков и материалов",
+            seo_contacts_li3: "Производство, контроль качества, доставка и монтаж",
+            seo_contacts_h3: "Зона обслуживания и монтаж",
+            seo_contacts_p2: "Выполняем замеры и монтаж на объекте в Кишинёве. Предоставляем гарантию на работы и изделия."
         },
         ro: {
             brandLogo: "",
@@ -5020,8 +5054,40 @@ export const dict: Dictionary = {
             users_next: "Înainte",
             users_empty: "Nu există date",
             users_error: "Eroare la încărcare",
-            users_hint: "Sugestie: filtrează după dată și șir de căutare. Sortează prin clic pe antet."
+            users_hint: "Sugestie: filtrează după dată și șir de căutare. Sortează prin clic pe antet.",
+            seo_site_name: "RVSteel — Oțel inox și construcții metalice",
+            seo_org_name: "RVSteel",
+            seo_phone: "+373 60 174654",
+            seo_facebook: "",
+            seo_instagram: "",
 
+            seo_breadcrumb_home: "Pagina principală",
+            seo_breadcrumb_about: "Despre noi",
+            seo_breadcrumb_contacts: "Contacte",
+
+            seo_about_title: "Despre companie | Oțel inox, producție și servicii",
+            seo_about_description: "RVSteel — ciclu complet pentru oțel inox: debitare, îndoire, sudare, roluire, finisare, producție după desene și comenzi individuale în Chișinău și în toată Moldova.",
+            seo_about_h1: "Despre RVSteel: precizie, responsabilitate, rezultat",
+            seo_about_p1: "Executăm ciclul complet de lucrări cu inox — de la pregătire și debitare până la asamblare și polisare. Inginerii și meșterii noștri livrează calitate industrială constantă.",
+            seo_about_p2: "Lucrăm după standarde și fișe tehnologice, stabilim toleranțe, alegem materialul și finisajul, oferim calcul și garanții. Acceptăm comenzi individuale și producție de serie.",
+            seo_about_h2: "Ce primiți colaborând cu noi",
+            seo_about_li1: "Consultanță profesională și suport în proiectare",
+            seo_about_li2: "Termene exacte și devize transparente",
+            seo_about_li3: "Controlul calității pe fiecare etapă, rapoarte foto",
+            seo_about_li4: "Livrare și montaj în Chișinău",
+            seo_about_h3: "Direcții de lucru",
+            seo_about_p3: "Realizăm balustrade, cadre, mese și dulapuri, rezervoare, cărucioare, elemente decorative, carcase, hote, coșuri de fum și multe altele.",
+
+            seo_contacts_title: "Contacte | Cereri și calcul de preț",
+            seo_contacts_description: "Contactați RVSteel: consultanță, ofertă de preț, comenzi individuale, montaj și livrare. Răspundem rapid prin telefon, email sau formular.",
+            seo_contacts_h1: "Contacte RVSteel: mereu la dispoziție",
+            seo_contacts_p1: "Aveți nevoie de un calcul sau consultanță pentru inox? Scrieți-ne prin formular sau telefonați. Trimiteți schițe, poze și dimensiuni — pregătim oferta și termenele.",
+            seo_contacts_h2: "Cum lucrăm",
+            seo_contacts_li1: "Analiza sarcinii și alegerea tehnologiei (debitare, îndoire, sudare, finisare)",
+            seo_contacts_li2: "Calculul prețului, materialelor și termenelor",
+            seo_contacts_li3: "Producție, controlul calității, livrare și montaj",
+            seo_contacts_h3: "Zona de deservire și montaj",
+            seo_contacts_p2: "Efectuăm măsurări și montaj la obiect în Chișinău. Oferim garanție pentru lucrări și produse."
         }
     }
 ;

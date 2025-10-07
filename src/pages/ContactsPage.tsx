@@ -65,9 +65,104 @@ export default function ContactsPage() {
         return v === key || !v ? fallback : v;
     };
 
+    // ---- JSON-LD (LocalBusiness + WebPage + BreadcrumbList) ----
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://example.com";
+    const pageUrl = `${origin}/contacts`;
+    const siteName = t("seo_site_name") ?? "RVSteel";
+    const orgName = t("seo_org_name") ?? "RVSteel";
+    const phone = "+37360174654";
+    const email = "engineeringrvsteel@gmail.com";
+    const street = t("street_address") || "Chișinău, strada Pădurii 21/1";
+    const geo = {lat: 47.0207, lng: 28.8491}; // примерная точка Кишинёва; при желании подставьте точные координаты
+    const sameAs = [
+        t("seo_facebook") || "",
+        t("seo_instagram") || ""
+    ].filter(Boolean);
+
+    const openingHours = [
+        {"dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00"}
+    ];
+
+    const jsonld = React.useMemo(() => ([
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": origin,
+            "name": siteName
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": origin,
+            "name": orgName,
+            "sameAs": sameAs
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": `${origin}#business`,
+            "name": orgName,
+            "image": `${origin}/images/logo.png`,
+            "url": origin,
+            "email": email,
+            "telephone": phone,
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": street,
+                "addressLocality": "Chișinău",
+                "addressCountry": "MD"
+            },
+            "geo": {"@type": "GeoCoordinates", "latitude": geo.lat, "longitude": geo.lng},
+            "openingHoursSpecification": openingHours,
+            "sameAs": sameAs,
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "telephone": phone,
+                "contactType": "customer support",
+                "areaServed": "MD",
+                "availableLanguage": ["ru", "ro", "en"]
+            }]
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": pageUrl,
+            "name": t("seo_contacts_title") || "Контакты",
+            "description": t("seo_contacts_description") || "Свяжитесь с нами для расчёта и консультации.",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": t("seo_breadcrumb_home") || "Главная", "item": origin},
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": t("seo_breadcrumb_contacts") || "Контакты",
+                        "item": pageUrl
+                    }
+                ]
+            },
+            "about": {"@id": `${origin}#business`}
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": t("seo_breadcrumb_home") || "Главная", "item": origin},
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": t("seo_breadcrumb_contacts") || "Контакты",
+                    "item": pageUrl
+                }
+            ]
+        }
+    ]), [origin, pageUrl, siteName, orgName, street, sameAs, t]);
+
     // --- Добавлено: выбор/валидация фото (до 3 шт., image/*, ≤10MB) ---
     const [photos, setPhotos] = React.useState<File[]>([]);
     const fileRef = React.useRef<HTMLInputElement | null>(null);
+
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
 
     function onFilesChange(e: React.ChangeEvent<HTMLInputElement>) {
         const picked = Array.from(e.target.files || []);
@@ -114,6 +209,8 @@ export default function ContactsPage() {
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        if (isSubmitting) return; // prevent double click
+        setIsSubmitting(true);
         const form = e.currentTarget;
         const fd = new FormData(form);
         const name = String(fd.get("name") || "").trim();
@@ -124,15 +221,14 @@ export default function ContactsPage() {
 
         if (!name || !message) {
             alert(tf("contacts_alert_fill", "Введите имя и сообщение."));
+            setIsSubmitting(false);
             return;
         }
 
         try {
             if (photos.length > 0) {
-                // с фото — multipart
                 await submitMultipart({name, email, phone, subject, message});
             } else {
-                // без фото — ваш прежний JSON-эндпоинт
                 await createRequest({name, email, phone, subject, message});
             }
             alert(tf("contacts_alert_sent", "Заявка отправлена!"));
@@ -142,6 +238,8 @@ export default function ContactsPage() {
         } catch (err) {
             console.error(err);
             alert(tf("contacts_alert_failed", "Не удалось отправить заявку"));
+        } finally {
+            setIsSubmitting(false); // re-enable button
         }
     }
 
@@ -164,7 +262,8 @@ export default function ContactsPage() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Phone className="mt-0.5 h-5 w-5"/>
-                                <a className="text-3xl font-semibold hover:underline" href="tel:+37360174654">+373 60 174654</a>
+                                <a className="text-3xl font-semibold hover:underline" href="tel:+37360174654">+373 60
+                                    174654</a>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Clock className="mt-0.5 h-5 w-5"/>
@@ -346,12 +445,31 @@ export default function ContactsPage() {
                     <div className="pt-2 mb-12">
                         <button
                             type="submit"
-                            className="rounded-xl !bg-green-600 px-4 py-2 text-sm font-medium !text-white hover:!bg-green-700 hover:!shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:!bg-green-500 dark:hover:!bg-green-400"
-                        >
-                            {t("contacts_ysend")}
+                            disabled={isSubmitting}
+                            className={`rounded-xl px-4 py-2 text-sm font-medium !text-white focus:outline-none focus:ring-2 
+                                ${isSubmitting
+                                ? '!bg-gray-400 cursor-not-allowed !text-black'
+                                : '!bg-green-600 hover:!bg-green-700 hover:!shadow-lg active:scale-[0.99] dark:!bg-green-500 dark:hover:!bg-green-400'}`}>
+                            {isSubmitting ? tf("contacts_sending", "Отправка...") : t("contacts_ysend")}
                         </button>
                     </div>
                 </form>
+
+                {/* ВИДИМЫЙ SEO-БЛОК для страницы контактов */}
+                <div className="mt-16 border-t pt-10">
+                    <div className="prose max-w-none dark:prose-invert prose-p:leading-relaxed">
+                        <h2 className="!mt-0">{t("seo_contacts_h1")}</h2>
+                        <p>{t("seo_contacts_p1")}</p>
+                        <h3>{t("seo_contacts_h2")}</h3>
+                        <ul className="list-disc pl-6">
+                            <li>{t("seo_contacts_li1")}</li>
+                            <li>{t("seo_contacts_li2")}</li>
+                            <li>{t("seo_contacts_li3")}</li>
+                        </ul>
+                        <h3>{t("seo_contacts_h3")}</h3>
+                        <p>{t("seo_contacts_p2")}</p>
+                    </div>
+                </div>
 
                 <p className="text-2xl font-semibold mt-18">{t("contacts_map")}:</p>
                 <ImageWithFallback src={img} alt="" className="mt-10 h-full w-full object-contain"
@@ -376,6 +494,9 @@ export default function ContactsPage() {
                 <div className="mt-8 w-full flex items-end gap-3 dark:text-white text-right">
                     <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
                 </div>
+
+                {/* JSON-LD без Helmet */}
+                <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonld)}}/>
             </Container>
         </section>
     );
