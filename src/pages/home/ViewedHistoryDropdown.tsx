@@ -56,7 +56,7 @@ export const ViewedHistoryDropdown: React.FC<Props> = ({ maxItems = 8, onOpenPro
                         {shown.map((item) => (
                             <li key={item.id} className="flex items-center gap-3 p-1 hover:bg-slate-50 dark:hover:bg-slate-700 rounded">
                                 <button
-                                    onClick={() => onOpenProduct ? onOpenProduct(item) : window.location.assign(item.slug ?? "#")}
+                                    onClick={() => onOpenProduct ? onOpenProduct(item) : window.location.assign(item.subcategory ?? "#")}
                                     className="flex items-center gap-3 w-full text-left"
                                 >
                                     <div className="w-12 h-12 bg-gray-100 dark:bg-slate-700 rounded overflow-hidden flex-shrink-0">
