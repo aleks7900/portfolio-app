@@ -12,6 +12,7 @@ import SEO from "../../shared/SEO.tsx";
 import i18n from "i18next";
 import {seoDict, type SEOEntry} from "../../shared/i18n/seo.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
+import {useViewedProducts} from "../../hooks/useViewedProducts.ts";
 
 export default function ProductDetails({
                                            product,
@@ -36,6 +37,8 @@ export default function ProductDetails({
     const [thumbsRef, thumbs] = useKeenSlider({
         slides: {perView: Math.min(4, images.length), spacing: 8},
     });
+
+    const { add } = useViewedProducts();
 
     // lightbox (полноэкранная картинка)
     const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({
@@ -68,6 +71,22 @@ export default function ProductDetails({
     useEffect(() => {
         if (open) setTab("details");
     }, [open, product?.id]);
+
+    useEffect(() => {
+        if (!product || !product.id || !product.title) return;
+        // pick first image or fallback
+        const img = product.imgLinks?.[0] ?? placeholderImg;
+
+        add({
+            id: product.id,
+            title: product.title,
+            brand: product.brand,
+            price: product.price,
+            category: product.category,
+            subcategory: product.subcategory,
+            img,
+        });
+    }, [add, product, product?.id]);
 
     // если окно закрыто или нет товара — ничего не рендерим
     if (!open || !product) return null;

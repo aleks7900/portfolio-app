@@ -2529,7 +2529,15 @@ export const dict: Dictionary = {
             seo_contacts_li2: "Расчёт стоимости, согласование сроков и материалов",
             seo_contacts_li3: "Производство, контроль качества, доставка и монтаж",
             seo_contacts_h3: "Зона обслуживания и монтаж",
-            seo_contacts_p2: "Выполняем замеры и монтаж на объекте в Кишинёве. Предоставляем гарантию на работы и изделия."
+            seo_contacts_p2: "Выполняем замеры и монтаж на объекте в Кишинёве. Предоставляем гарантию на работы и изделия.",
+
+            viewed_history_title: "Просмотренные товары",
+            viewed_history_clear: "Очистить",
+            viewed_history_refresh: "Обновить",
+            viewed_history_empty: "Вы ещё не смотрели товары.",
+            viewed_history_remove_entry: "Удалить",
+            viewed_history_note: "История хранится в браузере — видна только вам.",
+            currency: "MDL"
         },
         ro: {
             brandLogo: "",
@@ -5087,7 +5095,15 @@ export const dict: Dictionary = {
             seo_contacts_li2: "Calculul prețului, materialelor și termenelor",
             seo_contacts_li3: "Producție, controlul calității, livrare și montaj",
             seo_contacts_h3: "Zona de deservire și montaj",
-            seo_contacts_p2: "Efectuăm măsurări și montaj la obiect în Chișinău. Oferim garanție pentru lucrări și produse."
+            seo_contacts_p2: "Efectuăm măsurări și montaj la obiect în Chișinău. Oferim garanție pentru lucrări și produse.",
+            
+            viewed_history_title: "Produse vizualizate",
+            viewed_history_clear: "Șterge",
+            viewed_history_refresh: "Reîmprospătează",
+            viewed_history_empty: "Nu ați vizualizat încă produse.",
+            viewed_history_remove_entry: "Șterge",
+            viewed_history_note: "Istoricul este stocat în browser — vizibil doar pentru dvs.",
+            currency: "MDL"
         }
     }
 ;

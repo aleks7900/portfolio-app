@@ -10,6 +10,7 @@ import {useI18n} from "../shared/i18n/i18n.tsx";
 import {useEffect} from "react";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
+import {ViewedHistoryBlock} from "./home/ViewedHistoryBlock.tsx";
 
 export default function MainPage() {
 
@@ -949,6 +950,8 @@ export default function MainPage() {
                 in_stock: "în stoc",
                 out_of_stock: "nu este în stoc",
             </div>
+
+            <ViewedHistoryBlock/>
 
             <ProductsBlock
                 title={t("popular_products")}
