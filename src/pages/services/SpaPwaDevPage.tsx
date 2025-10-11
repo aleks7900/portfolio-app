@@ -48,7 +48,7 @@ export default function SpaPwaDevPage() {
                     {t("spa_badge")}
                 </p>
                 <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-zinc-900">
-                    {t("spa_title")}
+                    {t("spa_title_t")}
                 </h1>
                 <p className="mt-3 text-zinc-600 max-w-3xl">{t("spa_intro")}</p>
             </header>

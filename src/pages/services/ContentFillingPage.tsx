@@ -27,7 +27,7 @@ export default function ContentFillingPage() {
                     {t("content_badge")}
                 </p>
                 <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-zinc-900">
-                    {t("content_title")}
+                    {t("content_title_t")}
                 </h1>
                 <p className="mt-3 text-zinc-600 max-w-3xl">{t("content_intro")}</p>
             </header>
