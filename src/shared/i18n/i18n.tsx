@@ -4294,6 +4294,51 @@ export const dict: Dictionary = {
             calc_price_est: "Оценка",
             calc_price_max: "Максимум",
             calc_seo_headline: "Калькулятор стоимости разработки сайтов и веб‑приложений",
+
+            webapp_about_title: "О компании — Разработка веб-приложений",
+            webapp_about_lead: "Создаём современные, быстрые и безопасные веб-приложения на React и Spring Boot (TypeScript + Java 17/21), SPA и PWA, с фокусом на бизнес-ценность и поддержку в продакшене.",
+
+            webapp_about_intro1: "Мы — продуктовая команда <strong>full-stack</strong> разработки: проектируем архитектуру, создаём интерфейсы и бэкенд, настраиваем CI/CD и инфраструктуру. Помогаем бизнесу быстро запускать MVP и масштабировать готовые решения без технической задолженности.",
+            webapp_about_intro2: "Работаем прозрачно: фиксируем цели, KPI и сроки, согласовываем дорожную карту и релизный план. Регулярные демо-сессии и понятные отчёты позволяют вам видеть <strong>прогресс на каждом этапе</strong>.",
+
+            webapp_about_strengths_title: "Наши сильные стороны",
+            webapp_about_strengths_1: "<strong>Технологический стек</strong> — React 19, TypeScript, Tailwind, React Query/RTK, Spring Boot 3.x, JPA, PostgreSQL, JWT/OAuth2.",
+            webapp_about_strengths_2: "<strong>Производительность и качество</strong> — Lighthouse 90+, Core Web Vitals, E2E/интеграционные тесты, code review и линтинг по правилам.",
+            webapp_about_strengths_3: "<strong>Надёжная архитектура</strong> — модульный фронтенд, чистые DTO/mapper’ы, миграции БД (Liquibase), событийная телеметрия и логирование.",
+            webapp_about_strengths_4: "<strong>Безопасность</strong> — OWASP ASVS подход, защищённые эндпоинты, валидация входных данных, контроль ролей и прав.",
+            webapp_about_strengths_5: "<strong>DevOps и доставка</strong> — Docker/Compose, GitHub Actions, zero-downtime деплой, мониторинг и алёртинг.",
+            webapp_about_strengths_6: "<strong>UX и SEO</strong> — доступность (a11y), i18n (ru/ro), схемы JSON-LD, оптимизация индексации и превью в соцсетях.",
+
+            webapp_about_services_title: "Что мы делаем",
+            webapp_about_services_1: "<strong>SPA/PWA</strong> — высокопроизводительные одностраничные приложения с офлайн-режимом, пуш-уведомлениями и установкой на устройство.",
+            webapp_about_services_2: "<strong>API и интеграции</strong> — REST/GraphQL, платежи, почта, карты, аналитика, сторонние CRM/ERP.",
+            webapp_about_services_3: "<strong>Дизайн и фронтенд</strong> — адаптивные интерфейсы, дизайн-системы, анимации, таблицы/фильтры, графики.",
+            webapp_about_services_4: "<strong>Бэкенд и данные</strong> — Spring Boot, очереди, фоновые задачи, отчётность, миграции, оптимизация запросов.",
+            webapp_about_services_5: "<strong>Поддержка и развитие</strong> — SLA, Roadmap, A/B-тесты, технический аудит и перфоманс-улучшения.",
+
+            webapp_about_clients_title: "Кому мы помогаем",
+            webapp_about_clients: "Стартапам для быстрого вывода MVP, SMB-компаниям для автоматизации процессов, e-commerce и сервисам с высокой нагрузкой. Работаем по контракту, NDA и с понятной сметой.",
+
+            webapp_about_approach_title: "Наш подход",
+            webapp_about_approach1: "Сначала бизнес-цели — потом технологии. Формируем гипотезы, метрики успеха и план релизов. Сокращаем time-to-value регулярными инкрементами.",
+            webapp_about_approach2: "Код — как актив. Документация, тесты, типы и чек-листы обеспечивают предсказуемость изменений и быструю онбординг-скорость для вашей команды.",
+
+            webapp_about_why_title: "Почему выбирают нас",
+            webapp_about_why_1: "Предсказуемые сроки и прозрачные бюджеты: фиксируем объём, риски и план поставок.",
+            webapp_about_why_2: "Сильный стек и дисциплина качества: CI/CD, ревью, авто-проверки, алёрты.",
+            webapp_about_why_3: "Производительность и безопасность закладываем с первого спринта.",
+            webapp_about_why_4: "Живые метрики и аналитика: понимаем влияние релизов на продукт.",
+            webapp_about_why_5: "Партнёрская работа: вовлекаем в принятие решений, даём опции и прогнозы.",
+
+            webapp_about_seo_title: "О компании — разработка веб-приложений на React и Spring",
+            webapp_about_seo_description: "Full-stack команда: SPA/PWA, React, TypeScript, Spring Boot, PostgreSQL, CI/CD, безопасность, поддержка и масштабирование.",
+
+            seo_breadcrumb_home_t: "Главная",
+            seo_breadcrumb_about_webapps: "О компании (Web Development)",
+
+            contacts_maps_t: "Мы на карте",
+            open_in_maps: "Открыть маршрут в Google Maps",
+            street_address_t: "str. Pădurii 21/1, Кишинёв",
         },
         ro: {
             brandLogo: "",
@@ -7716,6 +7761,50 @@ export const dict: Dictionary = {
 
             calc_seo_headline: "Calculator cost dezvoltare site-uri și aplicații web",
 
+            webapp_about_title: "Despre companie — Dezvoltare aplicații web",
+            webapp_about_lead: "Construim aplicații web moderne, rapide și sigure pe React și Spring Boot (TypeScript + Java 17/21), SPA și PWA, cu focus pe valoarea de business și suport în producție.",
+
+            webapp_about_intro1: "Suntem o echipă <strong>full-stack</strong>: proiectăm arhitectura, creăm interfețe și backend, configurăm CI/CD și infrastructura. Ajutăm companiile să lanseze rapid MVP-uri și să scaleze soluții mature fără datorii tehnice.",
+            webapp_about_intro2: "Lucrăm transparent: definim obiective, KPI și termene, stabilim o foaie de parcurs și un plan de versiuni. <strong>Demo-urile periodice</strong> și rapoartele clare vă arată progresul la fiecare pas.",
+
+            webapp_about_strengths_title: "Punctele noastre forte",
+            webapp_about_strengths_1: "<strong>Stack tehnologic</strong> — React 19, TypeScript, Tailwind, React Query/RTK, Spring Boot 3.x, JPA, PostgreSQL, JWT/OAuth2.",
+            webapp_about_strengths_2: "<strong>Performanță și calitate</strong> — Lighthouse 90+, Core Web Vitals, teste E2E/integrare, code review și linting.",
+            webapp_about_strengths_3: "<strong>Arhitectură fiabilă</strong> — frontend modular, DTO/mapper curate, migrații BD (Liquibase), telemetrie și logare.",
+            webapp_about_strengths_4: "<strong>Securitate</strong> — abordare OWASP ASVS, endpoint-uri protejate, validare input, roluri și permisiuni.",
+            webapp_about_strengths_5: "<strong>DevOps și livrare</strong> — Docker/Compose, GitHub Actions, zero-downtime deploy, monitoring și alertare.",
+            webapp_about_strengths_6: "<strong>UX și SEO</strong> — accesibilitate (a11y), i18n (ru/ro), JSON-LD, optimizare indexare și previzualizări sociale.",
+
+            webapp_about_services_title: "Ce oferim",
+            webapp_about_services_1: "<strong>SPA/PWA</strong> — aplicații cu performanță ridicată, mod offline, push notifications și instalare pe dispozitiv.",
+            webapp_about_services_2: "<strong>API și integrări</strong> — REST/GraphQL, plăți, e-mail, hărți, analytics, CRM/ERP terțe.",
+            webapp_about_services_3: "<strong>Design & frontend</strong> — UI responsive, design systems, animații, tabele/filtre, grafice.",
+            webapp_about_services_4: "<strong>Backend & date</strong> — Spring Boot, cozi de mesaje, joburi background, rapoarte, optimizare interogări.",
+            webapp_about_services_5: "<strong>Suport & evoluție</strong> — SLA, roadmap, A/B-testing, audit tehnic și îmbunătățiri de performanță.",
+
+            webapp_about_clients_title: "Cui ne adresăm",
+            webapp_about_clients: "Startup-uri pentru lansarea MVP-urilor, IMM-uri pentru automatizare, e-commerce și servicii cu trafic mare. Lucrăm cu contract, NDA și deviz clar.",
+
+            webapp_about_approach_title: "Abordarea noastră",
+            webapp_about_approach1: "Mai întâi obiectivele de business — apoi tehnologia. Definim ipoteze, metrici de succes și planul de versiuni. Reducem time-to-value prin livrări incrementale.",
+            webapp_about_approach2: "Codul este un activ. Documentație, teste, tipuri și checklist-uri asigură previzibilitatea schimbărilor și onboarding rapid pentru echipa dvs.",
+
+            webapp_about_why_title: "De ce noi",
+            webapp_about_why_1: "Termene previzibile și bugete transparente: volum, riscuri și plan de livrare clar.",
+            webapp_about_why_2: "Stack puternic și disciplină a calității: CI/CD, review, verificări automate, alerte.",
+            webapp_about_why_3: "Performanță și securitate din primul sprint.",
+            webapp_about_why_4: "Metrici vii și analytics: înțelegem impactul fiecărui release.",
+            webapp_about_why_5: "Parteneriat real: vă implicăm în decizii și oferim opțiuni cu estimări.",
+
+            webapp_about_seo_title: "Despre companie — dezvoltare aplicații web cu React și Spring",
+            webapp_about_seo_description: "Echipă full-stack: SPA/PWA, React, TypeScript, Spring Boot, PostgreSQL, CI/CD, securitate, suport și scalare.",
+
+            seo_breadcrumb_home_t: "Pagina principală",
+            seo_breadcrumb_about_webapps: "Despre companie (Web Development)",
+
+            contacts_maps_t: "Ne găsiți pe hartă",
+            open_in_maps: "Deschide ruta în Google Maps",
+            street_address_t: "str. Pădurii 21/1, Chișinău"
         }
     }
 ;
