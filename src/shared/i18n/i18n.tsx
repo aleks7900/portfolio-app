@@ -2576,18 +2576,56 @@ export const dict: Dictionary = {
             support_text: "Техническое обслуживание, обновления и помощь в развитии вашего сайта после запуска.",
 
             web_badge: "Услуги",
+            web_title_t: "Разработка сайтов и веб‑приложений любой сложности",
+            web_intro: "Создание современных, быстрых и безопасных сайтов на основе React и Spring (TypeScript + Java 17/21). Полный цикл: от прототипа и дизайна до публикации, SEO и сопровождения.",
+
+            web_intro_bul1: "Адаптивная верстка, высокая скорость и удобный UI/UX.",
+            web_intro_bul2: "Надежный бэкенд на Spring Boot 3.x с безопасной авторизацией.",
+            web_intro_bul3: "Интеграции: платежи, карты, аналитика, CRM/ERP, e‑mail/SMS.",
+            web_intro_bul4: "Развёртывание в Docker, Nginx, CI/CD, мониторинг и поддержка.",
+
+            web_toc_title: "Содержание",
+            web_toc_intro: "Введение",
+            web_toc_capabilities: "Возможности",
+            web_toc_stack: "Технологический стек",
+            web_toc_workflow: "Процесс работ",
+            web_toc_security: "Безопасность и качество",
+            web_toc_requirements: "Что нужно от клиента",
+            web_toc_pricing: "Цены и сроки",
+            web_toc_faq: "FAQ",
+
+            web_capabilities_title: "Что мы делаем",
+            web_cap_sites: "Корпоративные сайты, лендинги и многостраничники",
+            web_cap_spa_pwa: "SPA и PWA‑приложения с офлайн‑режимом",
+            web_cap_ecommerce: "Интернет‑магазины и каталоги с товарной матрицей",
+            web_cap_integrations: "Интеграции: платежные системы, карты, CRM/ERP, 1С",
+            web_cap_speed: "Оптимизация скорости (Lighthouse, Core Web Vitals)",
+            web_cap_seo: "Техническое SEO: sitemap, мета‑теги, микроразметка",
+            web_cap_note: "Выбираем стек под задачу и бюджет, оставляя возможности для масштабирования.",
+
+            web_stack_title: "Технологический стек",
+            web_stack_p1: "Мы используем современные и поддерживаемые технологии, которые обеспечивают скорость разработки, производительность и безопасность.",
+
+            web_tbl_layer: "Слой",
+            web_tbl_tech: "Технологии",
+            web_tbl_notes: "Примечания",
+
+            web_tbl_frontend: "Фронтенд",
+            web_tbl_backend: "Бэкенд",
+            web_tbl_db: "База данных",
+            web_tbl_infra: "Инфраструктура",
+            web_tbl_observ: "Наблюдаемость",
+
             web_tbl_fe_note: "React 19 + Vite + TypeScript, Tailwind v4, SSR/SSG по необходимости",
             web_tbl_be_note: "Spring Boot 3.x, модульная архитектура, REST/WebSocket, OAuth2/JWT",
             web_tbl_db_note: "PostgreSQL с миграциями Liquibase, Redis для кэша/сессий",
             web_tbl_infra_note: "Docker Compose, Nginx, GitHub Actions/GitLab CI",
             web_tbl_obs_note: "Централизованные логи, метрики, алерты",
 
-
             web_stack_tip_title: "Плюсы такого подхода",
             web_stack_tip_perf: "Высокая производительность и быстрые билды",
             web_stack_tip_accessibility: "Доступность и кросс‑браузерная совместимость",
             web_stack_tip_scaling: "Готовность к масштабированию и росту нагрузки",
-
 
             web_workflow_title: "Процесс работ",
             web_flow_discovery: "1) Предпроект: бриф, цели, аудит конкурентов, архитектура и сроки",
@@ -2597,13 +2635,11 @@ export const dict: Dictionary = {
             web_flow_deploy: "5) Публикация: настройка домена/SSL, CI/CD, контейнеризация",
             web_flow_support: "6) Сопровождение: мониторинг, обновления, развитие функционала",
 
-
             web_workflow_check_title: "Что вы получаете на выходе",
             web_workflow_check_1: "Исходники и документация по запуску",
             web_workflow_check_2: "Учётные данные и доступы в личные кабинеты",
             web_workflow_check_3: "Набор тест‑скриптов и чек‑листов",
             web_workflow_check_4: "Гарантийная поддержка по договору",
-
 
             web_security_title: "Безопасность и качество",
             web_security_practices_title: "Практики безопасности",
@@ -2611,15 +2647,12 @@ export const dict: Dictionary = {
             web_security_practices_2: "Хранение секретов и безопасная конфигурация",
             web_security_practices_3: "Регулярные обновления зависимостей и сканирование уязвимостей",
 
-
             web_quality_ci_title: "Качество и CI/CD",
             web_quality_ci_1: "Код‑ревью, статический анализ и форматирование",
             web_quality_ci_2: "Юнит/интеграционные тесты, e2e по необходимости",
             web_quality_ci_3: "Автоматические сборки и выкладки по веткам",
 
-
             web_security_note: "Мы закладываем безопасные практики на всех этапах: от проектирования до эксплуатации.",
-
 
             web_requirements_title: "Что нужно от клиента",
             web_requirements_ok_title: "Желательно предоставить",
@@ -2627,22 +2660,18 @@ export const dict: Dictionary = {
             web_requirements_ok_2: "Материалы: логотип, бренд‑гайд, тексты, изображения",
             web_requirements_ok_3: "Доступы к домену/хостингу (если уже есть)",
 
-
             web_requirements_bad_title: "Что может замедлить проект",
             web_requirements_bad_1: "Изменение объёма работ без фиксации",
             web_requirements_bad_2: "Задержки с контентом и согласованием",
             web_requirements_bad_3: "Отсутствие ответственного лица со стороны клиента",
 
-
             web_requirements_note: "Мы помогем с доработкой контента и берём на себя технические вопросы.",
-
 
             web_pricing_title: "Цены и сроки",
             web_pricing_1: "Базовый корпоративный сайт: от 2–3 недель",
             web_pricing_2: "Интернет‑магазин/каталог: от 4–6 недель",
             web_pricing_3: "Сложные SPA/PWA: оцениваем индивидуально",
             web_pricing_note: "Итог зависит от объёма функционала, интеграций и контента.",
-
 
             web_faq_q1: "Сможем ли мы редактировать контент самостоятельно?",
             web_faq_a1: "Да. Предусматриваем удобную админ‑панель или интеграцию с CMS/Headless CMS.",
@@ -2651,15 +2680,14 @@ export const dict: Dictionary = {
             web_faq_q3: "Даете ли вы гарантию и поддержку?",
             web_faq_a3: "Да. Гарантийный период и планы сопровождения фиксируем в договоре.",
 
-
             web_cta_title: "Обсудим ваш проект",
             web_cta_sub: "Расскажите о задаче — предложим решение, сроки и прозрачный бюджет.",
             web_cta_btn_contact: "Связаться",
             web_cta_btn_callback: "Перезвоните мне",
 
-
             web_seo_name: "Разработка сайтов и веб‑приложений на React и Spring",
             web_seo_description: "Создание быстрых и безопасных сайтов, интернет‑магазинов и SPA/PWA на основе React, TypeScript и Spring Boot (Java 17/21) с внедрением SEO и CI/CD.",
+
 
             spa_badge: "Web-приложения нового поколения",
             spa_title_t: "Разработка SPA и PWA веб-приложений",
@@ -4170,7 +4198,6 @@ export const dict: Dictionary = {
             // Hero/comun
             cta_contact: "Contactați-ne",
             hero_title: "Confecționarea produselor din oțel inoxidabil, tăiere laser, sudare în argon și alte tipuri de îmbinări sudate, îndoirea tablei metalice",
-            hero_types_title: "Folosim in producție toate tipurile de inox",
             hero_title_1: "Tăiere tablă și țevi, tăiere cu ferăstrău cu bandă, prelucrarea metalelor",
             hero_title_2: "Proiectare constructivă, tăierea profilelor metalice, lucrări de lăcătușerie, altele",
             hero_types_sub: "Fabricat la comandă",
@@ -5661,6 +5688,36 @@ export const dict: Dictionary = {
             support_text: "Întreținere tehnică, actualizări și asistență continuă pentru dezvoltarea site-ului dvs.",
 
             web_badge: "Servicii",
+            web_title_t: "Dezvoltare de site‑uri și aplicații web de orice complexitate",
+            web_intro: "Creăm site‑uri moderne, rapide și sigure pe baza React și Spring (TypeScript + Java 17/21). Ciclu complet: de la prototip și design până la lansare, SEO și mentenanță.",
+
+            web_intro_bul1: "Design responsiv, viteză ridicată și UI/UX comod.",
+            web_intro_bul2: "Backend fiabil pe Spring Boot 3.x cu autentificare sigură.",
+            web_intro_bul3: "Integrări: plăți, hărți, analitică, CRM/ERP, e‑mail/SMS.",
+            web_intro_bul4: "Lansare în Docker, Nginx, CI/CD, monitorizare și suport.",
+
+            web_toc_title: "Cuprins",
+            web_toc_intro: "Introducere",
+            web_toc_capabilities: "Capabilități",
+            web_toc_stack: "Stack tehnologic",
+            web_toc_workflow: "Proces de lucru",
+            web_toc_security: "Securitate și calitate",
+            web_toc_requirements: "Ce avem nevoie de la client",
+            web_toc_pricing: "Prețuri și termene",
+            web_toc_faq: "Întrebări frecvente",
+
+            web_capabilities_title: "Ce oferim",
+            web_cap_sites: "Site‑uri corporate, landing pages și multi‑pagini",
+            web_cap_spa_pwa: "Aplicații SPA și PWA cu mod offline",
+            web_cap_ecommerce: "Magazine online și cataloage cu matrice de produse",
+            web_cap_integrations: "Integrări: sisteme de plată, hărți, CRM/ERP, 1C",
+            web_cap_speed: "Optimizare viteză (Lighthouse, Core Web Vitals)",
+            web_cap_seo: "SEO tehnic: sitemap, meta‑taguri, microdate",
+            web_cap_note: "Alegem stack‑ul după obiective și buget, păstrând posibilitatea de scalare.",
+
+            web_stack_title: "Stack tehnologic",
+            web_stack_p1: "Utilizăm tehnologii moderne și întreținute, care asigură viteză de dezvoltare, performanță și securitate.",
+
             web_tbl_layer: "Strat",
             web_tbl_tech: "Tehnologii",
             web_tbl_notes: "Note",
@@ -5671,19 +5728,16 @@ export const dict: Dictionary = {
             web_tbl_infra: "Infrastructură",
             web_tbl_observ: "Observabilitate",
 
-
             web_tbl_fe_note: "React 19 + Vite + TypeScript, Tailwind v4, SSR/SSG la nevoie",
             web_tbl_be_note: "Spring Boot 3.x, arhitectură modulară, REST/WebSocket, OAuth2/JWT",
             web_tbl_db_note: "PostgreSQL cu migrații Liquibase, Redis pentru cache/sesiuni",
             web_tbl_infra_note: "Docker Compose, Nginx, GitHub Actions/GitLab CI",
             web_tbl_obs_note: "Loguri centralizate, metrici, alerte",
 
-
             web_stack_tip_title: "Avantajele abordării",
             web_stack_tip_perf: "Performanță ridicată și build‑uri rapide",
             web_stack_tip_accessibility: "Accesibilitate și compatibilitate cross‑browser",
             web_stack_tip_scaling: "Pregătit pentru scalare și creșterea traficului",
-
 
             web_workflow_title: "Proces de lucru",
             web_flow_discovery: "1) Pre‑proiect: brief, obiective, audit concurenți, arhitectură și termene",
@@ -5693,13 +5747,11 @@ export const dict: Dictionary = {
             web_flow_deploy: "5) Lansare: domeniu/SSL, CI/CD, containerizare",
             web_flow_support: "6) Mentenanță: monitorizare, actualizări, dezvoltare ulterioară",
 
-
             web_workflow_check_title: "Ce primiți la final",
             web_workflow_check_1: "Cod sursă și documentație de pornire",
             web_workflow_check_2: "Date de acces și conturi necesare",
             web_workflow_check_3: "Set de teste și checklist‑uri",
             web_workflow_check_4: "Garanție de suport conform contractului",
-
 
             web_security_title: "Securitate și calitate",
             web_security_practices_title: "Practici de securitate",
@@ -5707,15 +5759,12 @@ export const dict: Dictionary = {
             web_security_practices_2: "Păstrarea secretelor și configurare sigură",
             web_security_practices_3: "Actualizări regulate și scanare vulnerabilități",
 
-
             web_quality_ci_title: "Calitate și CI/CD",
             web_quality_ci_1: "Code‑review, analiză statică și formatare",
             web_quality_ci_2: "Teste unitare/integrate, e2e la nevoie",
             web_quality_ci_3: "Build‑uri și deploy automat pe ramuri",
 
-
             web_security_note: "Introducem practici sigure pe tot parcursul: de la proiectare la exploatare.",
-
 
             web_requirements_title: "Ce avem nevoie de la client",
             web_requirements_ok_title: "De dorit să furnizați",
@@ -5723,22 +5772,18 @@ export const dict: Dictionary = {
             web_requirements_ok_2: "Materiale: logo, brand‑guide, texte, imagini",
             web_requirements_ok_3: "Acces la domeniu/hosting (dacă există)",
 
-
             web_requirements_bad_title: "Ce poate încetini proiectul",
             web_requirements_bad_1: "Schimbarea scope‑ului fără fixare",
             web_requirements_bad_2: "Întârzieri cu conținutul și aprobările",
             web_requirements_bad_3: "Lipsa unei persoane responsabile din partea clientului",
 
-
             web_requirements_note: "Vă ajutăm cu conținutul și preluăm partea tehnică.",
-
 
             web_pricing_title: "Prețuri și termene",
             web_pricing_1: "Site corporate de bază: de la 2–3 săptămâni",
             web_pricing_2: "Magazin online/catalog: de la 4–6 săptămâni",
             web_pricing_3: "SPA/PWA complexe: evaluare individuală",
             web_pricing_note: "Depinde de funcționalitate, integrări și conținut.",
-
 
             web_faq_q1: "Vom putea edita conținutul singuri?",
             web_faq_a1: "Da. Prevădem panou de administrare comod sau integrare cu CMS/Headless CMS.",
@@ -5747,12 +5792,10 @@ export const dict: Dictionary = {
             web_faq_q3: "Oferiți garanție și suport?",
             web_faq_a3: "Da. Perioada de garanție și planurile de suport sunt stipulate în contract.",
 
-
             web_cta_title: "Să discutăm proiectul",
             web_cta_sub: "Descrieți pe scurt sarcina — propunem soluția, termenele și bugetul transparent.",
             web_cta_btn_contact: "Contactează‑ne",
             web_cta_btn_callback: "Sunați‑mă",
-
 
             web_seo_name: "Dezvoltare de site‑uri și aplicații web pe React și Spring",
             web_seo_description: "Crearea de site‑uri rapide și sigure, magazine online și SPA/PWA pe React, TypeScript și Spring Boot (Java 17/21) cu SEO și CI/CD.",
@@ -7107,7 +7150,11 @@ export const dict: Dictionary = {
 
             webapp_seo_headline: "Dezvoltare aplicații web în React + Spring Boot",
             webapp_seo_description: "Creăm aplicații web moderne: SPA, PWA, CRM și panouri de administrare. Performanță, securitate și scalabilitate pentru afacerea dvs.",
-            webapp_seo_catalog: "Servicii de dezvoltare web"
+            webapp_seo_catalog: "Servicii de dezvoltare web",
+
+            service_title_2: "Crearea de site-uri moderne, rapide și sigure pe baza React și Spring, aplicații web SPA și PWA la comandă și pentru întreprinderi mici și mijlocii",
+            service_title_1: "Dezvoltarea de site-uri și aplicații web de orice complexitate, site-uri de prezentare, magazine online și landing page-uri",
+            hero_types_title: "Dezvoltarea aplicațiilor Android la comandă, pachet complet de servicii pentru găzduire și înregistrarea domeniului, completarea conținutului, suport și mentenanță"
 
         }
     }

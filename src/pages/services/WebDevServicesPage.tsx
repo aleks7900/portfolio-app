@@ -46,7 +46,7 @@ export default function WebDevServicesPage() {
                     {t("web_badge")}
                 </p>
                 <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-zinc-900">
-                    {t("web_title")}
+                    {t("web_title_t")}
                 </h1>
                 <p className="mt-3 text-zinc-600 max-w-3xl">{t("web_intro")}</p>
             </header>

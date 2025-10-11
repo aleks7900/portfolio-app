@@ -10,17 +10,17 @@ export default function CustomOrdersPage() {
     const {t} = useI18n();
 
     const sections = [
-        {id: "intro", title: t("custom_apptoc_intro")},
-        {id: "usecases", title: t("custom_apptoc_usecases")},
-        {id: "process", title: t("custom_apptoc_process")},
-        {id: "requirements", title: t("custom_apptoc_requirements")},
-        {id: "design", title: t("custom_apptoc_design")},
-        {id: "stack", title: t("custom_apptoc_stack")},
-        {id: "features", title: t("custom_apptoc_features")},
-        {id: "integrations", title: t("custom_apptoc_integrations")},
-        {id: "pricing", title: t("custom_apptoc_pricing")},
-        {id: "terms", title: t("custom_apptoc_terms")},
-        {id: "faq", title: t("custom_apptoc_faq")},
+        {id: "intro", title: t("custom_app_toc_intro")},
+        {id: "usecases", title: t("custom_app_toc_usecases")},
+        {id: "process", title: t("custom_app_toc_process")},
+        {id: "requirements", title: t("custom_app_toc_requirements")},
+        {id: "design", title: t("custom_app_toc_design")},
+        {id: "stack", title: t("custom_app_toc_stack")},
+        {id: "features", title: t("custom_app_toc_features")},
+        {id: "integrations", title: t("custom_app_toc_integrations")},
+        {id: "pricing", title: t("custom_app_toc_pricing")},
+        {id: "terms", title: t("custom_app_toc_terms")},
+        {id: "faq", title: t("custom_app_toc_faq")},
     ];
 
     const featureCards = [
@@ -55,29 +55,29 @@ export default function CustomOrdersPage() {
 
     const reqRows = [
         {
-            f: t("custom_appreq_business_goals"),
-            ex: t("custom_appreq_business_goals_ex"),
-            n: t("custom_appreq_business_goals_note"),
+            f: t("custom_app_req_business_goals"),
+            ex: t("custom_app_req_business_goals_ex"),
+            n: t("custom_app_req_business_goals_note"),
         },
         {
-            f: t("custom_appreq_functionality"),
-            ex: t("custom_appreq_functionality_ex"),
-            n: t("custom_appreq_functionality_note"),
+            f: t("custom_app_req_functionality"),
+            ex: t("custom_app_req_functionality_ex"),
+            n: t("custom_app_req_functionality_note"),
         },
         {
-            f: t("custom_appreq_deadlines"),
-            ex: "2–6 " + t("custom_appreq_weeks"),
-            n: t("custom_appreq_deadlines_note"),
+            f: t("custom_app_req_deadlines"),
+            ex: "2–6 " + t("custom_app_req_weeks"),
+            n: t("custom_app_req_deadlines_note"),
         },
         {
-            f: t("custom_appreq_content"),
-            ex: t("custom_appreq_content_ex"),
-            n: t("custom_appreq_content_note"),
+            f: t("custom_app_req_content"),
+            ex: t("custom_app_req_content_ex"),
+            n: t("custom_app_req_content_note"),
         },
         {
-            f: t("custom_appreq_integrations"),
-            ex: t("custom_appreq_integrations_ex"),
-            n: t("custom_appreq_integrations_note"),
+            f: t("custom_app_req_integrations"),
+            ex: t("custom_app_req_integrations_ex"),
+            n: t("custom_app_req_integrations_note"),
         },
     ];
 
@@ -86,12 +86,12 @@ export default function CustomOrdersPage() {
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-emerald-700 font-semibold">
-                    {t("custom_appbadge")}
+                    {t("custom_app_badge")}
                 </p>
                 <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-zinc-900">
-                    {t("custom_apptitle")}
+                    {t("custom_app_title")}
                 </h1>
-                <p className="mt-3 text-zinc-600 max-w-3xl">{t("custom_appintro")}</p>
+                <p className="mt-3 text-zinc-600 max-w-3xl">{t("custom_app_intro")}</p>
             </header>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -99,7 +99,7 @@ export default function CustomOrdersPage() {
                 <nav className="lg:col-span-3 order-last lg:order-first">
                     <div className="sticky top-4 rounded-2xl border bg-white p-4 shadow-sm">
                         <h2 className="text-sm font-semibold text-zinc-700 mb-3">
-                            {t("custom_apptoc_title")}
+                            {t("custom_app_toc_title")}
                         </h2>
                         <ul className="space-y-2 text-sm">
                             {sections.map((s) => (
@@ -122,13 +122,13 @@ export default function CustomOrdersPage() {
                     <section id="intro" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-3">
-                                {t("custom_apptoc_intro")}
+                                {t("custom_app_toc_intro")}
                             </h2>
                             <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
-                                <li>{t("custom_appintro_bul1")}</li>
-                                <li>{t("custom_appintro_bul2")}</li>
-                                <li>{t("custom_appintro_bul3")}</li>
-                                <li>{t("custom_appintro_bul4")}</li>
+                                <li>{t("custom_app_intro_bul1")}</li>
+                                <li>{t("custom_app_intro_bul2")}</li>
+                                <li>{t("custom_app_intro_bul3")}</li>
+                                <li>{t("custom_app_intro_bul4")}</li>
                             </ul>
                         </div>
                     </section>
@@ -137,14 +137,14 @@ export default function CustomOrdersPage() {
                     <section id="usecases" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appusecases_title")}
+                                {t("custom_app_usecases_title")}
                             </h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {[
-                                    t("custom_appuse_ecommerce"),
-                                    t("custom_appuse_corporate"),
-                                    t("custom_appuse_configurators"),
-                                    t("custom_appuse_portals"),
+                                    t("custom_app_use_ecommerce"),
+                                    t("custom_app_use_corporate"),
+                                    t("custom_app_use_configurators"),
+                                    t("custom_app_use_portals"),
                                 ].map((c, i) => (
                                     <div key={i} className="rounded-xl border p-4">
                                         <p className="text-zinc-700 dark:!text-white">{c}</p>
@@ -152,7 +152,7 @@ export default function CustomOrdersPage() {
                                 ))}
                             </div>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_appusecases_note")}
+                                {t("custom_app_usecases_note")}
                             </p>
                         </div>
                     </section>
@@ -161,7 +161,7 @@ export default function CustomOrdersPage() {
                     <section id="process" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appprocess_title")}
+                                {t("custom_app_process_title")}
                             </h2>
                             <ol className="list-decimal pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 {processSteps.map((k) => (
@@ -169,7 +169,7 @@ export default function CustomOrdersPage() {
                                 ))}
                             </ol>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_appprocess_note")}
+                                {t("custom_app_process_note")}
                             </p>
                         </div>
                     </section>
@@ -178,15 +178,15 @@ export default function CustomOrdersPage() {
                     <section id="requirements" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_apprequirements_title")}
+                                {t("custom_app_requirements_title")}
                             </h2>
                             <div className="overflow-x-auto">
                                 <table className="min-w-full text-sm border divide-y">
                                     <thead className="bg-zinc-50 dark:!text-black">
                                     <tr>
-                                        <th className="text-left p-3">{t("custom_apptbl_field")}</th>
-                                        <th className="text-left p-3">{t("custom_apptbl_example")}</th>
-                                        <th className="text-left p-3">{t("custom_apptbl_note")}</th>
+                                        <th className="text-left p-3">{t("custom_app_tbl_field")}</th>
+                                        <th className="text-left p-3">{t("custom_app_tbl_example")}</th>
+                                        <th className="text-left p-3">{t("custom_app_tbl_note")}</th>
                                     </tr>
                                     </thead>
                                     <tbody className="divide-y">
@@ -202,11 +202,11 @@ export default function CustomOrdersPage() {
                             </div>
                             <div
                                 className="mt-4 rounded-xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-900">
-                                <p className="font-medium">{t("custom_apprequirements_tip_title")}</p>
+                                <p className="font-medium">{t("custom_app_requirements_tip_title")}</p>
                                 <ul className="list-disc pl-5 mt-1 space-y-1">
-                                    <li>{t("custom_apprequirements_tip_1")}</li>
-                                    <li>{t("custom_apprequirements_tip_2")}</li>
-                                    <li>{t("custom_apprequirements_tip_3")}</li>
+                                    <li>{t("custom_app_requirements_tip_1")}</li>
+                                    <li>{t("custom_app_requirements_tip_2")}</li>
+                                    <li>{t("custom_app_requirements_tip_3")}</li>
                                 </ul>
                             </div>
                         </div>
@@ -216,16 +216,16 @@ export default function CustomOrdersPage() {
                     <section id="design" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appdesign_title")}
+                                {t("custom_app_design_title")}
                             </h2>
                             <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
-                                <li>{t("custom_appdesign_wireframes")}</li>
-                                <li>{t("custom_appdesign_ui")}</li>
-                                <li>{t("custom_appdesign_prototypes")}</li>
-                                <li>{t("custom_appdesign_guidelines")}</li>
+                                <li>{t("custom_app_design_wireframes")}</li>
+                                <li>{t("custom_app_design_ui")}</li>
+                                <li>{t("custom_app_design_prototypes")}</li>
+                                <li>{t("custom_app_design_guidelines")}</li>
                             </ul>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_appdesign_note")}
+                                {t("custom_app_design_note")}
                             </p>
                         </div>
                     </section>
@@ -234,13 +234,13 @@ export default function CustomOrdersPage() {
                     <section id="stack" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appstack_title")}
+                                {t("custom_app_stack_title")}
                             </h2>
                             <p className="text-zinc-700 dark:!text-white mb-3">
-                                {t("custom_appstack_p1")}
+                                {t("custom_app_stack_p1")}
                             </p>
                             <div className="grid sm:grid-cols-2 gap-4">
-                                {[t("custom_appstack_front"), t("custom_appstack_back"), t("custom_appstack_db"), t("custom_appstack_devops")].map(
+                                {[t("custom_app_stack_front"), t("custom_app_stack_back"), t("custom_app_stack_db"), t("custom_app_stack_devops")].map(
                                     (s) => (
                                         <div key={s} className="rounded-xl border p-4 text-sm">
                                             {s}
@@ -249,7 +249,7 @@ export default function CustomOrdersPage() {
                                 )}
                             </div>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_appstack_note")}
+                                {t("custom_app_stack_note")}
                             </p>
                         </div>
                     </section>
@@ -258,7 +258,7 @@ export default function CustomOrdersPage() {
                     <section id="features" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appfeatures_title")}
+                                {t("custom_app_features_title")}
                             </h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {featureCards.map((k) => (
@@ -269,12 +269,12 @@ export default function CustomOrdersPage() {
                             </div>
                             <div
                                 className="mt-4 rounded-xl bg-zinc-50 border p-4 text-sm text-zinc-700 dark:!text-black">
-                                <p className="font-medium">{t("custom_appfeatures_tip_title")}</p>
+                                <p className="font-medium">{t("custom_app_features_tip_title")}</p>
                                 <ul className="list-disc pl-5 mt-1 space-y-1">
-                                    <li>{t("custom_appfeatures_tip_1")}</li>
-                                    <li>{t("custom_appfeatures_tip_2")}</li>
-                                    <li>{t("custom_appfeatures_tip_3")}</li>
-                                    <li>{t("custom_appfeatures_tip_4")}</li>
+                                    <li>{t("custom_app_features_tip_1")}</li>
+                                    <li>{t("custom_app_features_tip_2")}</li>
+                                    <li>{t("custom_app_features_tip_3")}</li>
+                                    <li>{t("custom_app_features_tip_4")}</li>
                                 </ul>
                             </div>
                         </div>
@@ -284,7 +284,7 @@ export default function CustomOrdersPage() {
                     <section id="integrations" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appintegrations_title")}
+                                {t("custom_app_integrations_title")}
                             </h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {integrationCards.map((k) => (
@@ -294,7 +294,7 @@ export default function CustomOrdersPage() {
                                 ))}
                             </div>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_appintegrations_note")}
+                                {t("custom_app_integrations_note")}
                             </p>
                         </div>
                     </section>
@@ -303,15 +303,15 @@ export default function CustomOrdersPage() {
                     <section id="pricing" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:!bg-zinc-700 p-6 shadow-sm">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_apppricing_title")}
+                                {t("custom_app_pricing_title")}
                             </h2>
                             <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
-                                <li>{t("custom_apppricing_1")}</li>
-                                <li>{t("custom_apppricing_2")}</li>
-                                <li>{t("custom_apppricing_3")}</li>
+                                <li>{t("custom_app_pricing_1")}</li>
+                                <li>{t("custom_app_pricing_2")}</li>
+                                <li>{t("custom_app_pricing_3")}</li>
                             </ul>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_apppricing_note")}
+                                {t("custom_app_pricing_note")}
                             </p>
                         </div>
                     </section>
@@ -320,32 +320,32 @@ export default function CustomOrdersPage() {
                     <section id="terms" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_appterms_title")}
+                                {t("custom_app_terms_title")}
                             </h2>
                             <div className="grid sm:grid-cols-2 gap-6">
                                 <div>
                                     <h3 className="font-medium mb-2">
-                                        {t("custom_appterms_delivery_title")}
+                                        {t("custom_app_terms_delivery_title")}
                                     </h3>
                                     <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
-                                        <li>{t("custom_appterms_delivery_1")}</li>
-                                        <li>{t("custom_appterms_delivery_2")}</li>
-                                        <li>{t("custom_appterms_delivery_3")}</li>
+                                        <li>{t("custom_app_terms_delivery_1")}</li>
+                                        <li>{t("custom_app_terms_delivery_2")}</li>
+                                        <li>{t("custom_app_terms_delivery_3")}</li>
                                     </ul>
                                 </div>
                                 <div>
                                     <h3 className="font-medium mb-2">
-                                        {t("custom_appterms_support_title")}
+                                        {t("custom_app_terms_support_title")}
                                     </h3>
                                     <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
-                                        <li>{t("custom_appterms_support_1")}</li>
-                                        <li>{t("custom_appterms_support_2")}</li>
-                                        <li>{t("custom_appterms_support_3")}</li>
+                                        <li>{t("custom_app_terms_support_1")}</li>
+                                        <li>{t("custom_app_terms_support_2")}</li>
+                                        <li>{t("custom_app_terms_support_3")}</li>
                                     </ul>
                                 </div>
                             </div>
                             <p className="text-sm text-zinc-600 mt-3">
-                                {t("custom_appterms_note")}
+                                {t("custom_app_terms_note")}
                             </p>
                         </div>
                     </section>
@@ -354,34 +354,34 @@ export default function CustomOrdersPage() {
                     <section id="faq" className="scroll-mt-24">
                         <div className="rounded-2xl border bg-white dark:bg-zinc-700 p-6 shadow-sm dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
-                                {t("custom_apptoc_faq")}
+                                {t("custom_app_toc_faq")}
                             </h2>
                             <div className="space-y-4">
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
-                                        {t("custom_appfaq_q1")}
+                                        {t("custom_app_faq_q1")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
                                     <p className="mt-2 text-zinc-700 dark:text-white">
-                                        {t("custom_appfaq_a1")}
+                                        {t("custom_app_faq_a1")}
                                     </p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
-                                        {t("custom_appfaq_q2")}
+                                        {t("custom_app_faq_q2")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
                                     <p className="mt-2 text-zinc-700 dark:text-white">
-                                        {t("custom_appfaq_a2")}
+                                        {t("custom_app_faq_a2")}
                                     </p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
-                                        {t("custom_appfaq_q3")}
+                                        {t("custom_app_faq_q3")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
                                     <p className="mt-2 text-zinc-700 dark:text-white">
-                                        {t("custom_appfaq_a3")}
+                                        {t("custom_app_faq_a3")}
                                     </p>
                                 </details>
                             </div>
@@ -392,14 +392,14 @@ export default function CustomOrdersPage() {
                     <section className="scroll-mt-24">
                         <div
                             className="rounded-2xl border bg-gradient-to-r from-emerald-600 to-teal-600 dark:bg-zinc-700 p-6 shadow-sm dark:!text-white text-white">
-                            <h2 className="text-xl font-semibold">{t("custom_appcta_title")}</h2>
-                            <p className="text-emerald-50 mt-1">{t("custom_appcta_sub")}</p>
+                            <h2 className="text-xl font-semibold">{t("custom_app_cta_title")}</h2>
+                            <p className="text-emerald-50 mt-1">{t("custom_app_cta_sub")}</p>
                             <div className="mt-3 flex flex-wrap gap-2">
                                 <a
                                     href="/contacts"
                                     className="inline-flex items-center rounded-xl bg-white text-emerald-700 px-4 py-2 font-medium hover:bg-emerald-50"
                                 >
-                                    {t("custom_appcta_btn_contact")}
+                                    {t("custom_app_cta_btn_contact")}
                                 </a>
                                 <a
                                     href="#"
@@ -409,7 +409,7 @@ export default function CustomOrdersPage() {
                                     }}
                                     className="inline-flex items-center rounded-xl border border-white/70 px-4 py-2 font-medium hover:bg-white/10"
                                 >
-                                    {t("custom_appcta_btn_callback")}
+                                    {t("custom_app_cta_btn_callback")}
                                 </a>
                             </div>
                         </div>
@@ -424,7 +424,7 @@ export default function CustomOrdersPage() {
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Service",
-                        serviceType: t("custom_appseo_headline"),
+                        serviceType: t("custom_app_seo_headline"),
                         areaServed: ["MD", "RO", "UA"],
                         offers: {
                             "@type": "Offer",
