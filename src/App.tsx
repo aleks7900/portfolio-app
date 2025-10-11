@@ -1,7 +1,6 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {I18nProvider} from "./shared/i18n/i18n.tsx";
 import {ThemeProvider} from "./shared/theme/theme.tsx";
-import CatalogPage from "./pages/catalog/CatalogPage";
 import {AuthProvider} from "./shared/auth/auth.tsx";
 import {AdminRoute, ProtectedRoute} from "./shared/ProtectedRoute";
 import ProductsPrivate from "./pages/private/ProductsPrivate";
@@ -22,11 +21,11 @@ import VisitsPage from "./pages/private/VisitsPage.tsx";
 import ScrollToTop from "./ScrollToTop.tsx";
 import CallbackWidget from "./shared/widgets/CallbackWidget.tsx";
 import TechChatWidget from "./shared/widgets/TechChatWidget.tsx";
-import StainlessGuidePage from "./pages/StainlessGuidePage.tsx";
-import MetalCalcPage from "./pages/MetalCalcPage.tsx";
 import QualityGuaranteePage from "./pages/services/QualityGuaranteePage.tsx";
 import CustomOrdersPage from "./pages/services/CustomOrdersPage.tsx";
 import ConsultSpecialistsPage from "./pages/services/ConsultSpecialistsPage.tsx";
+import SpaPwaGuidePage from "./pages/services/SpaPwaGuidePage.tsx";
+import WebCostCalculatorPage from "./pages/services/WebCostCalculatorPage.tsx";
 
 
 export default function App() {
@@ -39,9 +38,9 @@ export default function App() {
                         // style={{ backgroundImage: "url('/src/assets/img/bg/bg_dark.png')" }}
                     >
                         <BrowserRouter>
-                            <PageEvents />
+                            <PageEvents/>
                             {/* Глобальный слушатель изменения маршрута */}
-                            <ScrollToTop />
+                            <ScrollToTop/>
                             <Navbar/>
                             <main id="app-scroll-root" className="pt-24 min-h-dvh overflow-y-auto">
                                 <Routes>
@@ -50,11 +49,8 @@ export default function App() {
                                     <Route path="/service" element={<ServicePage/>}/>
                                     <Route path="/contacts" element={<ContactsPage/>}/>
                                     <Route path="/about" element={<AboutPage/>}/>
-                                    <Route path="/guide" element={<StainlessGuidePage/>}/>
-                                    <Route path="/metal/calc" element={<MetalCalcPage/>}/>
-                                    <Route path="/catalog" element={<CatalogPage/>}/>
-                                    <Route path="/catalog/:category" element={<CatalogPage/>}/>
-                                    <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
+                                    <Route path="/guide" element={<SpaPwaGuidePage/>}/>
+                                    <Route path="/web/calc" element={<WebCostCalculatorPage/>}/>
                                     <Route path="/services/:slug" element={<ServicePages/>}/>
                                     <Route path="/services/quality-guarantee" element={<QualityGuaranteePage/>}/>
                                     <Route path="/services/custom-orders" element={<CustomOrdersPage/>}/>
@@ -115,8 +111,8 @@ export default function App() {
                             {/* Кнопки */}
                             <ScrollTopButton threshold={300} side="left"/>
                             <CallWidget viber="37360174654" whatsapp="37360174654" telegram="@rvsteel"/>
-                            <CallbackWidget />
-                            <TechChatWidget />
+                            <CallbackWidget/>
+                            <TechChatWidget/>
                         </BrowserRouter>
                     </div>
                 </AuthProvider>

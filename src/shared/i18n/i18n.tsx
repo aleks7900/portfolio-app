@@ -45,8 +45,6 @@ export const dict: Dictionary = {
             techchat_default_message: "Здравствуйте! Нужна консультация технолога. Страница: {{page}} ({{origin}}), время: {{when}}, TZ: {{tz}}",
             techchat_button_label: "Напишите технологу",
 
-            calc_badge: "Инструменты",
-            calc_title: "Калькулятор по нержавейке",
             calc_lead: "Быстрые расчёты массы и развёртки для AISI 304/316. Результаты носят ознакомительный характер — подтверждайте на образцах и согласовывайте параметры с производством.",
 
             calc_tab_sheet: "Масса листа",
@@ -258,7 +256,7 @@ export const dict: Dictionary = {
 
             guide_seo_headline: "Гид по нержавейке: 304 vs 316, шлифовки, уход, замеры",
 
-            footer_guide: "Гид по нержавейке",
+            footer_guide: "Гид по веб-разработке",
 
             laser_badge: "Лазерная резка нержавейки",
             laser_title: "Лазерная резка нержавеющей стали: возможности, дизайн-правила и подготовка файлов",
@@ -4024,9 +4022,278 @@ export const dict: Dictionary = {
 
             webapp_seo_headline: "Разработка веб-приложений React + Spring Boot",
             webapp_seo_description: "Создание современных веб-приложений, SPA, PWA и CRM-систем под ключ. Производительность, безопасность и масштабируемость для вашего бизнеса.",
-            webapp_seo_catalog: "Разработка веб-решений"
+            webapp_seo_catalog: "Разработка веб-решений",
+
+            spaguide_badge: "Гайд • React + Spring",
+            spaguide_title: "Гид по разработке SPA/PWA на React и Spring",
+            spaguide_intro: "Пошаговая структура для проектирования, разработки и внедрения современных SPA/PWA: от архитектуры и API до производительности, безопасности и деплоя.",
+
+            spaguide_toc_title: "Содержание",
+            spaguide_toc_intro: "Введение",
+            spaguide_toc_concepts: "Базовые понятия",
+            spaguide_toc_architecture: "Архитектура",
+            spaguide_toc_stack: "Стек технологий",
+            spaguide_toc_routing: "Маршрутизация",
+            spaguide_toc_state: "Состояние",
+            spaguide_toc_forms: "Формы",
+            spaguide_toc_auth: "Аутентификация",
+            spaguide_toc_api: "API и интеграции",
+            spaguide_toc_caching: "Кэширование",
+            spaguide_toc_pwa: "PWA возможности",
+            spaguide_toc_performance: "Производительность",
+            spaguide_toc_testing: "Тестирование",
+            spaguide_toc_cicd: "CI/CD",
+            spaguide_toc_security: "Безопасность",
+            spaguide_toc_i18n: "Локализация",
+            spaguide_toc_seo: "SEO",
+            spaguide_toc_a11y: "Доступность",
+            spaguide_toc_analytics: "Аналитика",
+            spaguide_toc_monitoring: "Мониторинг",
+            spaguide_toc_deployment: "Деплой",
+            spaguide_toc_faq: "FAQ",
+
+            spaguide_intro_bul1: "Понимание SPA/PWA и выбор архитектуры под требования бизнеса.",
+            spaguide_intro_bul2: "Единые код-стандарты, слои и границы между фронтом и бэком.",
+            spaguide_intro_bul3: "Фокус на DX (скорость разработки) и UX (скорость и удобство для пользователя).",
+            spaguide_intro_bul4: "Готовые практики по тестированию, безопасности и CI/CD.",
+
+            spaguide_concepts_title: "Базовые понятия",
+            spaguide_concept_spa: "SPA: приложение загружается один раз, дальнейшая навигация — без перезагрузки страницы.",
+            spaguide_concept_pwa: "PWA: офлайн-режим, установка на устройство, push-уведомления.",
+            spaguide_concept_ssr: "SSR: рендер на сервере для лучшего SEO/TTFB (опционально, совместимо с Spring MVC).",
+            spaguide_concept_isr: "ISR/SSG: частичная/статическая генерация для маркетинговых страниц.",
+            spaguide_concepts_note: "Выбирайте подход исходя из SEO, интерактивности и требований к индексации.",
+
+            spaguide_arch_title: "Архитектура",
+            spaguide_arch_front_title: "Front-end",
+            spaguide_arch_front_router: "Маршрутизация через React Router с lazy/Suspense.",
+            spaguide_arch_front_state: "Состояние: локальное (hooks) + глобальное (zustand/redux) + серверное (React Query).",
+            spaguide_arch_front_forms: "Формы: react-hook-form + схемы валидации (zod/yup).",
+            spaguide_arch_front_query: "Запросы: централизованный client, ретраи, отмена, кеш.",
+            spaguide_arch_back_title: "Back-end",
+            spaguide_arch_back_spring: "Spring Boot 3.x: Web, Data, Validation, Actuator.",
+            spaguide_arch_back_security: "Spring Security: JWT/OAuth2, роли/привилегии.",
+            spaguide_arch_back_docs: "OpenAPI/Swagger для документации и контракта.",
+            spaguide_arch_back_db: "PostgreSQL: миграции Liquibase/Flyway, индексы.",
+            spaguide_arch_tip_title: "Советы",
+            spaguide_arch_tip_1: "Держите доменную логику вне компонентов (чистая архитектура).",
+            spaguide_arch_tip_2: "Общие типы/DTO — в отдельном пакете, синхронизируйте с OpenAPI.",
+            spaguide_arch_tip_3: "Стандартизируйте ответы API и обработку ошибок.",
+
+            spaguide_stack_title: "Стек технологий",
+            spaguide_stack_p1: "Рекомендуемый стек и альтернативы для конкретных задач.",
+            spaguide_stack_front: "Front: React 19 + Vite + TypeScript + Tailwind CSS + React Router + React Query.",
+            spaguide_stack_back: "Back: Spring Boot 3.x (Java 17/21), Spring Data, Spring Security, MapStruct.",
+            spaguide_stack_db: "DB: PostgreSQL/Redis (кеш, очереди), S3-совместимое хранилище для файлов.",
+            spaguide_stack_devops: "DevOps: Docker Compose, Nginx, GitHub Actions, Sentry, Grafana/Prometheus.",
+            spaguide_stack_note: "Подбирайте стек под SLA и нагрузку; избегайте преждевременной усложненности.",
+
+            spaguide_routing_title: "Маршрутизация",
+            spaguide_routing_nested: "Вложенные маршруты, код-сплиттинг и guard-компоненты.",
+            spaguide_routing_loader: "Data loaders/предзагрузка и префетч критичных данных.",
+            spaguide_routing_error: "Единая страница ошибок и fallback на уровне маршрутов.",
+            spaguide_routing_access: "Route-based доступ по ролям (public/protected/admin).",
+            spaguide_routing_note: "Не перегружайте роуты логикой; оставляйте её в hooks/сервисах.",
+
+            spaguide_state_title: "Состояние",
+            spaguide_state_local: "Локальное: useState/useReducer для UI и мелких состояний.",
+            spaguide_state_global: "Глобальное: zustand/redux для кросс-страничных данных.",
+            spaguide_state_server: "Серверное: React Query для кэша, синхронизации и инвалидации.",
+            spaguide_state_note: "Выбирайте минимум инструментов для читаемости и скорости.",
+
+            spaguide_forms_title: "Формы",
+            spaguide_forms_validation: "Схемы валидации (zod/yup), сообщения об ошибках — из i18n.",
+            spaguide_forms_mask: "Маски/форматирование ввода (телефон, валюта).",
+            spaguide_forms_accessibility: "Лэйблы, aria-атрибуты, ошибки — доступные и понятные.",
+            spaguide_forms_note: "Единые UX-паттерны: подсветка ошибок, подсказки, автофокус.",
+
+            spaguide_auth_title: "Аутентификация и авторизация",
+            spaguide_auth_flow: "Логин/логаут/регистрация, подтверждение email/телефона.",
+            spaguide_auth_refresh: "Refresh токены, сессии, тайм-ауты, автоматическое продление.",
+            spaguide_auth_roles: "Роли/права: RBAC/ABAC, доступ к страницам и API.",
+            spaguide_auth_storage: "Безопасное хранение токенов (HttpOnly/списки denylist).",
+            spaguide_auth_note: "Минимизируйте поверхность атак: CORS, CSP, заголовки.",
+
+            spaguide_api_title: "API и интеграции",
+            spaguide_api_rest: "REST-ресурсы: чёткие URL, методы, статусы.",
+            spaguide_api_openapi: "OpenAPI: автогенерация DTO/клиентов.",
+            spaguide_api_validation: "Bean Validation + централизованный обработчик ошибок.",
+            spaguide_api_errors: "Единый формат ошибок (код, поле, сообщение, traceId).",
+            spaguide_api_rate: "Лимитирование запросов и защита от бурстов.",
+            spaguide_api_observability: "Логи/метрики/трейсы на каждом endpoint.",
+            spaguide_api_note: "Подписывайте версии API и планируйте депрекейты.",
+
+            spaguide_caching_title: "Кэширование",
+            spaguide_cache_rq: "Кэш на клиенте (React Query): staleTime, gcTime, ключи.",
+            spaguide_cache_sw: "Service Worker: офлайн-кэш критичных ресурсов.",
+            spaguide_cache_headers: "HTTP-заголовки: ETag, Cache-Control, Last-Modified.",
+            spaguide_caching_note: "Кэшируйте только стабильные данные; инвалидируйте корректно.",
+
+            spaguide_pwa_title: "PWA возможности",
+            spaguide_pwa_manifest: "Web App Manifest: иконки, цвета, режим standalone.",
+            spaguide_pwa_serviceworker: "Service Worker: стратегии кеширования (NetworkFirst, StaleWhileRevalidate).",
+            spaguide_pwa_offline: "Офлайн: страница-заглушка, синхронизация при возврате онлайна.",
+            spaguide_pwa_push: "Push/Notifications: разрешения, UX, фоллбэки.",
+            spaguide_pwa_note: "Проверяйте Lighthouse PWA-аудит и manifest-валидность.",
+
+            spaguide_performance_title: "Производительность",
+            spaguide_perf_code_split: "Код-сплиттинг и динамический импорт модулей.",
+            spaguide_perf_images: "Оптимизация изображений: форматы, размеры, lazy.",
+            spaguide_perf_cache: "HTTP/админ-кеши, CDN, prefetch/preload.",
+            spaguide_perf_streaming: "Stream/SSR для тяжёлых страниц (гибридный подход).",
+            spaguide_perf_lazy: "Lazy components и мемоизация (useMemo/useCallback).",
+            spaguide_perf_bundle: "Контроль бандла: анализатор, tree-shaking.",
+            spaguide_performance_note: "Ставьте целевые LCP/CLS/TTI и меряйте в проде.",
+
+            spaguide_testing_title: "Тестирование",
+            spaguide_test_unit: "Unit (Jest/Vitest, React Testing Library).",
+            spaguide_test_integration: "Интеграционные (Testcontainers, MockMVC).",
+            spaguide_test_e2e: "E2E (Playwright/Cypress) критичных сценариев.",
+            spaguide_testing_note: "Запускайте тесты в CI и держите зеленую ветку.",
+
+            spaguide_cicd_title: "CI/CD",
+            spaguide_cicd_build: "Сборка фронта/бэка, артефакты и докер-образы.",
+            spaguide_cicd_quality: "Линтеры/тайпчекинг/сканеры уязвимостей.",
+            spaguide_cicd_deploy: "Автодеплой с blue-green/rolling стратегиями.",
+            spaguide_cicd_note: "Храните секреты безопасно (OIDC/мастер-ключи).",
+
+            spaguide_security_title: "Безопасность",
+            spaguide_sec_https: "HTTPS везде: HSTS, редиректы, современный TLS.",
+            spaguide_sec_cors: "Строгие CORS-правила, только доверенные origin.",
+            spaguide_sec_csrf: "CSRF-защита для stateful-конфигураций.",
+            spaguide_sec_jwt: "JWT/OAuth2: короткий TTL, ротация, отзыв.",
+            spaguide_sec_owasp: "OWASP Top 10: регулярные проверки и обучение.",
+            spaguide_sec_logs: "Аудит/логирование доступа и критичных действий.",
+            spaguide_security_note: "Раз в квартал проводите security-review и пен-тесты.",
+
+            spaguide_i18n_title: "Локализация",
+            spaguide_i18n_struct: "Единые ключи/плейсхолдеры, падежи/множественное число.",
+            spaguide_i18n_interpolation: "Интерполяция переменных и форматов дат/валют.",
+            spaguide_i18n_seo: "SEO-мета/оглавление/хлебные крошки на каждом языке.",
+            spaguide_i18n_note: "Следите за длиной строк и переносами.",
+
+            spaguide_seo_title: "SEO",
+            spaguide_seo_meta: "Динамические title/description/og-теги.",
+            spaguide_seo_schema: "JSON-LD Schema.org для статей/услуг.",
+            spaguide_seo_breadcrumbs: "Хлебные крошки и sitemap.xml",
+            spaguide_seo_sitemap: "Автогенерация карт сайта и hreflang.",
+            spaguide_seo_note: "Проверяйте индексируемость и дубликаты.",
+
+            spaguide_a11y_title: "Доступность",
+            spaguide_a11y_keyboard: "Полная клавиатурная навигация, фокус-видимость.",
+            spaguide_a11y_aria: "ARIA-атрибуты и роли для сложных компонентов.",
+            spaguide_a11y_contrast: "Контраст и масштабирование шрифтов.",
+            spaguide_a11y_note: "Аудит через axe/Lighthouse и ручное тестирование.",
+
+            spaguide_analytics_title: "Аналитика",
+            spaguide_analytics_events: "События: клики, просмотры, отправки форм.",
+            spaguide_analytics_funnels: "Воронки/конверсии, атрибуция источников.",
+            spaguide_analytics_heatmaps: "Тепловые карты/сессии для UX-улучшений.",
+            spaguide_analytics_note: "GDPR/consent — обязательно уведомляйте.",
+
+            spaguide_monitoring_title: "Мониторинг",
+            spaguide_monitoring_logs: "Логи фронта/бэка, корреляция traceId.",
+            spaguide_monitoring_metrics: "Метрики производительности и ошибок.",
+            spaguide_monitoring_traces: "Трейсинг запросов через OpenTelemetry.",
+            spaguide_monitoring_note: "Настройте алерты по SLO/SLA.",
+
+            spaguide_deploy_title: "Деплой",
+            spaguide_deploy_container: "Docker/Compose/Kubernetes — среды и конфиги.",
+            spaguide_deploy_nginx: "Nginx: gzip/brotli, кеш, редиректы, headers.",
+            spaguide_deploy_cdn: "CDN/edge для статики и изображений.",
+            spaguide_deploy_note: "Катите релизы малыми партиями, с откатами.",
+
+            spaguide_faq_q1: "SPA или SSR — что выбрать?",
+            spaguide_faq_a1: "Если критичен SEO и первый контент — добавьте SSR/гибрид. Для внутренних панелей — чистый SPA.",
+            spaguide_faq_q2: "Нужен ли PWA всем?",
+            spaguide_faq_a2: "PWA полезен для офлайна/повторных визитов. Для B2B — по требованию.",
+            spaguide_faq_q3: "Как организовать монорепозиторий?",
+            spaguide_faq_a3: "Используйте pnpm workspaces/Gradle modules, реплики артефактов и чёткие границы.",
+
+            spaguide_cta_title: "Обсудим ваш проект?",
+            spaguide_cta_sub: "Поможем спланировать архитектуру и roadmap под ваши цели.",
+            spaguide_cta_btn_contact: "Связаться",
+            spaguide_cta_btn_callback: "Перезвоните мне",
+
+            spaguide_seo_headline: "Гид по разработке SPA/PWA на React и Spring",
+
+            calc_currency: "MDL",
+            calc_badge: "Калькулятор стоимости",
+            calc_title: "Разработка сайтов и веб‑приложений любой сложности — онлайн‑калькулятор",
+            calc_intro:
+                "Оцените ориентировочную стоимость проекта за 1–2 минуты. Итог не является офертой — финальную смету сформируем после уточнения требований.",
+            calc_toc_title: "Содержание",
+            calc_toc_config: "Параметры проекта",
+            calc_toc_price: "Оценка стоимости",
+            calc_toc_faq: "Вопросы и ответы",
 
 
+            calc_config_title: "Выберите параметры",
+            calc_field_project: "Тип проекта",
+            calc_project_landing: "Лендинг / промо‑страница",
+            calc_project_corporate: "Корпоративный сайт",
+            calc_project_ecommerce: "Интернет‑магазин",
+            calc_project_webapp: "Веб‑приложение (SPA/PWA)",
+            calc_help_project: "Это влияет на базовую ставку и коэффициенты сложности.",
+
+
+            calc_field_pages: "Количество уникальных страниц: {{count}}",
+            calc_help_pages:
+                "Считаем только уникальные макеты/экраны. Пагинация, корзина, профили — отдельные экраны.",
+
+
+            calc_field_design: "Уровень дизайна",
+            calc_design_basic: "Базовый",
+            calc_design_pro: "Профессиональный",
+            calc_design_brand: "Бренд‑гайд / кастом",
+            calc_help_design: "Продвинутый дизайн увеличивает трудоёмкость на 25–50%.",
+
+
+            calc_field_langs: "Количество языков: {{count}}",
+            calc_help_langs: "Каждый дополнительный язык — локализация контента и интерфейса.",
+
+
+            calc_field_auth: "Авторизация и личный кабинет",
+            calc_field_admin: "Панель администрирования",
+
+
+            calc_field_integrations: "Количество интеграций: {{count}}",
+            calc_help_integrations: "Платёжные системы, CRM, маркетплейсы, карты и т.д.",
+
+
+            calc_field_seo: "SEO пакет",
+            calc_seo_base: "Базовый (мета, карта сайта)",
+            calc_seo_extended: "Расширенный (schema.org, хлебные крошки)",
+            calc_seo_max: "Максимальный (кластеризация, контент‑план)",
+            calc_help_seo: "SEO влияет на структуру, контент и микроразметку.",
+
+
+            calc_field_perf: "Производительность (CDN, кеширование, оптимизация изображений)",
+
+
+            calc_field_support: "Техподдержка, часов/мес: {{count}}",
+            calc_help_support: "Пострелизное сопровождение и развитие продукта.",
+
+
+            calc_field_urgency: "Срочность проекта",
+            calc_urg_normal: "Обычный график",
+            calc_urg_fast: "Ускоренный",
+            calc_urg_rush: "Очень срочно",
+            calc_help_urgency: "Сжатые сроки увеличивают риски и нагрузку команды.",
+
+
+            calc_tips_title: "Как получить точную смету",
+            calc_tip_scope: "Опишите функциональные модули и пользовательские сценарии.",
+            calc_tip_integrations: "Перечислите внешние интеграции и провайдеров.",
+            calc_tip_languages: "Уточните языки и объёмы контента для локализации.",
+            calc_tip_timeline: "Сообщите желаемые сроки и ограничения по этапам.",
+
+
+            calc_price_title: "Оценка",
+            calc_price_min: "Минимум",
+            calc_price_est: "Оценка",
+            calc_price_max: "Максимум",
+            calc_seo_headline: "Калькулятор стоимости разработки сайтов и веб‑приложений",
         },
         ro: {
             brandLogo: "",
@@ -4230,8 +4497,6 @@ export const dict: Dictionary = {
             footer_about: "Despre noi",
             footer_contacts: "Contacte",
 
-            calc_badge: "Instrumente",
-            calc_title: "Calculator inox",
             calc_lead: "Calcule rapide de masă și desfășurare pentru AISI 304/316. Rezultatele sunt orientative — validați pe eșantioane și agreați parametrii cu producția.",
 
             calc_tab_sheet: "Masă tablă",
@@ -4443,7 +4708,7 @@ export const dict: Dictionary = {
 
             guide_seo_headline: "Ghid pentru inox: 304 vs 316, finisaje, întreținere, măsurători",
 
-            footer_guide: "Ghidul de inox",
+            footer_guide: "Ghidul de web-development",
 
             laser_badge: "Tăiere laser inox",
             laser_title: "Tăiere laser a oțelului inoxidabil: capabilități, reguli de proiectare și fișiere",
@@ -7154,7 +7419,303 @@ export const dict: Dictionary = {
 
             service_title_2: "Crearea de site-uri moderne, rapide și sigure pe baza React și Spring, aplicații web SPA și PWA la comandă și pentru întreprinderi mici și mijlocii",
             service_title_1: "Dezvoltarea de site-uri și aplicații web de orice complexitate, site-uri de prezentare, magazine online și landing page-uri",
-            hero_types_title: "Dezvoltarea aplicațiilor Android la comandă, pachet complet de servicii pentru găzduire și înregistrarea domeniului, completarea conținutului, suport și mentenanță"
+            hero_types_title: "Dezvoltarea aplicațiilor Android la comandă, pachet complet de servicii pentru găzduire și înregistrarea domeniului, completarea conținutului, suport și mentenanță",
+
+            spaguide_badge: "Ghid • React + Spring",
+            spaguide_title: "Ghid pentru dezvoltarea SPA/PWA în React și Spring",
+            spaguide_intro: "Structură pas cu pas pentru a proiecta, dezvolta și lansa SPA/PWA moderne: de la arhitectură și API la performanță, securitate și deploy.",
+
+            spaguide_toc_title: "Cuprins",
+            spaguide_toc_intro: "Introducere",
+            spaguide_toc_concepts: "Concepte de bază",
+            spaguide_toc_architecture: "Arhitectură",
+            spaguide_toc_stack: "Stack tehnologic",
+            spaguide_toc_routing: "Rutare",
+            spaguide_toc_state: "Stare",
+            spaguide_toc_forms: "Formulare",
+            spaguide_toc_auth: "Autentificare",
+            spaguide_toc_api: "API și integrări",
+            spaguide_toc_caching: "Cache",
+            spaguide_toc_pwa: "Capabilități PWA",
+            spaguide_toc_performance: "Performanță",
+            spaguide_toc_testing: "Testare",
+            spaguide_toc_cicd: "CI/CD",
+            spaguide_toc_security: "Securitate",
+            spaguide_toc_i18n: "Localizare",
+            spaguide_toc_seo: "SEO",
+            spaguide_toc_a11y: "Accesibilitate",
+            spaguide_toc_analytics: "Analitică",
+            spaguide_toc_monitoring: "Monitorizare",
+            spaguide_toc_deployment: "Deploy",
+            spaguide_toc_faq: "Întrebări frecvente",
+
+            spaguide_intro_bul1: "Înțelegerea SPA/PWA și alegerea arhitecturii potrivite.",
+            spaguide_intro_bul2: "Standardele de cod, straturi și granițe clare între front și back.",
+            spaguide_intro_bul3: "Focus pe DX și UX: viteză, claritate, consistență.",
+            spaguide_intro_bul4: "Practici pregătite pentru testare, securitate și CI/CD.",
+
+            spaguide_concepts_title: "Concepte de bază",
+            spaguide_concept_spa: "SPA: aplicația se încarcă o dată; navigare fără reîncărcarea paginii.",
+            spaguide_concept_pwa: "PWA: offline, instalare pe dispozitiv, notificări push.",
+            spaguide_concept_ssr: "SSR: randare pe server pentru SEO/TTFB mai bun (opțional, compatibil cu Spring MVC).",
+            spaguide_concept_isr: "ISR/SSG: generare statică/înrăită pentru pagini de marketing.",
+            spaguide_concepts_note: "Alegeți după SEO, interactivitate și cerințe de indexare.",
+
+            spaguide_arch_title: "Arhitectură",
+            spaguide_arch_front_title: "Front-end",
+            spaguide_arch_front_router: "Rutare cu React Router + lazy/Suspense.",
+            spaguide_arch_front_state: "Stare: locală + globală + de server (React Query).",
+            spaguide_arch_front_forms: "Formulare: react-hook-form + validare (zod/yup).",
+            spaguide_arch_front_query: "Client centralizat, retry/anulare, cache.",
+            spaguide_arch_back_title: "Back-end",
+            spaguide_arch_back_spring: "Spring Boot 3.x: Web, Data, Validation, Actuator.",
+            spaguide_arch_back_security: "Spring Security: JWT/OAuth2, roluri/permisiuni.",
+            spaguide_arch_back_docs: "OpenAPI/Swagger pentru documentație.",
+            spaguide_arch_back_db: "PostgreSQL: migrații Liquibase/Flyway, indexuri.",
+            spaguide_arch_tip_title: "Sfaturi",
+            spaguide_arch_tip_1: "Logica de domeniu în afara componentelor (arhitectură curată).",
+            spaguide_arch_tip_2: "Tipuri/DTO comune, sincronizate cu OpenAPI.",
+            spaguide_arch_tip_3: "Răspunsuri API și erori standardizate.",
+
+            spaguide_stack_title: "Stack tehnologic",
+            spaguide_stack_p1: "Stack recomandat și alternative în funcție de SLA și buget.",
+            spaguide_stack_front: "Front: React 19 + Vite + TypeScript + Tailwind CSS + React Router + React Query.",
+            spaguide_stack_back: "Back: Spring Boot 3.x (Java 17/21), Spring Data, Spring Security, MapStruct.",
+            spaguide_stack_db: "DB: PostgreSQL/Redis, stocare compatibilă S3 pentru fișiere.",
+            spaguide_stack_devops: "DevOps: Docker Compose, Nginx, GitHub Actions, Sentry, Grafana/Prometheus.",
+            spaguide_stack_note: "Evitați complexitatea timpurie; scalați progresiv.",
+
+            spaguide_routing_title: "Rutare",
+            spaguide_routing_nested: "Rute imbricate, code splitting, garduri de acces.",
+            spaguide_routing_loader: "Pre-încărcare date, prefetch pentru rute critice.",
+            spaguide_routing_error: "Pagini de eroare și fallback pe rute.",
+            spaguide_routing_access: "Acces pe roluri (public/protected/admin).",
+            spaguide_routing_note: "Nu încărcați rutele cu logică; folosiți hooks/servicii.",
+
+            spaguide_state_title: "Stare",
+            spaguide_state_local: "Local: useState/useReducer pentru UI mărunt.",
+            spaguide_state_global: "Global: zustand/redux pentru date cross-pagină.",
+            spaguide_state_server: "Server: React Query pentru cache și invalidare.",
+            spaguide_state_note: "Minimizați instrumentele pentru claritate.",
+
+            spaguide_forms_title: "Formulare",
+            spaguide_forms_validation: "Validare cu scheme (zod/yup), mesaje din i18n.",
+            spaguide_forms_mask: "Măști/formatare input (telefon, valută).",
+            spaguide_forms_accessibility: "Label-uri, aria, mesaje de eroare accesibile.",
+            spaguide_forms_note: "Tipare UX consistente: highlight, hint, autofocus.",
+
+            spaguide_auth_title: "Autentificare și autorizare",
+            spaguide_auth_flow: "Login/logout/înregistrare, confirmare email/telefon.",
+            spaguide_auth_refresh: "Refresh tokens, sesiuni, time-out și reînnoire.",
+            spaguide_auth_roles: "Roluri/drepturi: RBAC/ABAC, acces la pagini și API.",
+            spaguide_auth_storage: "Stocare sigură a token-urilor (HttpOnly/denylist).",
+            spaguide_auth_note: "Reduceți suprafața de atac: CORS, CSP, headere.",
+
+            spaguide_api_title: "API și integrări",
+            spaguide_api_rest: "Resurse REST: URL-uri clare, metode, statusuri.",
+            spaguide_api_openapi: "OpenAPI: generare automată de DTO/cli-enți.",
+            spaguide_api_validation: "Bean Validation + handler centralizat pentru erori.",
+            spaguide_api_errors: "Format unitar de erori (cod, câmp, mesaj, traceId).",
+            spaguide_api_rate: "Limitare de rată și protecție la rafale.",
+            spaguide_api_observability: "Loguri/metrice/tracing pe fiecare endpoint.",
+            spaguide_api_note: "Versionați API-urile și planificați deprecările.",
+
+            spaguide_caching_title: "Cache",
+            spaguide_cache_rq: "Cache pe client (React Query): staleTime, gcTime, chei.",
+            spaguide_cache_sw: "Service Worker: cache offline pentru resurse critice.",
+            spaguide_cache_headers: "Headere HTTP: ETag, Cache-Control, Last-Modified.",
+            spaguide_caching_note: "Cache doar pentru date stabile; invalidare corectă.",
+
+            spaguide_pwa_title: "Capabilități PWA",
+            spaguide_pwa_manifest: "Manifest: icon-uri, culori, mod standalone.",
+            spaguide_pwa_serviceworker: "Service Worker: strategii NetworkFirst/StaleWhileRevalidate.",
+            spaguide_pwa_offline: "Offline: pagină fallback, sincronizare la revenirea online.",
+            spaguide_pwa_push: "Push/Notificări: permisiuni, UX, fallback-uri.",
+            spaguide_pwa_note: "Verificați auditul Lighthouse PWA și manifestul.",
+
+            spaguide_performance_title: "Performanță",
+            spaguide_perf_code_split: "Code splitting și importuri dinamice.",
+            spaguide_perf_images: "Optimizarea imaginilor: formate, dimensiuni, lazy.",
+            spaguide_perf_cache: "HTTP/CDN cache, prefetch/preload.",
+            spaguide_perf_streaming: "Streaming/SSR pentru pagini grele (hibrid).",
+            spaguide_perf_lazy: "Lazy components și memoizare (useMemo/useCallback).",
+            spaguide_perf_bundle: "Controlul bundle-ului: analizor, tree-shaking.",
+            spaguide_performance_note: "Țintiți LCP/CLS/TTI și măsurați în producție.",
+
+            spaguide_testing_title: "Testare",
+            spaguide_test_unit: "Unit (Jest/Vitest, React Testing Library).",
+            spaguide_test_integration: "Integrare (Testcontainers, MockMVC).",
+            spaguide_test_e2e: "E2E (Playwright/Cypress) pentru scenarii critice.",
+            spaguide_testing_note: "Rulați testele în CI și mențineți main verde.",
+
+            spaguide_cicd_title: "CI/CD",
+            spaguide_cicd_build: "Build front/back, artefacte și imagini docker.",
+            spaguide_cicd_quality: "Lintere/typecheck/scannere de vulnerabilități.",
+            spaguide_cicd_deploy: "Autodeploy cu strategii blue-green/rolling.",
+            spaguide_cicd_note: "Păstrați secretele în siguranță (OIDC/chei master).",
+
+            spaguide_security_title: "Securitate",
+            spaguide_sec_https: "HTTPS peste tot: HSTS, redirect-uri, TLS modern.",
+            spaguide_sec_cors: "Reguli CORS stricte, doar origin de încredere.",
+            spaguide_sec_csrf: "Protecție CSRF pentru configurații stateful.",
+            spaguide_sec_jwt: "JWT/OAuth2: TTL scurt, rotație, revocare.",
+            spaguide_sec_owasp: "OWASP Top 10: verificări periodice și training.",
+            spaguide_sec_logs: "Audit/loguri pentru acces și acțiuni critice.",
+            spaguide_security_note: "Faceți security-review trimestrial și pen-testuri.",
+
+            spaguide_i18n_title: "Localizare",
+            spaguide_i18n_struct: "Chei/placeholder-e unitare, pluralizare corectă.",
+            spaguide_i18n_interpolation: "Interpolare de variabile, formate pentru dată/valută.",
+            spaguide_i18n_seo: "SEO meta/og/breadcrumbs pentru fiecare limbă.",
+            spaguide_i18n_note: "Verificați lungimea șirurilor și întreruperile.",
+
+            spaguide_seo_title: "SEO",
+            spaguide_seo_meta: "Titluri/descrieri dinamice, og/meta.",
+            spaguide_seo_schema: "JSON-LD Schema.org pentru articole/servicii.",
+            spaguide_seo_breadcrumbs: "Breadcrumbs și sitemap.xml",
+            spaguide_seo_sitemap: "Generare automată sitemap și hreflang.",
+            spaguide_seo_note: "Verificați indexabilitatea și duplicatele.",
+
+            spaguide_a11y_title: "Accesibilitate",
+            spaguide_a11y_keyboard: "Navigare completă din tastatură, focus vizibil.",
+            spaguide_a11y_aria: "Atribute și roluri ARIA pentru componente complexe.",
+            spaguide_a11y_contrast: "Contrast și scalarea fonturilor.",
+            spaguide_a11y_note: "Audit cu axe/Lighthouse + testare manuală.",
+
+            spaguide_analytics_title: "Analitică",
+            spaguide_analytics_events: "Evenimente: click-uri, vizualizări, submit-uri.",
+            spaguide_analytics_funnels: "Funnel-uri/conversii, atribuire surse.",
+            spaguide_analytics_heatmaps: "Hărți de căldură/sesiuni pentru UX.",
+            spaguide_analytics_note: "GDPR/consimțământ — informați utilizatorii.",
+
+            spaguide_monitoring_title: "Monitorizare",
+            spaguide_monitoring_logs: "Loguri front/back, corelare traceId.",
+            spaguide_monitoring_metrics: "Metrice de performanță și erori.",
+            spaguide_monitoring_traces: "Tracing cereri cu OpenTelemetry.",
+            spaguide_monitoring_note: "Configurați alerte pe SLO/SLA.",
+
+            spaguide_deploy_title: "Deploy",
+            spaguide_deploy_container: "Docker/Compose/Kubernetes — medii și config.",
+            spaguide_deploy_nginx: "Nginx: gzip/brotli, cache, redirect-uri, headere.",
+            spaguide_deploy_cdn: "CDN/edge pentru statică și imagini.",
+            spaguide_deploy_note: "Lansați incremental, cu mecanisme de rollback.",
+
+            spaguide_faq_q1: "SPA sau SSR — ce aleg?",
+            spaguide_faq_a1: "Dacă SEO și TTFB sunt critice, adăugați SSR/hibrid. Pentru panouri interne — SPA pur.",
+            spaguide_faq_q2: "Este PWA necesar tuturor?",
+            spaguide_faq_a2: "PWA e util pentru offline și reveniri frecvente. Pentru B2B — la nevoie.",
+            spaguide_faq_q3: "Cum organizăm un monorepo?",
+            spaguide_faq_a3: "pnpm workspaces/Gradle modules, replici artefacte, granițe clare.",
+
+            spaguide_cta_title: "Discutăm proiectul tău?",
+            spaguide_cta_sub: "Planificăm arhitectura și roadmap-ul potrivit obiectivelor tale.",
+            spaguide_cta_btn_contact: "Contactează-ne",
+            spaguide_cta_btn_callback: "Sună-mă",
+
+            spaguide_seo_headline: "Ghid pentru dezvoltarea SPA/PWA în React și Spring",
+
+
+            calc_currency: "MDL",
+            calc_badge: "Calculator de cost",
+            calc_title: "Dezvoltare site-uri și aplicații web de orice complexitate — calculator online",
+            calc_intro:
+                "Estimează costul aproximativ în 1–2 minute. Rezultatul nu este o ofertă — devizul final se stabilește după clarificarea cerințelor.",
+            calc_toc_title: "Cuprins",
+            calc_toc_config: "Parametri proiect",
+            calc_toc_price: "Estimare cost",
+            calc_toc_faq: "Întrebări și răspunsuri",
+
+
+            calc_config_title: "Alege parametrii",
+            calc_field_project: "Tip proiect",
+            calc_project_landing: "Landing / pagină promo",
+            calc_project_corporate: "Site corporativ",
+            calc_project_ecommerce: "Magazin online",
+            calc_project_webapp: "Aplicație web (SPA/PWA)",
+            calc_help_project: "Influențează tariful de bază și coeficienții de complexitate.",
+
+
+            calc_field_pages: "Număr de pagini unice: {{count}}",
+            calc_help_pages:
+                "Numărăm doar machetele/scenele unice. Paginare, coș, profil — ecrane separate.",
+
+
+            calc_field_design: "Nivel design",
+            calc_design_basic: "De bază",
+            calc_design_pro: "Profesional",
+            calc_design_brand: "Brand/Custom",
+            calc_help_design: "Designul avansat crește efortul cu 25–50%.",
+
+
+            calc_field_langs: "Număr de limbi: {{count}}",
+            calc_help_langs: "Fiecare limbă suplimentară înseamnă localizarea conținutului și a UI.",
+
+
+            calc_field_auth: "Autentificare și cont personal",
+            calc_field_admin: "Panou de administrare",
+
+
+            calc_field_integrations: "Număr de integrări: {{count}}",
+            calc_help_integrations: "Plăți, CRM, piețe online, hărți etc.",
+
+
+            calc_field_seo: "Pachet SEO",
+            calc_seo_base: "De bază (meta, sitemap)",
+            calc_seo_extended: "Extins (schema.org, breadcrumbs)",
+            calc_seo_max: "Maxim (clasterizare, plan de conținut)",
+            calc_help_seo: "SEO influențează structura, conținutul și microdatele.",
+
+
+            calc_field_perf: "Performanță (CDN, cache, optimizare imagini)",
+
+
+            calc_field_support: "Suport tehnic, ore/lună: {{count}}",
+            calc_help_support: "Întreținere post-lansare și dezvoltare continuă.",
+
+
+            calc_field_urgency: "Urgența proiectului",
+            calc_urg_normal: "Grafic normal",
+            calc_urg_fast: "Accelerat",
+            calc_urg_rush: "Foarte urgent",
+            calc_help_urgency: "Termenele scurte cresc riscurile și încărcarea echipei.",
+
+
+            calc_tips_title: "Cum obții un deviz precis",
+            calc_tip_scope: "Descrie modulele funcționale și scenariile utilizatorilor.",
+            calc_tip_integrations: "Enumeră integrările externe și furnizorii.",
+            calc_tip_languages: "Specifică limbile și volumele de conținut pentru localizare.",
+            calc_tip_timeline: "Comunică termenele dorite și constrângerile pe etape.",
+
+
+            calc_price_title: "Estimare",
+            calc_price_min: "Minim",
+            calc_price_est: "Estimare",
+            calc_price_max: "Maxim",
+            calc_price_note:
+                "Interval orientativ. Nu include integrări rare, algoritmi speciali sau UI complet unic.",
+            calc_btn_contact: "Discută proiectul",
+            calc_btn_callback: "Sunați-mă",
+
+
+            calc_faq_title: "Întrebări frecvente",
+            calc_faq_q1: "Ce influențează cel mai mult prețul?",
+            calc_faq_a1:
+                "Complexitatea funcțională (cont, integrări), volumul machetelor, designul unic, termenele și suportul.",
+            calc_faq_q2: "Se poate economisi?",
+            calc_faq_a2:
+                "Da — lansare pe etape (MVP), componente tipizate, simplificarea integrărilor, extindere treptată.",
+            calc_faq_q3: "Cum obțin un deviz fix?",
+            calc_faq_a3:
+                "Facem un interviu, fixăm cerințele (Scope of Work) și pregătim bugetul și planul detaliat.",
+
+
+            calc_cta_title: "Gata să discutăm detaliile?",
+            calc_cta_sub: "Trimite un scurt brief — revenim cu ofertă și termene.",
+            calc_cta_btn_contact: "Contactează-ne",
+            calc_cta_btn_callback: "Sunați-mă",
+
+
+            calc_seo_headline: "Calculator cost dezvoltare site-uri și aplicații web",
 
         }
     }
