@@ -114,7 +114,7 @@ export default function DesktopCatalog() {
     const itemVariants = {hidden: {opacity: 0, x: -6}, visible: {opacity: 1, x: 0}} as const;
 
     return (
-        <div className="relative z-50 !rounded-3xl">
+        <div className="relative z-50 rounded-2xl overflow-hidden isolate">
             {/* ЛОКАЛЬНЫЕ КАДРЫ АНИМАЦИИ ДЛЯ ПЕРЕЛИВАЮЩЕГОСЯ ГРАДИЕНТА */}
             <style>{`
         @keyframes rv-gradient-flow {
@@ -128,7 +128,6 @@ export default function DesktopCatalog() {
           50% { box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
         }
       `}</style>
-
             <button
                 ref={btnRef}
                 className="relative z-10 inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium no-underline focus:outline-none focus:ring-2 active:scale-[0.99]"
@@ -160,15 +159,15 @@ export default function DesktopCatalog() {
                 />
                 {/* Контент кнопки поверх */}
                 <span className="relative z-10 text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.45)]">
-          {t("nav_catalog")}
-        </span>
+                  {t("nav_catalog")}
+                </span>
                 <ChevronDown
                     className={`relative z-10 h-4 w-4 text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.45)] transition-transform ${open ? "rotate-180" : ""}`}/>
 
                 {/* Обводка + мягкое свечение на ховере */}
                 <span
                     aria-hidden
-                    className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/20"
+                    className="pointer-events-none absolute inset-0 rounded-2xl"
                 />
             </button>
 
@@ -236,9 +235,9 @@ export default function DesktopCatalog() {
                                                         whileHover={{x: 2}}
                                                         whileTap={{scale: 0.985}}
                                                     >
-                                                            <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
-                                                              {t(sub.labelKey)}
-                                                            </span>
+                            <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
+                              {t(sub.labelKey)}
+                            </span>
                                                         <ChevronRight className="h-4 w-4 shrink-0"/>
                                                     </motion.button>
                                                 ))}
