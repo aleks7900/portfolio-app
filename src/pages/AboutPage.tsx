@@ -1,9 +1,6 @@
 import {TransHTML, useI18n} from "../shared/i18n/i18n.tsx";
 import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 import Section from "./components/Section.tsx";
-import ImageWithFallback from "../data/ImageWithFallback.tsx";
-import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
-import img from '@/assets/img/24.jpg';
 import Container from "../shared/Container.tsx";
 import React from "react";
 
@@ -432,8 +429,6 @@ export default function AboutPage() {
             </div>
 
             <p className="text-2xl font-semibold mt-18">{t("contacts_map")}:</p>
-            <ImageWithFallback src={img} alt="" className="mt-10 h-full w-full object-contain"
-                               fallback={placeholderImg}></ImageWithFallback>
 
             {/* Раздел с картой */}
             <p className="text-2xl font-semibold mt-24">{t("contacts_maps")}:</p>

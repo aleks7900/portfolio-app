@@ -115,6 +115,8 @@
     --text-4xl--line-height: calc(2.5 / 2.25);
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -765,9 +767,6 @@
   }
   .min-h-6 {
     min-height: calc(var(--spacing) * 6);
-  }
-  .min-h-\[1rem\] {
-    min-height: 1rem;
   }
   .min-h-\[4rem\] {
     min-height: 4rem;
@@ -1744,6 +1743,9 @@
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
+  .p-28 {
+    padding: calc(var(--spacing) * 28);
+  }
   .px-1 {
     padding-inline: calc(var(--spacing) * 1);
   }
@@ -1764,6 +1766,9 @@
   }
   .px-8 {
     padding-inline: calc(var(--spacing) * 8);
+  }
+  .px-28 {
+    padding-inline: calc(var(--spacing) * 28);
   }
   .py-0 {
     padding-block: calc(var(--spacing) * 0);
@@ -1900,6 +1905,10 @@
   .text-5xl {
     font-size: var(--text-5xl);
     line-height: var(--tw-leading, var(--text-5xl--line-height));
+  }
+  .text-6xl {
+    font-size: var(--text-6xl);
+    line-height: var(--tw-leading, var(--text-6xl--line-height));
   }
   .text-base {
     font-size: var(--text-base);

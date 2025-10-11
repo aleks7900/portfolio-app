@@ -3,12 +3,14 @@ import "keen-slider/keen-slider.min.css";
 import {type KeenSliderPlugin, useKeenSlider} from "keen-slider/react";
 import {useTranslation} from "react-i18next";
 
-import slide1 from "../assets/img/slide1.png";
-import slide2 from "../assets/img/slide2.jpg";
-import slide3 from "../assets/img/slide3.png";
-import slide5 from "../assets/img/slide5.jpg";
-import slide6 from "../assets/img/slide6.jpg";
-import slide7 from "../assets/img/slide7.jpg";
+import slide1 from "../assets/img/site.jpg";
+import slide2 from "../assets/img/app.jpg";
+import slide3 from "../assets/img/web.png";
+import slide4 from "../assets/img/soft.png";
+import slide5 from "../assets/img/business.jpg";
+import slide6 from "../assets/img/android.png";
+import slide7 from "../assets/img/support.jpeg";
+import slide8 from "../assets/img/seo.jpg";
 
 /** Двухъязычный массив слайдов */
 const slides = [
@@ -16,7 +18,7 @@ const slides = [
         id: 1,
         img: slide1,
         translations: {
-            ru: {title: "Изделия из нержавеющей стали", text: "И не только"},
+            ru: {title: "Разработка сайтов и веб приложений любой сложности", text: "на React + Spring (Typescript + Java 17/21)"},
             ro: {title: "Produse din oțel inoxidabil", text: "Și multe altele"},
         },
     },
@@ -24,7 +26,7 @@ const slides = [
         id: 2,
         img: slide2,
         translations: {
-            ru: {title: "Индивидуальные заказы", text: "Работаем по индивидуальным заказам"},
+            ru: {title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам"},
             ro: {title: "Сomenzi individuale", text: "Lucrăm pe comenzi individuale"},
         },
     },
@@ -32,42 +34,50 @@ const slides = [
         id: 3,
         img: slide3,
         translations: {
-            ru: {title: "Лазерная резка", text: "На современном оборудовании"},
+            ru: {title: "Разработка SPA и PWA веб-приложений", text: "И не только"},
             ro: {title: "Tăiere cu laser", text: "Pe echipamente moderne"},
         },
     },
-    // {
-    //     id: 4,
-    //     img: slide8,
-    //     translations: {
-    //         ru: {title: "Выезд на замеры по всей Молдове", text: "Монтаж на объектах"},
-    //         ro: {title: "Deplasare pentru măsurători în toată Moldova", text: "Montaj la obiecte"},
-    //     },
-    // },
     {
         id: 4,
-        img: slide5,
+        img: slide4,
         translations: {
-            ru: {title: "Сварка всех типов соединений", text: "Сварка труб, столешниц, полок"},
+            ru: {title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям"},
             ro: {title: "Sudarea tuturor tipurilor de îmbinări", text: "Sudarea țevilor, blaturilor, rafturilor"},
         },
     },
     {
         id: 5,
-        img: slide6,
+        img: slide5,
         translations: {
-            ru: {title: "Слесарные работы", text: "Любая сложность работ"},
+            ru: {title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ"},
             ro: {title: "Lucrări de lăcătușerie", text: "Orice nivel de complexitate"},
         },
     },
     {
         id: 6,
-        img: slide7,
+        img: slide6,
         translations: {
-            ru: {title: "Гибка и вальцовка металла", text: "По требованиям заказчика"},
+            ru: {title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+"},
             ro: {title: "Îndoire și rulare a metalului", text: "Conform cerințelor clientului"},
         },
     },
+    {
+        id: 7,
+        img: slide7,
+        translations: {
+            ru: {title: "Сайты под ключ, полный пакет услуг по размещению и регистрации домена", text: "Полный комплекс поддержки"},
+            ro: {title: "Îndoire și rulare a metalului", text: "Conform cerințelor clientului"},
+        },
+    },
+    {
+        id: 8,
+        img: slide8,
+        translations: {
+            ru: {title: "Поддержка и сопровождение", text: "В течении года"},
+            ro: {title: "Îndoire și rulare a metalului", text: "Conform cerințelor clientului"},
+        },
+    }
 ];
 
 /** Плагин автоплей: 3–5 сек, пауза при hover и во время взаимодействий */
@@ -144,7 +154,7 @@ export default function Slideshow() {
                                 alt={t.title}
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
-                            <div className="relative z-0 text-center text-white px-4">
+                            <div className="relative z-0 text-center text-white px-28">
                                 <h2 className="text-5xl font-bold drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
                                     {t.title}
                                 </h2>

@@ -1,4 +1,3 @@
-import HomeSearch from "./home/HomeSearch.tsx";
 import Slideshow from "../shared/Slideshow.tsx";
 import {ADV} from "../data/data.ts";
 import Hero from "./components/Hero.tsx";
@@ -184,10 +183,6 @@ export default function MainPage() {
                 dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdBreadcrumbs)}}
             />
 
-
-            <div className="mt-12 min-h-[1rem]"></div>
-            {/* 🔎 Строка поиска над слайд-шоу */}
-            <HomeSearch/>
             <div className="mt-4"></div>
             {/* 🎞️ Твой слайдер (Keen-slider) */}
             <Slideshow/>

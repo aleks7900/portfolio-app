@@ -4,9 +4,6 @@ import {createRequest} from "../shared/api/requestsRepo.ts";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 import {API_BASE} from "../shared/api/api.ts";
-import ImageWithFallback from "../data/ImageWithFallback.tsx";
-import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
-import img from '@/assets/img/24.jpg';
 
 // Простейшие SVG-иконки (без внешних зависимостей)
 const Icon = {
@@ -472,8 +469,6 @@ export default function ContactsPage() {
                 </div>
 
                 <p className="text-2xl font-semibold mt-18">{t("contacts_map")}:</p>
-                <ImageWithFallback src={img} alt="" className="mt-10 h-full w-full object-contain"
-                                   fallback={placeholderImg}></ImageWithFallback>
 
                 {/* Карта и кнопка маршрута */}
                 <p className="text-2xl font-semibold mt-24">{t("contacts_maps")}:</p>
