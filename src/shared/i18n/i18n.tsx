@@ -7614,7 +7614,6 @@ export const dict: Dictionary = {
 
             spaguide_seo_headline: "Ghid pentru dezvoltarea SPA/PWA în React și Spring",
 
-
             calc_currency: "MDL",
             calc_badge: "Calculator de cost",
             calc_title: "Dezvoltare site-uri și aplicații web de orice complexitate — calculator online",
