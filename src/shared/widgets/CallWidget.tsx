@@ -57,30 +57,6 @@ export default function CallWidget({
                 </svg>
             ),
         },
-        {
-            key: "instagram",
-            href: "https://www.instagram.com/rvsteelengineering_20/",
-            bg: "bg-pink-500 hover:bg-pink-600",
-            label: "Instagram",
-            icon: (
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm4.25 4a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Zm5-2.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/>
-                </svg>
-            ),
-        },
-        {
-            key: "facebook",
-            href: "https://www.facebook.com/p/RV-Steel-Engineering-SRL-100063268326722/",
-            bg: "bg-blue-600 hover:bg-blue-700",
-            label: "Facebook",
-            icon: (
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-                    <path
-                        d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.1 3-3.1.9 0 1.8.2 1.8.2v2h-1c-1 0-1.3.6-1.3 1.2V12h2.2l-.4 3h-1.8v7A10 10 0 0 0 22 12Z"/>
-                </svg>
-            ),
-        },
     ];
 
     return createPortal(

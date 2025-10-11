@@ -66,8 +66,8 @@ export default function ContactsPage() {
     const pageUrl = `${origin}/contacts`;
     const siteName = t("seo_site_name") ?? "RVSteel";
     const orgName = t("seo_org_name") ?? "RVSteel";
-    const phone = "+37360174654";
-    const email = "engineeringrvsteel@gmail.com";
+    const phone = "+37379643129";
+    const email = "aleks7900@gmail.com";
     const street = t("street_address") || "Chișinău, strada Pădurii 21/1";
     const geo = {lat: 47.0207, lng: 28.8491}; // примерная точка Кишинёва; при желании подставьте точные координаты
     const sameAs = [
@@ -249,17 +249,10 @@ export default function ContactsPage() {
                 <div className="grid gap-10 lg:grid-cols-3">
                     {/* Левая колонка: адрес/тел/часы/почта + соцсети */}
                     <div>
-                        <h2 className="mb-6 text-2xl font-semibold">{t("contacts_company")}</h2>
-
                         <ul className="space-y-4 text-[15px] leading-relaxed">
                             <li className="flex items-start gap-3">
-                                <Icon.Pin className="mt-0.5 h-5 w-5"/>
-                                <span>{t("contacts_address")}</span>
-                            </li>
-                            <li className="flex items-start gap-3">
                                 <Icon.Phone className="mt-0.5 h-5 w-5"/>
-                                <a className="text-3xl font-semibold hover:underline" href="tel:+37360174654">+373 60
-                                    174654</a>
+                                <a className="text-3xl font-semibold hover:underline" href="tel:+37379643129">+373 79 643129</a>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Clock className="mt-0.5 h-5 w-5"/>
@@ -267,8 +260,8 @@ export default function ContactsPage() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Mail className="mt-0.5 h-5 w-5"/>
-                                <a className="hover:underline" href="mailto:engineeringrvsteel@gmail.com">
-                                    engineeringrvsteel@gmail.com
+                                <a className="hover:underline" href="mailto:aleks7900@gmail.com">
+                                    aleks7900@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -290,37 +283,6 @@ export default function ContactsPage() {
                                 >
                                     <Icon.Instagram className="h-5 w-5"/>
                                 </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Средняя колонка: реквизиты */}
-                    <div>
-                        <h3 className="mb-4 text-2xl font-semibold">{t("contacts_md_title")}</h3>
-                        <div className="space-y-2 text-[15px] leading-relaxed">
-                            <div className="font-semibold">{t("contacts_company")}</div>
-                            <div>
-                                <span
-                                    className="font-medium">{tf("contacts_md_legal_address_label", "Юридический адрес:")}</span>{" "}
-                                {tf("contacts_md_legal_address_value", "MD 2023, mun.Chisinau, Uzinelor 11/1")}
-                            </div>
-                            <div>
-                                <span
-                                    className="font-medium">{tf("contacts_md_fiscal_code_label", "Фискальный код:")}</span>{" "}
-                                {tf("contacts_md_fiscal_code_value", "1020600017959")}
-                            </div>
-                            <div>
-                                <span className="font-medium">{tf("contacts_md_vat_label", "НДС:")}</span>{" "}
-                                {tf("contacts_md_vat_value", "0611069")}
-                            </div>
-                            <div>{tf("contacts_md_bank_name", "BC \"MOLDOVA-AGROINDBANK\" S.A.")}</div>
-                            <div>
-                                <span className="font-medium">{tf("contacts_md_bic_label", "BIC:")}</span>{" "}
-                                {tf("contacts_md_bic_value", "AGRNMD2X710")}
-                            </div>
-                            <div>
-                                <span className="font-medium">{tf("contacts_md_iban_label", "IBAN:")}</span>{" "}
-                                {tf("contacts_md_iban_value", "MD65AG000000022513991091 (MDL)")}
                             </div>
                         </div>
                     </div>
