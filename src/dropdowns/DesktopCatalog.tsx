@@ -127,6 +127,10 @@ export default function DesktopCatalog() {
           0%,100% { box-shadow: 0 0 0 rgba(0,0,0,0); }
           50% { box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
         }
+        @keyframes rv-pulse {
+            0%, 100% { transform: scale(1.02); filter: brightness(1); }
+            50% { transform: scale(1.04); filter: brightness(1.2); }
+          }
       `}</style>
             <button
                 ref={btnRef}
@@ -143,7 +147,7 @@ export default function DesktopCatalog() {
                         background:
                             "linear-gradient(90deg, #60a5fa, #34d399, #f59e0b, #ef4444, #8b5cf6, #60a5fa)",
                         backgroundSize: "300% 300%",
-                        animation: "rv-gradient-flow 8s linear infinite",
+                        animation: "rv-gradient-flow 8s linear infinite, rv-pulse 2.5s ease-in-out infinite",
                         filter: "saturate(1.1)",
                     }}
                 />
