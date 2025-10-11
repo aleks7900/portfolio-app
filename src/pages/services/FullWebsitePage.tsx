@@ -58,11 +58,11 @@ export default function FullWebsitePage() {
                 <article className="lg:col-span-9 space-y-12">
                     {/* Intro */}
                     <section id="intro" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-3">
                                 {t("full_toc_intro")}
                             </h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("full_intro_bul1")}</li>
                                 <li>{t("full_intro_bul2")}</li>
                                 <li>{t("full_intro_bul3")}</li>
@@ -73,14 +73,14 @@ export default function FullWebsitePage() {
 
                     {/* Stages */}
                     <section id="stages" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("full_stages_title")}
                             </h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {[t("full_stage_idea"), t("full_stage_design"), t("full_stage_dev"), t("full_stage_launch")].map((s, i) => (
                                     <div key={i} className="rounded-xl border p-4">
-                                        <p className="text-zinc-700">{s}</p>
+                                        <p className="text-zinc-700 dark:!text-white">{s}</p>
                                     </div>
                                 ))}
                             </div>
@@ -89,12 +89,12 @@ export default function FullWebsitePage() {
 
                     {/* Domain */}
                     <section id="domain" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("full_domain_title")}
                             </h2>
-                            <p className="text-zinc-700 mb-3">{t("full_domain_p1")}</p>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("full_domain_p1")}</p>
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("full_domain_1")}</li>
                                 <li>{t("full_domain_2")}</li>
                                 <li>{t("full_domain_3")}</li>
@@ -104,11 +104,11 @@ export default function FullWebsitePage() {
 
                     {/* Hosting */}
                     <section id="hosting" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("full_hosting_title")}
                             </h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("full_hosting_1")}</li>
                                 <li>{t("full_hosting_2")}</li>
                                 <li>{t("full_hosting_3")}</li>
@@ -118,11 +118,11 @@ export default function FullWebsitePage() {
 
                     {/* SEO */}
                     <section id="seo" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("full_seo_title")}
                             </h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("full_seo_1")}</li>
                                 <li>{t("full_seo_2")}</li>
                                 <li>{t("full_seo_3")}</li>
@@ -133,11 +133,11 @@ export default function FullWebsitePage() {
 
                     {/* Support */}
                     <section id="support" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("full_support_title")}
                             </h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("full_support_1")}</li>
                                 <li>{t("full_support_2")}</li>
                                 <li>{t("full_support_3")}</li>
@@ -147,7 +147,7 @@ export default function FullWebsitePage() {
 
                     {/* FAQ */}
                     <section id="faq" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("full_toc_faq")}
                             </h2>
@@ -159,7 +159,7 @@ export default function FullWebsitePage() {
                       ▾
                     </span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("full_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("full_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
@@ -168,7 +168,7 @@ export default function FullWebsitePage() {
                       ▾
                     </span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("full_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("full_faq_a2")}</p>
                                 </details>
                             </div>
                         </div>

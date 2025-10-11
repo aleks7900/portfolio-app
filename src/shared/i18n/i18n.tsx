@@ -805,32 +805,6 @@ export const dict: Dictionary = {
 
             acid_seo_headline: "Обработка кислотой нержавейки — очистка, пассивация, защита от коррозии",
 
-            seo_main_title: "Изделия из нержавеющей стали от RVSteel – надёжность, качество и индивидуальный подход",
-            seo_main_intro: "Компания RVSteel предлагает широкий ассортимент изделий из нержавеющей стали для дома, бизнеса и промышленности. Мы изготавливаем как стандартные позиции, так и продукцию на заказ, учитывая все требования клиента. Наши изделия отличаются прочностью, долговечностью и современным дизайном, а благодаря использованию качественной стали AISI 304 и AISI 430 они сохраняют идеальный вид даже при интенсивной эксплуатации.",
-
-            seo_standard_title: "Стандартные решения",
-            seo_standard_item1: "Производственные мойки – одно- и двухсекционные, с сушкой или без.",
-            seo_standard_item2: "Столы и тумбы из нержавейки – технологические, с выдвижными ящиками и полками.",
-            seo_standard_item3: "Стеллажи и полки – оптимальное решение для складов, кафе и пищевых производств.",
-            seo_standard_item4: "Опорные поручни – для ванных комнат, санузлов и объектов с повышенными требованиями к безопасности.",
-            seo_standard_item5: "Подтоварники и корзины – для удобной организации пространства.",
-            seo_standard_note: "Каждая модель соответствует стандартам гигиены и эргономики, а также легко интегрируется в существующее оборудование.",
-
-            seo_custom_title: "Изделия на заказ",
-            seo_custom_item1: "Балюстрады и перила из нержавейки для частных домов, офисов и торговых центров.",
-            seo_custom_item2: "Мангалы, гриль и тандыры – для ресторанов, кафе и загородных участков.",
-            seo_custom_item3: "Каркасы, подставки и тележки – под конкретные размеры и задачи.",
-            seo_custom_item4: "Декоративные элементы и мебель из металла, которые подчеркнут стиль интерьера.",
-            seo_custom_note: "Мы разрабатываем чертежи, подбираем оптимальные материалы и гарантируем высокую точность изготовления.",
-
-            seo_advantages_title: "Почему выбирают нас",
-            seo_advantages_item1: "Собственное производство с современным оборудованием.",
-            seo_advantages_item2: "Индивидуальный подход к каждому заказу.",
-            seo_advantages_item3: "Качественные материалы, устойчивые к коррозии.",
-            seo_advantages_item4: "Доставка и монтаж по Молдове и Румынии.",
-
-            seo_closing: "RVSteel – это надёжный партнёр в области обработки металла. У нас вы можете заказать как готовые изделия, так и эксклюзивные проекты. Свяжитесь с нами, чтобы обсудить детали, и убедитесь в качестве нашей продукции.",
-
             fit_badge: "Слесарные работы",
             fit_title: "Слесарные работы по нержавейке",
             fit_intro: "Слесарные операции необходимы для подготовки, доработки и окончательной обработки изделий из нержавейки. Они обеспечивают точность размеров, чистоту поверхности и готовность деталей к дальнейшей сборке или установке.",
@@ -2360,10 +2334,10 @@ export const dict: Dictionary = {
             about_open_map: "Открыть маршрут в Google Maps",
 
             adv_quality_title: "Гарантия качества",
-            adv_quality_desc: "Мы гарантируем надёжность и долговечность всех наших изделий и услуг.",
+            adv_quality_desc: "Мы гарантируем надёжность и поддержку всех наших продуктов и услуг.",
 
             adv_custom_title: "Индивидуальные заказы",
-            adv_custom_desc: "Мы создаём проекты по индивидуальным чертежам и требованиям заказчика.",
+            adv_custom_desc: "Мы создаём проекты по индивидуальным требованиям заказчика.",
 
             adv_consult_title: "Консультации специалистов",
             adv_consult_desc: "Наши инженеры и мастера помогут подобрать оптимальные решения под ваши задачи.",
@@ -2497,7 +2471,7 @@ export const dict: Dictionary = {
 
             seo_site_name: "RVSteel — Нержавейка и металлоконструкции",
             seo_org_name: "RVSteel",
-            seo_phone: "+373 60 174654",
+            seo_phone: "+373 79 643129",
             seo_facebook: "",
             seo_instagram: "",
 
@@ -4339,6 +4313,31 @@ export const dict: Dictionary = {
             contacts_maps_t: "Мы на карте",
             open_in_maps: "Открыть маршрут в Google Maps",
             street_address_t: "str. Pădurii 21/1, Кишинёв",
+
+            seo_main_title: "Продвижение и SEO для разработки веб-приложений",
+            seo_main_intro: "Мы не просто создаем сайты и веб-приложения — мы делаем их видимыми, быстрыми и понятными для поисковых систем. Каждый проект сопровождается оптимизацией под SEO и маркетинг, чтобы привлечь именно вашу аудиторию.",
+
+            seo_standard_title: "Базовая SEO-оптимизация",
+            seo_standard_item1: "Настройка мета-тегов (title, description, keywords) под ключевые запросы",
+            seo_standard_item2: "Чистая структура URL и удобная карта сайта (sitemap.xml, robots.txt)",
+            seo_standard_item3: "Оптимизация скорости загрузки и Core Web Vitals",
+            seo_standard_item4: "Добавление структурированных данных (JSON-LD) для поисковых систем",
+            seo_standard_item5: "Адаптивная и корректная индексация контента для всех устройств",
+            seo_standard_note: "Эти работы входят в каждый проект — ваш сайт будет полностью готов к продвижению с первых дней запуска.",
+
+            seo_custom_title: "Продвинутая SEO и контент-маркетинг",
+            seo_custom_item1: "Разработка индивидуальной SEO-стратегии под нишу и регион",
+            seo_custom_item2: "Создание и публикация SEO-текстов и блог-разделов",
+            seo_custom_item3: "Внедрение аналитики (Google Analytics, Search Console, Яндекс.Метрика)",
+            seo_custom_item4: "Настройка локального SEO и интеграция с картами и каталогами",
+            seo_custom_note: "Мы помогаем продвигать не только сайт, но и ваш бренд, повышая конверсию и узнаваемость в сети.",
+
+            seo_advantages_title: "Наши преимущества",
+            seo_advantages_item1: "Работаем на современных фреймворках: React, TypeScript, Spring Boot",
+            seo_advantages_item2: "SEO-дружелюбная архитектура и SSR-рендеринг для мгновенной индексации",
+            seo_advantages_item3: "Автоматическая генерация метаданных и микроразметки для страниц",
+            seo_advantages_item4: "Поддержка многоязычности и региональной адаптации контента",
+            seo_closing: "Сайт должен работать не только технически, но и маркетингово. Мы обеспечиваем полную SEO-готовность и постоянное развитие вашего проекта.",
         },
         ro: {
             brandLogo: "",
@@ -5302,33 +5301,6 @@ export const dict: Dictionary = {
 
             acid_seo_headline: "Tratarea cu acid a inoxului — curățare, pasivare, protecție anticorozivă",
 
-            seo_main_title: "Produse din oțel inoxidabil de la RVSteel – fiabilitate, calitate și abordare individuală",
-            seo_main_intro: "Compania RVSteel oferă o gamă largă de produse din oțel inoxidabil pentru locuințe, afaceri și industrie. Fabricăm atât modele standard, cât și produse la comandă, ținând cont de toate cerințele clientului. Produsele noastre se disting prin rezistență, durabilitate și design modern, iar datorită utilizării oțelului de calitate AISI 304 și AISI 430 își păstrează aspectul impecabil chiar și în condiții de exploatare intensă.",
-
-            seo_standard_title: "Soluții standard",
-            seo_standard_item1: "Chiuvete profesionale – cu una sau două cuve, cu uscător sau fără.",
-            seo_standard_item2: "Mese și dulapuri din inox – de lucru, cu sertare și rafturi.",
-            seo_standard_item3: "Rafturi și etajere – soluția optimă pentru depozite, cafenele și producția alimentară.",
-            seo_standard_item4: "Bare de sprijin – pentru băi, toalete și obiective cu cerințe sporite de siguranță.",
-            seo_standard_item5: "Suporturi pentru marfă și coșuri – pentru organizarea eficientă a spațiului.",
-            seo_standard_note: "Fiecare model respectă standardele de igienă și ergonomie și se integrează ușor în echipamentele existente.",
-
-            seo_custom_title: "Produse la comandă",
-            seo_custom_item1: "Balustrade și mână curentă din inox pentru case private, birouri și centre comerciale.",
-            seo_custom_item2: "Grătare, barbeque și tandiruri – pentru restaurante, cafenele și curți private.",
-            seo_custom_item3: "Cadre, suporturi și cărucioare – realizate conform dimensiunilor și cerințelor clientului.",
-            seo_custom_item4: "Elemente decorative și mobilier metalic ce pun în valoare stilul interiorului.",
-            seo_custom_note: "Dezvoltăm schițe, alegem materialele optime și garantăm precizia ridicată a execuției.",
-
-            seo_advantages_title: "De ce să ne alegeți",
-            seo_advantages_item1: "Producție proprie cu echipamente moderne.",
-            seo_advantages_item2: "Abordare individuală pentru fiecare comandă.",
-            seo_advantages_item3: "Materiale de calitate, rezistente la coroziune.",
-            seo_advantages_item4: "Livrare și montaj pe teritoriul Moldovei și României.",
-
-            seo_closing: "RVSteel este partenerul dvs. de încredere în domeniul prelucrării metalelor. La noi puteți comanda atât produse standard, cât și proiecte exclusive. Contactați-ne pentru a discuta detaliile și convingeți-vă de calitatea produselor noastre.",
-
-
             fit_badge: "Lucrări de lăcătușerie",
             fit_title: "Lucrări de lăcătușerie din inox",
             fit_intro: "Operațiile de lăcătușerie sunt esențiale pentru pregătirea, ajustarea și finisarea produselor din inox. Ele asigură precizia dimensiunilor, calitatea suprafeței și pregătirea pieselor pentru asamblare sau montaj.",
@@ -5785,10 +5757,10 @@ export const dict: Dictionary = {
             about_open_map: "Deschide ruta în Google Maps",
 
             adv_quality_title: "Garanția calității",
-            adv_quality_desc: "Garantăm fiabilitatea și durabilitatea tuturor produselor și serviciilor noastre.",
+            adv_quality_desc: "Garantăm fiabilitatea și susținerea tuturor proiectelor și serviciilor noastre.",
 
             adv_custom_title: "Comenzi individuale",
-            adv_custom_desc: "Realizăm proiecte conform desenelor și cerințelor clientului.",
+            adv_custom_desc: "Realizăm proiecte conform cerințelor clientului.",
 
             adv_consult_title: "Consultanța specialiștilor",
             adv_consult_desc: "Inginerii și meșterii noștri vă ajută să alegeți soluții optime pentru proiectele dvs.",
@@ -5921,7 +5893,7 @@ export const dict: Dictionary = {
             users_hint: "Sugestie: filtrează după dată și șir de căutare. Sortează prin clic pe antet.",
             seo_site_name: "RVSteel — Oțel inox și construcții metalice",
             seo_org_name: "RVSteel",
-            seo_phone: "+373 60 174654",
+            seo_phone: "+373 79 643129",
             seo_facebook: "",
             seo_instagram: "",
 
@@ -5952,6 +5924,31 @@ export const dict: Dictionary = {
             seo_contacts_li3: "Producție, controlul calității, livrare și montaj",
             seo_contacts_h3: "Zona de deservire și montaj",
             seo_contacts_p2: "Efectuăm măsurări și montaj la obiect în Chișinău. Oferim garanție pentru lucrări și produse.",
+
+            seo_main_title: "Optimizare SEO și promovare pentru aplicații web",
+            seo_main_intro: "Nu doar creăm site-uri și aplicații web — le facem vizibile, rapide și prietenoase pentru motoarele de căutare. Fiecare proiect include optimizare SEO și marketing digital pentru a atrage publicul potrivit.",
+
+            seo_standard_title: "Optimizare SEO de bază",
+            seo_standard_item1: "Configurarea etichetelor meta (title, description, keywords) pe baza cuvintelor-cheie",
+            seo_standard_item2: "Structură clară de URL și sitemap (sitemap.xml, robots.txt)",
+            seo_standard_item3: "Optimizarea vitezei de încărcare și a indicatorilor Core Web Vitals",
+            seo_standard_item4: "Adăugarea datelor structurate (JSON-LD) pentru motoarele de căutare",
+            seo_standard_item5: "Indexare corectă și design responsive pentru toate dispozitivele",
+            seo_standard_note: "Aceste servicii sunt incluse în fiecare proiect — site-ul tău va fi pregătit pentru promovare încă de la lansare.",
+
+            seo_custom_title: "SEO avansat și marketing de conținut",
+            seo_custom_item1: "Strategie SEO personalizată pentru domeniul și regiunea ta",
+            seo_custom_item2: "Crearea și publicarea conținutului optimizat SEO (texte, bloguri)",
+            seo_custom_item3: "Integrarea analiticii (Google Analytics, Search Console, Yandex Metrica)",
+            seo_custom_item4: "Optimizare SEO locală și integrare cu hărți și directoare",
+            seo_custom_note: "Promovăm nu doar site-ul, ci și brandul tău — crescând vizibilitatea și conversiile online.",
+
+            seo_advantages_title: "Avantajele noastre",
+            seo_advantages_item1: "Lucrăm cu framework-uri moderne: React, TypeScript, Spring Boot",
+            seo_advantages_item2: "Arhitectură SEO-friendly și randare SSR pentru indexare instantanee",
+            seo_advantages_item3: "Generare automată de metadate și micro-marcare pentru pagini",
+            seo_advantages_item4: "Suport complet pentru conținut multilingv și adaptare regională",
+            seo_closing: "Un site bun nu trebuie doar să funcționeze tehnic, ci și să aducă rezultate. Asigurăm o pregătire SEO completă și dezvoltare continuă a proiectului tău.",
 
             viewed_history_title: "Produse vizualizate",
             viewed_history_clear: "Șterge",

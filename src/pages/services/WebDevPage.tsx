@@ -36,7 +36,7 @@ export default function WebDevPage() {
                 <nav className="lg:col-span-3 order-last lg:order-first">
                     <div className="sticky top-4 rounded-2xl border bg-white p-4 shadow-sm">
                         <h2 className="text-sm font-semibold text-zinc-700 mb-3">{t("webdev_toc_title")}</h2>
-                        <ul className="space-y-2 text-sm">
+                        <ul className="space-y-2 text-sm dark:!text-white">
                             {sections.map((s) => (
                                 <li key={s.id}>
                                     <a
@@ -55,10 +55,10 @@ export default function WebDevPage() {
                 <article className="lg:col-span-9 space-y-12">
                     {/* Intro */}
                     <section id="intro" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-3">{t("webdev_toc_intro")}</h2>
-                            <p className="text-zinc-700 mb-4">{t("webdev_intro_p1")}</p>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <p className="text-zinc-700 mb-4 dark:!text-white">{t("webdev_intro_p1")}</p>
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("webdev_intro_bul1")}</li>
                                 <li>{t("webdev_intro_bul2")}</li>
                                 <li>{t("webdev_intro_bul3")}</li>
@@ -68,11 +68,11 @@ export default function WebDevPage() {
 
                     {/* Advantages */}
                     <section id="advantages" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webdev_advantages_title")}</h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {[t("webdev_adv_speed"), t("webdev_adv_responsive"), t("webdev_adv_secure"), t("webdev_adv_seo")].map((a, i) => (
-                                    <div key={i} className="rounded-xl border p-4 text-zinc-700">
+                                    <div key={i} className="rounded-xl border p-4 text-zinc-700 dark:!text-white">
                                         {a}
                                     </div>
                                 ))}
@@ -83,10 +83,10 @@ export default function WebDevPage() {
 
                     {/* Technologies */}
                     <section id="technologies" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webdev_tech_title")}</h2>
-                            <p className="text-zinc-700 mb-3">{t("webdev_tech_intro")}</p>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("webdev_tech_intro")}</p>
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("webdev_tech_frontend")}</li>
                                 <li>{t("webdev_tech_backend")}</li>
                                 <li>{t("webdev_tech_db")}</li>
@@ -97,9 +97,9 @@ export default function WebDevPage() {
 
                     {/* Stages */}
                     <section id="stages" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webdev_stages_title")}</h2>
-                            <ol className="list-decimal pl-5 space-y-1 text-zinc-700">
+                            <ol className="list-decimal pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("webdev_stage_1")}</li>
                                 <li>{t("webdev_stage_2")}</li>
                                 <li>{t("webdev_stage_3")}</li>
@@ -111,10 +111,10 @@ export default function WebDevPage() {
 
                     {/* Optimization */}
                     <section id="optimization" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webdev_opt_title")}</h2>
-                            <p className="text-zinc-700 mb-3">{t("webdev_opt_intro")}</p>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("webdev_opt_intro")}</p>
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("webdev_opt_speed")}</li>
                                 <li>{t("webdev_opt_accessibility")}</li>
                                 <li>{t("webdev_opt_security")}</li>
@@ -125,7 +125,7 @@ export default function WebDevPage() {
 
                     {/* FAQ */}
                     <section id="faq" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webdev_toc_faq")}</h2>
                             <div className="space-y-4">
                                 <details className="group rounded-xl border p-4">
@@ -133,14 +133,14 @@ export default function WebDevPage() {
                                         {t("webdev_faq_q1")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("webdev_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("webdev_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex justify-between">
                                         {t("webdev_faq_q2")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("webdev_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("webdev_faq_a2")}</p>
                                 </details>
                             </div>
                         </div>

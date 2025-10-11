@@ -158,7 +158,7 @@ export default function ServicePage() {
 
             <Container>
                 <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
+                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 79 643129</p>
                 </div>
             </Container>
         </>

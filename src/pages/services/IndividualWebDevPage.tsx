@@ -60,11 +60,11 @@ export default function IndividualWebDevPage() {
                 <article className="lg:col-span-9 space-y-12">
                     {/* Intro */}
                     <section id="intro" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-3">
                                 {t("individual_toc_intro")}
                             </h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("individual_intro_bul1")}</li>
                                 <li>{t("individual_intro_bul2")}</li>
                                 <li>{t("individual_intro_bul3")}</li>
@@ -74,12 +74,12 @@ export default function IndividualWebDevPage() {
 
                     {/* Approach */}
                     <section id="approach" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("individual_approach_title")}
                             </h2>
-                            <p className="text-zinc-700 mb-3">{t("individual_approach_p1")}</p>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("individual_approach_p1")}</p>
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("individual_approach_1")}</li>
                                 <li>{t("individual_approach_2")}</li>
                                 <li>{t("individual_approach_3")}</li>
@@ -89,11 +89,11 @@ export default function IndividualWebDevPage() {
 
                     {/* Stages */}
                     <section id="stages" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">
                                 {t("individual_stages_title")}
                             </h2>
-                            <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="grid sm:grid-cols-2 gap-4 dark:!text-white">
                                 {[t("individual_stage_1"), t("individual_stage_2"), t("individual_stage_3"), t("individual_stage_4")].map((s, i) => (
                                     <div key={i} className="rounded-xl border p-4">
                                         {s}
@@ -105,10 +105,10 @@ export default function IndividualWebDevPage() {
 
                     {/* Technologies */}
                     <section id="tech" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("individual_tech_title")}</h2>
-                            <p className="text-zinc-700 mb-3">{t("individual_tech_p1")}</p>
-                            <ul className="list-disc pl-5 space-y-1">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("individual_tech_p1")}</p>
+                            <ul className="list-disc pl-5 space-y-1 dark:!text-white">
                                 <li>{t("individual_tech_front")}</li>
                                 <li>{t("individual_tech_back")}</li>
                                 <li>{t("individual_tech_db")}</li>
@@ -119,10 +119,10 @@ export default function IndividualWebDevPage() {
 
                     {/* Design */}
                     <section id="design" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("individual_design_title")}</h2>
-                            <p className="text-zinc-700 mb-3">{t("individual_design_p1")}</p>
-                            <ul className="list-disc pl-5 space-y-1">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("individual_design_p1")}</p>
+                            <ul className="list-disc pl-5 space-y-1 dark:!text-white">
                                 <li>{t("individual_design_ux")}</li>
                                 <li>{t("individual_design_ui")}</li>
                                 <li>{t("individual_design_brand")}</li>
@@ -132,9 +132,9 @@ export default function IndividualWebDevPage() {
 
                     {/* Integration */}
                     <section id="integration" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("individual_integration_title")}</h2>
-                            <ul className="list-disc pl-5 space-y-1">
+                            <ul className="list-disc pl-5 space-y-1 dark:!text-white">
                                 <li>{t("individual_integration_crm")}</li>
                                 <li>{t("individual_integration_payment")}</li>
                                 <li>{t("individual_integration_analytics")}</li>
@@ -145,10 +145,10 @@ export default function IndividualWebDevPage() {
 
                     {/* SEO */}
                     <section id="seo" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("individual_seo_title")}</h2>
-                            <p className="text-zinc-700 mb-3">{t("individual_seo_p1")}</p>
-                            <ul className="list-disc pl-5 space-y-1">
+                            <p className="text-zinc-700 mb-3 dark:!text-white">{t("individual_seo_p1")}</p>
+                            <ul className="list-disc pl-5 space-y-1 dark:!text-white">
                                 <li>{t("individual_seo_1")}</li>
                                 <li>{t("individual_seo_2")}</li>
                                 <li>{t("individual_seo_3")}</li>
@@ -158,9 +158,9 @@ export default function IndividualWebDevPage() {
 
                     {/* Pricing */}
                     <section id="pricing" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("individual_pricing_title")}</h2>
-                            <ul className="list-disc pl-5 space-y-1">
+                            <ul className="list-disc pl-5 space-y-1 dark:!text-white">
                                 <li>{t("individual_pricing_1")}</li>
                                 <li>{t("individual_pricing_2")}</li>
                                 <li>{t("individual_pricing_3")}</li>
@@ -171,7 +171,7 @@ export default function IndividualWebDevPage() {
 
                     {/* FAQ */}
                     <section id="faq" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("individual_toc_faq")}</h2>
                             <div className="space-y-4">
                                 <details className="group rounded-xl border p-4">
@@ -179,14 +179,14 @@ export default function IndividualWebDevPage() {
                                         {t("individual_faq_q1")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("individual_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("individual_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("individual_faq_q2")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("individual_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("individual_faq_a2")}</p>
                                 </details>
                             </div>
                         </div>

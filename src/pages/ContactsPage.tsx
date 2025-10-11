@@ -2,7 +2,6 @@ import React from "react";
 import Container from "../shared/Container";
 import {createRequest} from "../shared/api/requestsRepo.ts";
 import {useI18n} from "../shared/i18n/i18n.tsx";
-import MapEmbed from "../shared/widgets/MapEmbed.tsx";
 import {API_BASE} from "../shared/api/api.ts";
 
 // Простейшие SVG-иконки (без внешних зависимостей)
@@ -468,26 +467,8 @@ export default function ContactsPage() {
                     </div>
                 </div>
 
-                <p className="text-2xl font-semibold mt-18">{t("contacts_map")}:</p>
-
-                {/* Карта и кнопка маршрута */}
-                <p className="text-2xl font-semibold mt-24">{t("contacts_maps")}:</p>
-                <MapEmbed query="Chișinău, strada Pădurii 21/1" zoom={16}/>
-                <div className="mt-4 text-sm">
-                    <a
-                        href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-                            "Chișinău, strada Pădurii 21/1"
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center rounded-xl px-4 py-2 border hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
-                    >
-                        {t("contacts_route")}
-                    </a>
-                </div>
-
                 <div className="mt-8 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
+                    <p className="text-3xl w-full font-semibold text-right">+373 79 643129</p>
                 </div>
 
                 {/* JSON-LD без Helmet */}

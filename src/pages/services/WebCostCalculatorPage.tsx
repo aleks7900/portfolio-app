@@ -131,7 +131,7 @@ export default function WebCostCalculatorPage() {
                 <article className="lg:col-span-9 space-y-12">
                     {/* Configurator */}
                     <section id="config" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("calc_config_title")}</h2>
                             <div className="grid md:grid-cols-2 gap-5">
                                 {/* Тип проекта */}
@@ -174,7 +174,7 @@ export default function WebCostCalculatorPage() {
                                                 key={d}
                                                 onClick={() => setDesign(d)}
                                                 className={`px-3 py-2 rounded-xl border text-sm ${
-                                                    design === d ? "bg-emerald-600 text-white border-emerald-600" : "bg-white"
+                                                    design === d ? "!bg-emerald-600 !text-white !border-emerald-600" : "bg-white text-black"
                                                 }`}
                                             >
                                                 {t(`calc_design_${d}`)}
@@ -273,7 +273,7 @@ export default function WebCostCalculatorPage() {
                                                 key={u}
                                                 onClick={() => setUrgency(u)}
                                                 className={`px-3 py-2 rounded-xl border text-sm ${
-                                                    urgency === u ? "bg-emerald-600 text-white border-emerald-600" : "bg-white"
+                                                    urgency === u ? "!bg-emerald-600 !text-white !border-emerald-600" : "bg-white text-black"
                                                 }`}
                                             >
                                                 {t(`calc_urg_${u}`)}
@@ -299,7 +299,7 @@ export default function WebCostCalculatorPage() {
 
                     {/* Price */}
                     <section id="price" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("calc_price_title")}</h2>
                             <div className="grid md:grid-cols-3 gap-4 items-stretch">
                                 <div className="rounded-xl border p-4">
@@ -338,7 +338,7 @@ export default function WebCostCalculatorPage() {
 
                     {/* FAQ */}
                     <section id="faq" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("calc_faq_title")}</h2>
                             <div className="space-y-4">
                                 <details className="group rounded-xl border p-4">
@@ -346,21 +346,21 @@ export default function WebCostCalculatorPage() {
                                         {t("calc_faq_q1")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("calc_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("calc_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("calc_faq_q2")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("calc_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("calc_faq_a2")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("calc_faq_q3")}<span
                                         className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("calc_faq_a3")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("calc_faq_a3")}</p>
                                 </details>
                             </div>
                         </div>

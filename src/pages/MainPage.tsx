@@ -2,14 +2,11 @@ import Slideshow from "../shared/Slideshow.tsx";
 import {ADV} from "../data/data.ts";
 import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
-import FeaturedCategories from "./home/FeaturedCategories.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
-import {ProductsBlock} from "./home/PopularBlocks.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
 import {useEffect} from "react";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
-import {ViewedHistoryBlock} from "./home/ViewedHistoryBlock.tsx";
 
 export default function MainPage() {
 
@@ -855,8 +852,6 @@ export default function MainPage() {
                 "Чертеж R.V.PL. 8" = "Chertezh R.V.PL. 8"
             </div>
 
-            <FeaturedCategories/>
-
             <div className="hidden">
                 cat_custom_orders: "Изделия на заказ",
                 sub_balustrade_perila: "Балюстрады, перила",
@@ -946,66 +941,6 @@ export default function MainPage() {
                 out_of_stock: "nu este în stoc",
             </div>
 
-            <ViewedHistoryBlock/>
-
-            <ProductsBlock
-                title={t("popular_products")}
-                query={{page: 0, size: 8, sort: "price,desc"}}
-                seeAllLink="/catalog?sort=price,desc&page=0&size=12"
-            />
-
-            {/*<FeaturedRow title={t("sub_balustrade_perila")} category="custom_orders" subcategory="balustrade_perila"/>*/}
-
-            {/*<ProductsBlock*/}
-            {/*    title={t("sub_balustrade_perila")}*/}
-            {/*    query={{ page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "balustrade_perila" }}*/}
-            {/*    seeAllLink="/catalog?category=custom_orders&subcategory=balustrade_perila&sort=title,asc&page=0&size=12"*/}
-            {/*/>*/}
-
-            <ProductsBlock
-                title={t("sub_ladder")}
-                query={{page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "ladder"}}
-                seeAllLink="/catalog?category=custom_orders&subcategory=ladder&sort=title,asc&page=0&size=12"
-            />
-            <ProductsBlock
-                title={t("sub_caruciors")}
-                query={{page: 0, size: 8, sort: "title,asc", category: "custom_orders", subcategory: "caruciors"}}
-                seeAllLink="/catalog?category=custom_orders&subcategory=caruciors&sort=title,asc&page=0&size=12"
-            />
-            <ProductsBlock
-                title={t("sub_mangal_and_grill")}
-                query={{
-                    page: 0,
-                    size: 8,
-                    sort: "title,asc",
-                    category: "custom_orders",
-                    subcategory: "mangal_and_grill"
-                }}
-                seeAllLink="/catalog?category=custom_orders&subcategory=mangal_and_grill&sort=title,asc&page=0&size=12"
-            />
-            <ProductsBlock
-                title={t("sub_2_proizvodstvennye_stellazhy")}
-                query={{
-                    page: 0,
-                    size: 8,
-                    sort: "title,asc",
-                    category: "standard_products",
-                    subcategory: "2_proizvodstvennye_stellazhy"
-                }}
-                seeAllLink="/catalog?category=standard_products&subcategory=2_proizvodstvennye_stellazhy&sort=title,asc&page=0&size=12"
-            />
-            <ProductsBlock
-                title={t("sub_6_stoli_tumba_na_zakaz")}
-                query={{
-                    page: 0,
-                    size: 8,
-                    sort: "title,asc",
-                    category: "standard_products",
-                    subcategory: "6_stoli_tumba_na_zakaz"
-                }}
-                seeAllLink="/catalog?category=standard_products&subcategory=6_stoli_tumba_na_zakaz&sort=title,asc&page=0&size=12"
-            />
-
             {/* 🔽 SEO-текстовый блок */}
             <Section>
                 <h2 className="text-2xl font-bold mb-4">{t("seo_main_title")}</h2>
@@ -1053,7 +988,7 @@ export default function MainPage() {
 
             <Container>
                 <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 60 174654</p>
+                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 79 643129</p>
                 </div>
             </Container>
         </>

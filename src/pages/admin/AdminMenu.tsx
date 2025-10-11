@@ -30,7 +30,6 @@ export default function AdminMenu() {
             {open && (
                 <div className="absolute right-0 z-50 mt-2 w-56 rounded-2xl border bg-white p-2 shadow-xl
                         dark:border-white/10 dark:!bg-gray-800">
-                    <MenuItem to="/admin/products" label="admin_menu_produse" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/users" label="admin_menu_userii" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/requests" label="admin_menu_aplic" onClick={() => setOpen(false)}/>
                     <MenuItem to="/admin/analytics" label="admin_menu_analytics" onClick={() => setOpen(false)}/>

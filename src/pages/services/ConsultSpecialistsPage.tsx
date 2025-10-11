@@ -95,9 +95,9 @@ export default function ConsultSpecialistsPage() {
                 <article className="lg:col-span-9 space-y-12">
                     {/* Intro */}
                     <section id="intro" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-3">{t("webapp_toc_intro")}</h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("webapp_intro_bul1")}</li>
                                 <li>{t("webapp_intro_bul2")}</li>
                                 <li>{t("webapp_intro_bul3")}</li>
@@ -108,12 +108,12 @@ export default function ConsultSpecialistsPage() {
 
                     {/* Benefits */}
                     <section id="benefits" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_benefits_title")}</h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {benefitCards.map((k) => (
                                     <div key={k} className="rounded-xl border p-4">
-                                        <p className="text-zinc-700">{t(k)}</p>
+                                        <p className="text-zinc-700 dark:!text-white">{t(k)}</p>
                                     </div>
                                 ))}
                             </div>
@@ -123,7 +123,7 @@ export default function ConsultSpecialistsPage() {
 
                     {/* Features */}
                     <section id="features" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_features_title")}</h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {featureCards.map((k) => (
@@ -145,7 +145,7 @@ export default function ConsultSpecialistsPage() {
 
                     {/* Tech Stack */}
                     <section id="stack" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_stack_title")}</h2>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {stackCards.map((k) => (
@@ -160,9 +160,9 @@ export default function ConsultSpecialistsPage() {
 
                     {/* Process */}
                     <section id="process" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_process_title")}</h2>
-                            <ol className="list-decimal pl-5 space-y-1 text-zinc-700">
+                            <ol className="list-decimal pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 {processSteps.map((k) => (
                                     <li key={k}>{t(k)}</li>
                                 ))}
@@ -173,11 +173,11 @@ export default function ConsultSpecialistsPage() {
 
                     {/* Cases */}
                     <section id="cases" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_cases_title")}</h2>
                             <div className="overflow-x-auto">
                                 <table className="min-w-full text-sm border divide-y">
-                                    <thead className="bg-zinc-50">
+                                    <thead className="bg-zinc-50 text-black">
                                     <tr>
                                         <th className="text-left p-3">{t("webapp_tbl_case")}</th>
                                         <th className="text-left p-3">{t("webapp_tbl_problem")}</th>
@@ -208,20 +208,20 @@ export default function ConsultSpecialistsPage() {
 
                     {/* Pricing */}
                     <section id="pricing" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_pricing_title")}</h2>
-                            <ul className="list-disc pl-5 space-y-1 text-zinc-700">
+                            <ul className="list-disc pl-5 space-y-1 text-zinc-700 dark:!text-white">
                                 <li>{t("webapp_pricing_1")}</li>
                                 <li>{t("webapp_pricing_2")}</li>
                                 <li>{t("webapp_pricing_3")}</li>
                             </ul>
-                            <p className="text-sm text-zinc-600 mt-3">{t("webapp_pricing_note")}</p>
+                            <p className="text-sm text-zinc-600 mt-3 ">{t("webapp_pricing_note")}</p>
                         </div>
                     </section>
 
                     {/* FAQ */}
                     <section id="faq" className="scroll-mt-24">
-                        <div className="rounded-2xl border bg-white p-6 shadow-sm">
+                        <div className="rounded-2xl border bg-white p-6 shadow-sm dark:bg-zinc-700 dark:!text-white">
                             <h2 className="text-xl font-semibold mb-4">{t("webapp_toc_faq")}</h2>
                             <div className="space-y-4">
                                 <details className="group rounded-xl border p-4">
@@ -229,21 +229,21 @@ export default function ConsultSpecialistsPage() {
                                         {t("webapp_faq_q1")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("webapp_faq_a1")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("webapp_faq_a1")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("webapp_faq_q2")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("webapp_faq_a2")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("webapp_faq_a2")}</p>
                                 </details>
                                 <details className="group rounded-xl border p-4">
                                     <summary className="cursor-pointer font-medium flex items-center justify-between">
                                         {t("webapp_faq_q3")}
                                         <span className="ml-3 text-zinc-400 group-open:rotate-180 transition">▾</span>
                                     </summary>
-                                    <p className="mt-2 text-zinc-700">{t("webapp_faq_a3")}</p>
+                                    <p className="mt-2 text-zinc-700 dark:!text-white">{t("webapp_faq_a3")}</p>
                                 </details>
                             </div>
                         </div>
