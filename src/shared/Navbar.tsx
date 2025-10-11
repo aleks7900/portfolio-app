@@ -25,8 +25,8 @@ import LoginDialog from "../pages/modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
 import {useTranslation} from "react-i18next";
-import logoImg from '@/assets/logo.png';
-import logoDImg from '@/assets/logo_dark.png';
+import logoImg from '@/assets/alex-lab-logo.png';
+import logoDImg from '@/assets/alex-lab-logo-dark.png';
 
 
 function LangToggle() {
@@ -216,12 +216,12 @@ export default function Navbar() {
                         <img
                             src={logoImg}    // путь к твоей картинке
                             alt="Logo"
-                            className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo block dark:!hidden"
+                            className="w-52 min-w-[4rem] min-h-[4rem] object-cover logo block dark:!hidden"
                         />
                         <img
                             src={logoDImg}     // путь к твоей картинке
                             alt="Logo"
-                            className="w-36 min-w-[4rem] min-h-[4rem] object-cover logo hidden dark:!block"
+                            className="w-52 min-w-[4rem] min-h-[4rem] object-cover logo hidden dark:!block"
                         />
                         <span className="text-lg">{t("brandLogo")}</span>
                     </a>

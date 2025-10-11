@@ -127,6 +127,17 @@ export default function DesktopCatalog() {
           0%,100% { box-shadow: 0 0 0 rgba(0,0,0,0); }
           50% { box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
         }
+        /* === Patch: portal gradient animation (no opacity) === */
+        @keyframes portal-tw-gradient {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+         }
+         /* Optional: adds a slight shimmer in dark mode to mimic metal reflection */
+        @keyframes portal-metal-shimmer {
+          0%, 100% { filter: brightness(1); }
+          50% { filter: brightness(1.15) contrast(1.05); }
+        }
         @keyframes rv-pulse {
             0%, 100% { transform: scale(1.02); filter: brightness(1); }
             50% { transform: scale(1.04); filter: brightness(1.2); }
@@ -196,12 +207,24 @@ export default function DesktopCatalog() {
                         {open && menuStyle && (
                             <motion.div
                                 key="catalog-sheet"
-                                style={menuStyle}
+                                /* === Patch: animated Tailwind gradient with metallic dark mode === */
+                                style={{
+                                    ...menuStyle,
+                                    backgroundSize: "250% 250%",
+                                    animation:
+                                        "portal-tw-gradient 6s ease-in-out infinite, portal-metal-shimmer 3s ease-in-out infinite",
+                                }}
+                                className="rounded-2xl border p-4 pr-5 overscroll-contain
+                                         bg-gradient-to-br from-slate-300 via-white to-slate-500
+                                         dark:bg-gradient-to-br dark:from-slate-800 dark:via-gray-700 dark:to-blue-900
+                                         drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)]
+                                         dark:drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)]
+                                         dark:border-white/10"
                                 initial="hidden"
                                 animate="visible"
                                 exit="exit"
                                 variants={sheetVariants}
-                                className="rounded-2xl border bg-white p-4 pr-5 drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] dark:bg-gray-800 dark:border-white/10 overscroll-contain"
+
                                 role="menu"
                             >
                                 {/* GRID вместо flex-wrap */}
