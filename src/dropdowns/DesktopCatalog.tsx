@@ -173,11 +173,11 @@ export default function DesktopCatalog() {
                     }}
                 />
                 {/* Контент кнопки поверх */}
-                <span className="relative z-10 text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.45)]">
+                <span className="relative z-10 text-black drop-shadow-[0_1px_0_rgba(0,0,0,0.45)]">
                   {t("nav_catalog")}
                 </span>
                 <ChevronDown
-                    className={`relative z-10 h-4 w-4 text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.45)] transition-transform ${open ? "rotate-180" : ""}`}/>
+                    className={`relative z-10 h-4 w-4 text-black drop-shadow-[0_1px_0_rgba(0,0,0,0.45)] transition-transform ${open ? "rotate-180" : ""}`}/>
 
                 {/* Обводка + мягкое свечение на ховере */}
                 <span

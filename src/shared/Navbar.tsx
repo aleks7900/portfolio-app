@@ -28,6 +28,24 @@ import {useTranslation} from "react-i18next";
 import logoImg from '@/assets/alex-lab-logo.png';
 import logoDImg from '@/assets/alex-lab-logo-dark.png';
 
+const navbarGradient = `
+  /* Light/Dark palettes via CSS variable */
+  :root {
+    /* light: blue → violet → pink → amber (loop) */
+    --nbg: linear-gradient(120deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #3b82f6);
+  }
+  /* when .dark is present on html/body container */
+  .dark, .dark :root {
+    /* dark: cyan → deep blue → purple → slate (loop) */
+    --nbg: linear-gradient(120deg, #0ea5e9, #1e3a8a, #4c1d95, #0f172a, #0ea5e9);
+  }
+  @keyframes navbar-glow-flow {
+    0% { background-position: 0% 50%; filter: brightness(1); }
+    50% { background-position: 100% 50%; filter: brightness(1.2); }
+    100% { background-position: 0% 50%; filter: brightness(1); }
+  }
+`;
+
 
 function LangToggle() {
     const {setLang} = useI18n();
@@ -69,33 +87,6 @@ function ThemeToggleBtn() {
         </button>
     );
 }
-
-// Вариант «металла» для шапки: 'brushed' | 'perforated' | 'rivets'
-type MetalVariant = "brushed" | "perforated" | "rivets";
-
-const METAL_VARIANT: MetalVariant = "brushed";
-
-const metalPatternByVariant: Record<MetalVariant, string> = {
-    brushed: [
-        // полосы шлифовки
-        "before:bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.08)_0px,rgba(255,255,255,0.08)_6px,rgba(0,0,0,0.08)_6px,rgba(0,0,0,0.08)_12px)]",
-        // затемнение края
-        "before:bg-[linear-gradient(to_right,transparent,rgba(0,0,0,0.4))]",
-        "before:bg-blend-overlay",
-        "before:opacity-90",
-    ].join(" "),
-    perforated: [
-        "before:bg-[radial-gradient(circle,rgba(0,0,0,0.7)_1.2px,transparent_1.4px)]",
-        "before:bg-[length:14px_14px]",
-        "before:opacity-60",
-    ].join(" "),
-    rivets: [
-        "before:bg-[radial-gradient(circle,rgba(255,255,255,0.35)_2px,transparent_2.4px)]",
-        "before:bg-[length:48px_48px]",
-        "before:bg-[position:12px_12px]",
-        "before:opacity-70",
-    ].join(" "),
-} as const;
 
 // Крупная непрозрачная кнопка: чёрный текст, на ховере тёмно-серая + большая тень
 const BTN =
@@ -189,19 +180,34 @@ export default function Navbar() {
 
     return (
         <header
-            className={[
-                "fixed inset-x-0 top-0 z-[9999] isolate",                      // ← isolate создаёт свой стек
-                "supports-[backdrop-filter]:backdrop-blur-md",
-                "border-b border-white/10 dark:border-white/10",
-                "bg-transparent dark:bg-transparent",
-                "before:content-[''] before:absolute before:inset-0 before:z-0", // ← под контент
-                "after:content-['']  after:absolute  after:inset-0  after:z-0",
-                "after:bg-[linear-gradient(145deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.02)_35%,rgba(0,0,0,0.20)_100%)] after:opacity-85",
-                "before:pointer-events-none after:pointer-events-none",
-                metalPatternByVariant[METAL_VARIANT],
-            ].join(" ")}
-            style={{boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.08), 0 8px 30px rgba(0,0,0,0.25)"}}
-        >
+            className="fixed inset-x-0 top-0 z-[9999] isolate supports-[backdrop-filter]:backdrop-blur-md
+                        border-b border-white/10 dark:border-white/10 before:content-[''] before:absolute before:inset-0 before:z-0
+                        after:content-[''] after:absolute after:inset-0 after:z-0 before:pointer-events-none after:pointer-events-none"
+            style={{
+                // 1) Статичный деликатный узор (очень маленькие альфы)
+                // 2) Белый и серый overlay-слои для «приглушения»
+                // 3) Живой градиент (движется только последний слой)
+                backgroundImage: [
+                    'radial-gradient(circle at 12% 22%, rgba(255,255,255,0.35) 0%, transparent 22%)',
+                    'radial-gradient(circle at 88% 78%, rgba(255,255,255,0.3) 0%, transparent 18%)',
+                    'repeating-linear-gradient(45deg, rgba(255,255,255,0.25) 0, rgba(255,255,255,0.025) 100px, transparent 2px, transparent 10px)',
+                    'linear-gradient(0deg, rgba(255,255,255, var(--nbg-overlay)), rgba(255,255,255, var(--nbg-overlay)))',
+                    'linear-gradient(0deg, rgba(128,128,128, var(--nbg-gray)), rgba(128,128,128, var(--nbg-gray)))',
+                    'var(--nbg)',
+                ].join(', '),
+                // размеры для каждого слоя: паттерн — авто; градиент — растянут и анимируется
+                backgroundSize: ['auto', 'auto', 'auto', 'auto', 'auto', '300% 300%',
+                ].join(', '),
+                // закрепляем узор, двигаем только нижний градиент
+                backgroundPosition: ['0% 0%', '0% 0%', '0% 0%', '0% 0%', '0% 0%', '0% 50%',
+                ].join(', '),
+                backgroundBlendMode: ['overlay','overlay','overlay','normal','normal','normal'].join(', '),
+                animation: 'navbar-glow-flow 12s ease-in-out infinite',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                boxShadow: 'inset 0 -1px 0 rgba(255,255,255,0.08), 0 6px 24px rgba(0,0,0,0.22)',
+            }}>
+            <style>{navbarGradient}</style>
             <Container>
                 <div className="relative z-10 flex h-36 items-center justify-between">
                     <a
