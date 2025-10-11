@@ -18,64 +18,64 @@ const slides = [
         id: 1,
         img: slide1,
         translations: {
-            ru: {title: "Разработка сайтов и веб приложений любой сложности", text: "на React + Spring (Typescript + Java 17/21)"},
-            ro: {title: "Produse din oțel inoxidabil", text: "Și multe altele"},
+            ru: { title: "Разработка сайтов и веб приложений любой сложности", text: "на React + Spring (Typescript + Java 17/21)" },
+            ro: { title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate", text: "pe React + Spring (TypeScript + Java 17/21)" },
         },
     },
     {
         id: 2,
         img: slide2,
         translations: {
-            ru: {title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам"},
-            ro: {title: "Сomenzi individuale", text: "Lucrăm pe comenzi individuale"},
+            ru: { title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам" },
+            ro: { title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale" },
         },
     },
     {
         id: 3,
         img: slide3,
         translations: {
-            ru: {title: "Разработка SPA и PWA веб-приложений", text: "И не только"},
-            ro: {title: "Tăiere cu laser", text: "Pe echipamente moderne"},
+            ru: { title: "Разработка SPA и PWA веб-приложений", text: "И не только" },
+            ro: { title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele" },
         },
     },
     {
         id: 4,
         img: slide4,
         translations: {
-            ru: {title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям"},
-            ro: {title: "Sudarea tuturor tipurilor de îmbinări", text: "Sudarea țevilor, blaturilor, rafturilor"},
+            ru: { title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям" },
+            ro: { title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră" },
         },
     },
     {
         id: 5,
         img: slide5,
         translations: {
-            ru: {title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ"},
-            ro: {title: "Lucrări de lăcătușerie", text: "Orice nivel de complexitate"},
+            ru: { title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ" },
+            ro: { title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate" },
         },
     },
     {
         id: 6,
         img: slide6,
         translations: {
-            ru: {title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+"},
-            ro: {title: "Îndoire și rulare a metalului", text: "Conform cerințelor clientului"},
+            ru: { title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+" },
+            ro: { title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+" },
         },
     },
     {
         id: 7,
         img: slide7,
         translations: {
-            ru: {title: "Сайты под ключ, полный пакет услуг по размещению и регистрации домена", text: "Полный комплекс поддержки"},
-            ro: {title: "Îndoire și rulare a metalului", text: "Conform cerințelor clientului"},
+            ru: { title: "Сайты под ключ, полный пакет услуг по размещению и регистрации домена", text: "Полный комплекс поддержки" },
+            ro: { title: "Site-uri la cheie, pachet complet de servicii pentru găzduire și domeniu", text: "Suport complet și întreținere" },
         },
     },
     {
         id: 8,
         img: slide8,
         translations: {
-            ru: {title: "Поддержка и сопровождение", text: "В течении года"},
-            ro: {title: "Îndoire și rulare a metalului", text: "Conform cerințelor clientului"},
+            ru: { title: "Поддержка и сопровождение", text: "В течении года" },
+            ro: { title: "Suport și mentenanță", text: "Pe parcursul unui an" },
         },
     }
 ];
