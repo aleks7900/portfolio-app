@@ -5,29 +5,19 @@ export const SERVICE_PAGE_MAP: Record<
     string,
     React.LazyExoticComponent<React.ComponentType<any>>
 > = {
-    "laser-cutting": lazy(() => import("./LaserCutStainlessPage.tsx")),
-    "design-engineering": lazy(() => import("./DesignStainlessPage.tsx")),
-    "bending": lazy(() => import("./BendStainlessPage.tsx")),
-    "rolling": lazy(() => import("./RollStainlessPage.tsx")),
+    "web": lazy(() => import("./WebDevServicesPage.tsx")),
+    "spa": lazy(() => import("./SpaPwaDevPage.tsx")),
+    "individual": lazy(() => import("./IndividualWebDevPage.tsx")),
+    "business": lazy(() => import("./BusinessWebDevPage.tsx")),
+    "site": lazy(() => import("./WebDevPage.tsx")),
+    "visit": lazy(() => import("./WebVCardPage.tsx")),
+    "market": lazy(() => import("./EcommerceDevPage.tsx")),
+    "lending": lazy(() => import("./LandingDevelopmentPage.tsx")),
+    "android": lazy(() => import("./AndroidDevPage.tsx")),
+    "full": lazy(() => import("./FullWebsitePage.tsx")),
+    "content": lazy(() => import("./ContentFillingPage.tsx")),
+    "support": lazy(() => import("./SupportPage.tsx")),
 
-    "drilling-cutting": lazy(() => import("./FitStainlessPage.tsx")),
-    "bandsaw-cutting": lazy(() => import("./FitStainlessPage.tsx")),
-    "pipe-connection": lazy(() => import("./FitStainlessPage.tsx")),
-    "grinder-cutting": lazy(() => import("./FitStainlessPage.tsx")),
-    "stiffener": lazy(() => import("./FitStainlessPage.tsx")),
-
-    "welding": lazy(() => import("./WeldStainlessPage.tsx")),
-    "acid-treatment": lazy(() => import("./AcidTreatmentStainlessPage.tsx")),
-    "guide": lazy(() => import("../StainlessGuidePage.tsx")),
-
-    "stainless_production": lazy(() => import("./FabricationStainlessPage.tsx")),
-    "cutting": lazy(() => import("./CutProfilePage.tsx")),
-    "other-services": lazy(() => import("./OtherStainlessPage.tsx")),
-
-    "guide_304": lazy(() => import("./AISI304Page.tsx")),
-    "guide_316": lazy(() => import("./Aisi316StainlessPage.tsx")),
-    "guide_321": lazy(() => import("./AISI321Page.tsx")),
-    "guide_430": lazy(() => import("./AISI430Page.tsx")),
     // добавляйте дальше:
     // "welding-stainless": lazy(() => import("./WeldingStainlessPage")),
 };

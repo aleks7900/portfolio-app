@@ -25,8 +25,8 @@ import TechChatWidget from "./shared/widgets/TechChatWidget.tsx";
 import StainlessGuidePage from "./pages/StainlessGuidePage.tsx";
 import MetalCalcPage from "./pages/MetalCalcPage.tsx";
 import QualityGuaranteePage from "./pages/services/QualityGuaranteePage.tsx";
-import CustomStainlessPage from "./pages/services/CustomStainlessPage.tsx";
-import ConsultStainlessPage from "./pages/services/ConsultStainlessPage.tsx";
+import CustomOrdersPage from "./pages/services/CustomOrdersPage.tsx";
+import ConsultSpecialistsPage from "./pages/services/ConsultSpecialistsPage.tsx";
 
 
 export default function App() {
@@ -57,8 +57,8 @@ export default function App() {
                                     <Route path="/catalog/:category/:subcategory" element={<CatalogPage/>}/>
                                     <Route path="/services/:slug" element={<ServicePages/>}/>
                                     <Route path="/services/quality-guarantee" element={<QualityGuaranteePage/>}/>
-                                    <Route path="/services/custom-orders" element={<CustomStainlessPage/>}/>
-                                    <Route path="/services/expert-consulting" element={<ConsultStainlessPage/>}/>
+                                    <Route path="/services/custom-orders" element={<CustomOrdersPage/>}/>
+                                    <Route path="/services/expert-consulting" element={<ConsultSpecialistsPage/>}/>
                                     {/* приватные */}
                                     <Route
                                         path="/products"
