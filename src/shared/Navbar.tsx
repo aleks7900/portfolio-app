@@ -146,7 +146,7 @@ export default function Navbar() {
     // рядом с другими useState
     const [showSearchBtn, setShowSearchBtn] = useState(false);
 
-// константа порога (пиксели)
+    // константа порога (пиксели)
     const SCROLL_TRIGGER = 220;
 
     const openSearch = () => {

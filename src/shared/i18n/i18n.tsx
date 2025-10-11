@@ -9,7 +9,7 @@ export const dict: Dictionary = {
             nav_service: "Услуги",
             nav_contacts: "Контакты",
             nav_about: "О нас",
-            nav_catalog: "Каталог",
+            nav_catalog: "Портфолио",
 
             requests_open: "Открыть",
             requests_card_title: "Заявка",
@@ -2544,7 +2544,7 @@ export const dict: Dictionary = {
             nav_service: "Servicii",
             nav_contacts: "Contacte",
             nav_about: "Despre noi",
-            nav_catalog: "Catalog",
+            nav_catalog: "Portofoliu",
 
             requests_open: "Deschide",
             requests_card_title: "Aplicatia",

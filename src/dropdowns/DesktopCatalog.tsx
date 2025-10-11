@@ -114,16 +114,62 @@ export default function DesktopCatalog() {
     const itemVariants = {hidden: {opacity: 0, x: -6}, visible: {opacity: 1, x: 0}} as const;
 
     return (
-        <div className="relative z-50">
+        <div className="relative z-50 !rounded-3xl">
+            {/* ЛОКАЛЬНЫЕ КАДРЫ АНИМАЦИИ ДЛЯ ПЕРЕЛИВАЮЩЕГОСЯ ГРАДИЕНТА */}
+            <style>{`
+        @keyframes rv-gradient-flow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        /* Светящаяся кайма на ховере */
+        @keyframes rv-glow {
+          0%,100% { box-shadow: 0 0 0 rgba(0,0,0,0); }
+          50% { box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+        }
+      `}</style>
+
             <button
                 ref={btnRef}
-                className="relative z-10 inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium !bg-red-200 !text-black no-underline shadow transition-colors hover:!bg-red-500 hover:!text-white hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] mix-blend-normal"
+                className="relative z-10 inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium no-underline focus:outline-none focus:ring-2 active:scale-[0.99]"
                 aria-haspopup="menu"
                 aria-expanded={open}
                 onClick={() => setOpen(v => !v)}
             >
-                {t("nav_catalog")}
-                <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}/>
+                {/* Анимированный фон */}
+                <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-2xl"
+                    style={{
+                        background:
+                            "linear-gradient(90deg, #60a5fa, #34d399, #f59e0b, #ef4444, #8b5cf6, #60a5fa)",
+                        backgroundSize: "300% 300%",
+                        animation: "rv-gradient-flow 8s linear infinite",
+                        filter: "saturate(1.1)",
+                    }}
+                />
+                {/* Тонкая глянец-подсветка сверху */}
+                <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-2xl"
+                    style={{
+                        background:
+                            "linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(255,255,255,0.06))",
+                        mixBlendMode: "overlay",
+                    }}
+                />
+                {/* Контент кнопки поверх */}
+                <span className="relative z-10 text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.45)]">
+          {t("nav_catalog")}
+        </span>
+                <ChevronDown
+                    className={`relative z-10 h-4 w-4 text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.45)] transition-transform ${open ? "rotate-180" : ""}`}/>
+
+                {/* Обводка + мягкое свечение на ховере */}
+                <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/20"
+                />
             </button>
 
             {createPortal(
@@ -190,9 +236,9 @@ export default function DesktopCatalog() {
                                                         whileHover={{x: 2}}
                                                         whileTap={{scale: 0.985}}
                                                     >
-                            <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
-                              {t(sub.labelKey)}
-                            </span>
+                                                            <span className="block max-w-full whitespace-normal break-words leading-snug pr-2">
+                                                              {t(sub.labelKey)}
+                                                            </span>
                                                         <ChevronRight className="h-4 w-4 shrink-0"/>
                                                     </motion.button>
                                                 ))}
