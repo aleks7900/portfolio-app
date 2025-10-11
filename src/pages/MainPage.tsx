@@ -14,9 +14,9 @@ export default function MainPage() {
 
     // --- мета-теги без Helmet ---
     useEffect(() => {
-        const title = "Alex-Lab — Изделия из нержавеющей стали | Производство и услуги";
+        const title = "Alex-Lab — Web development | Разработка и услуги";
         const description =
-            "Alex-Lab: производство и услуги по изготовлению изделий из нержавеющей стали — мойки, столы, стеллажи, поручни, балюстрады, мангалы. Индивидуальные проекты, доставка и монтаж.";
+            "Alex-Lab: Web development SPA PWA React Spring Boot Typescript. Индивидуальные проекты";
 
         document.title = title;
 
@@ -34,8 +34,8 @@ export default function MainPage() {
     const jsonLdService = {
         "@context": "https://schema.org",
         "@type": "Service",
-        name: "Изготовление изделий из нержавеющей стали",
-        serviceType: "Metal Fabrication",
+        name: "Web development SPA PWA React",
+        serviceType: "Web development",
         provider: {
             "@type": "LocalBusiness",
             name: "Alex-Lab",
@@ -46,7 +46,7 @@ export default function MainPage() {
                 addressLocality: "Chișinău",
                 streetAddress: "Str. Padurii 21/1"
             },
-            telephone: "+373 60 174 654",
+            telephone: "+373 79 643 129",
             email: "info@alex-lab.md",
             areaServed: [
                 {"@type": "Country", name: "Moldova"},
@@ -72,21 +72,14 @@ export default function MainPage() {
                     "@type": "OfferCatalog",
                     name: "Стандартные изделия",
                     itemListElement: [
-                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Производственные мойки"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Столы и тумбы"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Стеллажи и полки"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Поручни опорные"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Подтоварники и корзины"}}
+                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Sites"}},
                     ]
                 },
                 {
                     "@type": "OfferCatalog",
                     name: "Изделия на заказ",
                     itemListElement: [
-                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Балюстрады и перила"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Мангалы, гриль и тандыры"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Каркасы, подставки, тележки"}},
-                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Декор и мебель из металла"}}
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Sites"}}
                     ]
                 }
             ]
@@ -104,7 +97,7 @@ export default function MainPage() {
         contactPoint: [
             {
                 "@type": "ContactPoint",
-                telephone: "+373 60 174 654",
+                telephone: "+373 79 643 129",
                 contactType: "customer service",
                 areaServed: "MD",
                 availableLanguage: ["ru", "ro"]
@@ -132,10 +125,7 @@ export default function MainPage() {
         url: "https://alex-lab.md/",
         isPartOf: {"@type": "WebSite", url: "https://alex-lab.md"},
         about: [
-            {"@type": "Thing", name: "нержавеющая сталь"},
             {"@type": "Thing", name: "изготовление на заказ"},
-            {"@type": "Thing", name: "производственные мойки"},
-            {"@type": "Thing", name: "поручни опорные"}
         ],
         primaryImageOfPage: {
             "@type": "ImageObject",

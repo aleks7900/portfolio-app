@@ -1,7 +1,7 @@
 {
   "name": "Alex-LAB — web development",
   "short_name": "Alex-LAB",
-  "description": "Каталог и производство изделий из нержавейки. Заказ, консультации, контакты.",
+  "description": "Web development SPA PWA. Заказ, консультации, контакты.",
   "lang": "ru",
   "dir": "ltr",
   "start_url": "/?utm_source=pwa",
