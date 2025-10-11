@@ -1249,11 +1249,11 @@ export const dict: Dictionary = {
             // Hero/общие
             cta_contact: "Связаться",
             hero_title: "Изготовление изделий из нержавейки, лазерная резка, сварка аргоном и другие виды сварных соединений, гибка листового металла",
-            hero_types_title: "Используем в работе все типы нержавейки",
+            hero_types_title: "Разработка Android-приложений под заказ, полный пакет услуг по размещению и регистрации домена, наполнение контентом, поддержка и сопровождение",
             hero_title_1: "Отверстие в листовом материале и трубе, торцовка на ленточной пиле, слесарные работы",
             hero_title_2: "Конструкторское проектирование, резка профильного проката, слесарные работы, прочее",
             hero_types_sub: "Изготовление по индивидуальным заказам",
-            hero_sub: "Изготовление по индивидуальным заказам",
+            hero_sub: "Разработка по индивидуальным заказам",
             hero_sub_1: "Гарантия качества и внимательность к деталям",
             hero_sub_2: "Все берём на себя",
             hero_to_services: "К услугам",
@@ -1950,7 +1950,7 @@ export const dict: Dictionary = {
             services_acid_title: "Обработка кислотой",
             services_acid_desc: "Химическая обработка для очистки и защиты металла.",
 
-            service_title_1: "Конструкторское проектирование, резка профильного проката, слесарные работы, прочее",
+            service_title_1: "Разработка сайтов и веб-приложений любой сложности, визиток, интернет-магазинов и сайтов-лендингов",
             design_in_title: "Конструкторское проектирование",
             design_text: "Услуги по разработке проектов и их визуализация",
 
@@ -1963,7 +1963,7 @@ export const dict: Dictionary = {
             misc_title: "Прочее",
             misc_text: "Витрины магазинов, спорт инвентарь, таблички и логотипы, мангалы и шашлычницы, бочки и резервуары и многое другое",
 
-            service_title_2: "Изготовление изделий из нержавейки, лазерная резка, сварка аргоном и другие виды сварных соединений, гибка листового металла",
+            service_title_2: "Создание современных, быстрых и безопасных сайтов на основе React и Spring, SPA и PWA веб-приложений по индивидуальному заказу и для малого и среднего бизнеса",
 
             stainless_production_title: "Изготовление изделий из нержавейки, в том числе по индивидуальным заказам",
             stainless_production_text: "Промышленное оборудование для HORECA, медицинское оборудование, архитектурные элементы, мебель, детали для автомобилей",
@@ -2537,7 +2537,43 @@ export const dict: Dictionary = {
             viewed_history_empty: "Вы ещё не смотрели товары.",
             viewed_history_remove_entry: "Удалить",
             viewed_history_note: "История хранится в браузере — видна только вам.",
-            currency: "MDL"
+            currency: "MDL",
+
+            web_title: "Разработка сайтов и веб-приложений любой сложности",
+            web_text: "Создание современных, быстрых и безопасных сайтов на основе React и Spring (TypeScript + Java 17/21).",
+
+            spa_title: "Разработка SPA и PWA веб-приложений",
+            spa_text: "Разрабатываем одностраничные и прогрессивные веб-приложения с высоким уровнем производительности и удобным интерфейсом.",
+
+            individual_title: "Разработка сайтов по индивидуальному заказу",
+            individual_text: "Создаем уникальные сайты по вашим требованиям — от дизайна до функционала.",
+
+            business_title: "Разработка сайтов для малого и среднего бизнеса",
+            business_text: "Решения для продвижения вашего бизнеса в интернете: корпоративные сайты, каталоги и онлайн-сервисы.",
+
+            site_title: "Разработка сайтов и веб-приложений любой сложности",
+            site_text: "Профессиональная разработка сайтов, адаптированных под все устройства и поисковые системы.",
+
+            visit_title: "Разработка сайтов-визиток",
+            visit_text: "Быстрое и недорогое решение для представления вашей компании или услуг в интернете.",
+
+            market_title: "Разработка сайтов интернет-магазинов",
+            market_text: "Создаем удобные и эффективные онлайн-магазины с системой управления товарами, заказами и оплатой.",
+
+            lending_title: "Разработка сайтов-лендингов",
+            lending_text: "Разработка лендингов, ориентированных на максимальную конверсию и привлечение клиентов.",
+
+            android_title: "Разработка Android-приложений под заказ",
+            android_text: "Проектирование и создание мобильных приложений для Android (версии 10–16, Java 17+).",
+
+            full_title: "Сайты под ключ, полный пакет услуг по размещению и регистрации домена",
+            full_text: "Полный цикл разработки и поддержки — от идеи до публикации и технического сопровождения.",
+
+            content_title: "Наполнение контентом",
+            content_text: "Подготовка и размещение текстов, изображений и мультимедиа для вашего сайта.",
+
+            support_title: "Поддержка и сопровождение",
+            support_text: "Техническое обслуживание, обновления и помощь в развитии вашего сайта после запуска."
         },
         ro: {
             brandLogo: "",
@@ -5103,7 +5139,43 @@ export const dict: Dictionary = {
             viewed_history_empty: "Nu ați vizualizat încă produse.",
             viewed_history_remove_entry: "Șterge",
             viewed_history_note: "Istoricul este stocat în browser — vizibil doar pentru dvs.",
-            currency: "MDL"
+            currency: "MDL",
+
+            web_title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate",
+            web_text: "Creăm site-uri moderne, rapide și sigure bazate pe React și Spring (TypeScript + Java 17/21).",
+
+            spa_title: "Dezvoltarea aplicațiilor web SPA și PWA",
+            spa_text: "Dezvoltăm aplicații web dinamice și progresive cu performanță ridicată și interfață intuitivă.",
+
+            individual_title: "Dezvoltarea site-urilor la comandă",
+            individual_text: "Creăm site-uri unice conform cerințelor dumneavoastră – de la design la funcționalitate.",
+
+            business_title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii",
+            business_text: "Soluții complete pentru promovarea afacerii dvs. online: site-uri corporative, cataloage și servicii web.",
+
+            site_title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate",
+            site_text: "Dezvoltare profesională de site-uri adaptate pentru toate dispozitivele și motoarele de căutare.",
+
+            visit_title: "Dezvoltarea site-urilor de tip carte de vizită",
+            visit_text: "O soluție rapidă și accesibilă pentru prezentarea companiei sau serviciilor dvs. online.",
+
+            market_title: "Dezvoltarea magazinelor online",
+            market_text: "Creăm magazine online funcționale, cu administrare ușoară a produselor, comenzilor și plăților.",
+
+            lending_title: "Dezvoltarea site-urilor de tip landing page",
+            lending_text: "Creăm pagini de destinație optimizate pentru conversii și atragerea clienților.",
+
+            android_title: "Dezvoltarea aplicațiilor Android la comandă",
+            android_text: "Proiectăm și dezvoltăm aplicații mobile pentru Android (versiunile 10–16, Java 17+).",
+
+            full_title: "Site-uri la cheie, pachet complet de servicii pentru găzduire și domenii",
+            full_text: "Ciclu complet de dezvoltare și suport – de la idee până la publicare și mentenanță tehnică.",
+
+            content_title: "Conținut și administrare",
+            content_text: "Pregătirea și publicarea textelor, imaginilor și materialelor multimedia pe site-ul dvs.",
+
+            support_title: "Suport și mentenanță",
+            support_text: "Întreținere tehnică, actualizări și asistență continuă pentru dezvoltarea site-ului dvs."
         }
     }
 ;

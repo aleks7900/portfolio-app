@@ -28,16 +28,39 @@ export default function Hero() {
         <section className="pt-28 sm:pt-32">
             {/* Локальные keyframes (не требует правок tailwind.config) */}
             <style>{`
-                    @media (prefers-reduced-motion: no-preference) {
-                      @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
-                      @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
-                      .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
-                      .card-appear { animation: soft-glow .35s ease both; }
-                    }
-                    @media (prefers-reduced-motion: reduce) {
-                      .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
-                      .card-appear { animation: none !important; }
-                    }
+                @media (prefers-reduced-motion: no-preference) {
+                    @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
+                    @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
+                    @keyframes card-gradient-glow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
+                .card-appear { animation: soft-glow .35s ease both; }
+                .card-glow-bg {
+                    position: relative;
+                    overflow: hidden;
+                }
+                .card-glow-bg::before {
+                    content: '';
+                    position: absolute;
+                    inset: -2px;
+                    z-index: 0;
+                    background: linear-gradient(120deg, rgba(99,102,241,0.4), rgba(236,72,153,0.4), rgba(20,184,166,0.4), rgba(99,102,241,0.4));
+                    background-size: 300% 300%;
+                    animation: card-gradient-glow 6s ease-in-out infinite;
+                    filter: blur(12px);
+                    opacity: 0.7;
+                    border-radius: 1rem;
+                }
+                .card-glow-bg > * { position: relative; z-index: 1; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
+                    .card-appear { animation: none !important; }
+                    .card-glow-bg::before { animation: none !important; }
+                }
             `}</style>
 
             <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
@@ -81,7 +104,7 @@ export default function Hero() {
 
                     {/* Правая — карточки услуг с анимацией */}
                     <motion.div variants={cardVariants}
-                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10">
+                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10 card-glow-bg">
                         <motion.div
                             initial="hidden"
                             animate="visible"
@@ -97,14 +120,14 @@ export default function Hero() {
                                     className="card-appear rounded-xl"
                                 >
                                     {/* Обёртка добавляет класс для анимации иконок внутри карточки */}
-                                    {i === 0 && <ServiceCardOdd titleKey="stainless_production_title"
-                                                                descKey="stainless_production_text" s={SERVICES[16]}/>}
-                                    {i === 1 && <ServiceCard titleKey="laser_cut_title"
-                                                             descKey="laser_cut_text" s={SERVICES[0]}/>}
-                                    {i === 2 && <ServiceCard titleKey="weld_metal_title"
-                                                             descKey="weld_metal_text" s={SERVICES[8]}/>}
-                                    {i === 3 && <ServiceCardOdd titleKey="bend_metal_title"
-                                                                descKey="bend_metal_text" s={SERVICES[2]}/>}
+                                    {i === 0 && <ServiceCardOdd titleKey="web_title"
+                                                                descKey="web_text" s={SERVICES[0]}/>}
+                                    {i === 1 && <ServiceCard titleKey="spa_title"
+                                                             descKey="spa_text" s={SERVICES[1]}/>}
+                                    {i === 2 && <ServiceCard titleKey="individual_title"
+                                                             descKey="individual_text" s={SERVICES[2]}/>}
+                                    {i === 3 && <ServiceCardOdd titleKey="business_title"
+                                                                descKey="business_text" s={SERVICES[3]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>

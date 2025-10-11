@@ -29,17 +29,40 @@ export default function HeroDownServices() {
         <section className="pt-28 sm:pt-32">
             {/* Локальные keyframes как в Hero.tsx */}
             <style>{`
-            @media (prefers-reduced-motion: no-preference) {
-              @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
-              @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
-              .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
-              .card-appear { animation: soft-glow .35s ease both; }
-            }
-            @media (prefers-reduced-motion: reduce) {
-              .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
-              .card-appear { animation: none !important; }
-            }
-          `}</style>
+                @media (prefers-reduced-motion: no-preference) {
+                    @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
+                    @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
+                    @keyframes card-gradient-glow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
+                .card-appear { animation: soft-glow .35s ease both; }
+                .card-glow-bg {
+                    position: relative;
+                    overflow: hidden;
+                }
+                .card-glow-bg::before {
+                    content: '';
+                    position: absolute;
+                    inset: -2px;
+                    z-index: 0;
+                    background: linear-gradient(120deg, rgba(99,102,241,0.4), rgba(236,72,153,0.4), rgba(20,184,166,0.4), rgba(99,102,241,0.4));
+                    background-size: 300% 300%;
+                    animation: card-gradient-glow 6s ease-in-out infinite;
+                    filter: blur(12px);
+                    opacity: 0.7;
+                    border-radius: 1rem;
+                }
+                .card-glow-bg > * { position: relative; z-index: 1; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
+                    .card-appear { animation: none !important; }
+                    .card-glow-bg::before { animation: none !important; }
+                }
+            `}</style>
 
             <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
                 <motion.div initial="hidden" animate="visible" variants={containerVariants}
@@ -47,7 +70,7 @@ export default function HeroDownServices() {
 
                     {/* Правая часть — карточки услуг с анимациями как в Hero.tsx */}
                     <motion.div variants={cardVariants}
-                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10">
+                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10 card-glow-bg">
                         <motion.div
                             initial="hidden"
                             animate="visible"
@@ -62,16 +85,16 @@ export default function HeroDownServices() {
                                     whileTap={{scale: 0.995}}
                                     className="card-appear rounded-xl"
                                 >
-                                    {i === 0 && <ServiceCardOdd titleKey="design_in_title"
-                                                                descKey="design_text" s={SERVICES[1]}/>}
-                                    {i === 1 && <ServiceCard titleKey="cut_profile_title"
-                                                             descKey="cut_profile_text" s={SERVICES[7]}/>}
+                                    {i === 0 && <ServiceCardOdd titleKey="site_title"
+                                                                descKey="site_text" s={SERVICES[4]}/>}
+                                    {i === 1 && <ServiceCard titleKey="visit_title"
+                                                             descKey="visit_text" s={SERVICES[5]}/>}
                                     {i === 2 &&
-                                        <ServiceCard titleKey="weld_locksmith_title" descKey="weld_locksmith_text"
-                                                     s={SERVICES[5]}/>}
+                                        <ServiceCard titleKey="market_title" descKey="market_text"
+                                                     s={SERVICES[6]}/>}
                                     {i === 3 &&
-                                        <ServiceCardOdd titleKey="misc_title" descKey="misc_text"
-                                                        s={SERVICES[17]}/>}
+                                        <ServiceCardOdd titleKey="lending_title" descKey="lending_text"
+                                                        s={SERVICES[7]}/>}
                                 </motion.div>
                             ))}
                         </motion.div>

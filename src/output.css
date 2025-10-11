@@ -1743,9 +1743,6 @@
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
-  .p-28 {
-    padding: calc(var(--spacing) * 28);
-  }
   .px-1 {
     padding-inline: calc(var(--spacing) * 1);
   }
@@ -1905,10 +1902,6 @@
   .text-5xl {
     font-size: var(--text-5xl);
     line-height: var(--tw-leading, var(--text-5xl--line-height));
-  }
-  .text-6xl {
-    font-size: var(--text-6xl);
-    line-height: var(--tw-leading, var(--text-6xl--line-height));
   }
   .text-base {
     font-size: var(--text-base);
@@ -4594,6 +4587,15 @@
       &:hover {
         @media (hover: hover) {
           background-color: var(--color-yellow-400);
+        }
+      }
+    }
+  }
+  .dark\:hover\:bg-zinc-600 {
+    &:where(.dark, .dark *) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-zinc-600);
         }
       }
     }
