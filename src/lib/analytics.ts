@@ -44,7 +44,7 @@ const API = API_BASE + "/analytics/events";
 function getSessionId(): string | undefined {
     if (typeof window === "undefined") return undefined;
     try {
-        const key = "rvsteel_session_id";
+        const key = "alex-lab_session_id";
         const existing = window.localStorage.getItem(key);
         if (existing) return existing;
 

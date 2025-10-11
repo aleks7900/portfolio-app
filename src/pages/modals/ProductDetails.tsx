@@ -110,14 +110,14 @@ export default function ProductDetails({
     const fallback: SEOEntry =
         lang === "ro"
             ? {
-                title: `${localizedName} | RVSteel`,
+                title: `${localizedName} | Alex-Lab`,
                 description: `Cumpără ${localizedName} din oțel inoxidabil. Modele standard și producție la comandă în Chișinău și toată Moldova.`,
-                keywords: `${localizedName}, produse inox, RVSteel`,
+                keywords: `${localizedName}, produse inox, Alex-Lab`,
             }
             : {
-                title: `${localizedName} | RVSteel`,
+                title: `${localizedName} | Alex-Lab`,
                 description: `Купить ${localizedName} из нержавеющей стали. Стандартные модели и изготовление на заказ в Кишинёве и по всей Молдове.`,
-                keywords: `${localizedName}, изделия из нержавейки, RVSteel`,
+                keywords: `${localizedName}, изделия из нержавейки, Alex-Lab`,
             };
 
     const title = seoEntry?.title ?? fallback.title;
@@ -146,7 +146,7 @@ export default function ProductDetails({
         image: product.imgLinks?.length ? product.imgLinks : undefined,
         description, // используем SEO-описание
         sku: product.id,
-        brand: {"@type": "Brand", name: product.brand || "RVSteel"},
+        brand: {"@type": "Brand", name: product.brand || "Alex-Lab"},
         offers: {
             "@type": "Offer",
             priceCurrency: "MDL",
@@ -154,7 +154,7 @@ export default function ProductDetails({
             availability: offerAvailability,
             url:
                 (typeof window !== "undefined" && window.location.href) ||
-                `https://rvsteel.md/${lang}/product/${product.id}`,
+                `https://alex-lab.md/${lang}/product/${product.id}`,
         },
     };
 

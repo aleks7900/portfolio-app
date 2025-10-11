@@ -64,8 +64,8 @@ export default function ContactsPage() {
     // ---- JSON-LD (LocalBusiness + WebPage + BreadcrumbList) ----
     const origin = typeof window !== "undefined" ? window.location.origin : "https://example.com";
     const pageUrl = `${origin}/contacts`;
-    const siteName = t("seo_site_name") ?? "RVSteel";
-    const orgName = t("seo_org_name") ?? "RVSteel";
+    const siteName = t("seo_site_name") ?? "Alex-lab";
+    const orgName = t("seo_org_name") ?? "Alex-lab";
     const phone = "+37379643129";
     const email = "aleks7900@gmail.com";
     const street = t("street_address") || "Chișinău, strada Pădurii 21/1";

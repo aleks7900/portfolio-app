@@ -14,9 +14,9 @@ export default function MainPage() {
 
     // --- мета-теги без Helmet ---
     useEffect(() => {
-        const title = "RVSteel — Изделия из нержавеющей стали | Производство и услуги";
+        const title = "Alex-Lab — Изделия из нержавеющей стали | Производство и услуги";
         const description =
-            "RVSteel: производство и услуги по изготовлению изделий из нержавеющей стали — мойки, столы, стеллажи, поручни, балюстрады, мангалы. Индивидуальные проекты, доставка и монтаж.";
+            "Alex-Lab: производство и услуги по изготовлению изделий из нержавеющей стали — мойки, столы, стеллажи, поручни, балюстрады, мангалы. Индивидуальные проекты, доставка и монтаж.";
 
         document.title = title;
 
@@ -38,8 +38,8 @@ export default function MainPage() {
         serviceType: "Metal Fabrication",
         provider: {
             "@type": "LocalBusiness",
-            name: "RVSteel",
-            image: "https://rvsteel.md/images/og-main.jpg",
+            name: "Alex-Lab",
+            image: "https://alex-lab.md/images/og-main.jpg",
             address: {
                 "@type": "PostalAddress",
                 addressCountry: "MD",
@@ -47,7 +47,7 @@ export default function MainPage() {
                 streetAddress: "Str. Padurii 21/1"
             },
             telephone: "+373 60 174 654",
-            email: "info@rvsteel.md",
+            email: "info@alex-lab.md",
             areaServed: [
                 {"@type": "Country", name: "Moldova"},
                 {"@type": "Country", name: "Romania"}
@@ -60,8 +60,8 @@ export default function MainPage() {
                     closes: "18:00"
                 }
             ],
-            url: "https://rvsteel.md",
-            sameAs: ["https://facebook.com/rvsteel", "https://instagram.com/rvsteel"]
+            url: "https://alex-lab.md",
+            sameAs: ["https://facebook.com/alex-lab", "https://instagram.com/alex-lab"]
         },
         areaServed: ["Moldova", "Romania"],
         hasOfferCatalog: {
@@ -91,16 +91,16 @@ export default function MainPage() {
                 }
             ]
         },
-        termsOfService: "https://rvsteel.md/terms",
-        url: "https://rvsteel.md"
+        termsOfService: "https://alex-lab.md/terms",
+        url: "https://alex-lab.md"
     };
 
     const jsonLdOrganization = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "RVSteel",
-        url: "https://rvsteel.md",
-        logo: "https://rvsteel.md/logo.png",
+        name: "Alex-Lab",
+        url: "https://alex-lab.md",
+        logo: "https://alex-lab.md/logo.png",
         contactPoint: [
             {
                 "@type": "ContactPoint",
@@ -110,17 +110,17 @@ export default function MainPage() {
                 availableLanguage: ["ru", "ro"]
             }
         ],
-        sameAs: ["https://facebook.com/rvsteel", "https://instagram.com/rvsteel"]
+        sameAs: ["https://facebook.com/alexlab", "https://instagram.com/alexlab"]
     };
 
     const jsonLdWebsite = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "RVSteel",
-        url: "https://rvsteel.md",
+        name: "Alex-Lab",
+        url: "https://alex-lab.md",
         potentialAction: {
             "@type": "SearchAction",
-            target: "https://rvsteel.md/search?q={search_term_string}",
+            target: "https://alexe-lab.md/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     };
@@ -128,9 +128,9 @@ export default function MainPage() {
     const jsonLdWebPage = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Услуги RVSteel — Изделия из нержавеющей стали",
-        url: "https://rvsteel.md/",
-        isPartOf: {"@type": "WebSite", url: "https://rvsteel.md"},
+        name: "Услуги Alex-Lab — Разработка WEB-приложений",
+        url: "https://alex-lab.md/",
+        isPartOf: {"@type": "WebSite", url: "https://alex-lab.md"},
         about: [
             {"@type": "Thing", name: "нержавеющая сталь"},
             {"@type": "Thing", name: "изготовление на заказ"},
@@ -139,7 +139,7 @@ export default function MainPage() {
         ],
         primaryImageOfPage: {
             "@type": "ImageObject",
-            url: "https://rvsteel.md/images/og-main.jpg"
+            url: "https://alex-lab.md/images/og-main.jpg"
         },
         speakable: {
             "@type": "SpeakableSpecification",
@@ -151,8 +151,8 @@ export default function MainPage() {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-            {"@type": "ListItem", position: 1, name: "Главная", item: "https://rvsteel.md/"},
-            {"@type": "ListItem", position: 2, name: "Услуги", item: "https://rvsteel.md/#services"}
+            {"@type": "ListItem", position: 1, name: "Главная", item: "https://alex-lab.md/"},
+            {"@type": "ListItem", position: 2, name: "Услуги", item: "https://alex-lab.md/#services"}
         ]
     };
 
@@ -988,7 +988,7 @@ export default function MainPage() {
 
             <Container>
                 <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 79 643129</p>
+                    <p className="text-3xl w-full font-semibold text-right">+373 79 643129</p>
                 </div>
             </Container>
         </>

@@ -110,7 +110,7 @@ export default function App() {
 
                             {/* Кнопки */}
                             <ScrollTopButton threshold={300} side="left"/>
-                            <CallWidget viber="37360174654" whatsapp="37360174654" telegram="@rvsteel"/>
+                            <CallWidget viber="37379643129" whatsapp="37379643129" telegram="@alexlab"/>
                             <CallbackWidget/>
                             <TechChatWidget/>
                         </BrowserRouter>

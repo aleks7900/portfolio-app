@@ -8,12 +8,9 @@ import HeroDownServices from "./components/HeroDown.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import SlideshowServices from "../shared/SlideshowServices.tsx";
 import Container from "../shared/Container.tsx";
-import {useI18n} from "../shared/i18n/i18n.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
 
 export default function ServicePage() {
-
-    const {t} = useI18n();
 
     const saved = (localStorage.getItem("lang") || "").toLowerCase();
     const lang = saved.startsWith("ro") ? "ro" : "ru";
@@ -24,24 +21,24 @@ export default function ServicePage() {
     }, [lang]);
 
     // Базовые настройки сайта (обнови при необходимости)
-    const baseUrl = "https://rvsteel.md";
+    const baseUrl = "https://alex-lab.md";
     const servicesPath = "/services";
 
     // RU/RO мета
     const seo = {
         ru: {
-            title: "Услуги RVSteel — Изделия из нержавеющей стали на заказ",
+            title: "Услуги Alex-Lab — Изделия из нержавеющей стали на заказ",
             description:
-                "RVSteel — услуги по изготовлению и монтажу изделий из нержавейки: перила, мойки, столы, каркасы, индивидуальные проекты. Качество и долговечность.",
+                "Alex-Lab — услуги по изготовлению и монтажу изделий из нержавейки: перила, мойки, столы, каркасы, индивидуальные проекты. Качество и долговечность.",
             keywords:
-                "услуги из нержавейки, производство на заказ, RVSteel, изготовление перил, изготовление моек, изготовление стоек, сварка нержавейки, металлические конструкции, нестандартные заказы",
+                "услуги из нержавейки, производство на заказ, Alex-Lab, изготовление перил, изготовление моек, изготовление стоек, сварка нержавейки, металлические конструкции, нестандартные заказы",
         },
         ro: {
-            title: "Servicii RVSteel — Produse din inox la comandă",
+            title: "Servicii Alex-Lab — Produse din inox la comandă",
             description:
-                "RVSteel oferă servicii de producere și montaj a produselor din inox: balustrade, chiuvete, mese, cadre și proiecte personalizate. Calitate și durabilitate.",
+                "Alex-Lab oferă servicii de producere și montaj a produselor din inox: balustrade, chiuvete, mese, cadre și proiecte personalizate. Calitate și durabilitate.",
             keywords:
-                "servicii inox, producție la comandă, RVSteel, fabricare balustrade, fabricare chiuvete, fabricare suporturi, sudură inox, construcții metalice, comenzi personalizate",
+                "servicii inox, producție la comandă, Alex-Lab, fabricare balustrade, fabricare chiuvete, fabricare suporturi, sudură inox, construcții metalice, comenzi personalizate",
         },
     } as const;
 
@@ -57,21 +54,21 @@ export default function ServicePage() {
                 : "Producerea produselor din inox",
         provider: {
             "@type": "Organization",
-            name: "RVSteel",
+            name: "Alex-Lab",
             url: baseUrl,
             logo: `${baseUrl}/logo.png`,
             contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+373-xxx-xxx", // обнови на реальный
+                telephone: "+37379643129", // обнови на реальный
                 contactType: lang === "ru" ? "customer service" : "serviciu clienți",
                 areaServed: "MD",
-                email: "info@rvsteel.md", // опционально
+                email: "info@alexlab.md", // опционально
             },
         },
         description:
             lang === "ru"
-                ? "RVSteel предлагает услуги по производству изделий из нержавейки: перила, мойки, столы, каркасы и нестандартные заказы."
-                : "RVSteel oferă servicii de producere și montaj pentru produse din inox: balustrade, chiuvete, mese, cadre și comenzi personalizate.",
+                ? "Alex-Lab предлагает услуги по производству изделий из нержавейки: перила, мойки, столы, каркасы и нестандартные заказы."
+                : "Alex-Lab oferă servicii de producere și montaj pentru produse din inox: balustrade, chiuvete, mese, cadre și comenzi personalizate.",
         areaServed: {"@type": "Country", name: "Moldova"},
     };
 
@@ -100,7 +97,7 @@ export default function ServicePage() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         url: baseUrl,
-        name: "RVSteel",
+        name: "Alex-Lab",
         potentialAction: {
             "@type": "SearchAction",
             target: `${baseUrl}/search?q={search_term_string}`,
@@ -112,11 +109,11 @@ export default function ServicePage() {
     const jsonldOrganization = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "RVSteel",
+        name: "Alex-Lab",
         url: baseUrl,
         logo: `${baseUrl}/logo.png`,
-        email: "info@rvsteel.md", // обнови при необходимости
-        telephone: "+373-xxx-xxx", // обнови при необходимости
+        email: "info@alexlab.md", // обнови при необходимости
+        telephone: "+37379643129", // обнови при необходимости
         address: {
             "@type": "PostalAddress",
             addressCountry: "MD",
@@ -124,9 +121,9 @@ export default function ServicePage() {
             streetAddress: "ул. Примерная, 10", // обнови при необходимости
         },
         sameAs: [
-            "https://www.facebook.com/rvsteel",
-            "https://www.instagram.com/rvsteel",
-            "https://www.linkedin.com/company/rvsteel",
+            "https://www.facebook.com/alexlab",
+            "https://www.instagram.com/alexlab",
+            "https://www.linkedin.com/company/alexlab",
         ],
     };
 
@@ -158,7 +155,7 @@ export default function ServicePage() {
 
             <Container>
                 <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">{t("street_address")}, +373 79 643129</p>
+                    <p className="text-3xl w-full font-semibold text-right">+373 79 643129</p>
                 </div>
             </Container>
         </>

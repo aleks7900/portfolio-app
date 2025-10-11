@@ -2,9 +2,9 @@
 /* eslint-disable no-restricted-globals */
 const SW_VERSION = 'v1.0.2';
 
-const STATIC_CACHE = `rvsteel-static-${SW_VERSION}`;
+const STATIC_CACHE = `alexlab-static-${SW_VERSION}`;
 
-const HTML_CACHE = `rvsteel-html-${SW_VERSION}`;
+const HTML_CACHE = `alexlab-html-${SW_VERSION}`;
 
 const STATIC_ASSETS = [
     '/index.html',

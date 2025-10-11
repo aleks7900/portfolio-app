@@ -2469,8 +2469,8 @@ export const dict: Dictionary = {
             users_error: "Ошибка загрузки",
             users_hint: "Подсказка: фильтруй по дате и строке поиска. Сортируй кликом по заголовку.",
 
-            seo_site_name: "RVSteel — Нержавейка и металлоконструкции",
-            seo_org_name: "RVSteel",
+            seo_site_name: "Alex-lab — Website development",
+            seo_org_name: "Alex-LAB",
             seo_phone: "+373 79 643129",
             seo_facebook: "",
             seo_instagram: "",
@@ -2480,8 +2480,8 @@ export const dict: Dictionary = {
             seo_breadcrumb_contacts: "Контакты",
 
             seo_about_title: "О компании | Нержавеющая сталь, изготовление и услуги",
-            seo_about_description: "RVSteel — полный цикл работ с нержавеющей сталью: резка, гибка, сварка, вальцовка, шлифовка, изготовление по чертежам и индивидуальные проекты в Кишинёве и по всей Молдове.",
-            seo_about_h1: "О компании RVSteel: точность, ответственность, результат",
+            seo_about_description: "Alex-Lab — полный цикл работ с нержавеющей сталью: резка, гибка, сварка, вальцовка, шлифовка, изготовление по чертежам и индивидуальные проекты в Кишинёве и по всей Молдове.",
+            seo_about_h1: "О компании Alex-Lab: точность, ответственность, результат",
             seo_about_p1: "Мы выполняем полный цикл работ с нержавеющей сталью — от заготовки и раскроя до финальной сборки и полировки. Команда инженеров и мастеров обеспечивает промышленную точность и стабильное качество изделий.",
             seo_about_p2: "Работаем по стандартам и технологическим картам, согласовываем допуски, подбираем материал и финиш, предоставляем расчёт и гарантии. Принимаем индивидуальные заказы и серийное производство.",
             seo_about_h2: "Что вы получаете, обращаясь к нам",
@@ -2493,8 +2493,8 @@ export const dict: Dictionary = {
             seo_about_p3: "Изготавливаем перила, каркасы, столы и тумбы, ёмкости и резервуары, тележки, элементы декора, корпуса, зонты, дымоходы и многое другое.",
 
             seo_contacts_title: "Контакты | Заявки и расчёт стоимости",
-            seo_contacts_description: "Свяжитесь с RVSteel: консультации, расчёт стоимости, индивидуальные заказы, монтаж и доставка. Ответим быстро по телефону, почте или через форму.",
-            seo_contacts_h1: "Контакты RVSteel: быстро на связи",
+            seo_contacts_description: "Свяжитесь с Alex-Lab: консультации, расчёт стоимости, индивидуальные заказы, монтаж и доставка. Ответим быстро по телефону, почте или через форму.",
+            seo_contacts_h1: "Контакты Alex-Lab: быстро на связи",
             seo_contacts_p1: "Нужен расчёт или консультация по нержавейке? Напишите нам через форму или позвоните. Присылайте эскизы, фото и размеры — подготовим предложение и сроки.",
             seo_contacts_h2: "Как мы работаем",
             seo_contacts_li1: "Разбор задачи и подбор технологии (резка, гибка, сварка, обработка)",
@@ -3101,7 +3101,7 @@ export const dict: Dictionary = {
 
             vcard_seo_service: "Разработка сайтов-визиток",
             vcard_seo_desc: "Создание быстрых и адаптивных сайтов-визиток с фокусом на конверсию: контакты, заявка, мессенджеры.",
-            vcard_seo_brand: "RVSteel / Web Studio",
+            vcard_seo_brand: "Alex-Lab / Web Studio",
 
             ecommerce_badge: "Интернет-магазины",
             ecommerce_title: "Разработка сайтов интернет-магазинов",
@@ -3269,7 +3269,7 @@ export const dict: Dictionary = {
             ecommerce_cta_btn_contact: "Связаться с нами",
             ecommerce_cta_btn_callback: "Заказать звонок",
 
-            seo_ecommerce_title: "Разработка интернет-магазинов под ключ — RVSteel Web",
+            seo_ecommerce_title: "Разработка интернет-магазинов под ключ — Alex-Lab Web",
             seo_ecommerce_description: "Создание современных, быстрых и безопасных интернет-магазинов. Полный цикл — от дизайна и программирования до интеграции оплат и доставки.",
             seo_ecommerce_keywords: "интернет-магазин, создание магазина, e-commerce, разработка, сайт, React, Spring, Молдова",
 
@@ -5891,8 +5891,8 @@ export const dict: Dictionary = {
             users_empty: "Nu există date",
             users_error: "Eroare la încărcare",
             users_hint: "Sugestie: filtrează după dată și șir de căutare. Sortează prin clic pe antet.",
-            seo_site_name: "RVSteel — Oțel inox și construcții metalice",
-            seo_org_name: "RVSteel",
+            seo_site_name: "Alex-Lab — Oțel inox și construcții metalice",
+            seo_org_name: "Alex-Lab",
             seo_phone: "+373 79 643129",
             seo_facebook: "",
             seo_instagram: "",
@@ -5902,8 +5902,8 @@ export const dict: Dictionary = {
             seo_breadcrumb_contacts: "Contacte",
 
             seo_about_title: "Despre companie | Oțel inox, producție și servicii",
-            seo_about_description: "RVSteel — ciclu complet pentru oțel inox: debitare, îndoire, sudare, roluire, finisare, producție după desene și comenzi individuale în Chișinău și în toată Moldova.",
-            seo_about_h1: "Despre RVSteel: precizie, responsabilitate, rezultat",
+            seo_about_description: "Alex-Lab — ciclu complet pentru oțel inox: debitare, îndoire, sudare, roluire, finisare, producție după desene și comenzi individuale în Chișinău și în toată Moldova.",
+            seo_about_h1: "Despre Alex-Lab: precizie, responsabilitate, rezultat",
             seo_about_p1: "Executăm ciclul complet de lucrări cu inox — de la pregătire și debitare până la asamblare și polisare. Inginerii și meșterii noștri livrează calitate industrială constantă.",
             seo_about_p2: "Lucrăm după standarde și fișe tehnologice, stabilim toleranțe, alegem materialul și finisajul, oferim calcul și garanții. Acceptăm comenzi individuale și producție de serie.",
             seo_about_h2: "Ce primiți colaborând cu noi",
@@ -5915,8 +5915,8 @@ export const dict: Dictionary = {
             seo_about_p3: "Realizăm balustrade, cadre, mese și dulapuri, rezervoare, cărucioare, elemente decorative, carcase, hote, coșuri de fum și multe altele.",
 
             seo_contacts_title: "Contacte | Cereri și calcul de preț",
-            seo_contacts_description: "Contactați RVSteel: consultanță, ofertă de preț, comenzi individuale, montaj și livrare. Răspundem rapid prin telefon, email sau formular.",
-            seo_contacts_h1: "Contacte RVSteel: mereu la dispoziție",
+            seo_contacts_description: "Contactați Alex-Lab: consultanță, ofertă de preț, comenzi individuale, montaj și livrare. Răspundem rapid prin telefon, email sau formular.",
+            seo_contacts_h1: "Contacte Alex-Lab: mereu la dispoziție",
             seo_contacts_p1: "Aveți nevoie de un calcul sau consultanță pentru inox? Scrieți-ne prin formular sau telefonați. Trimiteți schițe, poze și dimensiuni — pregătim oferta și termenele.",
             seo_contacts_h2: "Cum lucrăm",
             seo_contacts_li1: "Analiza sarcinii și alegerea tehnologiei (debitare, îndoire, sudare, finisare)",
@@ -6547,7 +6547,7 @@ export const dict: Dictionary = {
 
             vcard_seo_service: "Dezvoltare site-uri de prezentare",
             vcard_seo_desc: "Creare site-uri rapide și responsive, cu accent pe conversie: contact, cerere, messengere.",
-            vcard_seo_brand: "RVSteel / Web Studio",
+            vcard_seo_brand: "Alex-Lab / Web Studio",
 
             ecommerce_badge: "Magazine online",
             ecommerce_title: "Dezvoltarea magazinelor online",
@@ -6716,7 +6716,7 @@ export const dict: Dictionary = {
             ecommerce_cta_btn_contact: "Contactează-ne",
             ecommerce_cta_btn_callback: "Solicită un apel",
 
-            seo_ecommerce_title: "Dezvoltare magazine online la cheie — RVSteel Web",
+            seo_ecommerce_title: "Dezvoltare magazine online la cheie — Alex-Lab Web",
             seo_ecommerce_description: "Creăm magazine online rapide și sigure: design, programare, plăți, livrare și SEO.",
             seo_ecommerce_keywords: "magazin online, e-commerce, creare, dezvoltare, React, Spring, Moldova",
 

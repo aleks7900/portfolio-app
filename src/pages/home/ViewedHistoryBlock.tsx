@@ -119,7 +119,7 @@ function ViewedCard({v}: { v: ViewedProduct }) {
                 />
             </div>
 
-            <div className="text-sm text-gray-500 dark:text-gray-400">{v.brand ? t(v.brand.toLowerCase()) : "RVSteel"}</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">{v.brand ? t(v.brand.toLowerCase()) : "Alex-Lab"}</div>
             <div className="mt-0.5 line-clamp-2 font-medium">{t(v.title.toLowerCase()) ?? tf("untitled_product", "Товар")}</div>
 
             <div className="mt-2 flex items-center justify-between text-sm">

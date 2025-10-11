@@ -13,12 +13,12 @@ type SEOProps = {
 
 const DEFAULTS: Record<string, { title: string; description: string; keywords: string[] }> = {
     ru: {
-        title: "Изделия из нержавеющей стали | RVSteel",
+        title: "Изделия из нержавеющей стали | Alex-Lab",
         description: "Производство и продажа столов, моек, стеллажей и мебели из нержавейки. Индивидуальные заказы по Кишинёву и всей Молдове.",
         keywords: ["изделия из нержавеющей стали", "столы из нержавейки", "мойки из нержавейки", "стеллажи нержавейка", "мебель из нержавейки"],
     },
     ro: {
-        title: "Produse din oțel inoxidabil | RVSteel",
+        title: "Produse din oțel inoxidabil | Alex-Lab",
         description: "Producție și vânzare de mese, chiuvete, rafturi și mobilier din inox. Comenzi personalizate în Chișinău și toată Moldova.",
         keywords: ["produse inox", "mese inox", "chiuvete inox", "rafturi inox", "mobilier inox"],
     },
@@ -68,7 +68,7 @@ export default function SEO(props: SEOProps) {
             {description && <meta property="og:description" content={description}/>}
             {canonical && <meta property="og:url" content={canonical}/>}
             <meta property="og:type" content={props.ogType ?? "website"}/>
-            <meta property="og:site_name" content={props.siteName ?? "RVSteel"}/>
+            <meta property="og:site_name" content={props.siteName ?? "Alex-Lab"}/>
             {props.ogImage && <meta property="og:image" content={props.ogImage}/>}
 
             {/* Twitter */}
