@@ -4218,7 +4218,7 @@ export const dict: Dictionary = {
 
             calc_field_design: "Уровень дизайна",
             calc_design_basic: "Базовый",
-            calc_design_pro: "Профессиональный",
+            calc_design_pro: "Профи",
             calc_design_brand: "Бренд‑гайд / кастом",
             calc_help_design: "Продвинутый дизайн увеличивает трудоёмкость на 25–50%.",
 
