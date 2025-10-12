@@ -46,7 +46,7 @@ export default function MainPage() {
                 addressLocality: "Chișinău",
                 streetAddress: "Str. Padurii 21/1"
             },
-            telephone: "+373 79 643 129",
+            telephone: "+373 79 449 334",
             email: "info@alex-lab.md",
             areaServed: [
                 {"@type": "Country", name: "Moldova"},
@@ -97,7 +97,7 @@ export default function MainPage() {
         contactPoint: [
             {
                 "@type": "ContactPoint",
-                telephone: "+373 79 643 129",
+                telephone: "+373 79 449 334",
                 contactType: "customer service",
                 areaServed: "MD",
                 availableLanguage: ["ru", "ro"]
@@ -978,7 +978,7 @@ export default function MainPage() {
 
             <Container>
                 <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">+373 79 643129</p>
+                    <p className="text-3xl w-full font-semibold text-right">+373 79 449334</p>
                 </div>
             </Container>
         </>

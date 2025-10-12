@@ -59,7 +59,7 @@ export default function ServicePage() {
             logo: `${baseUrl}/logo.png`,
             contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+37379643129", // обнови на реальный
+                telephone: "+37379449334", // обнови на реальный
                 contactType: lang === "ru" ? "customer service" : "serviciu clienți",
                 areaServed: "MD",
                 email: "info@alexlab.md", // опционально
@@ -113,7 +113,7 @@ export default function ServicePage() {
         url: baseUrl,
         logo: `${baseUrl}/logo.png`,
         email: "info@alexlab.md", // обнови при необходимости
-        telephone: "+37379643129", // обнови при необходимости
+        telephone: "+37379449334", // обнови при необходимости
         address: {
             "@type": "PostalAddress",
             addressCountry: "MD",
@@ -155,7 +155,7 @@ export default function ServicePage() {
 
             <Container>
                 <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">+373 79 643129</p>
+                    <p className="text-3xl w-full font-semibold text-right">+373 79 449334</p>
                 </div>
             </Container>
         </>

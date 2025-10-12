@@ -2471,7 +2471,7 @@ export const dict: Dictionary = {
 
             seo_site_name: "Alex-lab — Website development",
             seo_org_name: "Alex-LAB",
-            seo_phone: "+373 79 643129",
+            seo_phone: "+373 79 449334",
             seo_facebook: "",
             seo_instagram: "",
 
@@ -5893,7 +5893,7 @@ export const dict: Dictionary = {
             users_hint: "Sugestie: filtrează după dată și șir de căutare. Sortează prin clic pe antet.",
             seo_site_name: "Alex-Lab — Oțel inox și construcții metalice",
             seo_org_name: "Alex-Lab",
-            seo_phone: "+373 79 643129",
+            seo_phone: "+373 79 449334",
             seo_facebook: "",
             seo_instagram: "",
 

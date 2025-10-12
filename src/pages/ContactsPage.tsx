@@ -66,8 +66,8 @@ export default function ContactsPage() {
     const pageUrl = `${origin}/contacts`;
     const siteName = t("seo_site_name") ?? "Alex-lab";
     const orgName = t("seo_org_name") ?? "Alex-lab";
-    const phone = "+37379643129";
-    const email = "aleks7900@gmail.com";
+    const phone = "+37379449334";
+    const email = "alex.lab.webdev@gmail.com";
     const street = t("street_address") || "Chișinău, strada Pădurii 21/1";
     const geo = {lat: 47.0207, lng: 28.8491}; // примерная точка Кишинёва; при желании подставьте точные координаты
     const sameAs = [
@@ -252,7 +252,7 @@ export default function ContactsPage() {
                         <ul className="space-y-4 text-[15px] leading-relaxed">
                             <li className="flex items-start gap-3">
                                 <Icon.Phone className="mt-0.5 h-5 w-5"/>
-                                <a className="text-3xl font-semibold hover:underline" href="tel:+37379643129">+373 79 643129</a>
+                                <a className="text-3xl font-semibold hover:underline" href="tel:+37379449334">+373 79 449334</a>
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Clock className="mt-0.5 h-5 w-5"/>
@@ -260,8 +260,8 @@ export default function ContactsPage() {
                             </li>
                             <li className="flex items-start gap-3">
                                 <Icon.Mail className="mt-0.5 h-5 w-5"/>
-                                <a className="hover:underline" href="mailto:aleks7900@gmail.com">
-                                    aleks7900@gmail.com
+                                <a className="hover:underline" href="mailto:alex.lab.webdev@gmail.com">
+                                    alex.lab.webdev@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -430,7 +430,7 @@ export default function ContactsPage() {
                 </div>
 
                 <div className="mt-8 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">+373 79 643129</p>
+                    <p className="text-3xl w-full font-semibold text-right">+373 79 449334</p>
                 </div>
 
                 {/* JSON-LD без Helmet */}

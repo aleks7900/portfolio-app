@@ -8,8 +8,8 @@ type Props = {
 };
 
 export default function CallWidget({
-                                       viber = "37379643129",
-                                       whatsapp = "37379643129",
+                                       viber = "37379449334",
+                                       whatsapp = "37379449334",
                                        telegram = "yourusername",
                                    }: Props) {
     const [open, setOpen] = useState(false); // ← по умолчанию закрыт

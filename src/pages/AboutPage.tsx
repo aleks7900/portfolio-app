@@ -9,7 +9,7 @@ export default function WebAppAboutPage() {
     const pageUrl = `${origin}/about-webapps`;
     const siteName = t("seo_site_name") ?? "RVWeb";
     const orgName = t("seo_org_name") ?? "RVWeb Development";
-    const phone = t("seo_phone") ?? "+373 79 643129";
+    const phone = t("seo_phone") ?? "+373 79 449334";
     const sameAs = [
         t("seo_facebook") || "",
         t("seo_instagram") || ""
