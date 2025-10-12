@@ -47,7 +47,7 @@ export default function MainPage() {
                 streetAddress: "Str. Padurii 21/1"
             },
             telephone: "+373 79 449 334",
-            email: "info@alex-lab.md",
+            email: "alex.lab.webdev@gmail.com",
             areaServed: [
                 {"@type": "Country", name: "Moldova"},
                 {"@type": "Country", name: "Romania"}

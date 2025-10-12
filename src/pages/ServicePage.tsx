@@ -62,7 +62,7 @@ export default function ServicePage() {
                 telephone: "+37379449334", // обнови на реальный
                 contactType: lang === "ru" ? "customer service" : "serviciu clienți",
                 areaServed: "MD",
-                email: "info@alexlab.md", // опционально
+                email: "alex.lab.webdev@gmail.com", // опционально
             },
         },
         description:
@@ -112,7 +112,7 @@ export default function ServicePage() {
         name: "Alex-Lab",
         url: baseUrl,
         logo: `${baseUrl}/logo.png`,
-        email: "info@alexlab.md", // обнови при необходимости
+        email: "alex.lab.webdev@gmail.com", // обнови при необходимости
         telephone: "+37379449334", // обнови при необходимости
         address: {
             "@type": "PostalAddress",
