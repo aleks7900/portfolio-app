@@ -68,11 +68,11 @@ export default function Hero() {
                             className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center">
                     {/* Левая часть */}
                     <motion.div variants={cardVariants}>
-                        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+                        <h1 className="not-prose !text-3xl sm:!text-4xl lg:!text-5xl font-semibold tracking-tight">
                             <span
                                 className="underline decoration-gray-300 dark:decoration-white/20">{t("service_title_2")}</span>
                         </h1>
-                        <p className="mt-4 max-w-prose text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
+                        <p className="mt-3 max-w-prose text-sm sm:text-base lg:text-lg  text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
                         <div className="mt-6 flex flex-wrap gap-4">
                             <motion.button
                                 whileHover={{y: -1}}

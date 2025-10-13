@@ -153,10 +153,10 @@ export default function SlideshowServices() {
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
                             <div className="relative z-0 text-center text-white px-28">
-                                <h2 className="text-5xl font-bold drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
+                                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
                                     {t.title}
                                 </h2>
-                                <p className="text-3xl mt-2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.8)]">
+                                <p className="text-base sm:text-lg md:text-3xl mt-2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.8)]">
                                     {t.text}
                                 </p>
                             </div>
