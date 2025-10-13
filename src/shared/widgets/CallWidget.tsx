@@ -5,19 +5,49 @@ type Props = {
     viber?: string;     // "37360000000"
     whatsapp?: string;  // "37360000000"
     telegram?: string;  // "@yourusername" или "yourusername"
+    offsetRight?: string | number;
+    bottom?: string | number;
+    zIndex?: number;
+    /** Куда ставить кнопку, когда чат скрыт (занять место чата) */
+    whenChatHiddenRight?: string | number;
 };
 
 export default function CallWidget({
                                        viber = "37379449334",
                                        whatsapp = "37379449334",
-                                       telegram = "yourusername",
+                                       telegram = "@alex_lab",
+                                        // обычное положение у правого края
+                                       offsetRight = "1.5rem",
+                                       bottom = "1.5rem",
+                                       zIndex = 9998,
+                                        // когда чат скрыт — переезжаем на его позицию
+                                       whenChatHiddenRight = "calc(1.5rem + (3.5rem + 0.75rem) * 3.23)",
                                    }: Props) {
     const [open, setOpen] = useState(false); // ← по умолчанию закрыт
+
+    const [chatVisible, setChatVisible] = useState<boolean>(() => {
+        // инициализация из глобального флага, если он уже есть
+        return typeof window !== "undefined" && typeof (window as any).__CHAT_VISIBLE === "boolean"
+            ? !!(window as any).__CHAT_VISIBLE
+            : false;
+    });
 
     useEffect(() => {
         const onPop = () => setOpen(false);
         window.addEventListener("popstate", onPop);
-        return () => window.removeEventListener("popstate", onPop);
+        // Слушаем «горячие» переключения видимости чата
+        const onChat = (e: Event) => {
+            try {
+                const detail = (e as CustomEvent).detail;
+                if (typeof detail?.visible === "boolean") setChatVisible(!!detail.visible);
+            } catch { /* no-op */
+            }
+        };
+        window.addEventListener("chat-visibility-change", onChat as EventListener);
+        return () => {
+            window.removeEventListener("popstate", onPop);
+            window.removeEventListener("chat-visibility-change", onChat as EventListener);
+        };
     }, []);
 
     const items = [
@@ -59,8 +89,16 @@ export default function CallWidget({
         },
     ];
 
+    // Выбираем эффективное смещение в зависимости от видимости чата
+    const effectiveRight = chatVisible ? offsetRight : whenChatHiddenRight;
+    console.log(effectiveRight)
+
     return createPortal(
-        <div className="fixed bottom-6 right-6 z-[9999]">
+        <div className="fixed" style={{
+            right: typeof effectiveRight === "number" ? `${effectiveRight}px` : effectiveRight,
+            bottom: typeof bottom === "number" ? `${bottom}px` : bottom,
+            zIndex,
+        }}>
             {/* Глобальные keyframes для вибрации и появления; учитываем prefers-reduced-motion */}
             <style>{`
         @media (prefers-reduced-motion: no-preference) {

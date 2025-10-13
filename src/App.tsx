@@ -110,9 +110,11 @@ export default function App() {
 
                             {/* Кнопки */}
                             <ScrollTopButton threshold={300} side="left"/>
-                            <CallWidget viber="37379449334" whatsapp="37379449334" telegram="@alex_lab_webdev"/>
+                            <CallWidget viber="37379449334" whatsapp="37379449334" telegram="@alex_lab_webdev"
+                                        bottom="1.5rem"
+                                        zIndex={9999}/>
                             <CallbackWidget/>
-                            <TechChatWidget/>
+                            <TechChatWidget offsetRight="1.5rem" bottom="1.5rem" zIndex={9997}/>
                         </BrowserRouter>
                     </div>
                 </AuthProvider>

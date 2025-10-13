@@ -45,7 +45,6 @@
     --color-blue-400: oklch(70.7% 0.165 254.624);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-blue-600: oklch(54.6% 0.245 262.881);
-    --color-blue-700: oklch(48.8% 0.243 264.376);
     --color-blue-900: oklch(37.9% 0.146 265.522);
     --color-indigo-50: oklch(96.2% 0.018 272.314);
     --color-indigo-200: oklch(87% 0.065 274.039);
@@ -54,8 +53,6 @@
     --color-indigo-900: oklch(35.9% 0.144 278.697);
     --color-purple-600: oklch(55.8% 0.288 302.321);
     --color-purple-700: oklch(49.6% 0.265 301.924);
-    --color-pink-500: oklch(65.6% 0.241 354.308);
-    --color-pink-600: oklch(59.2% 0.249 0.584);
     --color-rose-50: oklch(96.9% 0.015 12.422);
     --color-rose-100: oklch(94.1% 0.03 12.58);
     --color-rose-200: oklch(89.2% 0.058 10.001);
@@ -324,6 +321,9 @@
   .inset-y-0 {
     inset-block: calc(var(--spacing) * 0);
   }
+  .-top-1 {
+    top: calc(var(--spacing) * -1);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
@@ -332,6 +332,9 @@
   }
   .top-4 {
     top: calc(var(--spacing) * 4);
+  }
+  .-right-1 {
+    right: calc(var(--spacing) * -1);
   }
   .right-0 {
     right: calc(var(--spacing) * 0);
@@ -708,9 +711,6 @@
   .h-\[28rem\] {
     height: 28rem;
   }
-  .h-\[40rem\] {
-    height: 40rem;
-  }
   .h-\[58rem\] {
     height: 58rem;
   }
@@ -746,9 +746,6 @@
   }
   .max-h-\[40vh\] {
     max-height: 40vh;
-  }
-  .max-h-\[55vh\] {
-    max-height: 55vh;
   }
   .max-h-\[60vh\] {
     max-height: 60vh;
@@ -969,6 +966,9 @@
   .min-w-20 {
     min-width: calc(var(--spacing) * 20);
   }
+  .min-w-\[1\.25rem\] {
+    min-width: 1.25rem;
+  }
   .min-w-\[4rem\] {
     min-width: 4rem;
   }
@@ -1012,10 +1012,6 @@
   }
   .translate-y-0 {
     --tw-translate-y: calc(var(--spacing) * 0);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .translate-y-1 {
-    --tw-translate-y: calc(var(--spacing) * 1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .translate-y-4 {
@@ -1587,6 +1583,9 @@
   .bg-purple-600 {
     background-color: var(--color-purple-600);
   }
+  .bg-red-500 {
+    background-color: var(--color-red-500);
+  }
   .bg-rose-50 {
     background-color: var(--color-rose-50);
   }
@@ -1772,6 +1771,9 @@
   .px-1 {
     padding-inline: calc(var(--spacing) * 1);
   }
+  .px-1\.5 {
+    padding-inline: calc(var(--spacing) * 1.5);
+  }
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -1948,6 +1950,9 @@
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+  .text-\[0\.75rem\] {
+    font-size: 0.75rem;
   }
   .text-\[10px\] {
     font-size: 10px;
@@ -2210,6 +2215,10 @@
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .ring-2 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .\!shadow-red-500\/40 {
     --tw-shadow-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 40%, transparent) !important;
     @supports (color: color-mix(in lab, red, red)) {
@@ -2221,6 +2230,9 @@
   }
   .ring-emerald-300 {
     --tw-ring-color: var(--color-emerald-300);
+  }
+  .ring-white {
+    --tw-ring-color: var(--color-white);
   }
   .ring-offset-2 {
     --tw-ring-offset-width: 2px;
@@ -3632,6 +3644,11 @@
       line-height: var(--tw-leading, var(--text-xl--line-height));
     }
   }
+  .md\:block {
+    @media (width >= 48rem) {
+      display: block;
+    }
+  }
   .md\:flex {
     @media (width >= 48rem) {
       display: flex;
@@ -4947,6 +4964,26 @@ body {
 }
 main {
   display: block;
+}
+#tawkchat-container {
+  display: none !important;
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2s infinite ease-in-out;
 }
 .logo-dark {
   display: none;
