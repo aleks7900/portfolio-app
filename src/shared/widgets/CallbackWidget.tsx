@@ -57,8 +57,8 @@ type WidgetPosProps = {
 
 // ...в сигнатуре компонента:
 export default function CallbackWidget({
-                                           offsetRight = 'calc(1.5rem + 3.5rem + 0.75rem)', // 24px + 56px + 12px
-                                           bottom = '1.5rem',                                // как у CallWidget: bottom-6
+                                           offsetRight = 'calc(1.5rem + 3.5rem + 0.75rem + 0.3rem)', // 24px + 56px + 12px
+                                           bottom = '1.75rem',                                // как у CallWidget: bottom-6
                                            zIndex = 9998,                                    // чтобы не перекрывать CallWidget (9999)
                                        }: WidgetPosProps = {}) {
     const [open, setOpen] = useState(false);

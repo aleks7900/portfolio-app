@@ -248,7 +248,7 @@ export default function TechChatWidget({
                 aria-label={t("techchat_button_label")}
                 title={t("techchat_button_label")}
                 onClick={handleClick}
-                className="rounded-full w-14 h-14 !text-white !bg-blue-400 hover:!bg-blue-600 shadow-2xl
+                className="!rounded-full w-16 h-16 !text-white !bg-blue-400 hover:!bg-blue-600 shadow-2xl
                    flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-emerald-300"
             >
                 {/* Иконка */}
@@ -263,7 +263,7 @@ export default function TechChatWidget({
                     <span
                         className="absolute -top-1 -right-1 flex items-center justify-center
                                    min-w-[1.25rem] h-5 px-1.5 text-[0.75rem] font-bold
-                                   bg-red-500 text-white rounded-full ring-2 ring-white animate-pulse"
+                                   bg-red-500 text-white !rounded-full ring-2 ring-white animate-pulse"
                     >
                          {unreadCount > 9 ? "9+" : unreadCount}
                     </span>
