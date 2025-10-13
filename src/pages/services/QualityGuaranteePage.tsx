@@ -74,7 +74,7 @@ export default function QualityGuaranteePage() {
                 <p className="text-sm tracking-wide uppercase text-indigo-700 font-semibold">
                     {t("qa_badge")}
                 </p>
-                <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-zinc-900">
+                <h1 className="mt-2 non-prose !text-3xl sm:!text-4xl md:!text-5xl font-bold text-zinc-900">
                     {t("qa_title")}
                 </h1>
                 <p className="mt-3 text-zinc-600 max-w-3xl">{t("qa_intro")}</p>

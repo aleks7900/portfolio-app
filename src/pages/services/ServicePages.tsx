@@ -30,7 +30,7 @@ export default function ServicePages() {
         <section className="scroll-mt-24 py-10 sm:py-14">
             <Container>
                 {/* Хлебные крошки */}
-                <nav className="mb-6 mt-10 ml-37 text-sm text-gray-500 dark:text-gray-400">
+                <nav className="mb-6 mt-10 ml-4 text-sm text-gray-500 dark:text-gray-400">
                     <Link to="/" className="hover:underline">Главная</Link>
                     <span className="mx-2">/</span>
                     <Link to="/service" className="hover:underline">Услуги</Link>
