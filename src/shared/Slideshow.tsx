@@ -147,18 +147,20 @@ export default function Slideshow() {
                     return (
                         <div
                             key={s.id}
-                            className="keen-slider__slide relative h-[40rem] max-h-[55vh] md:max-h-[55dvh] flex items-center justify-center bg-gray-200 dark:bg-black"
+                            className="keen-slider__slide relative h-[22rem] sm:h-[26rem] md:h-[40rem] max-h-[70vh] md:max-h-[55dvh] flex items-center justify-center bg-gray-200 dark:bg-black"
                         >
                             <img
                                 src={s.img}
                                 alt={t.title}
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
-                            <div className="relative z-0 text-center text-white px-28">
-                                <h2 className="text-5xl font-bold drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
+                            <div className="relative z-0 text-center text-white px-4 sm:px-8 md:px-28 max-w-[92%] mx-auto">
+                                <h2
+                                  className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]"
+                                >
                                     {t.title}
                                 </h2>
-                                <p className="text-3xl mt-2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.8)]">
+                                <p className="text-base sm:text-lg md:text-3xl mt-2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.8)]">
                                     {t.text}
                                 </p>
                             </div>
@@ -170,7 +172,7 @@ export default function Slideshow() {
             {/* Стрелки */}
             <button
                 onClick={() => instanceRef.current?.prev()}
-                className="group absolute left-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center
+                className="group absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center justify-center
                  rounded-2xl px-5 py-3 text-base font-medium
                  !bg-white !text-black no-underline shadow transition-colors
                  hover:!bg-red-500 hover:!text-white hover:shadow-xl
@@ -182,7 +184,7 @@ export default function Slideshow() {
 
             <button
                 onClick={() => instanceRef.current?.next()}
-                className="group absolute right-4 top-1/2 -translate-y-1/2 inline-flex items-center justify-center
+                className="group absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center justify-center
                  rounded-2xl px-5 py-3 text-base font-medium
                  !bg-white !text-black no-underline shadow transition-colors
                  hover:!bg-red-500 hover:!text-white hover:shadow-xl
@@ -193,7 +195,7 @@ export default function Slideshow() {
             </button>
 
             {/* Точки */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+            <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                 {slides.map((_, i) => (
                     <button
                         key={i}

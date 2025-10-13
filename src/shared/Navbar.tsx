@@ -1,20 +1,6 @@
 import React, {useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {
-    ArrowUpRight,
-    Hammer,
-    Info,
-    Languages,
-    LogIn,
-    LogOut,
-    Menu,
-    Moon,
-    Phone,
-    Search,
-    Sun,
-    User,
-    X
-} from "lucide-react";
+import {ArrowUpRight, Hammer, Info, Languages, LogIn, LogOut, Menu, Moon, Phone, Sun, X} from "lucide-react";
 import {useTheme} from "./theme/theme.tsx";
 import {useI18n} from "./i18n/i18n.tsx";
 import {useAuth} from "./auth/auth.tsx";
@@ -135,20 +121,10 @@ export default function Navbar() {
     const [confirmOpen, setConfirmOpen] = React.useState(false);
 
     // рядом с другими useState
-    const [showSearchBtn, setShowSearchBtn] = useState(false);
+    const [, setShowSearchBtn] = useState(false);
 
     // константа порога (пиксели)
     const SCROLL_TRIGGER = 220;
-
-    const openSearch = () => {
-        const fire = () => window.dispatchEvent(new Event("open-search"));
-        if (location.pathname !== "/") {
-            navigate("/");
-            setTimeout(fire, 0); // дождаться рендера главной
-        } else {
-            fire();
-        }
-    };
 
     React.useEffect(() => {
         let ticking = false;
@@ -201,7 +177,7 @@ export default function Navbar() {
                 // закрепляем узор, двигаем только нижний градиент
                 backgroundPosition: ['0% 0%', '0% 0%', '0% 0%', '0% 0%', '0% 0%', '0% 50%',
                 ].join(', '),
-                backgroundBlendMode: ['overlay','overlay','overlay','normal','normal','normal'].join(', '),
+                backgroundBlendMode: ['overlay', 'overlay', 'overlay', 'normal', 'normal', 'normal'].join(', '),
                 animation: 'navbar-glow-flow 12s ease-in-out infinite',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
@@ -232,24 +208,6 @@ export default function Navbar() {
                         <span className="text-lg">{t("brandLogo")}</span>
                     </a>
                     <nav className="hidden md:flex items-center gap-2">
-                        <div className="flex justify-end gap-2 items-center">
-                            {/* ПОЯВЛЯЮЩАЯСЯ КНОПКА ПОИСКА */}
-                            <button
-                                type="button"
-                                aria-label="Search"
-                                onClick={openSearch} // ← замени на свой обработчик, если нужно открыть модалку/фокус инпут
-                                className={[
-                                    "rounded-2xl p-3 text-base font-medium bg-white !text-black no-underline shadow-lg transition " +
-                                    "hover:bg-neutral-800 hover:!shadow-2xl hover:!shadow-black/40 " +
-                                    "visited:!text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]",
-                                    // плавное появление/исчезновение, без «дёрганья»
-                                    "transition-opacity duration-200",
-                                    showSearchBtn ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-1"
-                                ].join(" ")}
-                            >
-                                <Search className="h-5 w-5"/>
-                            </button>
-                        </div>
                         <div className="flex items-center gap-2">
                             <DesktopCatalog/>
                             <NavLink to="/service" className={linkClassYlw} end onClick={scrollTop}><Hammer
@@ -290,19 +248,6 @@ export default function Navbar() {
                         </div>
                     </nav>
                     <div className="md:hidden flex items-center gap-1">
-                        {isAuth ? (
-                            <NavLink to="/products"
-                                     className={() => BTN}
-                                     aria-label="Account">
-                                <User className="h-5 w-5"/>
-                            </NavLink>
-                        ) : (
-                            <button onClick={() => setShowLogin(true)}
-                                    className="rounded-xl p-2 hover:bg-black/5 dark:hover:bg-white/10"
-                                    aria-label="Login">
-                                <LogIn className="h-5 w-5 !text-black hover:text-black"/>
-                            </button>
-                        )}
                         <LangToggle/>
                         <ThemeToggleBtn/>
                         <button className={BTN}

@@ -1093,7 +1093,6 @@ export const dict: Dictionary = {
             consult_seo_headline: "Консультации специалистов по работе с нержавейкой",
 
             // Каталог меню
-            cat_custom_orders: "Изделия на заказ",
             sub_balustrade_perila: "Балюстрады, перила",
             sub_boxes: "Боксы",
             sub_cafe: "Кафе и рестораны",
@@ -1120,6 +1119,27 @@ export const dict: Dictionary = {
             sub_trash_bins: "Корзины",
             sub_wheels: "Колеса",
 
+            cat_custom_orders: "Индивидуальные заказы",
+            sub_site_orders: "Сайты под заказ",
+            sub_spa_orders: "SPA под заказ",
+            sub_pwa_orders: "PWA под заказ",
+            sub_landing_orders: "Лендинги под заказ",
+            sub_web_app_orders: "Веб-приложения под заказ",
+
+            cat_non_standard_solutions: "Нестандартные решения",
+            sub_site_non_standard_solutions: "Нестандартные решения для сайтов",
+            sub_spa_non_standard_solutions: "Нестандартные решения для SPA",
+            sub_pwa_non_standard_solutions: "Нестандартные решения для PWA",
+            sub_landing_non_standard_solutions: "Нестандартные решения для лендингов",
+            sub_web_app_non_standard_solutions: "Нестандартные решения для веб-приложений",
+
+            cat_android_apps: "Android-приложения",
+            sub_site_android_apps: "Android-приложения для сайтов",
+            sub_spa_android_apps: "Android-приложения для SPA",
+            sub_pwa_android_apps: "Android-приложения для PWA",
+            sub_landing_android_apps: "Android-приложения для маркета",
+            sub_web_app_android_apps: "Android-приложения для веб-приложений",
+            
             cat_non_standard_products: "Нестандартные изделия",
             sub_street_mobil: "Уличная мебель",
             sub_signs: "Таблички, лого, флюгеры",
@@ -1148,7 +1168,7 @@ export const dict: Dictionary = {
             sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog: "Производственные столы с ящиками",
             sub_8_proizvodstvennye_stoly_katalog: "Производственные столы",
 
-            custom_orders: "Изделия на заказ",
+            custom_orders: "Проекты на заказ",
             balustrade_perila: "Балюстрады, перила",
             boxes: "Боксы",
             cafe: "Кафе и рестораны",
@@ -1229,7 +1249,7 @@ export const dict: Dictionary = {
             hero_sub_1: "Гарантия качества и внимательность к деталям",
             hero_sub_2: "Все берём на себя",
             hero_to_services: "К услугам",
-            hero_to_guide: "О нержавейке",
+            hero_to_guide: "О разработке",
             hero_to_contacts: "Связаться",
 
             aisi_304_title: "AISI 304",
@@ -4381,7 +4401,6 @@ export const dict: Dictionary = {
             techchat_button_label: "Scrieți tehnologului",
 
             // Catalog meniu
-            cat_custom_orders: "Produse la comandă",
             sub_balustrade_perila: "Balustrade, balustrade de sprijin",
             sub_boxes: "Cutii",
             sub_cafe: "Mobilier pentru cafenea",
@@ -4408,6 +4427,27 @@ export const dict: Dictionary = {
             sub_trash_bins: "Coșuri de gunoi",
             sub_wheels: "Roți",
 
+            cat_custom_orders: "Comenzi personalizate",
+            sub_site_orders: "Site-uri la comandă",
+            sub_spa_orders: "SPA la comandă",
+            sub_pwa_orders: "PWA la comandă",
+            sub_landing_orders: "Landing-uri la comandă",
+            sub_web_app_orders: "Aplicații web la comandă",
+
+            cat_non_standard_solutions: "Soluții nestandard",
+            sub_site_non_standard_solutions: "Soluții nestandard pentru site-uri",
+            sub_spa_non_standard_solutions: "Soluții nestandard pentru SPA",
+            sub_pwa_non_standard_solutions: "Soluții nestandard pentru PWA",
+            sub_landing_non_standard_solutions: "Soluții nestandard pentru landing-uri",
+            sub_web_app_non_standard_solutions: "Soluții nestandard pentru aplicații web",
+
+            cat_android_apps: "Aplicații Android",
+            sub_site_android_apps: "Aplicații Android pentru site-uri",
+            sub_spa_android_apps: "Aplicații Android pentru SPA",
+            sub_pwa_android_apps: "Aplicații Android pentru PWA",
+            sub_landing_android_apps: "Aplicații Android pentru market",
+            sub_web_app_android_apps: "Aplicații Android pentru web",
+            
             cat_non_standard_products: "Produse nestandard",
             sub_street_mobil: "Mobilier stradal",
             sub_signs: "Plăcuțe, logo-uri, giruete",
@@ -4436,7 +4476,7 @@ export const dict: Dictionary = {
             sub_7_proizvodstvennye_stoly_s_razdvizhnymi_yaschikami_katalog: "Mese industriale cu sertare",
             sub_8_proizvodstvennye_stoly_katalog: "Mese industriale",
 
-            custom_orders: "Produse la comandă",
+            custom_orders: "Proiecte la comandă",
             balustrade_perila: "Balustrade, balustrade de sprijin",
             boxes: "Cutii",
             cafe: "Mobilier pentru cafenea",
@@ -4516,7 +4556,7 @@ export const dict: Dictionary = {
             hero_sub_1: "Calitate garantată și atenție la detalii",
             hero_sub_2: "Ne ocupăm singuri de toate",
             hero_to_services: "Servicii",
-            hero_to_guide: "Despre inox",
+            hero_to_guide: "Despre development",
             hero_to_contacts: "Contacte",
 
             search_recent: "Căutări recente",

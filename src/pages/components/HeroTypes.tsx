@@ -109,7 +109,7 @@ export default function HeroTypes() {
                             initial="hidden"
                             animate="visible"
                             variants={{hidden: {}, visible: {transition: {staggerChildren: 0.05}}}}
-                            className="grid grid-cols-2 gap-4"
+                            className="grid grid-cols-1 gap-4 sm:grid-cols-2"
                         >
                             {[0, 1, 2, 3].map((i) => (
                                 <motion.div
