@@ -136,9 +136,12 @@ export default function CallWidget({
 
             {/* Кнопки мессенджеров — монтируем ТОЛЬКО когда open=true */}
             {open && (
-                <div className="mb-2 flex flex-col items-end space-y-3">
+                <div
+                    className="absolute -translate-y-full left-1/2 -translate-x-1/2 mb-4 flex flex-col items-center space-y-3"
+                    style={{ top: -14 }}
+                >
                     {items.map((it, idx) => {
-                        const delay = idx * 60; // лёгкий каскад
+                        const delay = idx * 60;
                         return (
                             <a
                                 key={it.key}
@@ -147,11 +150,11 @@ export default function CallWidget({
                                 rel="noopener noreferrer"
                                 aria-label={it.label}
                                 className={[
-                                    "soc-appear flex h-12 w-12 items-center justify-center rounded-full !text-white shadow-lg",
+                                    "soc-appear flex h-14 w-14 items-center justify-center rounded-full !text-white shadow-lg",
                                     "transform-gpu will-change-transform transition",
                                     it.bg,
                                 ].join(" ")}
-                                style={{animationDelay: `${delay}ms`}}
+                                style={{ animationDelay: `${delay}ms` }}
                             >
                                 {it.icon}
                             </a>

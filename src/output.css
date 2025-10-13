@@ -536,6 +536,12 @@
   .mt-20 {
     margin-top: calc(var(--spacing) * 20);
   }
+  .\!mb-14 {
+    margin-bottom: calc(var(--spacing) * 14) !important;
+  }
+  .\!mb-20 {
+    margin-bottom: calc(var(--spacing) * 20) !important;
+  }
   .-mb-2 {
     margin-bottom: calc(var(--spacing) * -2);
   }
@@ -565,6 +571,12 @@
   }
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
+  }
+  .mb-14 {
+    margin-bottom: calc(var(--spacing) * 14);
+  }
+  .mb-20 {
+    margin-bottom: calc(var(--spacing) * 20);
   }
   .ml-0\.5 {
     margin-left: calc(var(--spacing) * 0.5);
@@ -646,6 +658,9 @@
   }
   .\!h-0\.5 {
     height: calc(var(--spacing) * 0.5) !important;
+  }
+  .\!h-2 {
+    height: calc(var(--spacing) * 2) !important;
   }
   .h-0\.5 {
     height: calc(var(--spacing) * 0.5);
@@ -796,6 +811,9 @@
   }
   .\!w-0\.5 {
     width: calc(var(--spacing) * 0.5) !important;
+  }
+  .\!w-2 {
+    width: calc(var(--spacing) * 2) !important;
   }
   .\!w-20 {
     width: calc(var(--spacing) * 20) !important;
@@ -1025,6 +1043,10 @@
   }
   .-translate-y-1\/2 {
     --tw-translate-y: calc(calc(1/2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-y-full {
+    --tw-translate-y: -100%;
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .translate-y-0 {
@@ -3531,6 +3553,11 @@
       display: inline-flex;
     }
   }
+  .sm\:\!h-3\.5 {
+    @media (width >= 40rem) {
+      height: calc(var(--spacing) * 3.5) !important;
+    }
+  }
   .sm\:h-0\.5 {
     @media (width >= 40rem) {
       height: calc(var(--spacing) * 0.5);
@@ -3544,6 +3571,11 @@
   .sm\:h-\[26rem\] {
     @media (width >= 40rem) {
       height: 26rem;
+    }
+  }
+  .sm\:\!w-3\.5 {
+    @media (width >= 40rem) {
+      width: calc(var(--spacing) * 3.5) !important;
     }
   }
   .sm\:w-0\.5 {
@@ -3619,6 +3651,11 @@
   .sm\:justify-between {
     @media (width >= 40rem) {
       justify-content: space-between;
+    }
+  }
+  .sm\:gap-2 {
+    @media (width >= 40rem) {
+      gap: calc(var(--spacing) * 2);
     }
   }
   .sm\:gap-10 {

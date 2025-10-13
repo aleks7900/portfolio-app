@@ -195,17 +195,17 @@ export default function Slideshow() {
             </button>
 
             {/* Точки */}
-            <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+            <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
                 {slides.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => {
                             const abs = instanceRef.current?.track.details.abs ?? 0;
-                            instanceRef.current?.moveToIdx(abs + i); // ✅ вместо moveToIdx(i)
+                            instanceRef.current?.moveToIdx(abs + i);
                         }}
                         aria-label={`Go to slide ${i + 1}`}
                         className={[
-                            "h-3.5 w-3.5 rounded-full transition transform duration-200",
+                            "!h-2 !w-2 sm:!h-3.5 sm:!w-3.5 rounded-full transition transform duration-200",
                             "!focus:outline-none !focus:ring-2 !focus:ring-red-400",
                             current === i
                                 ? "!bg-red-300 !shadow-xl !shadow-red-500/40 !ring-2 !ring-white scale-110"
