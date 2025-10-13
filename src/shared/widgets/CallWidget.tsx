@@ -16,21 +16,32 @@ export default function CallWidget({
                                        viber = "37379449334",
                                        whatsapp = "37379449334",
                                        telegram = "@alex_lab",
-                                        // обычное положение у правого края
+                                       // обычное положение у правого края
                                        offsetRight = "1.5rem",
                                        bottom = "1.5rem",
                                        zIndex = 9998,
-                                        // когда чат скрыт — переезжаем на его позицию
+                                       // когда чат скрыт — переезжаем на его позицию
                                        whenChatHiddenRight = "calc(1.5rem + (3.5rem + 0.75rem) * 3.23)",
                                    }: Props) {
     const [open, setOpen] = useState(false); // ← по умолчанию закрыт
 
-    const [chatVisible, setChatVisible] = useState<boolean>(() => {
+    const [, setChatVisible] = useState<boolean>(() => {
         // инициализация из глобального флага, если он уже есть
         return typeof window !== "undefined" && typeof (window as any).__CHAT_VISIBLE === "boolean"
             ? !!(window as any).__CHAT_VISIBLE
             : false;
     });
+
+    const [isMobile, setIsMobile] = useState(() =>
+        typeof window !== "undefined" ? window.innerWidth < 768 : false
+    );
+
+    // Следим за изменением ширины окна
+    useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
 
     useEffect(() => {
         const onPop = () => setOpen(false);
@@ -90,8 +101,8 @@ export default function CallWidget({
     ];
 
     // Выбираем эффективное смещение в зависимости от видимости чата
-    const effectiveRight = chatVisible ? offsetRight : whenChatHiddenRight;
-    console.log(effectiveRight)
+    // Если мобильный экран — перемещаем кнопку на позицию "чата"
+    const effectiveRight = isMobile ? offsetRight : whenChatHiddenRight;
 
     return createPortal(
         <div className="fixed" style={{
