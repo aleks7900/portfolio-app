@@ -1,0 +1,300 @@
+﻿https://alex-lab.md/<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sitemap version 1.2 | updated 2025-10-15 | bilingual RU/RO -->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- HOME -->
+  <url>
+    <loc>https://alex-lab.md/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- STATIC -->
+  <url>
+    <loc>https://alex-lab.md/service</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/service" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/service" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://alex-lab.md/contacts</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/contacts" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/contacts" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://alex-lab.md/about</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/about" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/about" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://alex-lab.md/guide</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/guide" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/guide" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- DEVELOPMENT PAGES -->
+  <!-- шаблон: https://alex-lab.md/dev/... и https://alex-lab.md/dev/... -->
+  <url>
+    <loc>https://alex-lab.md/dev/javascript</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/javascript" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/javascript" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/typescript</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/typescript" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/typescript" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/react</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/react" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/react" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/nginx</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/nginx" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/nginx" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/spring</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/spring" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/spring" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/spring-security</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/spring-security" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/spring-security" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/spring-boot</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/spring-boot" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/spring-boot" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/html5</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/html5" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/html5" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/css3</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/css3" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/css3" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/sass</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/sass" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/sass" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/tailwind</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/tailwind" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/tailwind" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/postgresql</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/postgresql" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/postgresql" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/mongodb</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/mongodb" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/mongodb" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/git</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/git" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/git" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/dev/redux</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/dev/redux" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/dev/redux" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- SERVICE PAGES -->
+  <!-- шаблон: https://alex-lab.md/services/... и https://alex-lab.md/services/... -->
+  <url>
+    <loc>https://alex-lab.md/services/quality-guarantee</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/quality-guarantee" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/quality-guarantee" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/custom-orders</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/custom-orders" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/custom-orders" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/expert-consulting</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/expert-consulting" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/expert-consulting" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/web</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/web" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/web" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/spa</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/spa" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/spa" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/individual</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/individual" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/individual" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/business</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/business" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/business" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/site</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/site" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/site" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/visit</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/visit" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/visit" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/market</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/market" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/market" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/lending</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/lending" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/lending" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/android</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/android" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/android" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/full</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/full" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/full" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/content</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/content" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/content" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://alex-lab.md/services/support</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://alex-lab.md/services/support" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://alex-lab.md/services/support" />
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
