@@ -7,6 +7,7 @@ import {useI18n} from "../shared/i18n/i18n.tsx";
 import {useEffect} from "react";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
+import TechGrid from "./TechGrid.tsx";
 
 export default function MainPage() {
 
@@ -174,6 +175,8 @@ export default function MainPage() {
             {/* 🎞️ Твой слайдер (Keen-slider) */}
             <Slideshow/>
             <Hero/>
+
+            <TechGrid />
 
             {/* 🔽 SEO-текстовый блок */}
             <Section>

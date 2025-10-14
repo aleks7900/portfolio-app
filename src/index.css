@@ -30,6 +30,14 @@ main {
     animation: pulse-ring 2s infinite ease-in-out;
 }
 
+@keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(255,255,255,0.2)); }
+    50% { filter: drop-shadow(0 0 12px rgba(255,255,255,0.4)); }
+}
+.group:hover svg {
+    animation: glow 1.5s ease-in-out infinite;
+}
+
 /* по умолчанию скрываем тёмный */
 .logo-dark {
     display: none;
