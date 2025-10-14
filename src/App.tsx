@@ -26,6 +26,19 @@ import CustomOrdersPage from "./pages/services/CustomOrdersPage.tsx";
 import ConsultSpecialistsPage from "./pages/services/ConsultSpecialistsPage.tsx";
 import SpaPwaGuidePage from "./pages/services/SpaPwaGuidePage.tsx";
 import WebCostCalculatorPage from "./pages/services/WebCostCalculatorPage.tsx";
+import JavaScriptDevPage from "./pages/services/stack/JavaScriptDevPage.tsx";
+import TypeScriptDevPage from "./pages/services/stack/TypeScriptDevPage.tsx";
+import ReactDevPage from "./pages/services/stack/ReactDevPage.tsx";
+import NginxDevPage from "./pages/services/stack/NginxDevPage.tsx";
+import SpringDevPage from "./pages/services/stack/SpringDevPage.tsx";
+import Html5DevPage from "./pages/services/stack/Html5DevPage.tsx";
+import CssDevPage from "./pages/services/stack/CssDevPage.tsx";
+import SassDevPage from "./pages/services/stack/SassDevPage.tsx";
+import TailwindDevPage from "./pages/services/stack/TailwindDevPage.tsx";
+import PostgreSQLDevPage from "./pages/services/stack/PostgreSQLDevPage.tsx";
+import MongoDBDevPage from "./pages/services/stack/MongoDBDevPage.tsx";
+import GitDevPage from "./pages/services/stack/GitDevPage.tsx";
+import ReduxDevPage from "./pages/services/stack/ReduxDevPage.tsx";
 
 
 export default function App() {
@@ -55,6 +68,23 @@ export default function App() {
                                     <Route path="/services/quality-guarantee" element={<QualityGuaranteePage/>}/>
                                     <Route path="/services/custom-orders" element={<CustomOrdersPage/>}/>
                                     <Route path="/services/expert-consulting" element={<ConsultSpecialistsPage/>}/>
+
+                                    <Route path="/dev/javascript" element={<JavaScriptDevPage />} />
+                                    <Route path="/dev/typescript" element={<TypeScriptDevPage />} />
+                                    <Route path="/dev/react" element={<ReactDevPage />} />
+                                    <Route path="/dev/nginx" element={<NginxDevPage />} />
+                                    <Route path="/dev/spring" element={<SpringDevPage />} />
+                                    <Route path="/dev/spring-security" element={<SpringDevPage />} />
+                                    <Route path="/dev/spring-boot" element={<SpringDevPage />} />
+                                    <Route path="/dev/html5" element={<Html5DevPage />} />
+                                    <Route path="/dev/css3" element={<CssDevPage />} />
+                                    <Route path="/dev/sass" element={<SassDevPage />} />
+                                    <Route path="/dev/tailwind" element={<TailwindDevPage />} />
+                                    <Route path="/dev/postgresql" element={<PostgreSQLDevPage />} />
+                                    <Route path="/dev/mongodb" element={<MongoDBDevPage />} />
+                                    <Route path="/dev/git" element={<GitDevPage />} />
+                                    <Route path="/dev/redux" element={<ReduxDevPage />} />
+
                                     {/* приватные */}
                                     <Route
                                         path="/products"
