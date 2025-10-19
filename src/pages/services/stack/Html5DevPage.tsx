@@ -1,4 +1,4 @@
-import { useI18n } from "../../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
 
 /**
  * Страница: HTML5 — в разработке (under construction)

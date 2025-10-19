@@ -35,8 +35,8 @@ const slides: Slide[] = [
                 text: "pe React + Spring (TypeScript + Java 17/21)"
             },
             en: {
-                title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate",
-                text: "pe React + Spring (TypeScript + Java 17/21)"
+                title: "Development of websites and web applications of any complexity",
+                text: "with React + Spring (TypeScript + Java 17/21)"
             },
         },
     },
@@ -44,45 +44,45 @@ const slides: Slide[] = [
         id: 2,
         img: slide2,
         translations: {
-            ru: {title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам"},
-            ro: {title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale"},
-            en: {title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale"},
+            ru: { title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам" },
+            ro: { title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale" },
+            en: { title: "Custom website development", text: "We work according to your individual requirements" },
         },
     },
     {
         id: 3,
         img: slide3,
         translations: {
-            ru: {title: "Разработка SPA и PWA веб-приложений", text: "И не только"},
-            ro: {title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele"},
-            en: {title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele"},
+            ru: { title: "Разработка SPA и PWA веб-приложений", text: "И не только" },
+            ro: { title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele" },
+            en: { title: "Development of SPA and PWA web applications", text: "And much more" },
         },
     },
     {
         id: 4,
         img: slide4,
         translations: {
-            ru: {title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям"},
-            ro: {title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră"},
-            en: {title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră"},
+            ru: { title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям" },
+            ro: { title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră" },
+            en: { title: "Creation of complex websites and web applications", text: "According to your requirements" },
         },
     },
     {
         id: 5,
         img: slide5,
         translations: {
-            ru: {title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ"},
-            ro: {title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate"},
-            en: {title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate"},
+            ru: { title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ" },
+            ro: { title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate" },
+            en: { title: "Development of websites for small and medium businesses", text: "Any level of complexity" },
         },
     },
     {
         id: 6,
         img: slide6,
         translations: {
-            ru: {title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+"},
-            ro: {title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+"},
-            en: {title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+"},
+            ru: { title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+" },
+            ro: { title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+" },
+            en: { title: "Custom Android app development", text: "Android 10–16, Java 17+" },
         },
     },
     {
@@ -98,8 +98,8 @@ const slides: Slide[] = [
                 text: "Suport complet și întreținere"
             },
             en: {
-                title: "Site-uri la cheie, pachet complet de servicii pentru găzduire și domeniu",
-                text: "Suport complet și întreținere"
+                title: "Turnkey websites — full package of hosting and domain services",
+                text: "Comprehensive support and maintenance"
             },
         },
     },
@@ -107,9 +107,9 @@ const slides: Slide[] = [
         id: 8,
         img: slide8,
         translations: {
-            ru: {title: "Поддержка и сопровождение", text: "В течении года"},
-            ro: {title: "Suport și mentenanță", text: "Pe parcursul unui an"},
-            en: {title: "Suport și mentenanță", text: "Pe parcursul unui an"},
+            ru: { title: "Поддержка и сопровождение", text: "В течении года" },
+            ro: { title: "Suport și mentenanță", text: "Pe parcursul unui an" },
+            en: { title: "Support and maintenance", text: "Throughout the year" },
         },
     }
 ];

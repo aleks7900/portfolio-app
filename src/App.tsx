@@ -38,6 +38,8 @@ import PostgreSQLDevPage from "./pages/services/stack/PostgreSQLDevPage.tsx";
 import MongoDBDevPage from "./pages/services/stack/MongoDBDevPage.tsx";
 import GitDevPage from "./pages/services/stack/GitDevPage.tsx";
 import ReduxDevPage from "./pages/services/stack/ReduxDevPage.tsx";
+import SpringSecurityDevPage from "./pages/services/stack/SpringSecurityDevPage.tsx";
+import SpringBootDevPage from "./pages/services/stack/SpringBootDevPage.tsx";
 
 
 export default function App() {
@@ -103,11 +105,11 @@ export default function App() {
                                     <Route path="/dev/spring" element={<SpringDevPage/>}/>
                                     <Route path="/dev/spring/:lang" element={<SpringDevPage/>}/>
 
-                                    <Route path="/dev/spring-security" element={<SpringDevPage/>}/>
-                                    <Route path="/dev/spring-security/:lang" element={<SpringDevPage/>}/>
+                                    <Route path="/dev/spring-security" element={<SpringSecurityDevPage/>}/>
+                                    <Route path="/dev/spring-security/:lang" element={<SpringSecurityDevPage/>}/>
 
-                                    <Route path="/dev/spring-boot" element={<SpringDevPage/>}/>
-                                    <Route path="/dev/spring-boot/:lang" element={<SpringDevPage/>}/>
+                                    <Route path="/dev/spring-boot" element={<SpringBootDevPage/>}/>
+                                    <Route path="/dev/spring-boot/:lang" element={<SpringBootDevPage/>}/>
 
                                     <Route path="/dev/html5" element={<Html5DevPage/>}/>
                                     <Route path="/dev/html5/:lang" element={<Html5DevPage/>}/>
