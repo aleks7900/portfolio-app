@@ -145,7 +145,7 @@ export default function TechChatWidget({
                                            defaultMessage,
                                        }: Props) {
 
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
 
     const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC", []);
     const page = useMemo(() => location.pathname + location.search, []);
