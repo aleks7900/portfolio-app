@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import "keen-slider/keen-slider.min.css";
 import {type KeenSliderPlugin, useKeenSlider} from "keen-slider/react";
-import {useTranslation} from "react-i18next";
 
 import slide1 from "../assets/img/site.jpg";
 import slide2 from "../assets/img/app.jpg";
@@ -11,71 +10,106 @@ import slide5 from "../assets/img/business.jpg";
 import slide6 from "../assets/img/android.png";
 import slide7 from "../assets/img/support.jpeg";
 import slide8 from "../assets/img/seo.jpg";
+import {useI18n} from "./i18n/i18n.tsx";
 
-/** Двухъязычный массив слайдов */
-const slides = [
+type Lang = "ru" | "ro" | "en";
+
+interface Slide {
+    id: number;
+    img: string;
+    translations: Record<Lang, { title: string; text: string }>;
+}
+
+/** массив слайдов */
+const slides: Slide[] = [
     {
         id: 1,
         img: slide1,
         translations: {
-            ru: { title: "Разработка сайтов и веб приложений любой сложности", text: "на React + Spring (Typescript + Java 17/21)" },
-            ro: { title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate", text: "pe React + Spring (TypeScript + Java 17/21)" },
+            ru: {
+                title: "Разработка сайтов и веб приложений любой сложности",
+                text: "на React + Spring (Typescript + Java 17/21)"
+            },
+            ro: {
+                title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate",
+                text: "pe React + Spring (TypeScript + Java 17/21)"
+            },
+            en: {
+                title: "Dezvoltarea site-urilor și aplicațiilor web de orice complexitate",
+                text: "pe React + Spring (TypeScript + Java 17/21)"
+            },
         },
     },
     {
         id: 2,
         img: slide2,
         translations: {
-            ru: { title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам" },
-            ro: { title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale" },
+            ru: {title: "Разработка сайтов по индивидуальному заказу", text: "Работаем по индивидуальным заказам"},
+            ro: {title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale"},
+            en: {title: "Dezvoltarea site-urilor la comandă", text: "Lucrăm conform cerințelor individuale"},
         },
     },
     {
         id: 3,
         img: slide3,
         translations: {
-            ru: { title: "Разработка SPA и PWA веб-приложений", text: "И не только" },
-            ro: { title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele" },
+            ru: {title: "Разработка SPA и PWA веб-приложений", text: "И не только"},
+            ro: {title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele"},
+            en: {title: "Dezvoltarea aplicațiilor web SPA și PWA", text: "Și multe altele"},
         },
     },
     {
         id: 4,
         img: slide4,
         translations: {
-            ru: { title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям" },
-            ro: { title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră" },
+            ru: {title: "Разработка сайтов и веб приложений любой сложности", text: "По вашим требованиям"},
+            ro: {title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră"},
+            en: {title: "Crearea site-urilor și aplicațiilor web complexe", text: "Conform cerințelor dumneavoastră"},
         },
     },
     {
         id: 5,
         img: slide5,
         translations: {
-            ru: { title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ" },
-            ro: { title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate" },
+            ru: {title: "Разработка сайтов для малого и среднего бизнеса", text: "Любая сложность работ"},
+            ro: {title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate"},
+            en: {title: "Dezvoltarea site-urilor pentru afaceri mici și mijlocii", text: "Orice nivel de complexitate"},
         },
     },
     {
         id: 6,
         img: slide6,
         translations: {
-            ru: { title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+" },
-            ro: { title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+" },
+            ru: {title: "Разработка Android приложений под заказ", text: "Android 10-16, Java 17+"},
+            ro: {title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+"},
+            en: {title: "Dezvoltarea aplicațiilor Android la comandă", text: "Android 10-16, Java 17+"},
         },
     },
     {
         id: 7,
         img: slide7,
         translations: {
-            ru: { title: "Сайты под ключ, полный пакет услуг по размещению и регистрации домена", text: "Полный комплекс поддержки" },
-            ro: { title: "Site-uri la cheie, pachet complet de servicii pentru găzduire și domeniu", text: "Suport complet și întreținere" },
+            ru: {
+                title: "Сайты под ключ, полный пакет услуг по размещению и регистрации домена",
+                text: "Полный комплекс поддержки"
+            },
+            ro: {
+                title: "Site-uri la cheie, pachet complet de servicii pentru găzduire și domeniu",
+                text: "Suport complet și întreținere"
+            },
+            en: {
+                title: "Site-uri la cheie, pachet complet de servicii pentru găzduire și domeniu",
+                text: "Suport complet și întreținere"
+            },
         },
     },
     {
         id: 8,
         img: slide8,
         translations: {
-            ru: { title: "Поддержка и сопровождение", text: "В течении года" },
-            ro: { title: "Suport și mentenanță", text: "Pe parcursul unui an" },
+            ru: {title: "Поддержка и сопровождение", text: "В течении года"},
+            ro: {title: "Suport și mentenanță", text: "Pe parcursul unui an"},
+            en: {title: "Suport și mentenanță", text: "Pe parcursul unui an"},
         },
     }
 ];
@@ -117,8 +151,7 @@ const AutoPlay: KeenSliderPlugin = (slider) => {
 export default function Slideshow() {
     const [current, setCurrent] = useState(0);
 
-    const {i18n} = useTranslation();
-    const lang = ((i18n.resolvedLanguage || i18n.language || "ru").toLowerCase().startsWith("ro")) ? "ro" : "ru";
+    const {lang} = useI18n();
 
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {
@@ -143,7 +176,7 @@ export default function Slideshow() {
             {/* Слайды */}
             <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden shadow">
                 {slides.map((s) => {
-                    const t = s.translations[lang];
+                    const t: { title: string; text: string } = s.translations[lang] ?? s.translations["ru"];
                     return (
                         <div
                             key={s.id}
@@ -154,9 +187,10 @@ export default function Slideshow() {
                                 alt={t.title}
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
-                            <div className="relative z-0 text-center text-white px-4 sm:px-8 md:px-28 max-w-[92%] mx-auto">
+                            <div
+                                className="relative z-0 text-center text-white px-4 sm:px-8 md:px-28 max-w-[92%] mx-auto">
                                 <h2
-                                  className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]"
+                                    className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]"
                                 >
                                     {t.title}
                                 </h2>

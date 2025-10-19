@@ -112,7 +112,7 @@ export default function HeroDownServices() {
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
                                 onClick={() => {
-                                    navigate("/service");
+                                    navigate({toLangHref("/service", lang)});
                                     window.scrollTo({ top: 0, behavior: "smooth" });
                                 }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black shadow hover:!bg-black hover:!text-white hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99] dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"

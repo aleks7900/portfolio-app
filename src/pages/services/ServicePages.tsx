@@ -21,7 +21,7 @@ export default function ServicePages() {
     const {slug} = useParams();
     const svc = useMemo(() => SERVICES.find((s) => s.slug === slug), [slug]);
 
-    if (!svc) return <Navigate to="/service" replace/>;
+    if (!svc) return <Navigate to={toLangHref("/service", lang)} replace/>;
 
     // выбираем компонент по slug; если нет — фолбэк
     const LazyPage = slug ? SERVICE_PAGE_MAP[slug] : undefined;
@@ -33,7 +33,7 @@ export default function ServicePages() {
                 <nav className="mb-6 mt-10 ml-4 text-sm text-gray-500 dark:text-gray-400">
                     <Link to="/" className="hover:underline">Главная</Link>
                     <span className="mx-2">/</span>
-                    <Link to="/service" className="hover:underline">Услуги</Link>
+                    <Link to={toLangHref("/service", lang)} className="hover:underline">Услуги</Link>
                     <span className="mx-2">/</span>
                     <span className="text-gray-700 dark:text-gray-200">{svc.title}</span>
                 </nav>

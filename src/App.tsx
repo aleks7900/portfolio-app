@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {I18nProvider} from "./shared/i18n/i18n.tsx";
 import {ThemeProvider} from "./shared/theme/theme.tsx";
 import {AuthProvider} from "./shared/auth/auth.tsx";
@@ -58,31 +58,80 @@ export default function App() {
                                 <Routes>
                                     {/* публичные */}
                                     <Route path="/" element={<MainPage/>}/>
+                                    <Route path="/:lang" element={<MainPage/>}/>
+
                                     <Route path="/service" element={<ServicePage/>}/>
+                                    <Route path="/service/:lang" element={<ServicePage/>}/>
+
                                     <Route path="/contacts" element={<ContactsPage/>}/>
+                                    <Route path="/contacts/:lang" element={<ContactsPage/>}/>
+
                                     <Route path="/about" element={<AboutPage/>}/>
+                                    <Route path="/about/:lang" element={<AboutPage/>}/>
+
                                     <Route path="/guide" element={<SpaPwaGuidePage/>}/>
+                                    <Route path="/guide/:lang" element={<SpaPwaGuidePage/>}/>
+
                                     <Route path="/web/calc" element={<WebCostCalculatorPage/>}/>
+                                    <Route path="/web/calc/:lang" element={<WebCostCalculatorPage/>}/>
+
                                     <Route path="/services/:slug" element={<ServicePages/>}/>
+                                    <Route path="/services/:slug/:lang" element={<ServicePages/>}/>
+
                                     <Route path="/services/quality-guarantee" element={<QualityGuaranteePage/>}/>
+                                    <Route path="/services/quality-guarantee/:lang" element={<QualityGuaranteePage/>}/>
+
                                     <Route path="/services/custom-orders" element={<CustomOrdersPage/>}/>
+                                    <Route path="/services/custom-orders/:lang" element={<CustomOrdersPage/>}/>
+
                                     <Route path="/services/expert-consulting" element={<ConsultSpecialistsPage/>}/>
+                                    <Route path="/services/expert-consulting/:lang" element={<ConsultSpecialistsPage/>}/>
+
 
                                     <Route path="/dev/javascript" element={<JavaScriptDevPage/>}/>
+                                    <Route path="/dev/javascript/:lang" element={<JavaScriptDevPage/>}/>
+
                                     <Route path="/dev/typescript" element={<TypeScriptDevPage/>}/>
+                                    <Route path="/dev/typescript/:lang" element={<TypeScriptDevPage/>}/>
+
                                     <Route path="/dev/react" element={<ReactDevPage/>}/>
+                                    <Route path="/dev/react/:lang" element={<ReactDevPage/>}/>
+
                                     <Route path="/dev/nginx" element={<NginxDevPage/>}/>
+                                    <Route path="/dev/nginx/:lang" element={<NginxDevPage/>}/>
+
                                     <Route path="/dev/spring" element={<SpringDevPage/>}/>
+                                    <Route path="/dev/spring/:lang" element={<SpringDevPage/>}/>
+
                                     <Route path="/dev/spring-security" element={<SpringDevPage/>}/>
+                                    <Route path="/dev/spring-security/:lang" element={<SpringDevPage/>}/>
+
                                     <Route path="/dev/spring-boot" element={<SpringDevPage/>}/>
+                                    <Route path="/dev/spring-boot/:lang" element={<SpringDevPage/>}/>
+
                                     <Route path="/dev/html5" element={<Html5DevPage/>}/>
+                                    <Route path="/dev/html5/:lang" element={<Html5DevPage/>}/>
+
                                     <Route path="/dev/css3" element={<CssDevPage/>}/>
+                                    <Route path="/dev/css3/:lang" element={<CssDevPage/>}/>
+
                                     <Route path="/dev/sass" element={<SassDevPage/>}/>
+                                    <Route path="/dev/sass/:lang" element={<SassDevPage/>}/>
+
                                     <Route path="/dev/tailwind" element={<TailwindDevPage/>}/>
+                                    <Route path="/dev/tailwind/:lang" element={<TailwindDevPage/>}/>
+
                                     <Route path="/dev/postgresql" element={<PostgreSQLDevPage/>}/>
+                                    <Route path="/dev/postgresql/:lang" element={<PostgreSQLDevPage/>}/>
+
                                     <Route path="/dev/mongodb" element={<MongoDBDevPage/>}/>
+                                    <Route path="/dev/mongodb/:lang" element={<MongoDBDevPage/>}/>
+
                                     <Route path="/dev/git" element={<GitDevPage/>}/>
+                                    <Route path="/dev/git/:lang" element={<GitDevPage/>}/>
+
                                     <Route path="/dev/redux" element={<ReduxDevPage/>}/>
+                                    <Route path="/dev/redux/:lang" element={<ReduxDevPage/>}/>
 
                                     {/* приватные */}
                                     <Route
@@ -117,6 +166,9 @@ export default function App() {
                                             </AdminRoute>
                                         }
                                     />
+
+                                    {/* 404 */}
+                                    <Route path="*" element={<Navigate to="/" replace />} />
                                 </Routes>
                             </main>
                             <Footer/>

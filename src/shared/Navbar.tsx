@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {ArrowUpRight, Hammer, Info, Languages, LogIn, LogOut, Menu, Moon, Phone, Sun, X} from "lucide-react";
 import {useTheme} from "./theme/theme.tsx";
-import {useI18n} from "./i18n/i18n.tsx";
+import {toLangHref, useI18n} from "./i18n/i18n.tsx";
 import {useAuth} from "./auth/auth.tsx";
 import Container from "./Container";
 import DesktopCatalog from "../dropdowns/DesktopCatalog.tsx";
@@ -112,7 +112,7 @@ const BTN_CTA =
     "focus:outline-none focus:ring-2 focus:ring-green-500 active:scale-[0.99]";
 
 export default function Navbar() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [showLogin, setShowLogin] = useState(false);      // ← состояние модалки
@@ -210,7 +210,7 @@ export default function Navbar() {
                     <nav className="hidden md:flex items-center gap-2">
                         <div className="flex items-center gap-2">
                             <DesktopCatalog/>
-                            <NavLink to="/service" className={linkClassYlw} end onClick={scrollTop}><Hammer
+                            <NavLink to={toLangHref("/service", lang)} className={linkClassYlw} end onClick={scrollTop}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
                             <NavLink to="/contacts" className={linkClassGray} end onClick={scrollTop}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
@@ -264,7 +264,7 @@ export default function Navbar() {
                                    supports-[backdrop-filter]:backdrop-blur-md">
                         <div className="grid gap-2">
                             <MobileCatalog onDone={() => setOpen(false)}/>
-                            <NavLink to="/service" onClick={() => {
+                            <NavLink to={toLangHref("/service", lang)} onClick={() => {
                                 setOpen(false);
                                 scrollTop();
                             }}

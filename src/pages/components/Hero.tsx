@@ -78,7 +78,7 @@ export default function Hero() {
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
                                 onClick={() => {
-                                    navigate("/service");
+                                    navigate({toLangHref("/service", lang)});
                                     window.scrollTo({top: 0, behavior: "smooth"});
                                 }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black

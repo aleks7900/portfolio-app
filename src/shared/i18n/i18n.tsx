@@ -1,6 +1,5 @@
 import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 
-export type Lang = "ru" | "ro";
 export type Dictionary = Record<Lang, Record<string, string>>;
 // eslint-disable-next-line react-refresh/only-export-components
 export const dict: Dictionary = {
@@ -1139,7 +1138,7 @@ export const dict: Dictionary = {
             sub_pwa_android_apps: "Android-приложения для PWA",
             sub_landing_android_apps: "Android-приложения для маркета",
             sub_web_app_android_apps: "Android-приложения для веб-приложений",
-            
+
             cat_non_standard_products: "Нестандартные изделия",
             sub_street_mobil: "Уличная мебель",
             sub_signs: "Таблички, лого, флюгеры",
@@ -6241,7 +6240,7 @@ export const dict: Dictionary = {
             sub_pwa_android_apps: "Aplicații Android pentru PWA",
             sub_landing_android_apps: "Aplicații Android pentru market",
             sub_web_app_android_apps: "Aplicații Android pentru web",
-            
+
             cat_non_standard_products: "Produse nestandard",
             sub_street_mobil: "Mobilier stradal",
             sub_signs: "Plăcuțe, logo-uri, giruete",
@@ -9646,7 +9645,7 @@ export const dict: Dictionary = {
             springboot_cta_btn_callback: "Solicită apel",
 
             springboot_seo_headline: "Dezvoltare și integrare Spring Boot",
-            
+
             web_capabilities_title: "Ce oferim",
             web_cap_sites: "Site‑uri corporate, landing pages și multi‑pagini",
             web_cap_spa_pwa: "Aplicații SPA și PWA cu mod offline",
@@ -11436,24 +11435,63 @@ export const dict: Dictionary = {
             contacts_maps_t: "Ne găsiți pe hartă",
             open_in_maps: "Deschide ruta în Google Maps",
             street_address_t: "str. Pădurii 21/1, Chișinău"
+        },
+        en: {
+            brandLogo: "",
         }
     }
 ;
 
 
 type Vars = Record<string, string | number>;
+export type Lang = "ru" | "ro" | "en";
+const SUPPORTED: Lang[] = ["ru", "ro", "en"];
+
+// простая интерполяция {{var}} → значение
+function langFromPath(pathname: string): Lang | null {
+    const path = pathname.replace(/\/+$/, "");
+    const last = path.split("/").pop()?.toLowerCase();
+    return (last && SUPPORTED.includes(last as Lang)) ? (last as Lang) : null;
+}
+
+function withLangInPath(pathname: string, lang: Lang): string {
+    const clean = pathname.replace(/\/+$/, "");
+    const parts = clean.split("/");
+    const last = parts[parts.length - 1]?.toLowerCase() || "";
+    if (SUPPORTED.includes(last as Lang)) {
+        parts[parts.length - 1] = lang;
+    } else {
+        parts.push(lang);
+    }
+    let next = parts.join("/");
+    if (!next.startsWith("/")) next = "/" + next;
+    return next;
+}
+
+function pickInitialLang(): Lang {
+    const urlLang = typeof window !== "undefined" ? langFromPath(window.location.pathname) : null;
+    if (urlLang) return urlLang;
+    const saved = (localStorage.getItem("lang") || "").toLowerCase();
+    if (saved.startsWith("ro")) return "ro";
+    if (saved.startsWith("en")) return "en";
+    const nav = typeof navigator !== "undefined" ? (navigator.language || navigator.languages?.[0] || "") : "";
+    if (nav.toLowerCase().startsWith("ro")) return "ro";
+    if (nav.toLowerCase().startsWith("en")) return "en";
+    return "ru";
+}
 
 // простая интерполяция {{var}} → значение
 function interpolate(template: string, vars?: Vars): string {
     if (!vars) return template;
     let out = template;
     for (const [k, v] of Object.entries(vars)) {
-        // {{ var }} с пробелами/без
+        // {{var}} с пробелами/без
         const re = new RegExp(`{{\\s*${k}\\s*}}`, "g");
         out = out.replace(re, String(v));
     }
     return out;
 }
+
 
 const I18nCtx = createContext<{
     lang: Lang;
@@ -11469,10 +11507,29 @@ export function useI18n() {
 }
 
 export function I18nProvider({children}: { children: React.ReactNode }) {
-    const [lang, setLang] = useState<Lang>(() => (localStorage.getItem("lang") as Lang) || "ru");
+    const [lang, setLang] = useState<Lang>(() => pickInitialLang());
 
+    // sync → localStorage + URL (последний сегмент)
     useEffect(() => {
         localStorage.setItem("lang", lang);
+        if (typeof window !== "undefined") {
+            const currentInUrl = langFromPath(window.location.pathname);
+            const nextPath = withLangInPath(window.location.pathname, lang);
+            if (currentInUrl !== lang) {
+                // не трогаем query/hash
+                const next = nextPath + window.location.search + window.location.hash;
+                window.history.replaceState(null, "", next);
+            }
+        }
+    }, [lang]);
+
+    useEffect(() => {
+        const onPop = () => {
+            const l = langFromPath(window.location.pathname);
+            if (l && l !== lang) setLang(l);
+        };
+        window.addEventListener("popstate", onPop);
+        return () => window.removeEventListener("popstate", onPop);
     }, [lang]);
 
     const t = useCallback(
@@ -11493,4 +11550,15 @@ export function I18nProvider({children}: { children: React.ReactNode }) {
 export function TransHTML({k, vars}: { k: string; vars?: Vars }) {
     const {t} = useI18n();
     return <span dangerouslySetInnerHTML={{__html: t(k, vars)}}/>;
+}
+
+// Используй для <a href={toLangHref('/about', lang)}> или Link
+export function toLangHref(href: string, lang: "ru" | "ro" | "en"): string {
+    try {
+        const u = new URL(href, window.location.origin);
+        const p = withLangInPath(u.pathname, lang);
+        return p + u.search + u.hash;
+    } catch {
+        return withLangInPath(href, lang);
+    }
 }
