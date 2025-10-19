@@ -1,4 +1,4 @@
-import {useI18n} from "../../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
 
 /**
  * Страница: TypeScript в разработке
@@ -6,7 +6,7 @@ import {useI18n} from "../../../shared/i18n/i18n.tsx";
  * Требует i18n-ключи ts_* (ru/ro словари ниже).
  */
 export default function TypeScriptDevPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const sections = [
         {id: "intro", title: t("ts_toc_intro")},
@@ -286,7 +286,7 @@ export default function TypeScriptDevPage() {
                             <h2 className="text-xl font-semibold">{t("ts_cta_title")}</h2>
                             <p className="text-indigo-50 mt-1">{t("ts_cta_sub")}</p>
                             <div className="mt-3 flex flex-wrap gap-2">
-                                <a href="/contacts"
+                                <a href={toLangHref("/contacts", lang)}
                                    className="inline-flex items-center rounded-xl bg-white text-indigo-700 px-4 py-2 font-medium hover:bg-indigo-50">
                                     {t("ts_cta_btn_contact")}
                                 </a>

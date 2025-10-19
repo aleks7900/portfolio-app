@@ -8,7 +8,7 @@ import {
 } from "../../shared/api/requestsRepo";
 import Container from "../../shared/Container.tsx";
 import useMediaQuery from "../../shared/theme/mediaQuery.tsx";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 import ImageWithFallback from "../../data/ImageWithFallback.tsx";
 import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 import resolveImg from "../../data/resolveImg.ts";
@@ -143,7 +143,7 @@ function extractImages(r: RequestVM): string[] {
 
 // ===== Page =====
 export default function RequestsPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const [q, setQ] = useState("");
     const [status, setStatus] = useState<RequestStatus | "">("");
@@ -613,7 +613,7 @@ function RequestDetailsDialog({
     onClose: () => void;
     onUpdateStatus: (s: RequestStatus) => Promise<void> | void;
 }) {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const images = useMemo(
         () => extractImages(request).map((u) => {
@@ -723,7 +723,7 @@ function Detail({label, value, multiline = false}: { label: string; value?: Reac
 }
 
 function NoImages() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
     return (
         <div
             className="grid h-full place-items-center rounded-xl border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500 dark:border-white/10 dark:text-gray-400">

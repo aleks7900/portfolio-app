@@ -1,5 +1,6 @@
 // SEO.tsx — версия для React 19 (без Helmet)
 import {useTranslation} from "react-i18next";
+import {useI18n} from "./i18n/i18n.tsx";
 
 type HreflangAlt = { lang: string; href: string };
 type SEOProps = {
@@ -29,8 +30,7 @@ const joinKeywords = (arr: string[]) =>
     Array.from(new Set(arr.map(s => s.trim()).filter(Boolean))).join(", ");
 
 export default function SEO(props: SEOProps) {
-    const {t, i18n} = useTranslation();
-    const lang = i18n?.language?.split("-")[0] || "ru";
+    const {t, lang } = useI18n();
     const def = DEFAULTS[lang] || DEFAULTS.ru;
 
     const title = props.titleKey ? t(props.titleKey) : props.title || def.title;

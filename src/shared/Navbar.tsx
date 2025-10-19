@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {ArrowUpRight, Hammer, Info, Languages, LogIn, LogOut, Menu, Moon, Phone, Sun, X} from "lucide-react";
+import {ArrowUpRight, Check, Hammer, Info, Languages, LogIn, LogOut, Menu, Moon, Phone, Sun, X} from "lucide-react";
 import {useTheme} from "./theme/theme.tsx";
 import {toLangHref, useI18n} from "./i18n/i18n.tsx";
 import {useAuth} from "./auth/auth.tsx";
@@ -10,7 +10,6 @@ import MobileCatalog from "../dropdowns/MobileCatalog.tsx";
 import LoginDialog from "../pages/modals/Login.tsx";
 import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
-import {useTranslation} from "react-i18next";
 import logoImg from '@/assets/alex-lab-logo.png';
 import logoDImg from '@/assets/alex-lab-logo-dark.png';
 
@@ -33,31 +32,120 @@ const navbarGradient = `
 `;
 
 
-function LangToggle() {
-    const {setLang} = useI18n();
+type LangCode = "ru" | "ro" | "en";
 
-    const {i18n} = useTranslation();
-    const next = (i18n.resolvedLanguage || i18n.language || "ru").startsWith("ro") ? "ru" : "ro";
+const LANGS: Array<{ code: LangCode; label: string }> = [
+    {code: "ru", label: "RU"},
+    {code: "ro", label: "RO"},
+    {code: "en", label: "EN"},
+];
 
+export function LangToggle() {
+    const {lang, setLang} = useI18n();
+    const [open, setOpen] = React.useState(false);
+    const btnRef = React.useRef<HTMLButtonElement | null>(null);
+    const menuRef = React.useRef<HTMLDivElement | null>(null);
+
+    // --- Автоопределение языка при первом запуске ---
+    React.useEffect(() => {
+        try {
+            const saved = localStorage.getItem("lang") as LangCode | null;
+            if (!saved) {
+                const navLang = (navigator.language || "ru").toLowerCase();
+                const base = navLang.split("-")[0];
+                const auto: LangCode =
+                    base.startsWith("ro") ? "ro" :
+                        base.startsWith("en") ? "en" :
+                            "ru";
+                setLang(auto);
+                localStorage.setItem("lang", auto);
+                document.documentElement.lang = auto;
+            }
+        } catch {
+            // безопасный fallback
+            document.documentElement.lang = lang;
+        }
+    }, [lang, setLang]);
+
+    // --- Закрытие меню при клике вне/по Escape ---
+    React.useEffect(() => {
+        if (!open) return;
+        const handleClickOutside = (e: MouseEvent) => {
+            if (
+                menuRef.current?.contains(e.target as Node) ||
+                btnRef.current?.contains(e.target as Node)
+            )
+                return;
+            setOpen(false);
+        };
+        const handleEsc = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleEsc);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEsc);
+        };
+    }, [open]);
+
+    const currentLabel = LANGS.find((l) => l.code === lang)?.label ?? lang.toUpperCase();
+
+    const applyLang = (next: LangCode) => {
+        setLang(next);
+        try {
+            localStorage.setItem("lang", next);
+        } catch { /* empty */
+        }
+        document.documentElement.lang = next;
+        setOpen(false);
+    };
 
     return (
-        <button
-            className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
-                 !bg-slate-900 !text-white no-underline shadow-lg transition
-                 hover:!bg-slate-400 hover:!shadow-2xl hover:!shadow-black/40
-                 visited:text-black focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
-            onClick={() => {
-                setLang(next);                          // твой контекст
-                i18n.changeLanguage(next);
-                try {
-                    localStorage.setItem("lang", next);
-                } catch { /* empty */
-                }
-                document.documentElement.lang = next;
-            }}
-        >
-            <Languages className="h-4 w-4"/> {next.toUpperCase()}
-        </button>
+        <div className="relative inline-block text-left">
+            <button
+                ref={btnRef}
+                type="button"
+                aria-haspopup="listbox"
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+                className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-base font-medium
+                   !bg-slate-900 !text-white shadow-lg transition
+                   hover:!bg-slate-400 hover:!shadow-2xl hover:!shadow-black/40
+                   focus:outline-none focus:ring-2 focus:ring-black/20 active:scale-[0.99]"
+            >
+                <Languages className="h-4 w-4"/>
+                <span>{currentLabel}</span>
+            </button>
+
+            {open && (
+                <div
+                    ref={menuRef}
+                    role="listbox"
+                    aria-label="Select language"
+                    className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-2xl bg-white/95 backdrop-blur
+                     shadow-2xl ring-1 ring-black/5 p-1"
+                >
+                    {LANGS.map(({code, label}) => {
+                        const selected = code === lang;
+                        return (
+                            <button
+                                key={code}
+                                role="option"
+                                aria-selected={selected}
+                                onClick={() => applyLang(code)}
+                                className={`w-full flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-left
+                            transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-black/10
+                            ${selected ? "bg-slate-100" : ""}`}
+                            >
+                                <span className="text-sm">{label}</span>
+                                {selected && <Check className="h-4 w-4" aria-hidden="true"/>}
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
+        </div>
     );
 }
 
@@ -212,12 +300,14 @@ export default function Navbar() {
                             <DesktopCatalog/>
                             <NavLink to={toLangHref("/service", lang)} className={linkClassYlw} end onClick={scrollTop}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
-                            <NavLink to="/contacts" className={linkClassGray} end onClick={scrollTop}><Phone
+                            <NavLink to={toLangHref("/contacts", lang)} className={linkClassGray} end
+                                     onClick={scrollTop}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" className={linkClassBlue} end onClick={scrollTop}><Info
+                            <NavLink to={toLangHref("/about", lang)} className={linkClassBlue} end
+                                     onClick={scrollTop}><Info
                                 className="h-4 w-4"/> {t("nav_about")}
                             </NavLink>
-                            {!isAuth ? (<NavLink to="/contacts"
+                            {!isAuth ? (<NavLink to={toLangHref("/contacts", lang)}
                                                  className={() => BTN_CTA}
                                                  onClick={scrollTop}>{t("cta_contact")}<ArrowUpRight
                                 className="ml-1 h-4 w-4"/></NavLink>) : (<></>)}
@@ -270,13 +360,13 @@ export default function Navbar() {
                             }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Hammer
                                 className="h-4 w-4"/> {t("nav_service")}</NavLink>
-                            <NavLink to="/contacts" onClick={() => {
+                            <NavLink to={toLangHref("/contacts", lang)} onClick={() => {
                                 setOpen(false);
                                 scrollTop();
                             }}
                                      className={({isActive}) => [BTN, "justify-start", isActive ? "bg-neutral-900 text-white" : ""].join(" ")}><Phone
                                 className="h-4 w-4"/> {t("nav_contacts")}</NavLink>
-                            <NavLink to="/about" onClick={() => {
+                            <NavLink to={toLangHref("/about", lang)} onClick={() => {
                                 setOpen(false);
                                 scrollTop();
                             }}

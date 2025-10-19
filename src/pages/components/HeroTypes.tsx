@@ -1,4 +1,4 @@
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import {SERVICES} from "../../data/data.ts";
@@ -21,7 +21,7 @@ const cardVariants = {
 } as const;
 
 export default function HeroTypes() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
     const navigate = useNavigate();
 
     return (
@@ -78,7 +78,7 @@ export default function HeroTypes() {
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
                                 onClick={() => {
-                                    navigate("/guide");
+                                    navigate(toLangHref("/guide", lang));
                                     window.scrollTo({top: 0, behavior: "smooth"});
                                 }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black
@@ -91,7 +91,7 @@ export default function HeroTypes() {
                                 whileHover={{y: -1}}
                                 whileTap={{scale: 0.985}}
                                 onClick={() => {
-                                    navigate("/contacts");
+                                    navigate(toLangHref("/contacts", lang));
                                     window.scrollTo({top: 0, behavior: "smooth"});
                                 }}
                                 className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-green-500 !text-white

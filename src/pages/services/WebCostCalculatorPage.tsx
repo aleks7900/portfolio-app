@@ -1,5 +1,5 @@
 import {useMemo, useState} from "react";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 
 
 /**
@@ -10,7 +10,7 @@ import {useI18n} from "../../shared/i18n/i18n.tsx";
  * Дизайн ориентирован на TailwindCSS v4 и общий стиль ваших сервис‑страниц.
  */
 export default function WebCostCalculatorPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     // --- FORM STATE -----------------------------------------------------------
     const [projectType, setProjectType] = useState<
@@ -318,7 +318,7 @@ export default function WebCostCalculatorPage() {
                             <p className="text-xs text-zinc-500 mt-3">{t("calc_price_note")}</p>
 
                             <div className="mt-4 flex flex-wrap gap-2">
-                                <a href="/contacts"
+                                <a href={toLangHref("/contacts", lang)}
                                    className="inline-flex items-center rounded-xl bg-emerald-600 text-white px-4 py-2 font-medium hover:bg-emerald-700">
                                     {t("calc_btn_contact")}
                                 </a>
@@ -373,7 +373,7 @@ export default function WebCostCalculatorPage() {
                             <h2 className="text-xl font-semibold">{t("calc_cta_title")}</h2>
                             <p className="text-emerald-50 mt-1">{t("calc_cta_sub")}</p>
                             <div className="mt-3 flex flex-wrap gap-2">
-                                <a href="/contacts"
+                                <a href={toLangHref("/contacts", lang)}
                                    className="inline-flex items-center rounded-xl bg-white text-emerald-700 px-4 py-2 font-medium hover:bg-emerald-50">{t("calc_cta_btn_contact")}</a>
                                 <a
                                     href="#"

@@ -1,4 +1,4 @@
-import {useI18n} from "../../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
 
 /**
  * Страница: CSS3 — в разработке
@@ -6,7 +6,7 @@ import {useI18n} from "../../../shared/i18n/i18n.tsx";
  * Требует i18n-ключи css_* (ru/ro словари). Можно временно полагаться на defaultValue.
  */
 export default function CssDevPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const sections = [
         {id: "intro", title: t("css_toc_intro", {defaultValue: "Введение"})},
@@ -199,7 +199,7 @@ export default function CssDevPage() {
                             <h2 className="text-xl font-semibold">{t("css_cta_title", {defaultValue: "Нужна помощь с CSS?"})}</h2>
                             <p className="text-emerald-50 mt-1">{t("css_cta_sub", {defaultValue: "Оптимизируем стили, ускорим рендеринг и наведём порядок в коде."})}</p>
                             <div className="mt-3 flex flex-wrap gap-2">
-                                <a href="/contacts"
+                                <a href={toLangHref("/contacts", lang)}
                                    className="inline-flex items-center rounded-xl bg-white text-emerald-700 px-4 py-2 font-medium hover:bg-emerald-50">
                                     {t("css_cta_btn_contact", {defaultValue: "Связаться"})}
                                 </a>

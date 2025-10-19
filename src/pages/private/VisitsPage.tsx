@@ -6,7 +6,7 @@ import {Input} from "../../components/ui/input";
 import {Alert, AlertDescription} from "../../components/ui/alert";
 import {Download, RefreshCw} from "lucide-react";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 import {Skeleton} from "../../components/ui/skeleton.tsx";
 import {apiFetch, API_BASE} from "../../shared/api/api.ts";
 
@@ -34,7 +34,7 @@ function exportToCSV(filename: string, rows: { [k: string]: unknown }[], headers
 }
 
 export default function VisitsPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const tf = useCallback((key: string, fallback: string) => {
         const v = t(key);

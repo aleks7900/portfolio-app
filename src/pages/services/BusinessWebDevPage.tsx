@@ -1,4 +1,4 @@
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 
 /**
  * Страница: Разработка сайтов для малого и среднего бизнеса
@@ -7,7 +7,7 @@ import {useI18n} from "../../shared/i18n/i18n.tsx";
  */
 
 export default function BusinessWebDevPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const sections = [
         {id: "intro", title: t("business_toc_intro")},
@@ -238,7 +238,7 @@ export default function BusinessWebDevPage() {
                             <p className="text-emerald-50 mt-1">{t("business_cta_sub")}</p>
                             <div className="mt-3 flex flex-wrap gap-2">
                                 <a
-                                    href="/contacts"
+                                    href={toLangHref("/contacts", lang)}
                                     className="inline-flex items-center rounded-xl bg-white text-emerald-700 px-4 py-2 font-medium hover:bg-emerald-50"
                                 >
                                     {t("business_cta_btn_contact")}

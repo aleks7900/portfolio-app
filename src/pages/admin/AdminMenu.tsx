@@ -1,13 +1,13 @@
 import React from "react";
 import {ChevronDown} from "lucide-react";
 import {Link} from "react-router-dom";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 
 export default function AdminMenu() {
     const [open, setOpen] = React.useState(false);
     const ref = React.useRef<HTMLDivElement | null>(null);
 
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     React.useEffect(() => {
         const onClick = (e: MouseEvent) => {
@@ -30,10 +30,10 @@ export default function AdminMenu() {
             {open && (
                 <div className="absolute right-0 z-50 mt-2 w-56 rounded-2xl border bg-white p-2 shadow-xl
                         dark:border-white/10 dark:!bg-gray-800">
-                    <MenuItem to="/admin/users" label="admin_menu_userii" onClick={() => setOpen(false)}/>
-                    <MenuItem to="/admin/requests" label="admin_menu_aplic" onClick={() => setOpen(false)}/>
-                    <MenuItem to="/admin/analytics" label="admin_menu_analytics" onClick={() => setOpen(false)}/>
-                    <MenuItem to="/admin/visits" label="admin_menu_visits" onClick={() => setOpen(false)}/>
+                    <MenuItem to={toLangHref("/admin/users", lang)} label="admin_menu_userii" onClick={() => setOpen(false)}/>
+                    <MenuItem to={toLangHref("/admin/requests", lang)} label="admin_menu_aplic" onClick={() => setOpen(false)}/>
+                    <MenuItem to={toLangHref("/admin/analytics", lang)} label="admin_menu_analytics" onClick={() => setOpen(false)}/>
+                    <MenuItem to={toLangHref("/admin/visits", lang)} label="admin_menu_visits" onClick={() => setOpen(false)}/>
                 </div>
             )}
         </div>

@@ -10,7 +10,7 @@ import { useI18n } from "../../../shared/i18n/i18n.tsx";
  * позже наполнить её реальными разделами.
  */
 export default function Html5DevPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const sections = [
         {id: "intro", title: t("html5_toc_intro", {defaultValue: "Введение"})},
@@ -205,7 +205,7 @@ export default function Html5DevPage() {
                                 {t("html5_cta_sub", {defaultValue: "Подскажем по структуре, семантике, доступности и SEO."})}
                             </p>
                             <div className="mt-3 flex flex-wrap gap-2">
-                                <a href="/contacts"
+                                <a href={toLangHref("/contacts", lang)}
                                    className="inline-flex items-center rounded-xl bg-white text-emerald-700 px-4 py-2 font-medium hover:bg-emerald-50">
                                     {t("html5_cta_btn_contact", {defaultValue: "Связаться"})}
                                 </a>

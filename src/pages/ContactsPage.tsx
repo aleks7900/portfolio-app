@@ -54,7 +54,7 @@ const Icon = {
  * — после успешной отправки очищает форму и выбранные файлы
  */
 export default function ContactsPage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     const tf = (key: string, fallback: string) => {
         const v = t(key);

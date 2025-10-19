@@ -11,6 +11,7 @@ import slide5 from "../assets/img/business.jpg";
 import slide6 from "../assets/img/android.png";
 import slide7 from "../assets/img/support.jpeg";
 import slide8 from "../assets/img/seo.jpg";
+import {useI18n} from "./i18n/i18n.tsx";
 
 /** Двухъязычный массив слайдов */
 const slides = [
@@ -117,8 +118,7 @@ const AutoPlay: KeenSliderPlugin = (slider) => {
 export default function SlideshowServices() {
     const [current, setCurrent] = useState(0);
 
-    const { i18n } = useTranslation();
-    const lang = ((i18n.resolvedLanguage || i18n.language || "ru").toLowerCase().startsWith("ro")) ? "ro" : "ru";
+    const { lang } = useI18n();
 
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {

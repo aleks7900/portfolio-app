@@ -44,7 +44,7 @@ function useAnchorRect<T extends HTMLElement>() {
 }
 
 export default function DesktopCatalog() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
     const navigate = useNavigate();
     const location = useLocation();
 

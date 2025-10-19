@@ -3,6 +3,7 @@ import {Link, Navigate, useParams} from "react-router-dom";
 import Container from "../../shared/Container.tsx";
 import {SERVICES} from "../../data/data.ts";
 import {SERVICE_PAGE_MAP} from "./ServiceRegistry.ts";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 
 // Базовый фолбэк, когда для slug нет отдельной страницы
 function GenericServiceBlock({title, lead}: { title: string; lead?: string }) {
@@ -19,6 +20,7 @@ function GenericServiceBlock({title, lead}: { title: string; lead?: string }) {
 
 export default function ServicePages() {
     const {slug} = useParams();
+    const {lang} = useI18n();
     const svc = useMemo(() => SERVICES.find((s) => s.slug === slug), [slug]);
 
     if (!svc) return <Navigate to={toLangHref("/service", lang)} replace/>;
@@ -60,7 +62,7 @@ export default function ServicePages() {
                 {/* CTA */}
                 <div className="mt-10 flex flex-wrap items-center gap-3">
                     <Link
-                        to="/contacts"
+                        to={toLangHref("/contacts", lang)}
                         className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg:white dark:text-black dark:hover:bg-white/90"
                     >
                         Связаться

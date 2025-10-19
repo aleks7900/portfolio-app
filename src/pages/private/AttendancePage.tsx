@@ -1,6 +1,6 @@
 import {useEffect, useMemo, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 import {format} from "date-fns";
 import {apiFetch, API_BASE} from "../../shared/api/api.ts"; // если используете RRv6
 
@@ -60,7 +60,7 @@ const sortableColumns: Array<{ key: keyof AnalyticsEvent | "meta.event" | "meta.
 ];
 
 export default function AttendancePage() {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
     const [sp, setSp] = useSearchParams();
     const [data, setData] = useState<Page<AnalyticsEvent> | null>(null);
     const [loading, setLoading] = useState(false);

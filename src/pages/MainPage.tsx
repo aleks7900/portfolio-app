@@ -11,7 +11,7 @@ import TechGrid from "./TechGrid.tsx";
 
 export default function MainPage() {
 
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
 
     // --- мета-теги без Helmet ---
     useEffect(() => {

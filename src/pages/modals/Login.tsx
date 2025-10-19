@@ -1,4 +1,4 @@
-import {useI18n} from "../../shared/i18n/i18n.tsx";
+import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
 import {useAuth} from "../../shared/auth/auth.tsx";
 import {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
@@ -10,7 +10,7 @@ export default function LoginDialog({
     open: boolean;
     onClose: () => void;
 }) {
-    const {t} = useI18n();
+    const {t, lang} = useI18n();
     const {login} = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
