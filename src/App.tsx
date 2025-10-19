@@ -168,6 +168,38 @@ export default function App() {
                                             </AdminRoute>
                                         }
                                     />
+                                    <Route
+                                        path="/admin/requests/:lang"
+                                        element={
+                                            <AdminRoute>
+                                                <RequestsPage/>
+                                            </AdminRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/users/:lang"
+                                        element={
+                                            <AdminRoute>
+                                                <UsersPage/>
+                                            </AdminRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/analytics/:lang"
+                                        element={
+                                            <AdminRoute>
+                                                <AttendancePage/>
+                                            </AdminRoute>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin/visits/:lang"
+                                        element={
+                                            <AdminRoute>
+                                                <VisitsPage/>
+                                            </AdminRoute>
+                                        }
+                                    />
 
                                     {/* 404 */}
                                     <Route path="*" element={<Navigate to="/" replace />} />

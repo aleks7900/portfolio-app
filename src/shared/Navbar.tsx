@@ -135,7 +135,7 @@ export function LangToggle() {
                                 aria-selected={selected}
                                 onClick={() => applyLang(code)}
                                 className={`w-full flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-left
-                            transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-black/10
+                            transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-black/10 text-black
                             ${selected ? "bg-slate-100" : ""}`}
                             >
                                 <span className="text-sm">{label}</span>
