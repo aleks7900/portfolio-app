@@ -24,7 +24,7 @@ interface MobileCatalogProps {
 }
 
 export default function MobileCatalog({onDone}: MobileCatalogProps) {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
     const navigate = useNavigate();
     const [open, setOpen] = React.useState<OpenMap>({});
 

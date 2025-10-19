@@ -1,5 +1,5 @@
 import {SERVICES} from "../../data/data.ts";
-import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {ArrowRight} from "lucide-react";
 import {Link} from "react-router-dom";
 
@@ -8,7 +8,7 @@ export default function ServiceCard({titleKey, descKey, s}: {
     descKey: string;
     s: (typeof SERVICES)[number]
 }) {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
     return (
         <div className="rounded-2xl bg-white p-6 shadow-sm min-h-full dark:!bg-gray-600 dark:border-white/10">
             <div className="flex items-center gap-3">

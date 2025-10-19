@@ -7,7 +7,7 @@ import {Alert, AlertDescription} from "../../components/ui/alert";
 import {Skeleton} from "../../components/ui/skeleton";
 import {ArrowUpDown, ChevronLeft, ChevronRight, Download, RefreshCw} from "lucide-react";
 import {API_BASE, apiFetch} from "../../shared/api/api";
-import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 
 type UsersSummary = {
     totalUsers: number;
@@ -58,7 +58,7 @@ async function getJSON<T>(url: string, signal?: AbortSignal): Promise<T> {
 }
 
 export default function UsersPage() {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
     const tf = (k: string, fb: string) => {
         const v = t(k);
         return v === k || !v ? fb : v;

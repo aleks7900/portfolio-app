@@ -1,5 +1,5 @@
 import React from "react";
-import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {motion} from "framer-motion";
 
 export default function Section({titleKey, leadKey, children}: {
@@ -7,7 +7,7 @@ export default function Section({titleKey, leadKey, children}: {
     leadKey?: string;
     children: React.ReactNode
 }) {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
             <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">

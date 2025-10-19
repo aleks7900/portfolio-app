@@ -37,7 +37,7 @@ const techs = [
 ];
 
 export default function TechGrid() {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
 
     return (
         <section className="py-16 bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950">

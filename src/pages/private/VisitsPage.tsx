@@ -6,9 +6,9 @@ import {Input} from "../../components/ui/input";
 import {Alert, AlertDescription} from "../../components/ui/alert";
 import {Download, RefreshCw} from "lucide-react";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {Skeleton} from "../../components/ui/skeleton.tsx";
-import {apiFetch, API_BASE} from "../../shared/api/api.ts";
+import {API_BASE, apiFetch} from "../../shared/api/api.ts";
 
 type Period = "day" | "month" | "year";
 
@@ -34,7 +34,7 @@ function exportToCSV(filename: string, rows: { [k: string]: unknown }[], headers
 }
 
 export default function VisitsPage() {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
 
     const tf = useCallback((key: string, fallback: string) => {
         const v = t(key);
@@ -101,7 +101,7 @@ export default function VisitsPage() {
         abortRef.current = controller;
 
         try {
-            const r = await apiFetch(buildChartUrl(), { signal: controller.signal });
+            const r = await apiFetch(buildChartUrl(), {signal: controller.signal});
 
             let json: VisitsResponse;
             if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
@@ -131,7 +131,7 @@ export default function VisitsPage() {
         topAbortRef.current = controller;
 
         try {
-            const r = await apiFetch(buildTopUrl(), { signal: controller.signal });
+            const r = await apiFetch(buildTopUrl(), {signal: controller.signal});
 
             let json: TopPathsResponse;
             if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {

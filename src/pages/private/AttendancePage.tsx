@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
 import {useSearchParams} from "react-router-dom";
-import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
+import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {format} from "date-fns";
-import {apiFetch, API_BASE} from "../../shared/api/api.ts"; // если используете RRv6
+import {API_BASE, apiFetch} from "../../shared/api/api.ts"; // если используете RRv6
 
 
 type MetaJson = {
@@ -60,7 +60,7 @@ const sortableColumns: Array<{ key: keyof AnalyticsEvent | "meta.event" | "meta.
 ];
 
 export default function AttendancePage() {
-    const {t, lang} = useI18n();
+    const {t} = useI18n();
     const [sp, setSp] = useSearchParams();
     const [data, setData] = useState<Page<AnalyticsEvent> | null>(null);
     const [loading, setLoading] = useState(false);
@@ -88,7 +88,7 @@ export default function AttendancePage() {
         if (to) url.searchParams.set("to", to);
 
         setLoading(true);
-        apiFetch(url.toString(), { signal: controller.signal })
+        apiFetch(url.toString(), {signal: controller.signal})
             .then((r) => {
                 // Response или уже JSON?
                 if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
@@ -101,7 +101,7 @@ export default function AttendancePage() {
             .then((json) => setData(json))
             .catch((e: unknown) => {
                 if (e && typeof e === "object" && "name" in (e as any) && (e as any).name === "AbortError") return;
-                setData({ content: [], totalElements: 0, totalPages: 0,number: 0, size: 0 });
+                setData({content: [], totalElements: 0, totalPages: 0, number: 0, size: 0});
             })
             .finally(() => setLoading(false));
 
