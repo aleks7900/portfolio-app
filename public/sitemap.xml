@@ -1,73 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- HOME -->
-  <url>
-    <loc>https://alex-lab.md/</loc>
-    <lastmod>2025-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
 
-  <!-- STATIC -->
-  <url>
-    <loc>https://alex-lab.md/service</loc>
-    <lastmod>2025-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+    <!-- ==================== HOME ==================== -->
+    <url><loc>https://alex-lab.md/</loc><lastmod>2025-10-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+    <url><loc>https://alex-lab.md/ro</loc><lastmod>2025-10-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+    <url><loc>https://alex-lab.md/en</loc><lastmod>2025-10-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+    <url><loc>https://alex-lab.md/ru</loc><lastmod>2025-10-19</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
-  <url>
-    <loc>https://alex-lab.md/contacts</loc>
-    <lastmod>2025-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+    <!-- ==================== STATIC ==================== -->
+    <url><loc>https://alex-lab.md/service</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/service/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/service/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/service/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://alex-lab.md/about</loc>
-    <lastmod>2025-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+    <url><loc>https://alex-lab.md/contacts</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/contacts/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/contacts/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/contacts/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://alex-lab.md/guide</loc>
-    <lastmod>2025-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+    <url><loc>https://alex-lab.md/about</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/about/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/about/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/about/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <!-- DEVELOPMENT PAGES -->
-  <url><loc>https://alex-lab.md/dev/javascript</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/typescript</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/react</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/nginx</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/spring</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/spring-security</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/spring-boot</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/html5</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/css3</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/sass</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/tailwind</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/postgresql</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/mongodb</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/git</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/dev/redux</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/guide</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/guide/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/guide/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://alex-lab.md/guide/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <!-- SERVICE PAGES -->
-  <url><loc>https://alex-lab.md/services/quality-guarantee</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/custom-orders</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/expert-consulting</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/web</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/spa</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/individual</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/business</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/site</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/visit</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/market</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/lending</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/android</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/full</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/content</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://alex-lab.md/services/support</loc><lastmod>2025-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <!-- ==================== DEVELOPMENT PAGES ==================== -->
+    <url><loc>https://alex-lab.md/dev/javascript</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/javascript/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/javascript/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/javascript/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/typescript</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/typescript/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/typescript/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/typescript/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/react</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/react/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/react/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/react/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/nginx</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/nginx/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/nginx/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/nginx/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/spring</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/spring-security</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring-security/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring-security/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring-security/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/spring-boot</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring-boot/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring-boot/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/spring-boot/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/html5</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/html5/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/html5/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/html5/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/css3</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/css3/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/css3/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/css3/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/sass</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/sass/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/sass/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/sass/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/tailwind</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/tailwind/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/tailwind/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/tailwind/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/postgresql</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/postgresql/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/postgresql/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/postgresql/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/mongodb</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/mongodb/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/mongodb/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/mongodb/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/git</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/git/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/git/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/git/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/dev/redux</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/redux/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/redux/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/dev/redux/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <!-- ==================== SERVICE PAGES ==================== -->
+    <url><loc>https://alex-lab.md/services/quality-guarantee</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/quality-guarantee/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/quality-guarantee/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/quality-guarantee/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/custom-orders</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/custom-orders/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/custom-orders/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/custom-orders/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/expert-consulting</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/expert-consulting/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/expert-consulting/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/expert-consulting/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/web</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/web/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/web/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/web/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/spa</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/spa/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/spa/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/spa/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/individual</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/individual/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/individual/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/individual/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/business</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/business/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/business/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/business/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/site</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/site/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/site/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/site/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/visit</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/visit/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/visit/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/visit/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/market</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/market/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/market/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/market/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/lending</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/lending/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/lending/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/lending/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/android</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/android/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/android/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/android/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/full</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/full/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/full/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/full/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/content</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/content/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/content/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/content/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+    <url><loc>https://alex-lab.md/services/support</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/support/ro</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/support/en</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://alex-lab.md/services/support/ru</loc><lastmod>2025-10-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
 </urlset>
