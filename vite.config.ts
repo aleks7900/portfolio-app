@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { fileURLToPath, URL } from 'node:url';
@@ -32,4 +33,23 @@ export default defineConfig({
       '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)), // если где-то используешь @assets/*
     },
   },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup/setupTests.ts'],
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      exclude: [
+        'node_modules/**',
+        'dist/**',
+        'src/test/**',
+        '**/*.d.ts',
+        'src/main.tsx',
+        'src/output.css',
+      ],
+    },
+  },
 });
+
