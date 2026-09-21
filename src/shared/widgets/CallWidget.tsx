@@ -26,10 +26,8 @@ export default function CallWidget({
     const [open, setOpen] = useState(false); // ← по умолчанию закрыт
 
     const [, setChatVisible] = useState<boolean>(() => {
-        // инициализация из глобального флага, если он уже есть
-        return typeof window !== "undefined" && typeof (window as any).__CHAT_VISIBLE === "boolean"
-            ? !!(window as any).__CHAT_VISIBLE
-            : false;
+        const win = typeof window !== "undefined" ? (window as unknown as { __CHAT_VISIBLE?: boolean }) : undefined;
+        return typeof win?.__CHAT_VISIBLE === "boolean" ? !!win.__CHAT_VISIBLE : false;
     });
 
     const [isMobile, setIsMobile] = useState(() =>

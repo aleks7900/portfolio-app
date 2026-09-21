@@ -289,7 +289,7 @@ export default function ReactDevPage() {
                                     href="#"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        (window as any).open?.("/#callback", "_self");
+                                        window.location.hash = "callback";
                                     }}
                                     className="inline-flex items-center rounded-xl border border-white/70 px-4 py-2 font-medium hover:bg-white/10"
                                 >

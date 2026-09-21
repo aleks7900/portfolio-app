@@ -8,6 +8,7 @@ import {useEffect} from "react";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
 import TechGrid from "./TechGrid.tsx";
+import PageTransition from "../components/motion/PageTransition.tsx";
 
 export default function MainPage() {
 
@@ -148,7 +149,7 @@ export default function MainPage() {
     };
 
     return (
-        <>
+        <PageTransition>
             {/* JSON-LD скрипты без Helmet */}
             <script
                 type="application/ld+json"
@@ -171,63 +172,118 @@ export default function MainPage() {
                 dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdBreadcrumbs)}}
             />
 
-            <div className="mt-4"></div>
-            {/* 🎞️ Твой слайдер (Keen-slider) */}
-            <Slideshow/>
+            {/* 🎞️ Slideshow Hero */}
+            <div className="pt-4">
+                <Slideshow/>
+            </div>
+
             <Hero/>
 
             <TechGrid />
 
-            {/* 🔽 SEO-текстовый блок */}
+            {/* 🔽 SEO-текстовый блок в элегантном карточном стиле */}
             <Section>
-                <h2 className="text-2xl font-bold mb-4">{t("seo_main_title")}</h2>
-                <p className="mb-4">{t("seo_main_intro")}</p>
+                <div className="rounded-3xl border border-border/80 bg-card/60 backdrop-blur-md p-8 sm:p-12 shadow-sm space-y-8">
+                    <div>
+                        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-4">
+                            {t("seo_main_title")}
+                        </h2>
+                        <p className="text-base text-muted-foreground leading-relaxed">
+                            {t("seo_main_intro")}
+                        </p>
+                    </div>
 
-                <h3 className="text-xl font-semibold mt-6 mb-2">{t("seo_standard_title")}</h3>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                    <li>{t("seo_standard_item1")}</li>
-                    <li>{t("seo_standard_item2")}</li>
-                    <li>{t("seo_standard_item3")}</li>
-                    <li>{t("seo_standard_item4")}</li>
-                    <li>{t("seo_standard_item5")}</li>
-                </ul>
-                <p className="mb-4">{t("seo_standard_note")}</p>
+                    <div className="grid md:grid-cols-2 gap-8 pt-4 border-t border-border/60">
+                        <div className="space-y-3">
+                            <h3 className="text-lg font-bold text-foreground">
+                                {t("seo_standard_title")}
+                            </h3>
+                            <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                                <li>{t("seo_standard_item1")}</li>
+                                <li>{t("seo_standard_item2")}</li>
+                                <li>{t("seo_standard_item3")}</li>
+                                <li>{t("seo_standard_item4")}</li>
+                                <li>{t("seo_standard_item5")}</li>
+                            </ul>
+                            <p className="text-xs text-muted-foreground italic pt-1">
+                                {t("seo_standard_note")}
+                            </p>
+                        </div>
 
-                <h3 className="text-xl font-semibold mt-6 mb-2">{t("seo_custom_title")}</h3>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                    <li>{t("seo_custom_item1")}</li>
-                    <li>{t("seo_custom_item2")}</li>
-                    <li>{t("seo_custom_item3")}</li>
-                    <li>{t("seo_custom_item4")}</li>
-                </ul>
-                <p className="mb-4">{t("seo_custom_note")}</p>
+                        <div className="space-y-3">
+                            <h3 className="text-lg font-bold text-foreground">
+                                {t("seo_custom_title")}
+                            </h3>
+                            <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                                <li>{t("seo_custom_item1")}</li>
+                                <li>{t("seo_custom_item2")}</li>
+                                <li>{t("seo_custom_item3")}</li>
+                                <li>{t("seo_custom_item4")}</li>
+                            </ul>
+                            <p className="text-xs text-muted-foreground italic pt-1">
+                                {t("seo_custom_note")}
+                            </p>
+                        </div>
+                    </div>
 
-                <h3 className="text-xl font-semibold mt-6 mb-2">{t("seo_advantages_title")}</h3>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                    <li>{t("seo_advantages_item1")}</li>
-                    <li>{t("seo_advantages_item2")}</li>
-                    <li>{t("seo_advantages_item3")}</li>
-                    <li>{t("seo_advantages_item4")}</li>
-                </ul>
-
-                <p>{t("seo_closing")}</p>
+                    <div className="pt-4 border-t border-border/60">
+                        <h3 className="text-lg font-bold text-foreground mb-3">
+                            {t("seo_advantages_title")}
+                        </h3>
+                        <div className="grid sm:grid-cols-2 gap-3 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                                <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                                <span>{t("seo_advantages_item1")}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                                <span>{t("seo_advantages_item2")}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                                <span>{t("seo_advantages_item3")}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                                <span>{t("seo_advantages_item4")}</span>
+                            </div>
+                        </div>
+                        <p className="text-sm text-foreground/80 mt-6 font-medium">
+                            {t("seo_closing")}
+                        </p>
+                    </div>
+                </div>
             </Section>
 
             <HeroTypes/>
 
             <Section titleKey="service_title" leadKey="service_lead">
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>
                     <AdvantageCard titleKey="adv_custom_title" descKey="adv_custom_desc" s={ADV[1]}/>
                     <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
                 </div>
             </Section>
 
+            {/* Direct Call Banner */}
             <Container>
-                <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">+373 79 449334</p>
+                <div className="mt-8 mb-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-primary/5 p-8 sm:p-10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div>
+                        <div className="text-xs font-bold uppercase tracking-wider text-primary mb-1">
+                            {t("contacts_ytitle") || "Прямая связь"}
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+                            {t("cta_contact") || "Обсудить проект"}
+                        </h3>
+                    </div>
+                    <a
+                        href="tel:+37379449334"
+                        className="inline-flex items-center gap-3 rounded-2xl bg-primary text-primary-foreground px-8 py-4 text-xl sm:text-2xl font-bold tracking-tight shadow-md hover:brightness-110 active:scale-95 transition-all"
+                    >
+                        <span>+373 79 449334</span>
+                    </a>
                 </div>
             </Container>
-        </>
+        </PageTransition>
     );
 }

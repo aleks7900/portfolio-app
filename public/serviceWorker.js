@@ -1,5 +1,4 @@
 /// <reference lib="webworker" />
-/* eslint-disable no-restricted-globals */
 const SW_VERSION = 'v1.0.2';
 
 const STATIC_CACHE = `alexlab-static-${SW_VERSION}`;

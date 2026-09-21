@@ -1,4 +1,3 @@
-// ServicePage.tsx (React 19 + react-head)
 import {useEffect} from "react";
 import {Meta, Title} from "react-head";
 import {ADV} from "../data/data.ts";
@@ -9,6 +8,7 @@ import AdvantageCard from "./components/AdvantageCard.tsx";
 import SlideshowServices from "../shared/SlideshowServices.tsx";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
+import PageTransition from "../components/motion/PageTransition.tsx";
 
 export default function ServicePage() {
 
@@ -128,7 +128,7 @@ export default function ServicePage() {
     };
 
     return (
-        <>
+        <PageTransition>
             {/* SEO Head (react-head) */}
             <Title>{meta.title}</Title>
             <Meta name="description" content={meta.description}/>
@@ -140,24 +140,40 @@ export default function ServicePage() {
             <script type="application/ld+json">{JSON.stringify(jsonldWebsite)}</script>
             <script type="application/ld+json">{JSON.stringify(jsonldOrganization)}</script>
 
-            {/* Контент страницы (сохранён как в исходнике) */}
-            <SlideshowServices/>
+            {/* Контент страницы */}
+            <div className="pt-4">
+                <SlideshowServices/>
+            </div>
             <Hero/>
             <HeroDownServices/>
             <HeroTypes/>
             <Section titleKey="service_title" leadKey="service_lead">
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>
                     <AdvantageCard titleKey="adv_custom_title" descKey="adv_custom_desc" s={ADV[1]}/>
                     <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
                 </div>
             </Section>
 
+            {/* Direct Call Banner */}
             <Container>
-                <div className="mt-8 mb-12 w-full flex items-end gap-3 dark:text-white text-right">
-                    <p className="text-3xl w-full font-semibold text-right">+373 79 449334</p>
+                <div className="mt-8 mb-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-primary/5 p-8 sm:p-10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div>
+                        <div className="text-xs font-bold uppercase tracking-wider text-primary mb-1">
+                            {lang === "ro" ? "Contact direct" : "Прямая связь"}
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
+                            {lang === "ro" ? "Discută proiectul" : "Обсудить проект"}
+                        </h3>
+                    </div>
+                    <a
+                        href="tel:+37379449334"
+                        className="inline-flex items-center gap-3 rounded-2xl bg-primary text-primary-foreground px-8 py-4 text-xl sm:text-2xl font-bold tracking-tight shadow-md hover:brightness-110 active:scale-95 transition-all"
+                    >
+                        <span>+373 79 449334</span>
+                    </a>
                 </div>
             </Container>
-        </>
+        </PageTransition>
     );
 }

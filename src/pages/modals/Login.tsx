@@ -2,6 +2,8 @@ import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {useAuth} from "../../shared/auth/auth.tsx";
 import {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
+import {Input} from "../../components/ui/input.tsx";
+import {Button} from "../../components/ui/button.tsx";
 
 export default function LoginDialog({
                                         open,
@@ -15,6 +17,7 @@ export default function LoginDialog({
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
@@ -48,10 +51,10 @@ export default function LoginDialog({
                     role="dialog"
                     aria-modal="true"
                     onMouseDown={handleOverlayMouseDown}
-                    className="fixed inset-0 z-[100] grid items-center justify-center p-4"
-                    initial={{backgroundColor: "rgba(0,0,0,0)"}}
-                    animate={{backgroundColor: "rgba(0,0,0,0.40)"}}
-                    exit={{backgroundColor: "rgba(0,0,0,0)"}}
+                    className="fixed inset-0 z-[100] grid items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
                     transition={{duration: 0.18}}
                 >
                     <motion.div
@@ -59,13 +62,13 @@ export default function LoginDialog({
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: 8, scale: 0.98}}
                         transition={{type: "spring", stiffness: 420, damping: 32, mass: 0.6}}
-                        className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl dark:!bg-gray-700 dark:border-white/10"
+                        className="w-full max-w-md rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-2xl"
                     >
-                        <div className="mb-4 text-lg font-semibold">{t("login")}</div>
+                        <div className="mb-6 text-xl font-bold tracking-tight text-foreground">{t("login")}</div>
 
                         {err && (
                             <div
-                                className="mb-3 rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                                className="mb-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive font-medium">
                                 {err}
                             </div>
                         )}
@@ -73,59 +76,58 @@ export default function LoginDialog({
                         <form
                             onSubmit={async (e) => {
                                 e.preventDefault();
+                                setLoading(true);
+                                setErr(null);
                                 try {
                                     await login(email, password);
                                     onClose();
                                 } catch (e) {
                                     if (e instanceof Error) setErr(e.message);
                                     else setErr("Login error");
+                                } finally {
+                                    setLoading(false);
                                 }
                             }}
+                            className="space-y-4"
                         >
-                            <label className="block text-sm font-medium">{t("email")}</label>
-                            <input
-                                ref={emailRef}
-                                value={email}
-                                onChange={(e) => setEmail(e.currentTarget.value)}
-                                type="email"
-                                className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-zinc-800 dark:border-white/20"
-                                placeholder="you@example.com"
-                            />
+                            <div>
+                                <label className="block text-sm font-medium text-foreground mb-1.5">{t("email")}</label>
+                                <Input
+                                    ref={emailRef}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.currentTarget.value)}
+                                    type="email"
+                                    placeholder="you@example.com"
+                                    required
+                                />
+                            </div>
 
-                            <label className="mt-3 block text-sm font-medium">{t("password")}</label>
-                            <input
-                                value={password}
-                                onChange={(e) => setPassword(e.currentTarget.value)}
-                                type="password"
-                                className="mt-1 w-full rounded-xl border px-3 py-2 dark:bg-zinc-800 dark:border-white/20"
-                                placeholder="••••••••"
-                            />
+                            <div>
+                                <label className="block text-sm font-medium text-foreground mb-1.5">{t("password")}</label>
+                                <Input
+                                    value={password}
+                                    onChange={(e) => setPassword(e.currentTarget.value)}
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                />
+                            </div>
 
-                            <div className="mt-5 flex items-center gap-2">
-                                {/* Войти */}
-                                <button
-                                    type="submit"
-                                    className="rounded-xl border px-4 py-2 text-sm font-medium
-                             bg-white text-black shadow
-                             hover:!bg-black hover:!text-white hover:shadow-lg
-                             focus:outline-none focus:ring-2 focus:ring-black/40 active:scale-[0.99]
-                             dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
-                                >
-                                    {t("sign_in")}
-                                </button>
-
-                                {/* Отмена */}
-                                <button
+                            <div className="pt-2 flex items-center justify-end gap-3">
+                                <Button
                                     type="button"
+                                    variant="outline"
                                     onClick={onClose}
-                                    className="rounded-xl border px-4 py-2 text-sm font-medium
-                             bg-white text-black shadow
-                             hover:!bg-rose-600 hover:!text-white hover:shadow-lg
-                             focus:outline-none focus:ring-2 focus:!ring-rose-400 active:scale-[0.99]
-                             dark:bg-neutral-900 dark:text-black dark:hover:bg-rose-500"
                                 >
                                     {t("cancel")}
-                                </button>
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    variant="glow"
+                                    loading={loading}
+                                >
+                                    {t("sign_in")}
+                                </Button>
                             </div>
                         </form>
                     </motion.div>

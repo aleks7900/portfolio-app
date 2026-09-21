@@ -172,29 +172,29 @@ export default function Slideshow() {
     // реагируем на переключение языка и обновляем текущий слайд
 
     return (
-        <div className="relative mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem]">
+        <div className="relative mx-auto max-w-[76rem] xl:max-w-[84rem] px-4 sm:px-6">
             {/* Слайды */}
-            <div ref={sliderRef} className="keen-slider rounded-2xl overflow-hidden shadow">
+            <div ref={sliderRef} className="keen-slider rounded-3xl overflow-hidden shadow-2xl border border-border/60">
                 {slides.map((s) => {
                     const t: { title: string; text: string } = s.translations[lang] ?? s.translations["ru"];
                     return (
                         <div
                             key={s.id}
-                            className="keen-slider__slide relative h-[22rem] sm:h-[26rem] md:h-[40rem] max-h-[70vh] md:max-h-[55dvh] flex items-center justify-center bg-gray-200 dark:bg-black"
+                            className="keen-slider__slide relative h-[22rem] sm:h-[28rem] md:h-[36rem] max-h-[60vh] flex items-center justify-center bg-slate-900"
                         >
                             <img
                                 src={s.img}
                                 alt={t.title}
-                                className="absolute inset-0 h-full w-full object-cover"
+                                className="absolute inset-0 h-full w-full object-cover scale-105"
                             />
-                            <div
-                                className="relative z-0 text-center text-white px-4 sm:px-8 md:px-28 max-w-[92%] mx-auto">
-                                <h2
-                                    className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]"
-                                >
+                            {/* Rich gradient overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/50 to-slate-950/30 z-1" />
+
+                            <div className="relative z-10 text-center text-white px-6 sm:px-12 md:px-24 max-w-4xl mx-auto space-y-4">
+                                <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-md">
                                     {t.title}
                                 </h2>
-                                <p className="text-xl sm:text-2xl md:text-3xl mt-2 drop-shadow-[0_3px_4px_rgba(0,0,0,0.8)]">
+                                <p className="text-base sm:text-xl md:text-2xl text-slate-200 font-normal leading-relaxed drop-shadow-sm">
                                     {t.text}
                                 </p>
                             </div>
@@ -206,30 +206,22 @@ export default function Slideshow() {
             {/* Стрелки */}
             <button
                 onClick={() => instanceRef.current?.prev()}
-                className="group absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center justify-center
-                 rounded-2xl px-5 py-3 text-base font-medium
-                 !bg-white !text-black no-underline shadow transition-colors
-                 hover:!bg-red-500 hover:!text-white hover:shadow-xl
-                 focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] z-10"
-                aria-label="Prev"
+                className="absolute left-7 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-black/40 hover:bg-black/70 text-white backdrop-blur-md border border-white/20 shadow-lg transition-all duration-150 active:scale-95 z-20 cursor-pointer outline-none"
+                aria-label="Previous Slide"
             >
-                <span className="leading-none select-none text-3xl h-10">‹</span>
+                <span className="text-2xl select-none leading-none">‹</span>
             </button>
 
             <button
                 onClick={() => instanceRef.current?.next()}
-                className="group absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center justify-center
-                 rounded-2xl px-5 py-3 text-base font-medium
-                 !bg-white !text-black no-underline shadow transition-colors
-                 hover:!bg-red-500 hover:!text-white hover:shadow-xl
-                 focus:outline-none focus:ring-2 focus:ring-red-400 active:scale-[0.99] z-10"
-                aria-label="Next"
+                className="absolute right-7 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-black/40 hover:bg-black/70 text-white backdrop-blur-md border border-white/20 shadow-lg transition-all duration-150 active:scale-95 z-20 cursor-pointer outline-none"
+                aria-label="Next Slide"
             >
-                <span className="leading-none select-none text-3xl h-10">›</span>
+                <span className="text-2xl select-none leading-none">›</span>
             </button>
 
             {/* Точки */}
-            <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
                 {slides.map((_, i) => (
                     <button
                         key={i}
@@ -238,13 +230,11 @@ export default function Slideshow() {
                             instanceRef.current?.moveToIdx(abs + i);
                         }}
                         aria-label={`Go to slide ${i + 1}`}
-                        className={[
-                            "!h-2 !w-2 sm:!h-3.5 sm:!w-3.5 rounded-full transition transform duration-200",
-                            "!focus:outline-none !focus:ring-2 !focus:ring-red-400",
+                        className={`transition-all duration-300 rounded-full cursor-pointer outline-none ${
                             current === i
-                                ? "!bg-red-300 !shadow-xl !shadow-red-500/40 !ring-2 !ring-white scale-110"
-                                : "!bg-white/80 dark:!bg-white/50 hover:!bg-red-300 hover:!shadow",
-                        ].join(" ")}
+                                ? "h-2.5 w-7 bg-primary shadow-md"
+                                : "h-2.5 w-2.5 bg-white/50 hover:bg-white/80"
+                        }`}
                     />
                 ))}
             </div>

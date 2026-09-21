@@ -94,6 +94,17 @@ export default function CallbackWidget({
         localStorage.setItem('cb_profile', JSON.stringify({ name, phone }));
     }, [name, phone]);
 
+    useEffect(() => {
+        const handleHash = () => {
+            if (window.location.hash === '#callback') {
+                setOpen(true);
+            }
+        };
+        handleHash();
+        window.addEventListener('hashchange', handleHash);
+        return () => window.removeEventListener('hashchange', handleHash);
+    }, []);
+
     function resetForm() {
         setDate('');
         setTime('');
@@ -114,6 +125,7 @@ export default function CallbackWidget({
 
         setSubmitting(true);
         try {
+            const win = typeof window !== 'undefined' ? (window as unknown as { __APP_SOURCE__?: string }) : undefined;
             const payload: Payload = {
                 name: name.trim(),
                 phone: phoneClean(phone),
@@ -122,7 +134,7 @@ export default function CallbackWidget({
                 tz,
                 comment: comment?.trim() || null,
                 consent: true,
-                source: (window as any).__APP_SOURCE__ ?? null,
+                source: win?.__APP_SOURCE__ ?? null,
                 page: location.pathname + location.search,
             };
 
@@ -136,8 +148,9 @@ export default function CallbackWidget({
             resetForm();
             // авто-закрытие
             setTimeout(() => setOpen(false), 1400);
-        } catch (e: any) {
-            setErr(e?.message || t('callback_messages_err_submit'));
+        } catch (e: unknown) {
+            const msg = e instanceof Error ? e.message : t('callback_messages_err_submit');
+            setErr(msg);
         } finally {
             setSubmitting(false);
         }

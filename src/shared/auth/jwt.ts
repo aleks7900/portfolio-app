@@ -4,7 +4,7 @@ export type JwtPayload = {
     roles?: string[];          // вариант 1
     authorities?: string[];    // вариант 2
     exp?: number;              // unix timestamp (sec)
-    [k: string]: any;
+    [k: string]: unknown;
 };
 
 export function decodeJwt(token: string): JwtPayload | null {

@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
+import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {apiFetch} from "../api/api.ts";
 import {decodeJwt, isExpired, type JwtPayload} from "./jwt.ts";
 
@@ -29,16 +29,27 @@ const LS_TOKEN = "auth_token";
 function extractUser(token: string): User | null {
     const payload: JwtPayload | null = decodeJwt(token);
     if (!payload) return null;
+
     const email =
-        payload.email ||
-        (typeof payload.sub === "string" ? payload.sub : "") ||
-        "";
-    const roles: string[] = Array.isArray(payload.roles)
-        ? payload.roles
-        : Array.isArray(payload.authorities)
-            ? payload.authorities
-            : [];
-    const isAdmin = roles.includes("ROLE_ADMIN") || roles.includes("ADMIN");
+        typeof payload["sub"] === "string"
+            ? payload["sub"]
+            : typeof payload["email"] === "string"
+                ? payload["email"]
+                : "";
+
+    let roles: string[] = [];
+    const r = payload["roles"] ?? payload["role"] ?? payload["authorities"];
+    if (Array.isArray(r)) {
+        roles = r.map(String);
+    } else if (typeof r === "string") {
+        roles = [r];
+    }
+
+    const isAdmin =
+        roles.includes("ROLE_ADMIN") ||
+        roles.includes("ADMIN") ||
+        roles.some((x) => x.toLowerCase().includes("admin"));
+
     return {email, roles, isAdmin};
 }
 
@@ -46,7 +57,13 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem(LS_TOKEN));
     const [user, setUser] = useState<User | null>(() => (token ? extractUser(token) : null));
 
-    const login = async (email: string, password: string) => {
+    const logout = useCallback(() => {
+        localStorage.removeItem(LS_TOKEN);
+        setToken(null);
+        setUser(null);
+    }, []);
+
+    const login = useCallback(async (email: string, password: string) => {
         const body = JSON.stringify({email, password});
 
         const data: Record<string, unknown> = await apiFetch<Record<string, unknown>>("/auth/login", {
@@ -73,13 +90,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
         localStorage.setItem(LS_TOKEN, tok);
         setToken(tok);
         setUser(u);
-    };
-
-    const logout = () => {
-        localStorage.removeItem(LS_TOKEN);
-        setToken(null);
-        setUser(null);
-    };
+    }, []);
 
     useEffect(() => {
         const onUnauthorized = () => logout();
@@ -94,7 +105,7 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
 
     const value = useMemo(
         () => ({user, isAuth: !!user, token, login, logout}),
-        [user, token]
+        [user, token, login, logout]
     );
 
     return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

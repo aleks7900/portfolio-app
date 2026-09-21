@@ -36,7 +36,7 @@ type UsersListResponse = {
 
 type SortKey = "lastSeen" | "sessions" | "views" | "avgSessionDurationSec" | "bounceRate";
 
-function qs(obj: Record<string, any>) {
+function qs(obj: Record<string, unknown>) {
     const p = new URLSearchParams();
     Object.entries(obj).forEach(([k, v]) => {
         if (v !== undefined && v !== null && String(v).trim() !== "") p.set(k, String(v));
@@ -48,10 +48,9 @@ async function getJSON<T>(url: string, signal?: AbortSignal): Promise<T> {
     const r = await apiFetch(url, {signal});
 
     // Если это Response — проверим статус и распарсим JSON
-    if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
-        const res = r as Response;
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
-        return (await res.json()) as T;
+    if (r instanceof Response) {
+        if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
+        return (await r.json()) as T;
     }
     // Иначе apiFetch уже вернул JSON
     return r as T;
@@ -107,8 +106,12 @@ export default function UsersPage() {
             ]);
             setSummary(sum);
             setList(lst);
-        } catch (e: any) {
-            if (e?.name !== "AbortError") setError(e?.message || String(e));
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                if (e.name !== "AbortError") setError(e.message);
+            } else {
+                setError(String(e));
+            }
         } finally {
             setLoading(false);
         }
@@ -139,7 +142,7 @@ export default function UsersPage() {
                 avgSessionDurationSec: x.avgSessionDurationSec,
                 bounceRate: x.bounceRate
             }));
-            const csv = [headers.join(","), ...rows.map(r => headers.map(h => JSON.stringify((r as any)[h] ?? "")).join(","))].join("\n");
+            const csv = [headers.join(","), ...rows.map(r => headers.map(h => JSON.stringify((r as Record<string, unknown>)[h] ?? "")).join(","))].join("\n");
             const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");

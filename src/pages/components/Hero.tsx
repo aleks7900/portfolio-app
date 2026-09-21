@@ -1,139 +1,163 @@
-import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
-import {useNavigate} from "react-router-dom";
-import {motion} from "framer-motion";
-import {SERVICES} from "../../data/data.ts";
+import { toLangHref, useI18n } from "../../shared/i18n/i18n.tsx";
+import { useNavigate } from "react-router-dom";
+import { motion, type Variants } from "framer-motion";
+import { SERVICES } from "../../data/data.ts";
 import ServiceCard from "./ServiceCard.tsx";
 import ServiceCardOdd from "./ServiceCardOdd.tsx";
+import { Button } from "../../components/ui/button.tsx";
+import { ArrowRight, Sparkles } from "lucide-react";
 
-// ===== Варианты анимаций =====
-const containerVariants = {
-    hidden: {opacity: 0, y: 10},
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {duration: 0.5, when: "beforeChildren", staggerChildren: 0.06},
+const containerVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      staggerChildren: 0.08,
     },
-} as const;
+  },
+};
 
-const cardVariants = {
-    hidden: {opacity: 0, y: 12, scale: 0.98},
-    visible: {opacity: 1, y: 0, scale: 1, transition: {type: "spring", stiffness: 420, damping: 32, mass: 0.6}},
-} as const;
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 14, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 350,
+      damping: 28,
+    },
+  },
+};
 
 export default function Hero() {
-    const {t, lang} = useI18n();
-    const navigate = useNavigate();
+  const { t, lang } = useI18n();
+  const navigate = useNavigate();
 
-    return (
-        <section className="pt-28 sm:pt-32">
-            {/* Локальные keyframes (не требует правок tailwind.config) */}
-            <style>{`
-                @media (prefers-reduced-motion: no-preference) {
-                    @keyframes icon-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
-                    @keyframes soft-glow { from { box-shadow: 0 0 0 rgba(0,0,0,0) } to { box-shadow: 0 12px 32px rgba(0,0,0,.18) } }
-                    @keyframes card-gradient-glow {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-                .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: icon-float 2.4s ease-in-out infinite; }
-                .card-appear { animation: soft-glow .35s ease both; }
-                .card-glow-bg {
-                    position: relative;
-                    overflow: hidden;
-                }
-                .card-glow-bg::before {
-                    content: '';
-                    position: absolute;
-                    inset: -2px;
-                    z-index: 0;
-                    background: linear-gradient(120deg, rgba(99,102,241,0.4), rgba(236,72,153,0.4), rgba(20,184,166,0.4), rgba(99,102,241,0.4));
-                    background-size: 300% 300%;
-                    animation: card-gradient-glow 6s ease-in-out infinite;
-                    filter: blur(12px);
-                    opacity: 0.7;
-                    border-radius: 1rem;
-                }
-                .card-glow-bg > * { position: relative; z-index: 1; }
-                }
-                @media (prefers-reduced-motion: reduce) {
-                    .card-icon-anim svg, .card-icon-anim [data-icon], .card-icon-anim .icon { animation: none !important; }
-                    .card-appear { animation: none !important; }
-                    .card-glow-bg::before { animation: none !important; }
-                }
-            `}</style>
+  return (
+    <section className="relative py-16 sm:py-24 overflow-hidden">
+      {/* Decorative ambient background glows */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 left-1/4 -z-10 h-96 w-96 rounded-full bg-primary/15 blur-3xl opacity-50"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-24 right-1/4 -z-10 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl opacity-40"
+      />
 
-            <div className="mx-auto max-w-[72rem] xl:max-w-[80rem] 2xl:max-w-[90rem] px-4 sm:px-6">
-                <motion.div initial="hidden" animate="visible" variants={containerVariants}
-                            className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center">
-                    {/* Левая часть */}
-                    <motion.div variants={cardVariants}>
-                        <h1 className="not-prose !text-3xl sm:!text-4xl lg:!text-5xl font-semibold tracking-tight">
-                            <span
-                                className="underline decoration-gray-300 dark:decoration-white/20">{t("service_title_2")}</span>
-                        </h1>
-                        <p className="mt-3 max-w-prose text-sm sm:text-base lg:text-lg  text-gray-600 dark:text-gray-300">{t("hero_sub")}</p>
-                        <div className="mt-6 flex flex-wrap gap-4">
-                            <motion.button
-                                whileHover={{y: -1}}
-                                whileTap={{scale: 0.985}}
-                                onClick={() => {
-                                    navigate(toLangHref("/service", lang));
-                                    window.scrollTo({top: 0, behavior: "smooth"});
-                                }}
-                                className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-white !text-black
-                                shadow hover:!bg-black hover:!text-white hover:shadow-lg focus:outline-none focus:ring-2
-                                focus:ring-black/40 active:scale-[0.99] dark:bg-white dark:text-black dark:hover:bg-neutral-800 dark:hover:text-white"
-                            >
-                                {t("hero_to_services")}
-                            </motion.button>
-                            <motion.button
-                                whileHover={{y: -1}}
-                                whileTap={{scale: 0.985}}
-                                onClick={() => {
-                                    navigate(toLangHref("/contacts", lang));
-                                    window.scrollTo({top: 0, behavior: "smooth"});
-                                }}
-                                className="w-56 rounded-2xl border px-8 py-4 !text-lg font-medium !bg-green-500 !text-white
-                                shadow hover:!bg-green-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400 active:scale-[0.99] dark:bg-green-600 dark:hover:bg-green-500"
-                            >
-                                {t("hero_to_contacts")}
-                            </motion.button>
-                        </div>
-                    </motion.div>
-
-                    {/* Правая — карточки услуг с анимацией */}
-                    <motion.div variants={cardVariants}
-                                className="rounded-2xl border !bg-gray-200 p-6 shadow-sm dark:bg-zinc-800 dark:border-white/10 card-glow-bg">
-                        <motion.div
-                            initial="hidden"
-                            animate="visible"
-                            variants={{hidden: {}, visible: {transition: {staggerChildren: 0.05}}}}
-                            className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-                        >
-                            {[0, 1, 2, 3].map((i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={cardVariants}
-                                    whileHover={{y: -2}}
-                                    whileTap={{scale: 0.995}}
-                                    className="card-appear rounded-xl"
-                                >
-                                    {/* Обёртка добавляет класс для анимации иконок внутри карточки */}
-                                    {i === 0 && <ServiceCardOdd titleKey="web_title"
-                                                                descKey="web_text" s={SERVICES[0]}/>}
-                                    {i === 1 && <ServiceCard titleKey="spa_title"
-                                                             descKey="spa_text" s={SERVICES[1]}/>}
-                                    {i === 2 && <ServiceCard titleKey="individual_title"
-                                                             descKey="individual_text" s={SERVICES[2]}/>}
-                                    {i === 3 && <ServiceCardOdd titleKey="business_title"
-                                                                descKey="business_text" s={SERVICES[3]}/>}
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
+      <div className="mx-auto max-w-[76rem] xl:max-w-[84rem] px-4 sm:px-6">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="grid gap-12 lg:grid-cols-12 lg:items-center"
+        >
+          {/* Left Column: Heading & Value Proposition */}
+          <motion.div variants={itemVariants} className="lg:col-span-6 space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Full-Stack Development • SPA • PWA</span>
             </div>
-        </section>
-    );
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+              <span className="bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
+                {t("service_title_2")}
+              </span>
+            </h1>
+
+            <p className="max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+              {t("hero_sub")}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <Button
+                size="lg"
+                variant="glow"
+                onClick={() => {
+                  navigate(toLangHref("/service", lang));
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="gap-2 text-base px-7"
+              >
+                <span>{t("hero_to_services")}</span>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+
+              <Button
+                size="lg"
+                variant="emerald"
+                onClick={() => {
+                  navigate(toLangHref("/contacts", lang));
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="text-base px-7"
+              >
+                {t("hero_to_contacts")}
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Interactive Services Grid */}
+          <motion.div
+            variants={itemVariants}
+            className="lg:col-span-6 rounded-3xl border border-border/80 bg-card/40 backdrop-blur-xl p-4 sm:p-6 shadow-xl relative"
+          >
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.06 } },
+              }}
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+            >
+              {[0, 1, 2, 3].map((i) => (
+                <motion.div
+                  key={i}
+                  variants={itemVariants}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.99 }}
+                  className="rounded-2xl"
+                >
+                  {i === 0 && (
+                    <ServiceCardOdd
+                      titleKey="web_title"
+                      descKey="web_text"
+                      s={SERVICES[0]}
+                    />
+                  )}
+                  {i === 1 && (
+                    <ServiceCard
+                      titleKey="spa_title"
+                      descKey="spa_text"
+                      s={SERVICES[1]}
+                    />
+                  )}
+                  {i === 2 && (
+                    <ServiceCard
+                      titleKey="individual_title"
+                      descKey="individual_text"
+                      s={SERVICES[2]}
+                    />
+                  )}
+                  {i === 3 && (
+                    <ServiceCardOdd
+                      titleKey="business_title"
+                      descKey="business_text"
+                      s={SERVICES[3]}
+                    />
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

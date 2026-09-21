@@ -90,17 +90,15 @@ export default function AttendancePage() {
         setLoading(true);
         apiFetch(url.toString(), {signal: controller.signal})
             .then((r) => {
-                // Response или уже JSON?
-                if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
-                    const res = r as Response;
-                    if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
-                    return res.json() as Promise<Page<AnalyticsEvent>>;
+                if (r instanceof Response) {
+                    if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
+                    return r.json() as Promise<Page<AnalyticsEvent>>;
                 }
                 return Promise.resolve(r as Page<AnalyticsEvent>);
             })
             .then((json) => setData(json))
             .catch((e: unknown) => {
-                if (e && typeof e === "object" && "name" in (e as any) && (e as any).name === "AbortError") return;
+                if (e instanceof Error && e.name === "AbortError") return;
                 setData({content: [], totalElements: 0, totalPages: 0, number: 0, size: 0});
             })
             .finally(() => setLoading(false));

@@ -104,17 +104,16 @@ export default function VisitsPage() {
             const r = await apiFetch(buildChartUrl(), {signal: controller.signal});
 
             let json: VisitsResponse;
-            if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
-                const res = r as Response;
-                if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
-                json = (await res.json()) as VisitsResponse;
+            if (r instanceof Response) {
+                if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
+                json = (await r.json()) as VisitsResponse;
             } else {
                 json = r as VisitsResponse; // apiFetch уже вернул JSON
             }
 
             setData(Array.isArray(json) ? json : []);
         } catch (e: unknown) {
-            if ((e as any)?.name === "AbortError") return;
+            if (e instanceof Error && e.name === "AbortError") return;
             const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
             setError(msg);
             setData([]);
@@ -134,17 +133,16 @@ export default function VisitsPage() {
             const r = await apiFetch(buildTopUrl(), {signal: controller.signal});
 
             let json: TopPathsResponse;
-            if (r && typeof r === "object" && "ok" in (r as any) && typeof (r as any).json === "function") {
-                const res = r as Response;
-                if (!res.ok) throw new Error(`${res.status} ${res.statusText || ""}`.trim());
-                json = (await res.json()) as TopPathsResponse;
+            if (r instanceof Response) {
+                if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
+                json = (await r.json()) as TopPathsResponse;
             } else {
                 json = r as TopPathsResponse;
             }
 
             setTopData(Array.isArray(json) ? json : []);
         } catch (e: unknown) {
-            if ((e as any)?.name === "AbortError") return;
+            if (e instanceof Error && e.name === "AbortError") return;
             const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
             setTopError(msg);
             setTopData([]);
@@ -319,7 +317,7 @@ export default function VisitsPage() {
                                     <XAxis dataKey="label" tickLine={false} axisLine={false}
                                            interval="preserveStartEnd"/>
                                     <YAxis allowDecimals={false} tickLine={false} axisLine={false}/>
-                                    <Tooltip formatter={(value: any) => numberFmt.format(Number(value))}
+                                    <Tooltip formatter={(value: unknown) => numberFmt.format(Number(value))}
                                              labelClassName="font-medium"/>
                                     <Bar dataKey="count" radius={[6, 6, 0, 0]}/>
                                 </BarChart>

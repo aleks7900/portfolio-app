@@ -47,16 +47,22 @@ export default function App() {
         <I18nProvider>
             <ThemeProvider>
                 <AuthProvider>
-                    <div
-                        className="min-h-screen bg-gradient-to-b from-white to-gray-500 text-gray-900 dark:from-gray-500 dark:to-gray-900 dark:text-white"
-                        // style={{ backgroundImage: "url('/src/assets/img/bg/bg_dark.png')" }}
-                    >
+                    <div className="min-h-screen bg-background text-foreground relative">
+                        {/* Subtle ambient lighting for depth */}
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-30 dark:opacity-20"
+                        >
+                            <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
+                            <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-indigo-500/15 blur-3xl" />
+                        </div>
+
                         <BrowserRouter>
                             <PageEvents/>
                             {/* Глобальный слушатель изменения маршрута */}
                             <ScrollToTop/>
                             <Navbar/>
-                            <main id="app-scroll-root" className="pt-24 min-h-dvh overflow-y-auto">
+                            <main id="app-scroll-root" className="relative z-10 pt-20 min-h-dvh">
                                 <Routes>
                                     {/* публичные */}
                                     <Route path="/" element={<MainPage/>}/>

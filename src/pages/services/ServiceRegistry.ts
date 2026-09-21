@@ -3,7 +3,7 @@ import React, {lazy} from "react";
 // Ключи — это slug из вашего ROUTER/URL
 export const SERVICE_PAGE_MAP: Record<
     string,
-    React.LazyExoticComponent<React.ComponentType<any>>
+    React.LazyExoticComponent<React.ComponentType<object>>
 > = {
     "web": lazy(() => import("./WebDevServicesPage.tsx")),
     "spa": lazy(() => import("./SpaPwaDevPage.tsx")),

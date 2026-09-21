@@ -62,9 +62,9 @@ export default function ScrollTopButton({
             className={[
                 "fixed bottom-6 z-[9999]",
                 side === "left" ? "left-6" : "right-6",
-                "flex items-center justify-center rounded-full shadow-lg",
-                "!bg-gray-900 !text-white dark:bg-white dark:text-black",
-                "p-3 transition-all duration-300 hover:!bg-gray-700 dark:hover:bg-gray-200",
+                "flex h-12 w-12 items-center justify-center rounded-full border border-border/80 shadow-lg",
+                "bg-card/80 text-foreground backdrop-blur-md",
+                "transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-110 active:scale-95",
                 visible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4",
             ].join(" ")}
         >

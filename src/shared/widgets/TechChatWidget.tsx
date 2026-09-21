@@ -16,7 +16,7 @@ type Props = {
 // Расширяем Window глобально
 declare global {
     interface Window {
-        $crisp?: any[];
+        $crisp?: unknown[];
         CRISP_WEBSITE_ID?: string;
         Tawk_API?: {
             toggle?: () => void;
@@ -27,7 +27,7 @@ declare global {
             onLoad?: () => void;
             onChatMaximized?: () => void;
             onChatMinimized?: () => void;
-        } & Record<string, any>;
+        } & Record<string, unknown>;
         __CHAT_VISIBLE?: boolean;
     }
 }
@@ -227,7 +227,7 @@ export default function TechChatWidget({
         return () => {
             stop = true;
         };
-    }, [CHAT_PROVIDER]);
+    }, []);
 
     function handleClick() {
         if (CHAT_PROVIDER === "crisp" && CRISP_WEBSITE_ID) return openCrisp();
