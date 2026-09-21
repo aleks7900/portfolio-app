@@ -1,9 +1,19 @@
 import React from "react";
 import { ChevronDown, ChevronRight, Layers } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useI18n } from "../shared/i18n/i18n.tsx";
+import { Link } from "react-router-dom";
+import { toLangHref, useI18n } from "../shared/i18n/i18n.tsx";
 import { CATS } from "../data/catalog/categories.ts";
 import { AnimatePresence, motion } from "framer-motion";
+
+function getCatalogHref(_catKey: string, subKey: string): string {
+  if (subKey.includes("android")) return "/services/android";
+  if (subKey.includes("landing")) return "/services/lending";
+  if (subKey.includes("spa") || subKey.includes("pwa")) return "/services/spa";
+  if (subKey.includes("non_standard")) return "/services/custom-orders";
+  if (subKey.includes("site")) return "/services/site";
+  if (subKey.includes("web_app")) return "/services/web";
+  return "/service";
+}
 
 type OpenMap = Record<string, boolean>;
 
@@ -12,8 +22,7 @@ interface MobileCatalogProps {
 }
 
 export default function MobileCatalog({ onDone }: MobileCatalogProps) {
-  const { t } = useI18n();
-  const navigate = useNavigate();
+  const { t, lang } = useI18n();
   const [open, setOpen] = React.useState<OpenMap>({});
 
   const toggle = (key: string) =>
@@ -74,17 +83,17 @@ export default function MobileCatalog({ onDone }: MobileCatalogProps) {
                           variants={itemVariants}
                           transition={{ delay: idx * 0.02 }}
                         >
-                          <button
+                          <Link
+                            to={toLangHref(getCatalogHref(cat.key, sub.key), lang)}
                             className="w-full flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium text-foreground/80 hover:text-foreground hover:bg-accent transition-colors text-left cursor-pointer"
                             onClick={() => {
-                              navigate(`/catalog/${cat.key}/${sub.key}`);
                               if (onDone) onDone();
                             }}
                             title={t(sub.labelKey)}
                           >
                             <span className="pr-2">{t(sub.labelKey)}</span>
                             <ChevronRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-                          </button>
+                          </Link>
                         </motion.li>
                       ))}
                     </motion.ul>

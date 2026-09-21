@@ -1,6 +1,5 @@
-// src/pages/services/TailwindDevPage.tsx
-
 import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
+import SEO from "../../../shared/SEO.tsx";
 
 /**
  * Страница: Tailwind CSS в разработке
@@ -60,6 +59,7 @@ export default function TailwindDevPage() {
 
     return (
         <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+            <SEO titleKey="tailwind_title" descriptionKey="tailwind_intro" pathname="/dev/tailwind" />
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-emerald-700 font-semibold">

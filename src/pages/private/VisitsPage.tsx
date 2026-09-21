@@ -9,6 +9,7 @@ import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {Skeleton} from "../../components/ui/skeleton.tsx";
 import {API_BASE, apiFetch} from "../../shared/api/api.ts";
+import SEO from "../../shared/SEO.tsx";
 
 type Period = "day" | "month" | "year";
 
@@ -185,6 +186,7 @@ export default function VisitsPage() {
 
     return (
         <div className="mx-auto w-full max-w-7xl p-4 mt-20 md:p-6 space-y-6 ">
+            <SEO title="Admin | Visits" noindex />
             {/* Header */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>

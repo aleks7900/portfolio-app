@@ -1,4 +1,5 @@
 import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
+import SEO from "../../../shared/SEO.tsx";
 
 /**
  * Страница: Разработка и интеграция MongoDB
@@ -56,6 +57,7 @@ export default function MongoDBDevPage() {
 
     return (
         <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+            <SEO titleKey="mongodb_title" descriptionKey="mongodb_intro" pathname="/dev/mongodb" />
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-emerald-700 font-semibold">

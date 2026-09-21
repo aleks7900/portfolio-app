@@ -1,6 +1,5 @@
-// src/pages/services/SpringSecurityDevPage.tsx
-
 import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
+import SEO from "../../../shared/SEO.tsx";
 
 /**
  * Страница: Spring Security в разработке
@@ -69,6 +68,7 @@ export default function SpringSecurityDevPage() {
 
     return (
         <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+            <SEO titleKey="springsec_title" descriptionKey="springsec_intro" pathname="/dev/spring-security" />
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-emerald-700 font-semibold">

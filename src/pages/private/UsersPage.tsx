@@ -8,6 +8,7 @@ import {Skeleton} from "../../components/ui/skeleton";
 import {ArrowUpDown, ChevronLeft, ChevronRight, Download, RefreshCw} from "lucide-react";
 import {API_BASE, apiFetch} from "../../shared/api/api";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
+import SEO from "../../shared/SEO.tsx";
 
 type UsersSummary = {
     totalUsers: number;
@@ -170,6 +171,7 @@ export default function UsersPage() {
 
     return (
         <div className="mx-auto w-full max-w-7xl p-4 mt-20 md:p-6 space-y-6">
+            <SEO title="Admin | Users" noindex />
             {/* Header & Filters */}
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                 <div>

@@ -14,6 +14,7 @@ import placeholderImg from '@/assets/img/elementor-placeholder-image.png';
 import resolveImg from "../../data/resolveImg.ts";
 import {ChevronLeft, ChevronRight, X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
+import SEO from "../../shared/SEO.tsx";
 
 // ===== Types & helpers (strict, no any) =====
 type RequestVM = Omit<
@@ -196,6 +197,7 @@ export default function RequestsPage() {
 
     return (
         <section className="scroll-mt-24 py-20 sm:py-28">
+            <SEO title="Admin | Requests" noindex />
             <Container>
                 {/* Top bar */}
                 <div className="mb-4 flex flex-wrap items-center gap-2">

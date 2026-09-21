@@ -4,6 +4,7 @@
  * Требует i18n-ключи spring_* (ru/ro словари).
  */
 import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
+import SEO from "../../../shared/SEO.tsx";
 
 
 export default function SpringDevPage() {
@@ -55,6 +56,7 @@ export default function SpringDevPage() {
 
     return (
         <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+            <SEO titleKey="spring_title" descriptionKey="spring_intro" pathname="/dev/spring" />
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-emerald-700 font-semibold">

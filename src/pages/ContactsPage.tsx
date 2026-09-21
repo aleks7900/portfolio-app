@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { SiFacebook, SiInstagram } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
+import SEO, { CANONICAL_ORIGIN } from "../shared/SEO.tsx";
 
 const GEO = { lat: 47.0207, lng: 28.8491 };
 const OPENING_HOURS = [
@@ -39,11 +40,11 @@ export default function ContactsPage() {
     return v === key || !v ? fallback : v;
   };
 
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://example.com";
+  const origin = CANONICAL_ORIGIN;
   const pageUrl = `${origin}/contacts`;
-  const siteName = t("seo_site_name") ?? "Alex-lab";
-  const orgName = t("seo_org_name") ?? "Alex-lab";
-  const phone = "+37379449334";
+  const siteName = t("seo_site_name") ?? "Alex-Lab";
+  const orgName = t("seo_org_name") ?? "Alex-Lab Web Development";
+  const phone = "+373 79 449 334";
   const email = "alex.lab.webdev@gmail.com";
   const street = t("street_address") || "Chișinău, strada Pădurii 21/1";
   const sameAs = [t("seo_facebook") || "", t("seo_instagram") || ""].filter(Boolean);
@@ -68,7 +69,7 @@ export default function ContactsPage() {
         "@type": "LocalBusiness",
         "@id": `${origin}#business`,
         name: orgName,
-        image: `${origin}/images/logo.png`,
+        image: `${origin}/logo.png`,
         url: origin,
         email: email,
         telephone: phone,
@@ -246,6 +247,12 @@ export default function ContactsPage() {
 
   return (
     <PageTransition>
+      <SEO
+        titleKey="contacts_ytitle"
+        descriptionKey="seo_main_intro"
+        pathname="/contacts"
+        structuredData={jsonld}
+      />
       <section className="scroll-mt-24 py-12 sm:py-20">
         <Container>
           {/* Header */}
@@ -569,12 +576,6 @@ export default function ContactsPage() {
               <p>{t("seo_contacts_p2")}</p>
             </div>
           </div>
-
-          {/* JSON-LD */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-          />
         </Container>
       </section>
     </PageTransition>

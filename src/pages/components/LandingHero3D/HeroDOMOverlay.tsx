@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Code2, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { toLangHref, useI18n } from "../../../shared/i18n/i18n.tsx";
@@ -30,7 +30,6 @@ const itemVariants: Variants = {
 
 export default function HeroDOMOverlay() {
   const { t, lang } = useI18n();
-  const navigate = useNavigate();
 
   return (
     <div className="relative z-30 mx-auto max-w-[76rem] xl:max-w-[84rem] px-4 sm:px-6 w-full py-16 sm:py-24 lg:py-32 flex items-center min-h-[88vh]">
@@ -71,28 +70,34 @@ export default function HeroDOMOverlay() {
           className="flex flex-wrap items-center gap-4 pt-2"
         >
           <Button
+            asChild
             size="lg"
             variant="glow"
-            onClick={() => {
-              navigate(toLangHref("/service", lang));
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
             className="gap-2.5 text-base px-8 py-6 rounded-2xl shadow-lg shadow-primary/25 hover:shadow-primary/40 cursor-pointer"
           >
-            <span>{t("hero_to_services") || "Все услуги"}</span>
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <Link
+              role="button"
+              to={toLangHref("/service", lang)}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <span>{t("hero_to_services") || "Все услуги"}</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </Button>
 
           <Button
+            asChild
             size="lg"
             variant="emerald"
-            onClick={() => {
-              navigate(toLangHref("/contacts", lang));
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
             className="text-base px-8 py-6 rounded-2xl cursor-pointer"
           >
-            <span>{t("hero_to_contacts") || "Связаться с нами"}</span>
+            <Link
+              role="button"
+              to={toLangHref("/contacts", lang)}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <span>{t("hero_to_contacts") || "Связаться с нами"}</span>
+            </Link>
           </Button>
         </motion.div>
 

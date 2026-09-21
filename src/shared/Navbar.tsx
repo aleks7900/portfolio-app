@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   ArrowUpRight,
   Check,
@@ -175,7 +175,6 @@ function ThemeToggleBtn() {
 
 export default function Navbar() {
   const { t, lang } = useI18n();
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const { isAuth, logout, user } = useAuth();
@@ -197,29 +196,29 @@ export default function Navbar() {
       <Container>
         <div className="flex h-20 items-center justify-between gap-4">
           {/* Brand Logo */}
-          <a
+          <Link
+            to={toLangHref("/", lang)}
+            onClick={scrollTop}
             className="flex items-center gap-3 font-semibold tracking-tight transition-opacity hover:opacity-90 cursor-pointer"
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/");
-              scrollTop();
-            }}
           >
             <img
               src={logoImg}
               alt="Alex-Lab Logo"
+              width={160}
+              height={40}
               className="h-10 w-auto object-contain block dark:hidden"
             />
             <img
               src={logoDImg}
               alt="Alex-Lab Logo"
+              width={160}
+              height={40}
               className="h-10 w-auto object-contain hidden dark:block"
             />
             <span className="hidden sm:inline-block text-base font-bold tracking-tight text-foreground">
               {t("brandLogo")}
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1.5">

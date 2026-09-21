@@ -1,5 +1,5 @@
-// src/pages/services/ReactDevPage.tsx
 import {toLangHref, useI18n} from "../../../shared/i18n/i18n.tsx";
+import SEO from "../../../shared/SEO.tsx";
 
 export default function ReactDevPage() {
     const {t, lang} = useI18n();
@@ -51,6 +51,7 @@ export default function ReactDevPage() {
 
     return (
         <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+            <SEO titleKey="react_title" descriptionKey="react_intro" pathname="/dev/react" />
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-sky-700 font-semibold">

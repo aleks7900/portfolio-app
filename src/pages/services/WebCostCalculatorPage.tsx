@@ -3,6 +3,7 @@ import { toLangHref, useI18n } from "../../shared/i18n/i18n.tsx";
 import PageTransition from "../../components/motion/PageTransition.tsx";
 import { Calculator, ArrowRight, PhoneCall, Sparkles } from "lucide-react";
 import { Button } from "../../components/ui/button.tsx";
+import SEO from "../../shared/SEO.tsx";
 
 export default function WebCostCalculatorPage() {
   const { t, lang } = useI18n();
@@ -114,6 +115,24 @@ export default function WebCostCalculatorPage() {
   return (
     <PageTransition>
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <SEO
+          titleKey="calc_title"
+          descriptionKey="calc_intro"
+          pathname="/web/calc"
+          structuredData={{
+            "@context": "https://schema.org",
+            "@type": "Service",
+            serviceType: t("calc_seo_headline", { defaultValue: "Калькулятор стоимости разработки веб-сайта" }),
+            areaServed: ["MD", "RO", "EU"],
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: currency,
+              lowPrice: estimate.min,
+              highPrice: estimate.max,
+            },
+            inLanguage: lang === "ro" ? "ro-RO" : lang === "en" ? "en-US" : "ru-RU",
+          }}
+        />
         {/* HERO */}
         <header className="mb-12 max-w-3xl space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
@@ -528,26 +547,6 @@ export default function WebCostCalculatorPage() {
             </section>
           </article>
         </div>
-
-        {/* SEO JSON-LD */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Service",
-              serviceType: t("calc_seo_headline"),
-              areaServed: ["MD", "RO", "UA"],
-              offers: {
-                "@type": "AggregateOffer",
-                priceCurrency: currency,
-                lowPrice: estimate.min,
-                highPrice: estimate.max,
-              },
-              inLanguage: "ru-RU",
-            }),
-          }}
-        />
       </main>
     </PageTransition>
   );

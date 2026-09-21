@@ -1,5 +1,3 @@
-import {useEffect} from "react";
-import {Meta, Title} from "react-head";
 import {ADV} from "../data/data.ts";
 import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
@@ -9,49 +7,22 @@ import SlideshowServices from "../shared/SlideshowServices.tsx";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
 import PageTransition from "../components/motion/PageTransition.tsx";
+import SEO from "../shared/SEO.tsx";
+import {useI18n} from "../shared/i18n/i18n.tsx";
 
 export default function ServicePage() {
-
-    const saved = (localStorage.getItem("lang") || "").toLowerCase();
-    const lang = saved.startsWith("ro") ? "ro" : "ru";
-
-    // Установим <html lang="..."> в CSR
-    useEffect(() => {
-        document.documentElement.lang = lang;
-    }, [lang]);
-
-    // Базовые настройки сайта (обнови при необходимости)
+    const {t, lang} = useI18n();
     const baseUrl = "https://alex-lab.md";
-    const servicesPath = "/services";
 
-    // RU/RO мета
-    const seo = {
-        ru: {
-            title: "Услуги Alex-Lab — Изделия из нержавеющей стали на заказ",
-            description:
-                "Alex-Lab — услуги по изготовлению и монтажу изделий из нержавейки: перила, мойки, столы, каркасы, индивидуальные проекты. Качество и долговечность.",
-            keywords:
-                "услуги из нержавейки, производство на заказ, Alex-Lab, изготовление перил, изготовление моек, изготовление стоек, сварка нержавейки, металлические конструкции, нестандартные заказы",
-        },
-        ro: {
-            title: "Servicii Alex-Lab — Produse din inox la comandă",
-            description:
-                "Alex-Lab oferă servicii de producere și montaj a produselor din inox: balustrade, chiuvete, mese, cadre și proiecte personalizate. Calitate și durabilitate.",
-            keywords:
-                "servicii inox, producție la comandă, Alex-Lab, fabricare balustrade, fabricare chiuvete, fabricare suporturi, sudură inox, construcții metalice, comenzi personalizate",
-        },
-    } as const;
-
-    const meta = seo[lang as "ru" | "ro"];
-
-    // JSON-LD: Service
     const jsonldService = {
         "@context": "https://schema.org",
         "@type": "Service",
         serviceType:
-            lang === "ru"
-                ? "Изготовление изделий из нержавеющей стали"
-                : "Producerea produselor din inox",
+            lang === "ro"
+                ? "Dezvoltare aplicații web și soluții digitale"
+                : lang === "en"
+                ? "Web Application Development & Digital Solutions"
+                : "Разработка веб-приложений и цифровых решений",
         provider: {
             "@type": "Organization",
             name: "Alex-Lab",
@@ -59,20 +30,24 @@ export default function ServicePage() {
             logo: `${baseUrl}/logo.png`,
             contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+37379449334", // обнови на реальный
-                contactType: lang === "ru" ? "customer service" : "serviciu clienți",
+                telephone: "+373 79 449 334",
+                contactType: "customer service",
                 areaServed: "MD",
-                email: "alex.lab.webdev@gmail.com", // опционально
+                availableLanguage: ["ru", "ro", "en"],
             },
         },
         description:
-            lang === "ru"
-                ? "Alex-Lab предлагает услуги по производству изделий из нержавейки: перила, мойки, столы, каркасы и нестандартные заказы."
-                : "Alex-Lab oferă servicii de producere și montaj pentru produse din inox: balustrade, chiuvete, mese, cadre și comenzi personalizate.",
-        areaServed: {"@type": "Country", name: "Moldova"},
+            lang === "ro"
+                ? "Alex-Lab oferă servicii de dezvoltare web full-stack: SPA, PWA, React, TypeScript, Spring Boot și comenzi personalizate."
+                : lang === "en"
+                ? "Alex-Lab offers full-stack web application development: SPA, PWA, React, TypeScript, Spring Boot, and custom enterprise software."
+                : "Alex-Lab предлагает услуги full-stack веб-разработки: SPA, PWA, React, TypeScript, Spring Boot и индивидуальные проекты.",
+        areaServed: [
+            {"@type": "Country", name: "Moldova"},
+            {"@type": "Country", name: "Romania"}
+        ],
     };
 
-    // JSON-LD: BreadcrumbList (Главная → Услуги / Acasă → Servicii)
     const jsonldBreadcrumbs = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -80,65 +55,58 @@ export default function ServicePage() {
             {
                 "@type": "ListItem",
                 position: 1,
-                name: lang === "ru" ? "Главная" : "Acasă",
+                name: lang === "ro" ? "Acasă" : lang === "en" ? "Home" : "Главная",
                 item: `${baseUrl}/`,
             },
             {
                 "@type": "ListItem",
                 position: 2,
-                name: lang === "ru" ? "Услуги" : "Servicii",
-                item: `${baseUrl}${servicesPath}`,
+                name: lang === "ro" ? "Servicii" : lang === "en" ? "Services" : "Услуги",
+                item: `${baseUrl}/service`,
             },
         ],
     };
 
-    // JSON-LD: WebSite с SearchAction
     const jsonldWebsite = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         url: baseUrl,
         name: "Alex-Lab",
-        potentialAction: {
-            "@type": "SearchAction",
-            target: `${baseUrl}/search?q={search_term_string}`,
-            "query-input": "required name=search_term_string",
-        },
     };
 
-    // JSON-LD: Organization с sameAs/email/телефоном
     const jsonldOrganization = {
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "Alex-Lab",
         url: baseUrl,
         logo: `${baseUrl}/logo.png`,
-        email: "alex.lab.webdev@gmail.com", // обнови при необходимости
-        telephone: "+37379449334", // обнови при необходимости
+        email: "alex.lab.webdev@gmail.com",
+        telephone: "+373 79 449 334",
         address: {
             "@type": "PostalAddress",
             addressCountry: "MD",
             addressLocality: "Chișinău",
-            streetAddress: "ул. Примерная, 10", // обнови при необходимости
+            streetAddress: "Str. Padurii 21/1",
         },
         sameAs: [
-            "https://www.facebook.com/alexlab",
-            "https://www.instagram.com/alexlab",
-            "https://www.linkedin.com/company/alexlab",
+            "https://facebook.com/alex-lab",
+            "https://instagram.com/alex-lab",
         ],
     };
 
     return (
         <PageTransition>
-            {/* SEO Head (react-head) */}
-            <Title>{meta.title}</Title>
-            <Meta name="description" content={meta.description}/>
-            <Meta name="keywords" content={meta.keywords}/>
-            <Meta name="robots" content="index, follow"/>
-            <Meta name="language" content={lang}/>
-            <script type="application/ld+json">{JSON.stringify(jsonldService)}</script>
-            <script type="application/ld+json">{JSON.stringify(jsonldBreadcrumbs)}</script>
-            <script type="application/ld+json">{JSON.stringify(jsonldWebsite)}</script>
-            <script type="application/ld+json">{JSON.stringify(jsonldOrganization)}</script>
+            <SEO
+                titleKey="service_title_2"
+                descriptionKey="service_lead"
+                pathname="/service"
+                structuredData={[jsonldService, jsonldBreadcrumbs, jsonldWebsite, jsonldOrganization]}
+            />
+
+            {/* Semantic top heading */}
+            <h1 className="sr-only">
+                {t("service_title_2", { defaultValue: "Разработка современных веб-приложений и цифровых решений" })}
+            </h1>
 
             {/* Контент страницы */}
             <div className="pt-4">

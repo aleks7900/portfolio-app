@@ -3,6 +3,7 @@ import {useSearchParams} from "react-router-dom";
 import {useI18n} from "../../shared/i18n/i18n.tsx";
 import {format} from "date-fns";
 import {API_BASE, apiFetch} from "../../shared/api/api.ts"; // если используете RRv6
+import SEO from "../../shared/SEO.tsx";
 
 
 type MetaJson = {
@@ -124,6 +125,7 @@ export default function AttendancePage() {
 
     return (
         <div className="mx-auto max-w-7xl mt-20 px-4 py-6">
+            <SEO title="Admin | Attendance" noindex />
             <div className="mb-4 flex items-center justify-between gap-4">
                 <h1 className="text-2xl font-semibold tracking-tight">{t("attendance_title")}</h1>
             </div>

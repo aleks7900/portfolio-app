@@ -1,0 +1,18 @@
+# robots.txt for https://alex-lab.md
+User-agent: *
+Allow: /
+Allow: /service
+Allow: /contacts
+Allow: /about
+Allow: /guide
+Allow: /web/calc
+Allow: /services/
+Allow: /dev/
+
+# Disallow private application routes and backend API
+Disallow: /admin/
+Disallow: /api/
+Disallow: /uploads/
+
+# Sitemap location
+Sitemap: https://alex-lab.md/sitemap.xml

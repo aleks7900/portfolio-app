@@ -20,9 +20,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Каталог",
-      "short_name": "Каталог",
-      "url": "/catalog?utm_source=pwa_shortcuts",
+      "name": "Услуги",
+      "short_name": "Услуги",
+      "url": "/service?utm_source=pwa_shortcuts",
       "icons": [{ "src": "/icons/shortcut-catalog.png", "sizes": "96x96", "type": "image/png" }]
     },
     {

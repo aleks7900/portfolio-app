@@ -3,15 +3,16 @@ import Section from "./components/Section.tsx";
 import React from "react";
 import PageTransition from "../components/motion/PageTransition.tsx";
 import { CheckCircle, ShieldCheck, Zap, Award } from "lucide-react";
+import SEO, { CANONICAL_ORIGIN } from "../shared/SEO.tsx";
 
 export default function WebAppAboutPage() {
   const { t } = useI18n();
 
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://example.com";
-  const pageUrl = `${origin}/about-webapps`;
+  const origin = CANONICAL_ORIGIN;
+  const pageUrl = `${origin}/about`;
   const siteName = t("seo_site_name") ?? "Alex-Lab";
   const orgName = t("seo_org_name") ?? "Alex-Lab Web Development";
-  const phone = t("seo_phone") ?? "+373 79 449334";
+  const phone = t("seo_phone") ?? "+373 79 449 334";
   const sameAs = [t("seo_facebook") || "", t("seo_instagram") || ""].filter(Boolean);
 
   const jsonld = React.useMemo(
@@ -21,11 +22,6 @@ export default function WebAppAboutPage() {
         "@type": "WebSite",
         url: origin,
         name: siteName,
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${origin}/search?q={query}`,
-          "query-input": "required name=query",
-        },
       },
       {
         "@context": "https://schema.org",
@@ -39,9 +35,9 @@ export default function WebAppAboutPage() {
         "@context": "https://schema.org",
         "@type": "WebPage",
         url: pageUrl,
-        name: t("webapp_about_seo_title") || "Despre dezvoltarea aplicațiilor web",
+        name: t("webapp_about_title") || "О компании Alex-Lab — Web Development",
         description:
-          t("webapp_about_seo_description") ||
+          t("webapp_about_lead") ||
           "Echipă de dezvoltare web full-stack: React, Spring Boot, PWA, SPA.",
         breadcrumb: {
           "@type": "BreadcrumbList",
@@ -50,12 +46,12 @@ export default function WebAppAboutPage() {
               "@type": "ListItem",
               position: 1,
               name: t("seo_breadcrumb_home_t") || "Главная",
-              item: origin,
+              item: `${origin}/`,
             },
             {
               "@type": "ListItem",
               position: 2,
-              name: t("seo_breadcrumb_about_webapps") || "О компании (Web Development)",
+              name: t("seo_breadcrumb_about_webapps") || "О компании",
               item: pageUrl,
             },
           ],
@@ -71,6 +67,15 @@ export default function WebAppAboutPage() {
 
   return (
     <PageTransition>
+      <SEO
+        titleKey="webapp_about_title"
+        descriptionKey="webapp_about_lead"
+        pathname="/about"
+        structuredData={jsonld}
+      />
+      <h1 className="sr-only">
+        {t("webapp_about_title", { defaultValue: "О компании Alex-Lab — Full-Stack Web Development" })}
+      </h1>
       <Section titleKey="webapp_about_title" leadKey="webapp_about_lead">
         <div className="space-y-10 max-w-5xl">
           {/* Intro Card */}
@@ -176,11 +181,6 @@ export default function WebAppAboutPage() {
             </ul>
           </div>
         </div>
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
-        />
       </Section>
     </PageTransition>
   );

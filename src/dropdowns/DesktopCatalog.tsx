@@ -1,10 +1,20 @@
-import { useI18n } from "../shared/i18n/i18n.tsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { toLangHref, useI18n } from "../shared/i18n/i18n.tsx";
+import { Link, useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import { ChevronDown, ChevronRight, LayoutGrid } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { CATS } from "../data/catalog/categories.ts";
+
+function getCatalogHref(_catKey: string, subKey: string): string {
+  if (subKey.includes("android")) return "/services/android";
+  if (subKey.includes("landing")) return "/services/lending";
+  if (subKey.includes("spa") || subKey.includes("pwa")) return "/services/spa";
+  if (subKey.includes("non_standard")) return "/services/custom-orders";
+  if (subKey.includes("site")) return "/services/site";
+  if (subKey.includes("web_app")) return "/services/web";
+  return "/service";
+}
 
 function useAnchorRect<T extends HTMLElement>() {
   const ref = React.useRef<T | null>(null);
@@ -27,8 +37,7 @@ function useAnchorRect<T extends HTMLElement>() {
 }
 
 export default function DesktopCatalog() {
-  const { t } = useI18n();
-  const navigate = useNavigate();
+  const { t, lang } = useI18n();
   const location = useLocation();
 
   const { ref: btnRef, rect } = useAnchorRect<HTMLButtonElement>();
@@ -93,7 +102,6 @@ export default function DesktopCatalog() {
   } as const;
 
   const colVariants = { hidden: { opacity: 0, y: 6 }, visible: { opacity: 1, y: 0 } } as const;
-  const itemVariants = { hidden: { opacity: 0, x: -4 }, visible: { opacity: 1, x: 0 } } as const;
 
   return (
     <div className="relative">
@@ -158,29 +166,20 @@ export default function DesktopCatalog() {
                       </div>
 
                       <div className="flex flex-col w-full gap-1.5">
-                        {cat.children?.map((sub, idx) => (
-                          <motion.button
+                        {cat.children?.map((sub) => (
+                          <Link
                             key={sub.key}
+                            to={toLangHref(getCatalogHref(cat.key, sub.key), lang)}
                             role="menuitem"
                             title={t(sub.labelKey)}
-                            onClick={() => {
-                              navigate(`/catalog/${cat.key}/${sub.key}`);
-                              setOpen(false);
-                            }}
+                            onClick={() => setOpen(false)}
                             className="group flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-left text-sm font-medium text-foreground/80 hover:text-foreground bg-transparent hover:bg-accent transition-all duration-150 cursor-pointer outline-none active:scale-[0.99]"
-                            variants={itemVariants}
-                            transition={{
-                              type: "spring",
-                              stiffness: 160,
-                              damping: 24,
-                              delay: idx * 0.02,
-                            }}
                           >
                             <span className="leading-snug pr-2">
                               {t(sub.labelKey)}
                             </span>
                             <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/60 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-primary" />
-                          </motion.button>
+                          </Link>
                         ))}
                       </div>
                     </motion.div>

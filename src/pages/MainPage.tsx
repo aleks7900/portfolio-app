@@ -5,44 +5,26 @@ import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
-import {useEffect} from "react";
 import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
 import TechGrid from "./TechGrid.tsx";
 import PageTransition from "../components/motion/PageTransition.tsx";
 
+import SEO from "../shared/SEO.tsx";
+
 export default function MainPage() {
-
     const {t} = useI18n();
-
-    // --- мета-теги без Helmet ---
-    useEffect(() => {
-        const title = "Alex-Lab — Web development | Разработка и услуги";
-        const description =
-            "Alex-Lab: Web development SPA PWA React Spring Boot Typescript. Индивидуальные проекты";
-
-        document.title = title;
-
-        // meta description
-        let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-        if (!metaDesc) {
-            metaDesc = document.createElement("meta");
-            metaDesc.setAttribute("name", "description");
-            document.head.appendChild(metaDesc);
-        }
-        metaDesc.setAttribute("content", description);
-    }, []);
 
     // --- JSON-LD объекты ---
     const jsonLdService = {
         "@context": "https://schema.org",
         "@type": "Service",
-        name: "Web development SPA PWA React",
-        serviceType: "Web development",
+        name: "Web development SPA PWA React Spring Boot",
+        serviceType: "Software & Web Development",
         provider: {
             "@type": "LocalBusiness",
             name: "Alex-Lab",
-            image: "https://alex-lab.md/images/og-main.jpg",
+            image: "https://alex-lab.md/logo.png",
             address: {
                 "@type": "PostalAddress",
                 addressCountry: "MD",
@@ -69,25 +51,25 @@ export default function MainPage() {
         areaServed: ["Moldova", "Romania"],
         hasOfferCatalog: {
             "@type": "OfferCatalog",
-            name: "Каталог услуг и стандартных решений",
+            name: "Web Development Services",
             itemListElement: [
                 {
                     "@type": "OfferCatalog",
-                    name: "Стандартные изделия",
+                    name: "SPA & PWA Solutions",
                     itemListElement: [
-                        {"@type": "Offer", itemOffered: {"@type": "Product", name: "Sites"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Single Page Applications (SPA)"}},
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Progressive Web Apps (PWA)"}}
                     ]
                 },
                 {
                     "@type": "OfferCatalog",
-                    name: "Изделия на заказ",
+                    name: "Custom Software Engineering",
                     itemListElement: [
-                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Sites"}}
+                        {"@type": "Offer", itemOffered: {"@type": "Service", name: "Full-Stack Development (React & Spring Boot)"}}
                     ]
                 }
             ]
         },
-        termsOfService: "https://alex-lab.md/terms",
         url: "https://alex-lab.md"
     };
 
@@ -103,7 +85,7 @@ export default function MainPage() {
                 telephone: "+373 79 449 334",
                 contactType: "customer service",
                 areaServed: "MD",
-                availableLanguage: ["ru", "ro"]
+                availableLanguage: ["ru", "ro", "en"]
             }
         ],
         sameAs: ["https://facebook.com/alexlab", "https://instagram.com/alexlab"]
@@ -113,30 +95,23 @@ export default function MainPage() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         name: "Alex-Lab",
-        url: "https://alex-lab.md",
-        potentialAction: {
-            "@type": "SearchAction",
-            target: "https://alexe-lab.md/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
+        url: "https://alex-lab.md"
     };
 
     const jsonLdWebPage = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Услуги Alex-Lab — Разработка WEB-приложений",
+        name: "Alex-Lab — Web Development & Solutions",
         url: "https://alex-lab.md/",
         isPartOf: {"@type": "WebSite", url: "https://alex-lab.md"},
         about: [
-            {"@type": "Thing", name: "изготовление на заказ"},
+            {"@type": "Thing", name: "Web Application Development"},
+            {"@type": "Thing", name: "React and TypeScript"},
+            {"@type": "Thing", name: "Spring Boot"}
         ],
         primaryImageOfPage: {
             "@type": "ImageObject",
-            url: "https://alex-lab.md/images/og-main.jpg"
-        },
-        speakable: {
-            "@type": "SpeakableSpecification",
-            xpath: ["/html/head/title", "/html/body//h1", "/html/body//h2"]
+            url: "https://alex-lab.md/logo.png"
         }
     };
 
@@ -144,33 +119,20 @@ export default function MainPage() {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-            {"@type": "ListItem", position: 1, name: "Главная", item: "https://alex-lab.md/"},
-            {"@type": "ListItem", position: 2, name: "Услуги", item: "https://alex-lab.md/#services"}
+            {"@type": "ListItem", position: 1, name: "Home", item: "https://alex-lab.md/"}
         ]
     };
 
     return (
         <PageTransition>
-            {/* JSON-LD скрипты без Helmet */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdService)}}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdOrganization)}}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdWebsite)}}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdWebPage)}}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdBreadcrumbs)}}
+            <SEO
+                structuredData={[
+                    jsonLdService,
+                    jsonLdOrganization,
+                    jsonLdWebsite,
+                    jsonLdWebPage,
+                    jsonLdBreadcrumbs
+                ]}
             />
 
             {/* 🌌 WebGL 3D Interactive Hero Experience */}

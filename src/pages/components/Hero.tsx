@@ -1,5 +1,5 @@
 import { toLangHref, useI18n } from "../../shared/i18n/i18n.tsx";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { SERVICES } from "../../data/data.ts";
 import ServiceCard from "./ServiceCard.tsx";
@@ -36,7 +36,6 @@ const itemVariants: Variants = {
 
 export default function Hero() {
   const { t, lang } = useI18n();
-  const navigate = useNavigate();
 
   return (
     <section className="relative py-16 sm:py-24 overflow-hidden">
@@ -76,28 +75,32 @@ export default function Hero() {
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Button
+                asChild
                 size="lg"
                 variant="glow"
-                onClick={() => {
-                  navigate(toLangHref("/service", lang));
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
                 className="gap-2 text-base px-7"
               >
-                <span>{t("hero_to_services")}</span>
-                <ArrowRight className="h-4 w-4" />
+                <Link
+                  to={toLangHref("/service", lang)}
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                >
+                  <span>{t("hero_to_services")}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
 
               <Button
+                asChild
                 size="lg"
                 variant="emerald"
-                onClick={() => {
-                  navigate(toLangHref("/contacts", lang));
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
                 className="text-base px-7"
               >
-                {t("hero_to_contacts")}
+                <Link
+                  to={toLangHref("/contacts", lang)}
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                >
+                  {t("hero_to_contacts")}
+                </Link>
               </Button>
             </div>
           </motion.div>

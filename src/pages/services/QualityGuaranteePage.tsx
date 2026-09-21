@@ -1,5 +1,6 @@
 // src/pages/services/QualityGuaranteePage.tsx
 import {toLangHref, useI18n} from "../../shared/i18n/i18n.tsx";
+import SEO from "../../shared/SEO.tsx";
 
 export default function QualityGuaranteePage() {
     const {t, lang} = useI18n();
@@ -69,6 +70,7 @@ export default function QualityGuaranteePage() {
 
     return (
         <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+            <SEO titleKey="qa_title" descriptionKey="qa_intro" pathname="/services/quality-guarantee" />
             {/* HERO */}
             <header className="mb-8">
                 <p className="text-sm tracking-wide uppercase text-indigo-700 font-semibold">
