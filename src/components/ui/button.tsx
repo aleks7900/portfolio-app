@@ -48,6 +48,7 @@ export interface ButtonProps
   asChild?: boolean;
   loading?: boolean;
   ref?: React.Ref<HTMLButtonElement>;
+  children?: React.ReactNode;
 }
 
 function Button({

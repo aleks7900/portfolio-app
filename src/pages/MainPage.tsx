@@ -1,5 +1,6 @@
 import Slideshow from "../shared/Slideshow.tsx";
 import {ADV} from "../data/data.ts";
+import LandingHero3D from "./components/LandingHero3D/LandingHero3D.tsx";
 import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
@@ -172,8 +173,11 @@ export default function MainPage() {
                 dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLdBreadcrumbs)}}
             />
 
-            {/* 🎞️ Slideshow Hero */}
-            <div className="pt-4">
+            {/* 🌌 WebGL 3D Interactive Hero Experience */}
+            <LandingHero3D />
+
+            {/* 🎞️ Portfolio & Service Showcase */}
+            <div id="landing-showcase" className="pt-6 sm:pt-10">
                 <Slideshow/>
             </div>
 

@@ -64,11 +64,11 @@ export default function Hero() {
               <span>Full-Stack Development • SPA • PWA</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.15]">
               <span className="bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
                 {t("service_title_2")}
               </span>
-            </h1>
+            </h2>
 
             <p className="max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
               {t("hero_sub")}
