@@ -9,22 +9,60 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.35,
+      staggerChildren: 0.12,
+      delayChildren: 0.15,
     },
   },
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 18 },
+// Depth-linked initial emergence coordinates
+const eyebrowVariants: Variants = {
+  hidden: { opacity: 0, z: -100, scale: 0.94 },
   visible: {
     opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 26,
-    },
+    z: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 320, damping: 24 },
+  },
+};
+
+const headingVariants: Variants = {
+  hidden: { opacity: 0, z: -150, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    z: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 300, damping: 25 },
+  },
+};
+
+const subtitleVariants: Variants = {
+  hidden: { opacity: 0, z: -220, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    z: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 280, damping: 26 },
+  },
+};
+
+const ctaVariants: Variants = {
+  hidden: { opacity: 0, z: -280, scale: 0.88 },
+  visible: {
+    opacity: 1,
+    z: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 260, damping: 26 },
+  },
+};
+
+const pillarVariants: Variants = {
+  hidden: { opacity: 0, z: -180, scale: 0.94 },
+  visible: {
+    opacity: 1,
+    z: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 290, damping: 25 },
   },
 };
 
@@ -32,15 +70,15 @@ export default function HeroDOMOverlay() {
   const { t, lang } = useI18n();
 
   return (
-    <div className="relative z-30 mx-auto max-w-[76rem] xl:max-w-[84rem] px-4 sm:px-6 w-full py-16 sm:py-24 lg:py-32 flex items-center min-h-[88vh]">
+    <div className="relative z-30 mx-auto max-w-[76rem] xl:max-w-[84rem] px-4 sm:px-6 w-full py-16 sm:py-24 lg:py-32 flex items-center min-h-[88vh] [perspective:1200px] [transform-style:preserve-3d]">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-2xl lg:max-w-xl xl:max-w-2xl space-y-8 pointer-events-auto"
+        className="max-w-2xl lg:max-w-xl xl:max-w-2xl space-y-8 pointer-events-auto [transform-style:preserve-3d]"
       >
         {/* Eyebrow badge */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={eyebrowVariants}>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 dark:bg-primary/20 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-primary shadow-xs">
             <Sparkles className="h-4 w-4 text-primary animate-pulse" />
             <span>Full-Stack Engineering • Next-Gen Web • SPA • PWA</span>
@@ -48,7 +86,7 @@ export default function HeroDOMOverlay() {
         </motion.div>
 
         {/* Hero Title */}
-        <motion.div variants={itemVariants} className="space-y-3">
+        <motion.div variants={headingVariants} className="space-y-3">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-foreground leading-[1.08]">
             <span className="bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent">
               {t("service_title_2") || "Создание современных веб-приложений"}
@@ -58,7 +96,7 @@ export default function HeroDOMOverlay() {
 
         {/* Supporting Description */}
         <motion.p
-          variants={itemVariants}
+          variants={subtitleVariants}
           className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-xl font-normal"
         >
           {t("hero_sub")} — {t("hero_sub_1")} {t("hero_sub_2")}
@@ -66,7 +104,7 @@ export default function HeroDOMOverlay() {
 
         {/* CTA Actions */}
         <motion.div
-          variants={itemVariants}
+          variants={ctaVariants}
           className="flex flex-wrap items-center gap-4 pt-2"
         >
           <Button
@@ -103,7 +141,7 @@ export default function HeroDOMOverlay() {
 
         {/* Micro architectural pillars */}
         <motion.div
-          variants={itemVariants}
+          variants={pillarVariants}
           className="pt-6 border-t border-border/60 grid grid-cols-3 gap-4 text-xs sm:text-sm text-muted-foreground max-w-lg"
         >
           <div className="flex items-center gap-2">

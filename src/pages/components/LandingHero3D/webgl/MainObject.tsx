@@ -8,7 +8,7 @@ interface MainObjectProps {
   isMobile: boolean;
   reducedMotion: boolean;
   pointerRef: React.MutableRefObject<PointerParallax>;
-  scrollRef: React.MutableRefObject<{ progress: number; current: number }>;
+  scrollRef: React.MutableRefObject<any>;
 }
 
 export default function MainObject({
@@ -59,7 +59,8 @@ export default function MainObject({
       if (coreMat1Ref.current) coreMat1Ref.current.opacity = ease * 0.9;
     }
 
-    const scroll = scrollRef.current.current;
+    const scrollObj = scrollRef.current as any;
+    const scroll = typeof scrollObj?.currentHero === "number" ? scrollObj.currentHero : (scrollObj?.current ?? 0);
     const pointer = pointerRef.current;
     const time = state.clock.elapsedTime;
 
@@ -68,11 +69,21 @@ export default function MainObject({
     // On mobile, position slightly above center (x: 0, y: 0.3)
     const targetBaseX = isMobile ? 0 : 1.7;
     const targetBaseY = isMobile ? 0.4 : 0;
-    const targetBaseZ = -scroll * 4.0; // Recedes smoothly into depth as user scrolls
+    // Recedes deep into spatial background as user leaves hero
+    const targetBaseZ = -scroll * 7.5;
 
     rootGroupRef.current.position.x = targetBaseX;
-    rootGroupRef.current.position.y = targetBaseY - scroll * 0.8;
+    rootGroupRef.current.position.y = targetBaseY - scroll * 1.2;
     rootGroupRef.current.position.z = targetBaseZ;
+
+    // Fade out smoothly as user scrolls past the hero into subsequent content
+    const depthDissolve = Math.max(0, 1 - Math.max(0, scroll - 0.3) * 1.4);
+    if (scaffoldMatRef.current && entranceRef.current >= 1) {
+      scaffoldMatRef.current.opacity = (isDark ? 0.75 : 0.85) * depthDissolve;
+    }
+    if (wireMatRef.current && entranceRef.current >= 1) {
+      wireMatRef.current.opacity = (isDark ? 0.8 : 0.7) * depthDissolve;
+    }
 
     // 3. Pointer Parallax Rotation (damped small angles: max X: ±5°, Y: ±8°)
     if (!reducedMotion) {

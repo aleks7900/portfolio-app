@@ -4,6 +4,7 @@ import EnvironmentLighting from "./EnvironmentLighting";
 import MainObject from "./MainObject";
 import ParticleField from "./ParticleField";
 import type { PointerParallax } from "./hooks/usePointerParallax";
+import type { ScrollDepthState } from "./hooks/useScrollProgress";
 
 interface HeroSceneProps {
   isDark: boolean;
@@ -11,7 +12,7 @@ interface HeroSceneProps {
   reducedMotion: boolean;
   particleCount: number;
   pointerRef: React.MutableRefObject<PointerParallax>;
-  scrollRef: React.MutableRefObject<{ progress: number; current: number }>;
+  scrollRef: React.MutableRefObject<ScrollDepthState | { progress: number; current: number }>;
   updatePointer: (delta: number, speed?: number) => PointerParallax;
   updateScroll: (delta: number, speed?: number) => number;
 }
@@ -34,7 +35,9 @@ export default function HeroScene({
     updateScroll(delta, 4.0);
 
     const pointer = pointerRef.current;
-    const scroll = scrollRef.current.current;
+    const scrollObj = scrollRef.current;
+    const heroScroll = "currentHero" in scrollObj ? scrollObj.currentHero : ("current" in scrollObj ? scrollObj.current : 0);
+    const globalScroll = "currentGlobal" in scrollObj ? scrollObj.currentGlobal : 0;
 
     // 2. Subtle camera dolly / tracking with parallax
     if (!reducedMotion) {
@@ -47,16 +50,21 @@ export default function HeroScene({
         (targetCamY - camera.position.y) * Math.min(delta * 2.5, 1);
     }
 
-    // Scroll slightly pulls camera back to give a cinematic wide transition
+    // 3. Forward Camera Progression: camera slowly advances through space with global scroll
     const baseCamZ = isMobile ? 8.5 : 7.2;
-    const targetCamZ = baseCamZ + scroll * 1.5;
-    camera.position.z += (targetCamZ - camera.position.z) * Math.min(delta * 3, 1);
+    const targetCamZ = baseCamZ - (reducedMotion ? 0 : globalScroll * 2.4);
+    camera.position.z += (targetCamZ - camera.position.z) * Math.min(delta * 2.5, 1);
 
-    camera.lookAt(new THREE.Vector3(isMobile ? 0 : 0.8, 0, 0));
+    // Look-at centers as user scrolls past the hero into subsequent content
+    const lookAtX = isMobile ? 0 : 0.8 * Math.max(0, 1 - heroScroll * 1.5);
+    camera.lookAt(new THREE.Vector3(lookAtX, 0, 0));
   });
 
   return (
     <>
+      {/* Volumetric Depth Fog for continuous spatial immersion */}
+      <fogExp2 attach="fog" args={[isDark ? "#090d16" : "#f8fafc", 0.022]} />
+
       <EnvironmentLighting isDark={isDark} pointerRef={pointerRef} />
 
       <ParticleField

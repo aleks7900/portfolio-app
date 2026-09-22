@@ -41,10 +41,11 @@ class WebGLErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryStat
 interface HeroCanvasProps {
   tier: PerformanceTier;
   isDark: boolean;
-  scrollRef: React.MutableRefObject<{ progress: number; current: number }>;
+  scrollRef: React.MutableRefObject<any>;
   updateScroll: (delta: number, speed?: number) => number;
   onWebGLError?: () => void;
   fallbackUI?: ReactNode;
+  isFixed?: boolean;
 }
 
 export default function HeroCanvas({
@@ -54,12 +55,17 @@ export default function HeroCanvas({
   updateScroll,
   onWebGLError,
   fallbackUI,
+  isFixed = false,
 }: HeroCanvasProps) {
   const { coordsRef: pointerRef, update: updatePointer } = usePointerParallax();
 
   return (
     <WebGLErrorBoundary fallback={fallbackUI || null} onError={onWebGLError}>
-      <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-10">
+      <div
+        className={`${
+          isFixed ? "fixed inset-0 z-0" : "absolute inset-0 z-10"
+        } w-full h-full pointer-events-none select-none overflow-hidden`}
+      >
         <Canvas
           dpr={tier.dpr}
           camera={{ position: [0, 0, tier.isMobile ? 8.5 : 7.2], fov: 45, near: 0.1, far: 100 }}

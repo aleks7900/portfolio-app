@@ -61,7 +61,7 @@ export default function LandingHero3D() {
         />
       </div>
 
-      {/* ── Layer 10: Interactive WebGL 3D Experience (or Fallback) ── */}
+      {/* ── Layer 0: Persistent Page-Wide WebGL 3D Atmosphere ── */}
       {showWebGL ? (
         <Suspense fallback={<WebGLFallback isDark={isDark} />}>
           <HeroCanvas
@@ -71,6 +71,7 @@ export default function LandingHero3D() {
             updateScroll={updateScroll}
             onWebGLError={handleWebGLError}
             fallbackUI={<WebGLFallback isDark={isDark} />}
+            isFixed={true}
           />
         </Suspense>
       ) : (
@@ -86,10 +87,10 @@ export default function LandingHero3D() {
         onScrollClick={handleScrollClick}
       />
 
-      {/* ── Bottom Gradient Veil for Seamless Page Transition ── */}
+      {/* ── Soft Gradient Veil for Smooth Transition ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent z-20"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/30 to-transparent z-20"
       />
     </section>
   );
