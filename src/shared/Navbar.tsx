@@ -26,6 +26,7 @@ import ConfirmDialog from "./modals/ConfirmDialog.tsx";
 import AdminMenu from "../pages/admin/AdminMenu.tsx";
 import logoImg from "@/assets/alex-lab-logo.png";
 import logoDImg from "@/assets/alex-lab-logo-dark.png";
+import { AnimatedBrandIcon } from "./AnimatedBrandIcon.tsx";
 
 type LangCode = "ru" | "ro" | "en";
 
@@ -199,25 +200,30 @@ export default function Navbar() {
           <Link
             to={toLangHref("/", lang)}
             onClick={scrollTop}
-            className="flex items-center gap-3 font-semibold tracking-tight transition-opacity hover:opacity-90 cursor-pointer"
+            className="flex items-center gap-3 font-semibold tracking-tight transition-opacity hover:opacity-90 cursor-pointer group"
           >
-            <img
-              src={logoImg}
-              alt="Alex-Lab Logo"
-              width={160}
-              height={40}
-              className="h-10 w-auto object-contain block dark:hidden"
-            />
-            <img
-              src={logoDImg}
-              alt="Alex-Lab Logo"
-              width={160}
-              height={40}
-              className="h-10 w-auto object-contain hidden dark:block"
-            />
-            <span className="hidden sm:inline-block text-base font-bold tracking-tight text-foreground">
-              {t("brandLogo")}
-            </span>
+            <AnimatedBrandIcon size={38} />
+            <div className="flex items-center">
+              <img
+                src={logoImg}
+                alt="Alex-Lab Logo"
+                width={160}
+                height={40}
+                className="h-10 w-auto object-contain block dark:hidden"
+              />
+              <img
+                src={logoDImg}
+                alt="Alex-Lab Logo"
+                width={160}
+                height={40}
+                className="h-10 w-auto object-contain hidden dark:block"
+              />
+            </div>
+            {t("brandLogo") ? (
+              <span className="hidden sm:inline-block text-base font-bold tracking-tight text-foreground">
+                {t("brandLogo")}
+              </span>
+            ) : null}
           </Link>
 
           {/* Desktop Nav */}
