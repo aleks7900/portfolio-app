@@ -4,6 +4,8 @@ import HeroScene from "./HeroScene";
 import { usePointerParallax } from "./hooks/usePointerParallax";
 import type { PerformanceTier } from "./hooks/usePerformanceTier";
 
+import type { ScrollDepthState } from "./hooks/useScrollProgress";
+
 // Error Boundary for WebGL Canvas
 interface ErrorBoundaryProps {
   fallback: ReactNode;
@@ -41,7 +43,7 @@ class WebGLErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryStat
 interface HeroCanvasProps {
   tier: PerformanceTier;
   isDark: boolean;
-  scrollRef: React.MutableRefObject<any>;
+  scrollRef: React.MutableRefObject<ScrollDepthState | { progress: number; current: number }>;
   updateScroll: (delta: number, speed?: number) => number;
   onWebGLError?: () => void;
   fallbackUI?: ReactNode;
