@@ -63,7 +63,7 @@ export default function HeroScene({
     camera.position.z += (targetCamZ - camera.position.z) * Math.min(delta * 2.5, 1);
 
     // Look-at centers as user scrolls past the hero into subsequent content
-    const lookAtX = isMobile ? 0 : 0.8 * Math.max(0, 1 - heroScroll * 1.5);
+    const lookAtX = isMobile ? 0 : 0.95 * Math.max(0, 1 - heroScroll * 1.5);
     camera.lookAt(new THREE.Vector3(lookAtX, 0, 0));
   });
 

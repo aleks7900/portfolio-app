@@ -18,7 +18,7 @@ export default function EnvironmentLighting({
   // Smoothly move lights based on pointer for lively specular glints
   useFrame((_, delta) => {
     if (keyLightRef.current) {
-      const targetX = 4 + pointerRef.current.currentX * 1.5;
+      const targetX = 4.8 + pointerRef.current.currentX * 1.5;
       const targetY = 5 + pointerRef.current.currentY * 1.0;
       keyLightRef.current.position.x +=
         (targetX - keyLightRef.current.position.x) * Math.min(delta * 2, 1);
@@ -41,7 +41,7 @@ export default function EnvironmentLighting({
       {/* Primary directional key light */}
       <directionalLight
         ref={keyLightRef}
-        position={[4, 5, 4]}
+        position={[4.8, 5, 4]}
         intensity={isDark ? 2.5 : 2.8}
         color={isDark ? "#818cf8" : "#4338ca"}
       />
@@ -56,8 +56,8 @@ export default function EnvironmentLighting({
       {/* Glowing accent rim light */}
       <pointLight
         ref={accentLightRef}
-        position={[-3, -1, 3]}
-        intensity={isDark ? 2.2 : 1.6}
+        position={[1, -0.5, 3.5]}
+        intensity={isDark ? 2.4 : 1.8}
         distance={12}
         color={isDark ? "#06b6d4" : "#4f46e5"}
       />
