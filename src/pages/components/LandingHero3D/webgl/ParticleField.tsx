@@ -12,10 +12,6 @@ interface ParticleFieldProps {
   scrollRef: React.MutableRefObject<ScrollDepthState | { progress: number; current: number }>;
 }
 
-/**
- * Deterministic pseudo-random number generator (LCG)
- * Prevents hydration mismatches and random re-render jumping.
- */
 function createDeterministicRandom(seed: number = 42) {
   let s = seed % 2147483647;
   if (s <= 0) s += 2147483646;
@@ -32,105 +28,164 @@ export default function ParticleField({
   pointerRef,
   scrollRef,
 }: ParticleFieldProps) {
-  const pointsRef = useRef<THREE.Points>(null);
-  const materialRef = useRef<THREE.PointsMaterial>(null);
-  const geoRef = useRef<THREE.BufferGeometry>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const nearGeoRef = useRef<THREE.BufferGeometry>(null);
+  const midGeoRef = useRef<THREE.BufferGeometry>(null);
+  const farGeoRef = useRef<THREE.BufferGeometry>(null);
 
-  // Deterministically generate continuous spatial particle coordinates
-  const positions = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const nextRandom = createDeterministicRandom(1337);
+  const nearCount = Math.max(15, Math.floor(count * 0.15));
+  const midCount = Math.max(40, Math.floor(count * 0.35));
+  const farCount = Math.max(70, Math.floor(count * 0.5));
 
-    for (let i = 0; i < count; i++) {
-      // Cylindrical distribution around camera travel path
-      const radius = 2.2 + nextRandom() * 9.5;
-      const theta = nextRandom() * Math.PI * 2;
-      const y = (nextRandom() - 0.5) * 11;
-      const z = -32 + nextRandom() * 42; // Deep range: -32 to +10
-
+  // Stratum 1: Near particles (larger, sparse, fast depth stream)
+  const nearPositions = useMemo(() => {
+    const pos = new Float32Array(nearCount * 3);
+    const rng = createDeterministicRandom(101);
+    for (let i = 0; i < nearCount; i++) {
+      const radius = 2.0 + rng() * 6.5;
+      const theta = rng() * Math.PI * 2;
       pos[i * 3] = Math.cos(theta) * radius;
-      pos[i * 3 + 1] = y;
-      pos[i * 3 + 2] = z;
+      pos[i * 3 + 1] = (rng() - 0.5) * 8.0;
+      pos[i * 3 + 2] = -14 + rng() * 22; // -14 to +8
+    }
+    return pos;
+  }, [nearCount]);
+
+  // Stratum 2: Mid particles (medium size, moderate speed)
+  const midPositions = useMemo(() => {
+    const pos = new Float32Array(midCount * 3);
+    const rng = createDeterministicRandom(202);
+    for (let i = 0; i < midCount; i++) {
+      const radius = 3.0 + rng() * 8.5;
+      const theta = rng() * Math.PI * 2;
+      pos[i * 3] = Math.cos(theta) * radius;
+      pos[i * 3 + 1] = (rng() - 0.5) * 10.0;
+      pos[i * 3 + 2] = -24 + rng() * 32; // -24 to +8
+    }
+    return pos;
+  }, [midCount]);
+
+  // Stratum 3: Far particles (tiny points, dense background dust, slow drift)
+  const farPositions = useMemo(() => {
+    const pos = new Float32Array(farCount * 3);
+    const rng = createDeterministicRandom(303);
+    for (let i = 0; i < farCount; i++) {
+      const radius = 4.0 + rng() * 11.0;
+      const theta = rng() * Math.PI * 2;
+      pos[i * 3] = Math.cos(theta) * radius;
+      pos[i * 3 + 1] = (rng() - 0.5) * 12.0;
+      pos[i * 3 + 2] = -34 + rng() * 40; // -34 to +6
+    }
+    return pos;
+  }, [farCount]);
+
+  useFrame((_, delta) => {
+    if (reducedMotion) return;
+
+    if (groupRef.current) {
+      const pointer = pointerRef.current;
+      const targetX = pointer.currentX * 0.3;
+      const targetY = -pointer.currentY * 0.2;
+      groupRef.current.position.x +=
+        (targetX - groupRef.current.position.x) * Math.min(delta * 2.5, 1);
+      groupRef.current.position.y +=
+        (targetY - groupRef.current.position.y) * Math.min(delta * 2.5, 1);
     }
 
-    return pos;
-  }, [count]);
-
-  useFrame((state, delta) => {
-    if (!pointsRef.current || !geoRef.current) return;
-
-    const pointer = pointerRef.current;
     const scrollObj = scrollRef.current;
     const velocity =
       "currentVelocity" in scrollObj ? scrollObj.currentVelocity : 0;
-    const globalProgress =
-      "currentGlobal" in scrollObj ? scrollObj.currentGlobal : 0;
+    const baseStreamSpeed = (0.22 + velocity * 2.0) * delta * 5.0;
 
-    // 1. Subtle camera parallax drift
-    if (!reducedMotion) {
-      pointsRef.current.rotation.y += delta * 0.02;
-      pointsRef.current.rotation.x =
-        Math.sin(state.clock.elapsedTime * 0.12) * 0.03;
-
-      const targetPosX = pointer.currentX * 0.35;
-      const targetPosY = -pointer.currentY * 0.25;
-
-      pointsRef.current.position.x +=
-        (targetPosX - pointsRef.current.position.x) * Math.min(delta * 2.5, 1);
-      pointsRef.current.position.y +=
-        (targetPosY - pointsRef.current.position.y) * Math.min(delta * 2.5, 1);
-    }
-
-    // 2. Spatial Stream: forward particle travel along Z driven by scroll
-    const posAttr = geoRef.current.getAttribute("position") as THREE.BufferAttribute;
-    const posArray = posAttr.array as Float32Array;
-
-    if (!reducedMotion) {
-      // Speed up forward stream during scroll velocity
-      const forwardDelta = (0.2 + velocity * 1.8) * delta * 5.0;
-
-      for (let i = 0; i < count; i++) {
+    // 1. Update Near Tier (fast stream: 1.8x)
+    if (nearGeoRef.current) {
+      const posAttr = nearGeoRef.current.getAttribute("position") as THREE.BufferAttribute;
+      const arr = posAttr.array as Float32Array;
+      const step = baseStreamSpeed * 1.8;
+      for (let i = 0; i < nearCount; i++) {
         const idx = i * 3 + 2;
-        posArray[idx] += forwardDelta;
-
-        // Wrap particles seamlessly when passing the camera plane (z > 9)
-        if (posArray[idx] > 9) {
-          posArray[idx] -= 42;
-        }
+        arr[idx] += step;
+        if (arr[idx] > 8.5) arr[idx] -= 22.5;
       }
       posAttr.needsUpdate = true;
     }
 
-    // 3. Subtle atmospheric opacity adaptation
-    if (materialRef.current) {
-      // Remains persistently visible across the entire landing page with subtle breathing
-      const baseOpacity = isDark ? 0.65 : 0.45;
-      const pulse = Math.sin(state.clock.elapsedTime * 0.8) * 0.05;
-      materialRef.current.opacity = Math.max(
-        0.2,
-        baseOpacity + pulse - globalProgress * 0.15
-      );
+    // 2. Update Mid Tier (moderate stream: 1.0x)
+    if (midGeoRef.current) {
+      const posAttr = midGeoRef.current.getAttribute("position") as THREE.BufferAttribute;
+      const arr = posAttr.array as Float32Array;
+      const step = baseStreamSpeed * 1.0;
+      for (let i = 0; i < midCount; i++) {
+        const idx = i * 3 + 2;
+        arr[idx] += step;
+        if (arr[idx] > 8.5) arr[idx] -= 32.5;
+      }
+      posAttr.needsUpdate = true;
+    }
+
+    // 3. Update Far Tier (slow subtle drift: 0.45x)
+    if (farGeoRef.current) {
+      const posAttr = farGeoRef.current.getAttribute("position") as THREE.BufferAttribute;
+      const arr = posAttr.array as Float32Array;
+      const step = baseStreamSpeed * 0.45;
+      for (let i = 0; i < farCount; i++) {
+        const idx = i * 3 + 2;
+        arr[idx] += step;
+        if (arr[idx] > 6.5) arr[idx] -= 40.5;
+      }
+      posAttr.needsUpdate = true;
     }
   });
 
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry ref={geoRef}>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
+    <group ref={groupRef}>
+      {/* Stratum 1: Near Tier */}
+      <points>
+        <bufferGeometry ref={nearGeoRef}>
+          <bufferAttribute attach="attributes-position" args={[nearPositions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          size={isDark ? 0.095 : 0.105}
+          color={isDark ? "#38bdf8" : "#0284c7"}
+          transparent
+          opacity={isDark ? 0.75 : 0.55}
+          sizeAttenuation
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
+          depthWrite={false}
         />
-      </bufferGeometry>
-      <pointsMaterial
-        ref={materialRef}
-        size={isDark ? 0.065 : 0.075}
-        color={isDark ? "#38bdf8" : "#0284c7"}
-        transparent
-        opacity={isDark ? 0.65 : 0.45}
-        sizeAttenuation
-        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
-        depthWrite={false}
-      />
-    </points>
+      </points>
+
+      {/* Stratum 2: Mid Tier */}
+      <points>
+        <bufferGeometry ref={midGeoRef}>
+          <bufferAttribute attach="attributes-position" args={[midPositions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          size={isDark ? 0.065 : 0.075}
+          color={isDark ? "#818cf8" : "#4f46e5"}
+          transparent
+          opacity={isDark ? 0.6 : 0.4}
+          sizeAttenuation
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
+          depthWrite={false}
+        />
+      </points>
+
+      {/* Stratum 3: Far Tier */}
+      <points>
+        <bufferGeometry ref={farGeoRef}>
+          <bufferAttribute attach="attributes-position" args={[farPositions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          size={isDark ? 0.038 : 0.045}
+          color={isDark ? "#a78bfa" : "#6366f1"}
+          transparent
+          opacity={isDark ? 0.45 : 0.3}
+          sizeAttenuation
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
+          depthWrite={false}
+        />
+      </points>
+    </group>
   );
 }

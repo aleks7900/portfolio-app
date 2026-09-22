@@ -14,6 +14,11 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
 ) {
   const elementRef = useRef<T | null>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [glarePos, setGlarePos] = useState<{ x: number; y: number; active: boolean }>({
+    x: 50,
+    y: 50,
+    active: false,
+  });
   const prefersReduced = useReducedMotion();
 
   const maxTiltX = options?.maxTiltX ?? POINTER_TILT.MAX_DEG_X;
@@ -22,7 +27,7 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
   const targetScale = options?.scale ?? POINTER_TILT.HOVER_SCALE;
 
   // Spring physics for smooth tilt and natural neutral recovery
-  const springConfig = { stiffness: 320, damping: 24, mass: 0.5 };
+  const springConfig = { stiffness: 340, damping: 24, mass: 0.5 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
   const z = useSpring(0, springConfig);
@@ -55,6 +60,13 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
       rotateY.set(normX * maxTiltY);
       z.set(liftZ);
       scale.set(targetScale);
+
+      // Relative light glare position (0% to 100%)
+      setGlarePos({
+        x: (x / rect.width) * 100,
+        y: (y / rect.height) * 100,
+        active: true,
+      });
     },
     [isTouchDevice, prefersReduced, maxTiltX, maxTiltY, liftZ, targetScale, rotateX, rotateY, z, scale]
   );
@@ -64,6 +76,7 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
     rotateY.set(0);
     z.set(0);
     scale.set(1);
+    setGlarePos((prev) => ({ ...prev, active: false }));
   }, [rotateX, rotateY, z, scale]);
 
   return {
@@ -75,6 +88,7 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
       scale,
       transformStyle: "preserve-3d" as const,
     },
+    glarePos,
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,
   };

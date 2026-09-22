@@ -3,6 +3,8 @@ import * as THREE from "three";
 import EnvironmentLighting from "./EnvironmentLighting";
 import MainObject from "./MainObject";
 import ParticleField from "./ParticleField";
+import ArchitecturalPlanes from "./ArchitecturalPlanes";
+import TechConstellation from "./TechConstellation";
 import type { PointerParallax } from "./hooks/usePointerParallax";
 import type { ScrollDepthState } from "./hooks/useScrollProgress";
 
@@ -36,7 +38,12 @@ export default function HeroScene({
 
     const pointer = pointerRef.current;
     const scrollObj = scrollRef.current;
-    const heroScroll = "currentHero" in scrollObj ? scrollObj.currentHero : ("current" in scrollObj ? scrollObj.current : 0);
+    const heroScroll =
+      "currentHero" in scrollObj
+        ? scrollObj.currentHero
+        : "current" in scrollObj
+        ? scrollObj.current
+        : 0;
     const globalScroll = "currentGlobal" in scrollObj ? scrollObj.currentGlobal : 0;
 
     // 2. Subtle camera dolly / tracking with parallax
@@ -67,6 +74,24 @@ export default function HeroScene({
 
       <EnvironmentLighting isDark={isDark} pointerRef={pointerRef} />
 
+      {/* Floating Translucent Architectural Glass Planes */}
+      <ArchitecturalPlanes
+        isDark={isDark}
+        isMobile={isMobile}
+        reducedMotion={reducedMotion}
+        pointerRef={pointerRef}
+        scrollRef={scrollRef}
+      />
+
+      {/* Technical Node Constellation that approaches and transitions into the Tech Grid */}
+      <TechConstellation
+        isDark={isDark}
+        isMobile={isMobile}
+        reducedMotion={reducedMotion}
+        scrollRef={scrollRef}
+      />
+
+      {/* 3-Tier Multi-Stratum Particle Depth */}
       <ParticleField
         count={particleCount}
         isDark={isDark}
@@ -75,6 +100,7 @@ export default function HeroScene({
         scrollRef={scrollRef}
       />
 
+      {/* Hero Spatial Core Geometry */}
       <MainObject
         isDark={isDark}
         isMobile={isMobile}

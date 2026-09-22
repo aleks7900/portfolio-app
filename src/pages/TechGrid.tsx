@@ -21,6 +21,7 @@ import {
 } from "react-icons/si";
 import { useI18n } from "../shared/i18n/i18n.tsx";
 import { usePointerTilt } from "../shared/spatial/usePointerTilt";
+import GiantBackgroundTypography from "../shared/spatial/GiantBackgroundTypography";
 import {
   TECH_CARD_SPATIAL_OFFSETS,
   type TechCardSpatialOffset,
@@ -62,15 +63,15 @@ function TechCardItem({
   scrollProgress: MotionValue<number>;
   isReducedMotion: boolean;
 }) {
-  const { ref: tiltRef, style: tiltStyle, onMouseMove, onMouseLeave } =
+  const { ref: tiltRef, style: tiltStyle, glarePos, onMouseMove, onMouseLeave } =
     usePointerTilt<HTMLDivElement>({
-      maxTiltX: 6,
-      maxTiltY: 6,
+      maxTiltX: 5,
+      maxTiltY: 5,
       liftZ: 14,
       scale: 1.02,
     });
 
-  // Convergence from disparate 3D depths to the clean 2D grid
+  // Convergence from disparate 3D depths into the clean 2D grid
   const z = useTransform(
     scrollProgress,
     [0, 1],
@@ -128,18 +129,28 @@ function TechCardItem({
       >
         <Link
           to={tech.slug}
-          className="group relative flex flex-col items-center justify-center rounded-2xl border border-border/80 bg-card/80 dark:bg-card/60 p-6 shadow-xs hover:shadow-xl hover:border-primary/40 backdrop-blur-sm transition-colors duration-300 cursor-pointer text-center h-full [transform-style:preserve-3d]"
+          className="group relative flex flex-col items-center justify-center rounded-2xl border border-border/80 bg-card/85 dark:bg-card/60 p-6 shadow-xs hover:shadow-xl hover:border-primary/40 backdrop-blur-sm transition-colors duration-300 cursor-pointer text-center h-full [transform-style:preserve-3d]"
         >
-          {/* Layer 1: Glow / Highlight (z = +5px) */}
-          <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none [transform:translateZ(5px)]" />
+          {/* Layer 1: Virtual Pointer Light Specular Glare (z = +5px) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300 [transform:translateZ(5px)]"
+            style={{
+              opacity: glarePos.active ? 1 : 0,
+              background: `radial-gradient(circle 200px at ${glarePos.x}% ${glarePos.y}%, rgba(16, 185, 129, 0.14), transparent 75%)`,
+            }}
+          />
 
-          {/* Layer 2: Technology Icon (z = +25px) */}
-          <div className="mb-3 transition-transform duration-300 group-hover:scale-110 [transform:translateZ(25px)]">
+          {/* Layer 2: Subtle card hover accent */}
+          <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none [transform:translateZ(6px)]" />
+
+          {/* Layer 3: Technology Icon (z = +28px) */}
+          <div className="mb-3 transition-transform duration-300 group-hover:scale-110 [transform:translateZ(28px)]">
             <Icon className={`w-12 h-12 ${tech.color} transition-colors duration-300`} />
           </div>
 
-          {/* Layer 3: Text Label (z = +10px) */}
-          <p className="font-semibold text-xs tracking-wider uppercase text-foreground/80 group-hover:text-foreground transition-colors [transform:translateZ(10px)]">
+          {/* Layer 4: Text Label (z = +14px) */}
+          <p className="font-semibold text-xs tracking-wider uppercase text-foreground/80 group-hover:text-foreground transition-colors [transform:translateZ(14px)]">
             {tech.label}
           </p>
         </Link>
@@ -165,7 +176,10 @@ export default function TechGrid() {
       ref={sectionRef}
       className="relative py-20 overflow-hidden [perspective:1200px] [transform-style:preserve-3d]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* Low-contrast architectural background text */}
+      <GiantBackgroundTypography text="TECHNOLOGY" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
             <Cpu className="h-3.5 w-3.5" />

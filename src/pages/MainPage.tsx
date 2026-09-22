@@ -10,6 +10,7 @@ import HeroTypes from "./components/HeroTypes.tsx";
 import TechGrid from "./TechGrid.tsx";
 import PageTransition from "../components/motion/PageTransition.tsx";
 import { SpatialSection } from "../shared/spatial/SpatialSection.tsx";
+import GiantBackgroundTypography from "../shared/spatial/GiantBackgroundTypography.tsx";
 
 import SEO from "../shared/SEO.tsx";
 
@@ -145,8 +146,11 @@ export default function MainPage() {
             </SpatialSection>
 
             {/* ── 3. High-Level Services Overview ── */}
-            <SpatialSection>
-                <Hero />
+            <SpatialSection className="overflow-hidden">
+                <GiantBackgroundTypography text="SOFTWARE" />
+                <div className="relative z-10">
+                    <Hero />
+                </div>
             </SpatialSection>
 
             {/* ── 4. Deep 3D Converging Technology Stack Grid ── */}
@@ -231,19 +235,25 @@ export default function MainPage() {
             </SpatialSection>
 
             {/* ── 6. Tailored Engineering Section ── */}
-            <SpatialSection>
-                <HeroTypes />
+            <SpatialSection className="overflow-hidden">
+                <GiantBackgroundTypography text="SOLUTIONS" />
+                <div className="relative z-10">
+                    <HeroTypes />
+                </div>
             </SpatialSection>
 
             {/* ── 7. Detailed Service Advantage Cards ── */}
-            <SpatialSection>
-                <Section titleKey="service_title" leadKey="service_lead">
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>
-                        <AdvantageCard titleKey="adv_custom_title" descKey="adv_custom_desc" s={ADV[1]}/>
-                        <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
-                    </div>
-                </Section>
+            <SpatialSection className="overflow-hidden">
+                <GiantBackgroundTypography text="SERVICES" />
+                <div className="relative z-10">
+                    <Section titleKey="service_title" leadKey="service_lead">
+                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <AdvantageCard titleKey="adv_quality_title" descKey="adv_quality_desc" s={ADV[0]}/>
+                            <AdvantageCard titleKey="adv_custom_title" descKey="adv_custom_desc" s={ADV[1]}/>
+                            <AdvantageCard titleKey="adv_consult_title" descKey="adv_consult_desc" s={ADV[2]}/>
+                        </div>
+                    </Section>
+                </div>
             </SpatialSection>
 
             {/* ── 8. Direct Call to Action Banner ── */}
