@@ -19,7 +19,7 @@ function langFromPath(pathname: string): Lang | null {
 function pickInitialLang(): Lang {
     const urlLang = typeof window !== "undefined" ? langFromPath(window.location.pathname) : null;
     if (urlLang) return urlLang;
-    const saved = (localStorage.getItem("lang") || "").toLowerCase();
+    const saved = (typeof localStorage !== "undefined" ? localStorage.getItem("lang") || "" : "").toLowerCase();
     if (saved.startsWith("ro")) return "ro";
     if (saved.startsWith("en")) return "en";
     const nav = typeof navigator !== "undefined" ? (navigator.language || navigator.languages?.[0] || "") : "";
