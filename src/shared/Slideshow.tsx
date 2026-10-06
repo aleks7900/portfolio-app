@@ -191,10 +191,10 @@ export default function Slideshow() {
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/50 to-slate-950/30 z-1" />
 
                             <div className="relative z-10 text-center text-white px-6 sm:px-12 md:px-24 max-w-4xl mx-auto space-y-4">
-                                <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-md">
+                                <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-md text-white dark:text-foreground">
                                     {t.title}
                                 </h2>
-                                <p className="text-base sm:text-xl md:text-2xl text-slate-200 font-normal leading-relaxed drop-shadow-sm">
+                                <p className="text-base sm:text-xl md:text-2xl text-white dark:text-slate-200 font-normal leading-relaxed drop-shadow-sm">
                                     {t.text}
                                 </p>
                             </div>

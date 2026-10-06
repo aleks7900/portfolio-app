@@ -2549,9 +2549,6 @@
   .text-sky-700 {
     color: var(--color-sky-700);
   }
-  .text-slate-200 {
-    color: var(--color-slate-200);
-  }
   .text-teal-500 {
     color: var(--color-teal-500);
   }
@@ -4699,6 +4696,11 @@
       color: var(--color-emerald-400);
     }
   }
+  .dark\:text-foreground {
+    &:where(.dark, .dark *) {
+      color: var(--foreground);
+    }
+  }
   .dark\:text-gray-100 {
     &:where(.dark, .dark *) {
       color: var(--color-gray-100);
@@ -4742,6 +4744,11 @@
   .dark\:text-sky-400 {
     &:where(.dark, .dark *) {
       color: var(--color-sky-400);
+    }
+  }
+  .dark\:text-slate-200 {
+    &:where(.dark, .dark *) {
+      color: var(--color-slate-200);
     }
   }
   .dark\:text-white {
