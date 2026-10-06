@@ -18,6 +18,7 @@ uniform float uEntrance;
 uniform vec3 uMouse3D;
 uniform float uScroll;
 uniform float uIsDark;
+uniform vec3 uPrimaryColor;
 uniform float uReducedMotion;
 
 varying vec3 vColor;
@@ -135,40 +136,65 @@ void main() {
   gl_PointSize = pointSize * (uPixelRatio * 105.0 / -mvPosition.z);
   gl_PointSize = clamp(gl_PointSize, 1.2, 32.0);
 
-  // ── 10. Color System (Site Palette) ──
-  // Palette: Electric Blue (#2563EB), Cyan (#22D3EE), Blue (#3B82F6), Indigo (#6366F1), Violet (#8B5CF6), White Accent
-  vec3 cElectricBlue = vec3(0.145, 0.388, 0.922);
-  vec3 cCyan         = vec3(0.133, 0.827, 0.933);
-  vec3 cBlue         = vec3(0.231, 0.510, 0.965);
-  vec3 cIndigo       = vec3(0.388, 0.400, 0.945);
-  vec3 cViolet       = vec3(0.545, 0.361, 0.965);
-  vec3 cWhite        = vec3(0.94, 0.98, 1.0);
-
-  // Blend colors based on particle properties and location
+  // ── 10. Color System ──
   vec3 baseCol;
-  if (aColorBias > 0.95) {
-    baseCol = cWhite; // Accent sparkles
-  } else if (aColorBias < 0.25) {
-    baseCol = mix(cCyan, cElectricBlue, aColorBias * 4.0);
-  } else if (aColorBias < 0.65) {
-    baseCol = mix(cElectricBlue, cIndigo, (aColorBias - 0.25) * 2.5);
-  } else {
-    baseCol = mix(cIndigo, cViolet, (aColorBias - 0.65) * 3.3);
-  }
 
-  // Shift flowing streams and energy bands towards glowing cyan/white
-  if (bandGlow > 0.2) {
-    baseCol = mix(baseCol, mix(cCyan, cWhite, 0.6), bandGlow * 0.7);
-  }
-  if (pulseWave > 0.1) {
-    baseCol = mix(baseCol, cWhite, pulseWave * 0.8);
-  }
-
-  // In light mode, deepen color tones slightly for crisp contrast against #f8fafc
   if (uIsDark < 0.5) {
+    // ── LIGHT THEME: Preserve original color EXACTLY ──
+    vec3 cElectricBlue = vec3(0.145, 0.388, 0.922);
+    vec3 cCyan         = vec3(0.133, 0.827, 0.933);
+    vec3 cIndigo       = vec3(0.388, 0.400, 0.945);
+    vec3 cViolet       = vec3(0.545, 0.361, 0.965);
+    vec3 cWhite        = vec3(0.94, 0.98, 1.0);
+
+    if (aColorBias > 0.95) {
+      baseCol = cWhite; // Accent sparkles
+    } else if (aColorBias < 0.25) {
+      baseCol = mix(cCyan, cElectricBlue, aColorBias * 4.0);
+    } else if (aColorBias < 0.65) {
+      baseCol = mix(cElectricBlue, cIndigo, (aColorBias - 0.25) * 2.5);
+    } else {
+      baseCol = mix(cIndigo, cViolet, (aColorBias - 0.65) * 3.3);
+    }
+
+    // Shift flowing streams and energy bands towards glowing cyan/white
+    if (bandGlow > 0.2) {
+      baseCol = mix(baseCol, mix(cCyan, cWhite, 0.6), bandGlow * 0.7);
+    }
+    if (pulseWave > 0.1) {
+      baseCol = mix(baseCol, cWhite, pulseWave * 0.8);
+    }
+
+    // Deepen color tones slightly for crisp contrast against light background (#f8fafc)
     baseCol = mix(baseCol, vec3(0.08, 0.25, 0.75), 0.22);
     if (aColorBias > 0.95) {
       baseCol = vec3(0.15, 0.45, 0.95);
+    }
+  } else {
+    // ── DARK THEME: Modern Vivid Blue (#2196F3) Spatial Core Palette ──
+    // Primary vivid blue passed via uPrimaryColor (default: #2196F3 = vec3(0.129, 0.588, 0.953))
+    vec3 cVividBlue    = uPrimaryColor;
+    vec3 cCyanGlow     = vec3(0.133, 0.827, 0.933); // Cyan energy (#22D3EE)
+    vec3 cDeepBlue     = vec3(0.082, 0.396, 0.753); // Rich cobalt depth (#1565C0)
+    vec3 cAzureGlow    = vec3(0.392, 0.710, 0.965); // Radiant light blue (#64B5F6)
+    vec3 cWhite        = vec3(0.94, 0.98, 1.0);     // Accent sparkles
+
+    if (aColorBias > 0.95) {
+      baseCol = cWhite; // Accent sparkles
+    } else if (aColorBias < 0.25) {
+      baseCol = mix(cCyanGlow, cVividBlue, aColorBias * 4.0);
+    } else if (aColorBias < 0.65) {
+      baseCol = mix(cVividBlue, cDeepBlue, (aColorBias - 0.25) * 2.5);
+    } else {
+      baseCol = mix(cDeepBlue, cAzureGlow, (aColorBias - 0.65) * 3.3);
+    }
+
+    // Shift flowing streams and energy bands towards glowing azure/white
+    if (bandGlow > 0.2) {
+      baseCol = mix(baseCol, mix(cAzureGlow, cWhite, 0.6), bandGlow * 0.7);
+    }
+    if (pulseWave > 0.1) {
+      baseCol = mix(baseCol, cWhite, pulseWave * 0.8);
     }
   }
 
@@ -226,7 +252,12 @@ void main() {
 }
 `;
 
+export const DARK_THEME_BLUE = "#2196F3";
+export const LIGHT_THEME_PRIMARY = "#2563EB";
+
 export function createParticleMaterial(isDark: boolean): THREE.ShaderMaterial {
+  const primaryColor = new THREE.Color(isDark ? DARK_THEME_BLUE : LIGHT_THEME_PRIMARY);
+
   return new THREE.ShaderMaterial({
     vertexShader: particleVertexShader,
     fragmentShader: particleFragmentShader,
@@ -238,6 +269,7 @@ export function createParticleMaterial(isDark: boolean): THREE.ShaderMaterial {
       uMouse3D: { value: new THREE.Vector3(999, 999, 999) },
       uScroll: { value: 0 },
       uIsDark: { value: isDark ? 1.0 : 0.0 },
+      uPrimaryColor: { value: primaryColor },
       uReducedMotion: { value: 0.0 },
     },
     transparent: true,

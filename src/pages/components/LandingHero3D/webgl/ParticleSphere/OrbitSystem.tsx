@@ -98,7 +98,7 @@ export default function OrbitSystem({ isDark, reducedMotion }: OrbitSystemProps)
       <mesh ref={orbitRing2Ref} rotation={[-0.65, 0.5, 0.3]}>
         <torusGeometry args={[2.08, 0.009, 16, 128]} />
         <meshBasicMaterial
-          color={isDark ? "#818cf8" : "#6366f1"}
+          color={isDark ? "#2196f3" : "#6366f1"}
           transparent
           opacity={isDark ? 0.40 : 0.30}
           depthWrite={true}
@@ -131,7 +131,7 @@ export default function OrbitSystem({ isDark, reducedMotion }: OrbitSystemProps)
 
       <mesh ref={sat3Ref}>
         <sphereGeometry args={[0.052, 16, 16]} />
-        <meshBasicMaterial color={isDark ? "#a855f7" : "#8b5cf6"} />
+        <meshBasicMaterial color={isDark ? "#2196f3" : "#8b5cf6"} />
       </mesh>
 
       <mesh ref={sat4Ref}>

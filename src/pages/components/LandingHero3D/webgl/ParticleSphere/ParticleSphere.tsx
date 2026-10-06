@@ -4,7 +4,7 @@ import * as THREE from "three";
 import type { PointerParallax } from "../hooks/usePointerParallax";
 import type { ScrollDepthState } from "../hooks/useScrollProgress";
 import { generateSphereParticles, getDeviceParticleCount } from "./generateSphereParticles";
-import { createParticleMaterial } from "./ParticleMaterial";
+import { createParticleMaterial, DARK_THEME_BLUE, LIGHT_THEME_PRIMARY } from "./ParticleMaterial";
 import OrbitSystem from "./OrbitSystem";
 
 interface ParticleSphereProps {
@@ -53,15 +53,17 @@ export default function ParticleSphere({
     return geo;
   }, [isMobile, isTablet, baseRadius]);
 
-  // ── 2. Create GPU ShaderMaterial ──
+  // ── 2. Create GPU ShaderMaterial (retained across theme changes) ──
   const material = useMemo(() => {
     return createParticleMaterial(isDark);
-  }, [isDark]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // Update theme uniform dynamically when theme changes
+  // Update theme & color uniforms dynamically when theme changes without scene recreation
   useEffect(() => {
     if (material) {
       material.uniforms.uIsDark.value = isDark ? 1.0 : 0.0;
+      material.uniforms.uPrimaryColor.value.set(isDark ? DARK_THEME_BLUE : LIGHT_THEME_PRIMARY);
       material.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
       material.needsUpdate = true;
     }

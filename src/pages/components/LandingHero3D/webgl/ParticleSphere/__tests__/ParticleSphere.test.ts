@@ -99,12 +99,16 @@ describe("ParticleMaterial shader configuration", () => {
     expect(matDark.uniforms.uBaseRadius.value).toBe(1.40);
     expect(matDark.uniforms.uEntrance.value).toBe(0);
     expect(matDark.uniforms.uIsDark.value).toBe(1.0);
+    expect(matDark.uniforms.uPrimaryColor).toBeDefined();
+    expect(matDark.uniforms.uPrimaryColor.value.getHexString().toLowerCase()).toBe("2196f3");
     expect(matDark.uniforms.uMouse3D).toBeDefined();
     expect(matDark.uniforms.uScroll).toBeDefined();
     expect(matDark.uniforms.uPixelRatio).toBeDefined();
 
     const matLight = createParticleMaterial(false);
     expect(matLight.uniforms.uIsDark.value).toBe(0.0);
+    expect(matLight.uniforms.uPrimaryColor).toBeDefined();
+    expect(matLight.uniforms.uPrimaryColor.value.getHexString().toLowerCase()).toBe("2563eb");
   });
 
   it("contains simplex noise, curl flow, and soft point sprite GLSL", () => {
@@ -113,6 +117,7 @@ describe("ParticleMaterial shader configuration", () => {
     expect(particleVertexShader).toContain("rotationMatrix");
     expect(particleVertexShader).toContain("aRadiusOffset");
     expect(particleVertexShader).toContain("gl_PointSize");
+    expect(particleVertexShader).toContain("uPrimaryColor");
 
     expect(particleFragmentShader).toContain("gl_PointCoord");
     expect(particleFragmentShader).toContain("smoothstep");
