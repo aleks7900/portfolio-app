@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {createPortal} from "react-dom";
 import {ChevronUp} from "lucide-react";
+import { useMagnetic } from "../../hooks/useMagnetic";
 
 type Props = {
     /** Если скролл не у window — селектор контейнера (напр. "#app-scroll-root") */
@@ -54,9 +55,12 @@ export default function ScrollTopButton({
         else (el as HTMLElement).scrollTo({top: 0, behavior: "smooth"});
     };
 
+    const magneticRef = useMagnetic<HTMLButtonElement>({ strength: 0.35, maxDistance: 12 });
+
     // Портал в <body> — независим от контекстов наложения
     return createPortal(
         <button
+            ref={magneticRef}
             onClick={scrollToTop}
             aria-label="Scroll to top"
             className={[

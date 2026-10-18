@@ -6,6 +6,8 @@ import { usePerformanceTier } from "./webgl/hooks/usePerformanceTier";
 import { useScrollProgress } from "./webgl/hooks/useScrollProgress";
 import { useTheme } from "../../../shared/theme/theme.tsx";
 
+import HeroFloatingElements from "./HeroFloatingElements";
+
 // Lazy-load WebGL Canvas to keep initial bundle light and HTML paint immediate
 const HeroCanvas = React.lazy(() => import("./webgl/HeroCanvas"));
 
@@ -77,6 +79,9 @@ export default function LandingHero3D() {
       ) : (
         <WebGLFallback isDark={isDark} />
       )}
+
+      {/* ── Layer 10: Ambient Floating Code & Architectural Elements ── */}
+      <HeroFloatingElements />
 
       {/* ── Layer 30: Semantic HTML DOM Content (Headings, Buttons, CTAs) ── */}
       <HeroDOMOverlay />

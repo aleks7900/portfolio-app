@@ -1,8 +1,7 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { usePointerTilt, type PointerTiltProps } from "./usePointerTilt";
+import { useAnimePerspectiveTilt, type AnimeTiltOptions } from "../../hooks/useAnimePerspectiveTilt";
 
-export interface SpatialCardProps extends PointerTiltProps {
+export interface SpatialCardProps extends AnimeTiltOptions {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -10,52 +9,46 @@ export interface SpatialCardProps extends PointerTiltProps {
 }
 
 /**
- * SpatialCard provides physical 3D depth and subtle pointer tilt for desktop users.
- * Inner elements utilize translateZ offsets for genuine depth layering:
- *   - Card Surface: z = 0
- *   - Global Pointer Light Glare: z = +5px
- *   - Title & Text: z = +15px
- *   - Icon / Badge: z = +28px
+ * SpatialCard provides physical 3D depth and subtle pointer tilt powered by Anime.js v4 spring physics.
+ * Direct GPU-accelerated CSS transforms ensure fluid 60-120fps motion without React render overhead.
  */
 export function SpatialCard({
   children,
   className = "",
   onClick,
-  maxTiltX,
-  maxTiltY,
-  liftZ,
-  scale,
+  maxTiltX = 5,
+  maxTiltY = 5,
+  liftZ = 12,
+  scale = 1.02,
   showGlare = true,
 }: SpatialCardProps) {
-  const { ref, style, glarePos, onMouseMove, onMouseLeave } = usePointerTilt<HTMLDivElement>({
-    maxTiltX,
-    maxTiltY,
-    liftZ,
-    scale,
-  });
+  const { ref, glareRef, onMouseMove, onMouseLeave } =
+    useAnimePerspectiveTilt<HTMLDivElement>({
+      maxTiltX,
+      maxTiltY,
+      liftZ,
+      scale,
+      glare: showGlare,
+    });
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      style={style}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
       className={`relative [transform-style:preserve-3d] ${className}`}
     >
-      {/* Surface Glare reacting to the global virtual pointer light (z = +5px) */}
+      {/* Specular glare reacting to pointer position */}
       {showGlare && (
         <div
+          ref={glareRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300 [transform:translateZ(5px)]"
-          style={{
-            opacity: glarePos.active ? 1 : 0,
-            background: `radial-gradient(circle 240px at ${glarePos.x}% ${glarePos.y}%, rgba(16, 185, 129, 0.12), transparent 75%)`,
-          }}
+          className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300 opacity-0 z-10 [transform:translateZ(6px)]"
         />
       )}
       {children}
-    </motion.div>
+    </div>
   );
 }
 

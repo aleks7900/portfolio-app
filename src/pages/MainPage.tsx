@@ -5,13 +5,13 @@ import Hero from "./components/Hero.tsx";
 import Section from "./components/Section.tsx";
 import AdvantageCard from "./components/AdvantageCard.tsx";
 import {useI18n} from "../shared/i18n/i18n.tsx";
-import Container from "../shared/Container.tsx";
 import HeroTypes from "./components/HeroTypes.tsx";
 import TechGrid from "./TechGrid.tsx";
 import PageTransition from "../components/motion/PageTransition.tsx";
 import { SpatialSection } from "../shared/spatial/SpatialSection.tsx";
 import GiantBackgroundTypography from "../shared/spatial/GiantBackgroundTypography.tsx";
 
+import MainPageCta from "./components/MainPageCta.tsx";
 import SEO from "../shared/SEO.tsx";
 
 export default function MainPage() {
@@ -258,24 +258,7 @@ export default function MainPage() {
 
             {/* ── 8. Direct Call to Action Banner ── */}
             <SpatialSection>
-                <Container>
-                    <div className="mt-8 mb-16 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/10 via-card to-primary/5 p-8 sm:p-10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <div>
-                            <div className="text-xs font-bold uppercase tracking-wider text-primary mb-1">
-                                {t("contacts_ytitle") || "Прямая связь"}
-                            </div>
-                            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
-                                {t("cta_contact") || "Обсудить проект"}
-                            </h3>
-                        </div>
-                        <a
-                            href="tel:+37379449334"
-                            className="inline-flex items-center gap-3 rounded-2xl bg-primary text-primary-foreground px-8 py-4 text-xl sm:text-2xl font-bold tracking-tight shadow-md hover:brightness-110 active:scale-95 transition-all"
-                        >
-                            <span>+373 79 449334</span>
-                        </a>
-                    </div>
-                </Container>
+                <MainPageCta />
             </SpatialSection>
         </PageTransition>
     );

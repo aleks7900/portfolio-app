@@ -22,6 +22,8 @@ import {
 import { SiFacebook, SiInstagram } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO, { CANONICAL_ORIGIN } from "../shared/SEO.tsx";
+import AnimeReveal from "../components/motion/AnimeReveal.tsx";
+import { useMagnetic } from "../hooks/useMagnetic";
 
 const GEO = { lat: 47.0207, lng: 28.8491 };
 const OPENING_HOURS = [
@@ -245,6 +247,8 @@ export default function ContactsPage() {
     }
   }
 
+  const submitBtnRef = useMagnetic<HTMLButtonElement>({ strength: 0.35, maxDistance: 14 });
+
   return (
     <PageTransition>
       <SEO
@@ -256,22 +260,24 @@ export default function ContactsPage() {
       <section className="scroll-mt-24 py-12 sm:py-20">
         <Container>
           {/* Header */}
-          <div className="max-w-3xl mb-12 space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Get in Touch</span>
+          <AnimeReveal direction="down" distance={20} duration={650}>
+            <div className="max-w-3xl mb-12 space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>Get in Touch</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+                {t("contacts_ytitle")}
+              </h1>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                {t("seo_main_intro")}
+              </p>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-              {t("contacts_ytitle")}
-            </h1>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              {t("seo_main_intro")}
-            </p>
-          </div>
+          </AnimeReveal>
 
           <div className="grid gap-12 lg:grid-cols-12">
             {/* Left: Contact Information Cards */}
-            <div className="lg:col-span-5 space-y-6">
+            <AnimeReveal direction="left" distance={24} duration={700} className="lg:col-span-5 space-y-6">
               {/* Phone Card */}
               <div className="group rounded-2xl border border-border/80 bg-card/70 dark:bg-card/50 p-6 shadow-xs hover:shadow-md hover:border-emerald-500/40 backdrop-blur-sm transition-all duration-200">
                 <div className="flex items-start gap-4">
@@ -365,10 +371,10 @@ export default function ContactsPage() {
                   </a>
                 </div>
               </div>
-            </div>
+            </AnimeReveal>
 
             {/* Right: Modern Contact Form */}
-            <div className="lg:col-span-7">
+            <AnimeReveal direction="right" distance={24} duration={700} className="lg:col-span-7">
               <div className="rounded-3xl border border-border/80 bg-card/80 dark:bg-card/60 backdrop-blur-xl p-8 sm:p-10 shadow-lg">
                 <h2 className="text-2xl font-bold tracking-tight text-foreground mb-2">
                   {t("contacts_form_title")}
@@ -536,11 +542,12 @@ export default function ContactsPage() {
 
                   <div className="pt-4">
                     <Button
+                      ref={submitBtnRef}
                       type="submit"
                       size="lg"
                       variant="emerald"
                       loading={isSubmitting}
-                      className="w-full sm:w-auto px-8 gap-2 text-base"
+                      className="w-full sm:w-auto px-8 gap-2 text-base cursor-pointer active:scale-95 transition-transform"
                     >
                       <Send className="h-4 w-4" />
                       <span>
@@ -552,7 +559,7 @@ export default function ContactsPage() {
                   </div>
                 </form>
               </div>
-            </div>
+            </AnimeReveal>
           </div>
 
           {/* SEO Block */}

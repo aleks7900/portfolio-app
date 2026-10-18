@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
   ArrowUpRight,
@@ -174,28 +174,92 @@ function ThemeToggleBtn() {
   );
 }
 
+import { useMagnetic } from "../hooks/useMagnetic";
+import { createTimeline, stagger, SPRING_PRESETS, EASINGS, prefersReducedMotion } from "../lib/anime/animeCore";
+
 export default function Navbar() {
   const { t, lang } = useI18n();
   const [open, setOpen] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const { isAuth, logout, user } = useAuth();
   const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Magnetic CTA contact button
+  const magneticCtaRef = useMagnetic<HTMLAnchorElement>({ strength: 0.35, maxDistance: 12 });
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Anime.js Stagger entrance for mobile menu items
+  useEffect(() => {
+    if (!open || prefersReducedMotion()) return;
+    const menuEl = mobileMenuRef.current;
+    if (!menuEl) return;
+
+    const items = menuEl.querySelectorAll("[data-mobile-item]");
+    if (items.length === 0) return;
+
+    items.forEach((item: Element) => {
+      const el = item as HTMLElement;
+      el.style.opacity = "0";
+      el.style.transform = "translate3d(0, -12px, 0)";
+    });
+
+    const tl = createTimeline({
+      defaults: {
+        ease: SPRING_PRESETS.snappy,
+      },
+    });
+
+    (tl as any).add(Array.from(items), {
+      opacity: [0, 1],
+      translateY: [-12, 0],
+      duration: 450,
+      delay: stagger(35, { start: 50 }),
+      ease: EASINGS.easeOutCubic,
+    });
+
+    return () => {
+      if (tl && typeof (tl as any).pause === "function") (tl as any).pause();
+    };
+  }, [open]);
 
   const scrollTop = () =>
     requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     [
-      "relative inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-150 select-none",
+      "relative inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200 select-none",
       isActive
-        ? "text-primary bg-primary/10 dark:bg-primary/20 font-semibold"
+        ? "text-primary bg-primary/10 dark:bg-primary/20 font-semibold shadow-xs"
         : "text-muted-foreground hover:text-foreground hover:bg-accent/60",
     ].join(" ");
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-200 glass-header">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "glass-header shadow-lg shadow-black/5 dark:shadow-black/25 py-0 border-b border-border/80"
+          : "bg-background/40 backdrop-blur-md border-b border-transparent py-1"
+      }`}
+    >
+      {/* Subtle animated top glowing border */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent transition-opacity duration-500 ${
+          isScrolled ? "opacity-100" : "opacity-0"
+        }`}
+      />
       <Container>
-        <div className="flex h-20 items-center justify-between gap-4">
+        <div className={`flex items-center justify-between gap-4 transition-all duration-300 ${isScrolled ? "h-16" : "h-20"}`}>
           {/* Brand Logo */}
           <Link
             to={toLangHref("/", lang)}
@@ -262,6 +326,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-2">
             {!isAuth && (
               <NavLink
+                ref={magneticCtaRef}
                 to={toLangHref("/contacts", lang)}
                 onClick={scrollTop}
                 className="inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm shadow-emerald-600/20 hover:shadow-md hover:shadow-emerald-600/30 transition-all duration-150 active:scale-95"
@@ -316,6 +381,7 @@ export default function Navbar() {
         <AnimatePresence>
           {open && (
             <motion.div
+              ref={mobileMenuRef}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -323,68 +389,76 @@ export default function Navbar() {
               className="lg:hidden overflow-hidden border-t border-border/60 pb-6 pt-3"
             >
               <div className="flex flex-col gap-3">
-                <MobileCatalog onDone={() => setOpen(false)} />
-
-                <div className="grid gap-1 border-t border-border/60 pt-3">
-                  <NavLink
-                    to={toLangHref("/service", lang)}
-                    onClick={() => {
-                      setOpen(false);
-                      scrollTop();
-                    }}
-                    className={({ isActive }) =>
-                      [
-                        "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors",
-                        isActive
-                          ? "bg-primary/15 text-primary font-semibold"
-                          : "text-foreground/80 hover:bg-accent",
-                      ].join(" ")
-                    }
-                  >
-                    <Hammer className="h-4 w-4 text-primary" />
-                    <span>{t("nav_service")}</span>
-                  </NavLink>
-
-                  <NavLink
-                    to={toLangHref("/contacts", lang)}
-                    onClick={() => {
-                      setOpen(false);
-                      scrollTop();
-                    }}
-                    className={({ isActive }) =>
-                      [
-                        "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors",
-                        isActive
-                          ? "bg-primary/15 text-primary font-semibold"
-                          : "text-foreground/80 hover:bg-accent",
-                      ].join(" ")
-                    }
-                  >
-                    <Phone className="h-4 w-4 text-primary" />
-                    <span>{t("nav_contacts")}</span>
-                  </NavLink>
-
-                  <NavLink
-                    to={toLangHref("/about", lang)}
-                    onClick={() => {
-                      setOpen(false);
-                      scrollTop();
-                    }}
-                    className={({ isActive }) =>
-                      [
-                        "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors",
-                        isActive
-                          ? "bg-primary/15 text-primary font-semibold"
-                          : "text-foreground/80 hover:bg-accent",
-                      ].join(" ")
-                    }
-                  >
-                    <Info className="h-4 w-4 text-primary" />
-                    <span>{t("nav_about")}</span>
-                  </NavLink>
+                <div data-mobile-item>
+                  <MobileCatalog onDone={() => setOpen(false)} />
                 </div>
 
-                <div className="flex flex-col gap-2 pt-2 border-t border-border/60">
+                <div className="grid gap-1 border-t border-border/60 pt-3">
+                  <div data-mobile-item>
+                    <NavLink
+                      to={toLangHref("/service", lang)}
+                      onClick={() => {
+                        setOpen(false);
+                        scrollTop();
+                      }}
+                      className={({ isActive }) =>
+                        [
+                          "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors",
+                          isActive
+                            ? "bg-primary/15 text-primary font-semibold"
+                            : "text-foreground/80 hover:bg-accent",
+                        ].join(" ")
+                      }
+                    >
+                      <Hammer className="h-4 w-4 text-primary" />
+                      <span>{t("nav_service")}</span>
+                    </NavLink>
+                  </div>
+
+                  <div data-mobile-item>
+                    <NavLink
+                      to={toLangHref("/contacts", lang)}
+                      onClick={() => {
+                        setOpen(false);
+                        scrollTop();
+                      }}
+                      className={({ isActive }) =>
+                        [
+                          "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors",
+                          isActive
+                            ? "bg-primary/15 text-primary font-semibold"
+                            : "text-foreground/80 hover:bg-accent",
+                        ].join(" ")
+                      }
+                    >
+                      <Phone className="h-4 w-4 text-primary" />
+                      <span>{t("nav_contacts")}</span>
+                    </NavLink>
+                  </div>
+
+                  <div data-mobile-item>
+                    <NavLink
+                      to={toLangHref("/about", lang)}
+                      onClick={() => {
+                        setOpen(false);
+                        scrollTop();
+                      }}
+                      className={({ isActive }) =>
+                        [
+                          "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors",
+                          isActive
+                            ? "bg-primary/15 text-primary font-semibold"
+                            : "text-foreground/80 hover:bg-accent",
+                        ].join(" ")
+                      }
+                    >
+                      <Info className="h-4 w-4 text-primary" />
+                      <span>{t("nav_about")}</span>
+                    </NavLink>
+                  </div>
+                </div>
+
+                <div data-mobile-item className="flex flex-col gap-2 pt-2 border-t border-border/60">
                   {!isAuth ? (
                     <>
                       <NavLink
