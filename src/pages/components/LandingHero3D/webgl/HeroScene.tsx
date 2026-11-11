@@ -1,4 +1,4 @@
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import EnvironmentLighting from "./EnvironmentLighting";
 import MainObject from "./MainObject";
@@ -29,9 +29,7 @@ export default function HeroScene({
   updatePointer,
   updateScroll,
 }: HeroSceneProps) {
-  const { camera } = useThree();
-
-  useFrame((_, delta) => {
+  useFrame(({ camera }, delta) => {
     // 1. Update damped inputs directly inside animation frame (0 React re-renders)
     updatePointer(delta, 3.5);
     updateScroll(delta, 4.0);

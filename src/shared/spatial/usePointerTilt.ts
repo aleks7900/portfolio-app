@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect, useState } from "react";
+import React, { useRef, useCallback, useState } from "react";
 import { useSpring, useReducedMotion } from "framer-motion";
 import { POINTER_TILT } from "./spatialTokens";
 
@@ -13,7 +13,9 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
   options?: PointerTiltProps
 ) {
   const elementRef = useRef<T | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isTouchDevice] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+  );
   const [glarePos, setGlarePos] = useState<{ x: number; y: number; active: boolean }>({
     x: 50,
     y: 50,
@@ -32,13 +34,6 @@ export function usePointerTilt<T extends HTMLElement = HTMLDivElement>(
   const rotateY = useSpring(0, springConfig);
   const z = useSpring(0, springConfig);
   const scale = useSpring(1, springConfig);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isCoarse = window.matchMedia("(pointer: coarse)").matches;
-      setIsTouchDevice(isCoarse);
-    }
-  }, []);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<T>) => {

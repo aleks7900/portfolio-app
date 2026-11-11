@@ -27,6 +27,15 @@ const TIME_START = 9;   // 09:00
 const TIME_END   = 21;  // 21:00
 const STEP_MIN   = 15;  // шаг 15 минут
 
+function loadSavedProfile(): { name: string; phone: string } {
+    try {
+        const p = JSON.parse(localStorage.getItem('cb_profile') ?? 'null');
+        return { name: p?.name ?? '', phone: p?.phone ?? '' };
+    } catch {
+        return { name: '', phone: '' };
+    }
+}
+
 function buildSlots() {
     const out: string[] = [];
     for (let h = TIME_START; h <= TIME_END; h++) {
@@ -66,8 +75,9 @@ export default function CallbackWidget({
     const { t } = useI18n();
 
     // form
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
+    // запомним пользователя между сессиями
+    const [name, setName] = useState(() => loadSavedProfile().name);
+    const [phone, setPhone] = useState(() => loadSavedProfile().phone);
     const [date, setDate] = useState<string>('');
     const [time, setTime] = useState<string>(''); // пусто = любое время
     const [comment, setComment] = useState('');
@@ -79,17 +89,8 @@ export default function CallbackWidget({
 
     const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', []);
     const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
-    const slots = useMemo(buildSlots, []);
+    const slots = useMemo(() => buildSlots(), []);
 
-    // запомним пользователя между сессиями
-    useEffect(() => {
-        const saved = localStorage.getItem('cb_profile');
-        if (saved) {
-            const p = JSON.parse(saved);
-            setName(p.name ?? '');
-            setPhone(p.phone ?? '');
-        }
-    }, []);
     useEffect(() => {
         localStorage.setItem('cb_profile', JSON.stringify({ name, phone }));
     }, [name, phone]);

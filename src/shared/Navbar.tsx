@@ -83,6 +83,10 @@ export function LangToggle() {
     };
   }, [open]);
 
+  React.useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const currentLabel =
     LANGS.find((l) => l.code === lang)?.label ?? lang.toUpperCase();
 
@@ -93,7 +97,6 @@ export function LangToggle() {
     } catch {
       /* empty */
     }
-    document.documentElement.lang = next;
     setOpen(false);
   };
 

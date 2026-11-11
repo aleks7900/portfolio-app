@@ -1,4 +1,4 @@
-import {type SetStateAction, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {type SetStateAction, useCallback, useEffect, useMemo, useState} from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "../../components/ui/card";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../../components/ui/select";
 import {Button} from "../../components/ui/button";
@@ -14,11 +14,9 @@ import SEO from "../../shared/SEO.tsx";
 type Period = "day" | "month" | "year";
 
 type VisitPoint = { label: string; count: number };
-type VisitsResponse = VisitPoint[];
 
 // NEW: Top paths DTO
 type TopPath = { path: string; count: number };
-type TopPathsResponse = TopPath[];
 
 function exportToCSV(filename: string, rows: { [k: string]: unknown }[], headers?: string[]) {
     const keys = headers ?? Object.keys(rows[0] ?? {});
@@ -32,6 +30,40 @@ function exportToCSV(filename: string, rows: { [k: string]: unknown }[], headers
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+}
+
+/**
+ * Fetches an analytics JSON array for `url`. Bumping `reloadTick` refetches the same URL.
+ * loading/error are derived from whether the response for the current request has arrived.
+ */
+function useAnalyticsQuery<T>(url: string, reloadTick: number) {
+    const key = `${reloadTick}|${url}`;
+    const [state, setState] = useState<{ key: string; data: T[]; error: string | null } | null>(null);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        apiFetch(url, {signal: controller.signal})
+            .then(async (r) => {
+                if (r instanceof Response) {
+                    if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
+                    return (await r.json()) as unknown;
+                }
+                return r as unknown; // apiFetch уже вернул JSON
+            })
+            .then((json) => setState({key, data: Array.isArray(json) ? (json as T[]) : [], error: null}))
+            .catch((e: unknown) => {
+                if (e instanceof Error && e.name === "AbortError") return;
+                const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
+                setState({key, data: [], error: msg});
+            });
+        return () => controller.abort();
+    }, [url, key]);
+
+    return {
+        data: state?.data ?? [],
+        loading: state?.key !== key,
+        error: state?.key === key ? state.error : null,
+    };
 }
 
 export default function VisitsPage() {
@@ -48,17 +80,35 @@ export default function VisitsPage() {
     const [to, setTo] = useState<string>("");
     const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC", []);
 
+    // Filters (path/from/to) are applied explicitly via the button; period/tz changes reload immediately
+    const [applied, setApplied] = useState({pathFilter: "", from: "", to: "", tick: 0});
+
+    // --- URLs builders
+    const chartUrl = useMemo(() => {
+        const params = new URLSearchParams();
+        params.set("period", period);
+        if (applied.pathFilter.trim()) params.set("path", applied.pathFilter.trim());
+        if (applied.from.trim()) params.set("from", applied.from.trim());
+        if (applied.to.trim()) params.set("to", applied.to.trim());
+        params.set("tz", tz);
+        return `${API_BASE}/analytics/visits?${params.toString()}`;
+    }, [period, applied, tz]);
+
+    const topUrl = useMemo(() => {
+        const params = new URLSearchParams();
+        if (applied.pathFilter.trim()) params.set("path", applied.pathFilter.trim()); // префикс-фильтр
+        if (applied.from.trim()) params.set("from", applied.from.trim());
+        if (applied.to.trim()) params.set("to", applied.to.trim());
+        params.set("tz", tz);
+        params.set("limit", "20");
+        return `${API_BASE}/analytics/top-paths?${params.toString()}`;
+    }, [applied, tz]);
+
     // Chart data
-    const [data, setData] = useState<VisitPoint[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    const abortRef = useRef<AbortController | null>(null);
+    const {data, loading, error} = useAnalyticsQuery<VisitPoint>(chartUrl, applied.tick);
 
     // Top paths data
-    const [topData, setTopData] = useState<TopPath[]>([]);
-    const [topLoading, setTopLoading] = useState<boolean>(false);
-    const [topError, setTopError] = useState<string | null>(null);
-    const topAbortRef = useRef<AbortController | null>(null);
+    const {data: topData, loading: topLoading, error: topError} = useAnalyticsQuery<TopPath>(topUrl, applied.tick);
 
     const numberFmt = useMemo(() => new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}), []);
     const total = useMemo(() => data.reduce((acc, d) => acc + (Number.isFinite(d.count) ? d.count : 0), 0), [data]);
@@ -72,103 +122,10 @@ export default function VisitsPage() {
         return map[period];
     }, [period, tf]);
 
-    // --- URLs builders
-    function buildChartUrl(): string {
-        const params = new URLSearchParams();
-        params.set("period", period);
-        if (pathFilter.trim()) params.set("path", pathFilter.trim());
-        if (from.trim()) params.set("from", from.trim());
-        if (to.trim()) params.set("to", to.trim());
-        params.set("tz", tz);
-        return `${API_BASE}/analytics/visits?${params.toString()}`;
-    }
-
-    function buildTopUrl(): string {
-        const params = new URLSearchParams();
-        if (pathFilter.trim()) params.set("path", pathFilter.trim()); // префикс-фильтр
-        if (from.trim()) params.set("from", from.trim());
-        if (to.trim()) params.set("to", to.trim());
-        params.set("tz", tz);
-        params.set("limit", "20");
-        return `${API_BASE}/analytics/top-paths?${params.toString()}`;
-    }
-
-    // --- Fetchers
-    async function fetchChart() {
-        setLoading(true);
-        setError(null);
-        if (abortRef.current) abortRef.current.abort();
-        const controller = new AbortController();
-        abortRef.current = controller;
-
-        try {
-            const r = await apiFetch(buildChartUrl(), {signal: controller.signal});
-
-            let json: VisitsResponse;
-            if (r instanceof Response) {
-                if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
-                json = (await r.json()) as VisitsResponse;
-            } else {
-                json = r as VisitsResponse; // apiFetch уже вернул JSON
-            }
-
-            setData(Array.isArray(json) ? json : []);
-        } catch (e: unknown) {
-            if (e instanceof Error && e.name === "AbortError") return;
-            const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
-            setError(msg);
-            setData([]);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function fetchTop() {
-        setTopLoading(true);
-        setTopError(null);
-        if (topAbortRef.current) topAbortRef.current.abort();
-        const controller = new AbortController();
-        topAbortRef.current = controller;
-
-        try {
-            const r = await apiFetch(buildTopUrl(), {signal: controller.signal});
-
-            let json: TopPathsResponse;
-            if (r instanceof Response) {
-                if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
-                json = (await r.json()) as TopPathsResponse;
-            } else {
-                json = r as TopPathsResponse;
-            }
-
-            setTopData(Array.isArray(json) ? json : []);
-        } catch (e: unknown) {
-            if (e instanceof Error && e.name === "AbortError") return;
-            const msg = e instanceof Error && e.message ? e.message : "Неизвестная ошибка";
-            setTopError(msg);
-            setTopData([]);
-        } finally {
-            setTopLoading(false);
-        }
-    }
-
-    // Загружаем график при смене периода/таймзоны
-    useEffect(() => {
-        fetchChart();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [period, tz]);
-
     // Применение фильтров вручную — одновременно грузим график и топ
     const applyFilters = () => {
-        fetchChart();
-        fetchTop();
+        setApplied((prev) => ({pathFilter, from, to, tick: prev.tick + 1}));
     };
-
-    // Стартовая подгрузка топа (без необходимости менять период)
-    useEffect(() => {
-        fetchTop();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tz]);
 
     const onExportChart = () => {
         const filenameParts = ["visits_chart", period];

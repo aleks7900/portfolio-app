@@ -61,13 +61,14 @@ export default function ParticleSphere({
 
   // Update theme & color uniforms dynamically when theme changes without scene recreation
   useEffect(() => {
+    const material = pointsRef.current?.material as THREE.ShaderMaterial | undefined;
     if (material) {
       material.uniforms.uIsDark.value = isDark ? 1.0 : 0.0;
       material.uniforms.uPrimaryColor.value.set(isDark ? DARK_THEME_BLUE : LIGHT_THEME_PRIMARY);
       material.blending = isDark ? THREE.AdditiveBlending : THREE.NormalBlending;
       material.needsUpdate = true;
     }
-  }, [isDark, material]);
+  }, [isDark]);
 
   // Cleanup geometry & material on unmount
   useEffect(() => {
@@ -79,7 +80,8 @@ export default function ParticleSphere({
 
   // ── 3. Frame Animation Loop ──
   useFrame((state, delta) => {
-    if (!rootGroupRef.current || !material) return;
+    if (!rootGroupRef.current || !pointsRef.current) return;
+    const material = pointsRef.current.material as THREE.ShaderMaterial;
 
     const time = state.clock.elapsedTime;
     const scrollObj = scrollRef.current;

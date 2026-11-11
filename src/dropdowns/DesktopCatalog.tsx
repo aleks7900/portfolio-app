@@ -43,7 +43,12 @@ export default function DesktopCatalog() {
   const { ref: btnRef, rect } = useAnchorRect<HTMLButtonElement>();
   const [open, setOpen] = useState(false);
 
-  React.useEffect(() => setOpen(false), [location.pathname]);
+  // Close the menu on route change (state adjusted during render, not in an effect)
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  if (prevPathname !== location.pathname) {
+    setPrevPathname(location.pathname);
+    setOpen(false);
+  }
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);

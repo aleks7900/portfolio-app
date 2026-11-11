@@ -63,8 +63,7 @@ const sortableColumns: Array<{ key: keyof AnalyticsEvent | "meta.event" | "meta.
 export default function AttendancePage() {
     const {t} = useI18n();
     const [sp, setSp] = useSearchParams();
-    const [data, setData] = useState<Page<AnalyticsEvent> | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState<{ key: string; data: Page<AnalyticsEvent> } | null>(null);
 
     const page = Number(sp.get("page") ?? 0);
     const size = Number(sp.get("size") ?? 20);
@@ -78,8 +77,7 @@ export default function AttendancePage() {
         return {field, dir: dir.toLowerCase() === "asc" ? "asc" : "desc"};
     }, [sortParam]);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    const requestUrl = useMemo(() => {
         const url = new URL(API_BASE + "/analytics/events", window.location.origin);
         url.searchParams.set("page", String(page));
         url.searchParams.set("size", String(size));
@@ -87,9 +85,16 @@ export default function AttendancePage() {
         if (q) url.searchParams.set("q", q);
         if (from) url.searchParams.set("from", from);
         if (to) url.searchParams.set("to", to);
+        return url.toString();
+    }, [page, size, q, from, to, sortParam]);
 
-        setLoading(true);
-        apiFetch(url.toString(), {signal: controller.signal})
+    // loading is derived: true until a response for the current request has arrived
+    const loading = result?.key !== requestUrl;
+    const data = result?.data ?? null;
+
+    useEffect(() => {
+        const controller = new AbortController();
+        apiFetch(requestUrl, {signal: controller.signal})
             .then((r) => {
                 if (r instanceof Response) {
                     if (!r.ok) throw new Error(`${r.status} ${r.statusText || ""}`.trim());
@@ -97,15 +102,14 @@ export default function AttendancePage() {
                 }
                 return Promise.resolve(r as Page<AnalyticsEvent>);
             })
-            .then((json) => setData(json))
+            .then((json) => setResult({key: requestUrl, data: json}))
             .catch((e: unknown) => {
                 if (e instanceof Error && e.name === "AbortError") return;
-                setData({content: [], totalElements: 0, totalPages: 0, number: 0, size: 0});
-            })
-            .finally(() => setLoading(false));
+                setResult({key: requestUrl, data: {content: [], totalElements: 0, totalPages: 0, number: 0, size: 0}});
+            });
 
         return () => controller.abort();
-    }, [page, size, q, from, to, sortParam]);
+    }, [requestUrl]);
 
     const applySP = (patch: Record<string, string | number | null>) => {
         const next = new URLSearchParams(sp);

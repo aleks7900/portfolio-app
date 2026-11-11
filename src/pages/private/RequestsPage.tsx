@@ -152,8 +152,13 @@ export default function RequestsPage() {
     const [size, setSize] = useState(20);
     const [totalPages, setTotalPages] = useState<number | null>(null);
     const [items, setItems] = useState<RequestVM[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [err, setErr] = useState<string | null>(null);
+    // Every distinct query (or manual reload) gets a key; loading/err are derived from it
+    const [reloadTick, setReloadTick] = useState(0);
+    const requestKey = `${q}|${status}|${page}|${size}|${reloadTick}`;
+    const [loadedKey, setLoadedKey] = useState<string | null>(null);
+    const [error, setError] = useState<{ key: string; message: string } | null>(null);
+    const loading = loadedKey !== requestKey;
+    const err = error?.key === requestKey ? error.message : null;
 
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [pendingDelete, setPendingDelete] = useState<{ id: number; label?: string } | null>(null);
@@ -161,26 +166,31 @@ export default function RequestsPage() {
     const [selected, setSelected] = useState<RequestVM | null>(null);
     const isMobile = useMediaQuery("(max-width: 1024px)");
 
-    async function load() {
-        setLoading(true);
-        setErr(null);
-        try {
-            const res = await listRequests({q, status, page, size});
-            setItems(res.content.map(toVM));
-            setTotalPages(res.totalPages);
-            setPage(res.number);
-            setSize(res.size);
-        } catch (e) {
-            setErr(e instanceof Error ? e.message : "Ошибка загрузки");
-        } finally {
-            setLoading(false);
-        }
+    function load() {
+        setReloadTick((n) => n + 1);
     }
 
     useEffect(() => {
-        void load();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [q, status, page, size]);
+        let cancelled = false;
+        listRequests({q, status, page, size})
+            .then((res) => {
+                if (cancelled) return;
+                setItems(res.content.map(toVM));
+                setTotalPages(res.totalPages);
+                setPage(res.number);
+                setSize(res.size);
+            })
+            .catch((e: unknown) => {
+                if (cancelled) return;
+                setError({key: requestKey, message: e instanceof Error ? e.message : "Ошибка загрузки"});
+            })
+            .finally(() => {
+                if (!cancelled) setLoadedKey(requestKey);
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, [q, status, page, size, requestKey]);
 
     function askDelete(r: RequestVM) {
         setPendingDelete({id: r.id, label: r.name || r.email || r.phone || `#${r.id}`});
@@ -192,7 +202,7 @@ export default function RequestsPage() {
         await deleteRequest(pendingDelete.id, {purgeFiles: true});
         setConfirmOpen(false);
         setPendingDelete(null);
-        void load();
+        load();
     }
 
     return (
@@ -326,7 +336,7 @@ export default function RequestsPage() {
                                                         onChange={async (e) => {
                                                             const s = e.currentTarget.value as RequestStatus;
                                                             await updateRequestStatus(r.id, s);
-                                                            void load();
+                                                            load();
                                                         }}
                                                         className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm transition focus:border-gray-300 dark:border-white/15 dark:bg-black/40"
                                                     >
@@ -433,7 +443,7 @@ export default function RequestsPage() {
                                                 onChange={async (e) => {
                                                     const s = e.currentTarget.value as RequestStatus;
                                                     await updateRequestStatus(r.id, s);
-                                                    void load();
+                                                    load();
                                                 }}
                                                 className="rounded-xl border border-gray-200 bg-white/70 px-2 py-1 text-xs shadow-sm dark:border-white/15 dark:bg-black/40"
                                             >
@@ -515,7 +525,7 @@ export default function RequestsPage() {
                     onClose={() => setSelected(null)}
                     onUpdateStatus={async (s) => {
                         await updateRequestStatus(selected.id, s);
-                        void load();
+                        load();
                     }}
                 />
             )}
@@ -735,14 +745,12 @@ function NoImages() {
 }
 
 function Slideshow({images}: { images: string[] }) {
-    const [index, setIndex] = useState(0);
+    const [rawIndex, setIndex] = useState(0);
+    // Clamp during render: if the image list shrinks, fall back to the first image
+    const index = rawIndex < images.length ? rawIndex : 0;
 
-    useEffect(() => {
-        if (index >= images.length) setIndex(0);
-    }, [images, index]);
-
-    const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
-    const next = () => setIndex((i) => (i + 1) % images.length);
+    const prev = () => setIndex((index - 1 + images.length) % images.length);
+    const next = () => setIndex((index + 1) % images.length);
 
     // LIGHTBOX state (как в ProductDetails)
     const [lightbox, setLightbox] = useState<{ open: boolean; index: number }>({

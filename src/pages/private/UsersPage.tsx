@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Card, CardContent, CardHeader, CardTitle} from "../../components/ui/card";
 import {Input} from "../../components/ui/input";
 import {Button} from "../../components/ui/button";
@@ -77,9 +77,14 @@ export default function UsersPage() {
     const [summary, setSummary] = useState<UsersSummary | null>(null);
     const [list, setList] = useState<UsersListResponse | null>(null);
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const abortRef = useRef<AbortController | null>(null);
+    // Filters are applied explicitly (button); page changes reload immediately.
+    // loading/error are derived from whether the current request has completed.
+    const [applied, setApplied] = useState({from: "", to: "", q: "", sort: "lastSeen" as SortKey, dir: "desc" as "asc" | "desc", size: 20, tick: 0});
+    const requestKey = JSON.stringify({...applied, tz, page});
+    const [loadedKey, setLoadedKey] = useState<string | null>(null);
+    const [errorState, setErrorState] = useState<{ key: string; message: string } | null>(null);
+    const loading = loadedKey !== requestKey;
+    const error = errorState?.key === requestKey ? errorState.message : null;
 
     const numberFmt = useMemo(() => new Intl.NumberFormat(undefined, {maximumFractionDigits: 0}), []);
     const pctFmt = useMemo(() => new Intl.NumberFormat(undefined, {style: "percent", maximumFractionDigits: 1}), []);
@@ -92,44 +97,37 @@ export default function UsersPage() {
         return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${r.toString().padStart(2, "0")}`;
     };
 
-    const params = {from, to, tz, q, sort: sortKey, dir: sortDir, page, size};
-
-    async function loadAll() {
-        setLoading(true);
-        setError(null);
-        if (abortRef.current) abortRef.current.abort();
-        const controller = new AbortController();
-        abortRef.current = controller;
-        try {
-            const [sum, lst] = await Promise.all([
-                getJSON<UsersSummary>(`${API_BASE}/users/summary?${qs({from, to, tz})}`, controller.signal),
-                getJSON<UsersListResponse>(`${API_BASE}/users/list?${qs(params)}`, controller.signal),
-            ]);
-            setSummary(sum);
-            setList(lst);
-        } catch (e: unknown) {
-            if (e instanceof Error) {
-                if (e.name !== "AbortError") setError(e.message);
-            } else {
-                setError(String(e));
-            }
-        } finally {
-            setLoading(false);
-        }
-    }
-
     useEffect(() => {
-        loadAll(); /* eslint-disable-next-line */
-    }, [tz]);
+        const controller = new AbortController();
+        const {from, to, q, sort, dir, size} = applied;
+        const params = {from, to, tz, q, sort, dir, page, size};
+        Promise.all([
+            getJSON<UsersSummary>(`${API_BASE}/users/summary?${qs({from, to, tz})}`, controller.signal),
+            getJSON<UsersListResponse>(`${API_BASE}/users/list?${qs(params)}`, controller.signal),
+        ])
+            .then(([sum, lst]) => {
+                setSummary(sum);
+                setList(lst);
+            })
+            .catch((e: unknown) => {
+                if (e instanceof Error && e.name === "AbortError") return;
+                setErrorState({key: requestKey, message: e instanceof Error ? e.message : String(e)});
+            })
+            .finally(() => {
+                if (!controller.signal.aborted) setLoadedKey(requestKey);
+            });
+        return () => controller.abort();
+    }, [applied, tz, page, requestKey]);
+
     const applyFilters = () => {
         setPage(0);
-        loadAll();
+        setApplied((prev) => ({from, to, q, sort: sortKey, dir: sortDir, size, tick: prev.tick + 1}));
     };
 
     const onExportCSV = async () => {
         try {
             const all = await getJSON<UsersListResponse>(`${API_BASE}/users/list?${qs({
-                ...params,
+                from, to, tz, q, sort: sortKey, dir: sortDir,
                 page: 0,
                 size: 10000
             })}`);
@@ -311,7 +309,6 @@ export default function UsersPage() {
                                 <div className="flex items-center gap-2">
                                     <Button variant="outline" size="sm" onClick={() => {
                                         setPage(p => Math.max(0, p - 1));
-                                        loadAll();
                                     }} disabled={!canPrev} className="dark:text-black">
                                         <ChevronLeft className="h-4 w-4"/>{tf("users_prev", "Назад")}
                                     </Button>
@@ -319,7 +316,6 @@ export default function UsersPage() {
                                         className="text-sm">{list.page + 1} / {Math.max(1, Math.ceil(list.total / list.size))}</div>
                                     <Button variant="outline" size="sm" onClick={() => {
                                         setPage(p => p + 1);
-                                        loadAll();
                                     }} disabled={!canNext} className="dark:text-black">
                                         {tf("users_next", "Вперёд")}<ChevronRight className="h-4 w-4"/>
                                     </Button>

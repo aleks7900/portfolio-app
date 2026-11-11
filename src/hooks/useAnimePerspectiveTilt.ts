@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useCallback, useState } from "react";
 import { animate, SPRING_PRESETS, prefersReducedMotion } from "../lib/anime/animeCore";
 
 export interface AnimeTiltOptions {
@@ -26,13 +26,9 @@ export function useAnimePerspectiveTilt<T extends HTMLElement = HTMLDivElement>(
 
   const ref = useRef<T | null>(null);
   const glareRef = useRef<HTMLDivElement | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
-    }
-  }, []);
+  const [isTouchDevice] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+  );
 
   const onMouseMove = useCallback(
     (e: React.MouseEvent<T>) => {

@@ -82,7 +82,7 @@ export function generateSphereParticles(
     // 20% small (2.8-3.8)
     // 8% medium (4.5-6.0)
     // 2% accent bright (7.5-9.5)
-    let size = 2.0;
+    let size: number;
     if (seedX < 0.70) {
       size = 1.8 + seedY * 0.7;
     } else if (seedX < 0.90) {

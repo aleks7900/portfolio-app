@@ -54,7 +54,15 @@ function extractUser(token: string): User | null {
 }
 
 export function AuthProvider({children}: { children: React.ReactNode }) {
-    const [token, setToken] = useState<string | null>(() => localStorage.getItem(LS_TOKEN));
+    // При монтировании — выкинуть «протухший» токен
+    const [token, setToken] = useState<string | null>(() => {
+        const saved = localStorage.getItem(LS_TOKEN);
+        if (saved && isExpired(saved)) {
+            localStorage.removeItem(LS_TOKEN);
+            return null;
+        }
+        return saved;
+    });
     const [user, setUser] = useState<User | null>(() => (token ? extractUser(token) : null));
 
     const logout = useCallback(() => {
@@ -97,11 +105,6 @@ export function AuthProvider({children}: { children: React.ReactNode }) {
         window.addEventListener("auth:unauthorized", onUnauthorized as EventListener);
         return () => window.removeEventListener("auth:unauthorized", onUnauthorized as EventListener);
     }, [logout]);
-
-    // При монтировании — выкинуть «протухший» токен
-    useEffect(() => {
-        if (token && isExpired(token)) logout();
-    }, [token, logout]);
 
     const value = useMemo(
         () => ({user, isAuth: !!user, token, login, logout}),
