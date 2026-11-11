@@ -4,7 +4,7 @@ import { server } from '../mocks/server';
 
 // MSW Server lifecycle
 beforeAll(() => {
-  server.listen({ onUnhandledRequest: 'warn' });
+  server.listen({ onUnhandledFrame: 'warn' });
 });
 
 afterEach(() => {

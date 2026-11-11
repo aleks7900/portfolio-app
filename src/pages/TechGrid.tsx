@@ -2,7 +2,7 @@ import { useRef, useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Cpu, Terminal, Sparkles, Network } from "lucide-react";
 import {
-  SiCss3,
+  SiCss,
   SiGit,
   SiHtml5,
   SiJavascript,
@@ -159,7 +159,7 @@ const techs: TechItem[] = [
     color: "text-orange-600 group-hover:text-orange-500",
   },
   {
-    icon: SiCss3,
+    icon: SiCss,
     label: "CSS3 / Modern Web",
     slug: "/dev/css3",
     category: "frontend",
